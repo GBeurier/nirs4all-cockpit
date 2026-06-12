@@ -7,7 +7,7 @@
 "use strict";
 
 const REGS = ["pypi", "crates", "npm", "r-universe", "cran", "github-release"];
-const REG_LABEL = { pypi: "PyPI", crates: "crates.io", npm: "npm", "r-universe": "R-universe", cran: "CRAN", "github-release": "GitHub" };
+const REG_LABEL = { pypi: "PyPI", crates: "crates.io", npm: "npm", "r-universe": "R-universe", cran: "CRAN", "github-release": "GitHub Releases" };
 const REG_COLOR = { pypi: "#0d9488", crates: "#d97706", npm: "#e11d48", "r-universe": "#10b981", cran: "#4f46e5", "github-release": "#64748b" };
 const STATE_COLOR = { green: "#10b981", stale: "#e0950c", missing: "#b9c0cb", broken: "#e11d48", unknown: "#06b6d4", excluded: "#cabf9e" };
 const STATES = ["green", "stale", "missing", "broken", "unknown", "excluded"];
@@ -135,7 +135,7 @@ function renderMatrix(snap) {
   const thead = el("thead");
   const hr = el("tr");
   hr.append(el("th", { class: "h-pkg", text: "package" }), el("th", { class: "h-ver", text: "version" }));
-  const REG_SHORT = { pypi: "PyPI", crates: "crates", npm: "npm", "r-universe": "R-univ", cran: "CRAN", "github-release": "GitHub" };
+  const REG_SHORT = { pypi: "PyPI", crates: "crates", npm: "npm", "r-universe": "R-univ", cran: "CRAN", "github-release": "GH rel" };
   const REG_BRAND = { pypi: "#3775A9", crates: "#C16C28", npm: "#CB3837", "r-universe": "#2E73C4", cran: "#1B5390", "github-release": "#24292F" };
   for (const reg of REGS) {
     const col = REG_BRAND[reg] || "var(--text-2)";
@@ -194,60 +194,47 @@ function renderMatrix(snap) {
 
 // ---- downloads dataviz (stacked bars by registry) --------------------------
 
-const DL_WINDOWS = [["7d", "7 d"], ["30d", "30 d"], ["90d", "90 d"], ["total", "all-time"]];
-let dlWindow = "30d";
-
-function dlValue(t, win) {
-  const w = t.downloads && t.downloads.windows;
-  return w && w[win] != null ? w[win] : null;
+// Each registry reports its own window; we show a ~90-day view. When a registry
+// only reports a shorter window, we use that value and mark it a lower bound (>).
+function dlBest(t) {
+  const w = (t.downloads && t.downloads.windows) || {};
+  if (w["90d"] != null) return { value: w["90d"], window: "90 d", lower: false };
+  if (w["total"] != null) return { value: w["total"], window: "all-time", lower: false };
+  if (w["30d"] != null) return { value: w["30d"], window: "30 d", lower: true };
+  if (w["7d"] != null) return { value: w["7d"], window: "7 d", lower: true };
+  return null;
 }
 
 function renderDownloads(snap) {
   const box = document.getElementById("downloads");
   box.innerHTML = "";
-
-  // period selector
-  const sel = el("div", { class: "dlwin", attrs: { role: "tablist" } });
-  for (const [key, label] of DL_WINDOWS) {
-    const b = el("button", { class: "dlwin-btn" + (key === dlWindow ? " on" : ""), attrs: { type: "button" }, text: label });
-    b.addEventListener("click", () => { dlWindow = key; renderDownloads(snap); });
-    sel.appendChild(b);
-  }
-  box.appendChild(sel);
-
-  const body = el("div", { class: "dlchart-body" });
-  box.appendChild(body);
-
   const rows = [];
   for (const pkg of snap.packages || []) {
     const segs = [];
-    let total = 0;
+    let total = 0, lower = false;
     for (const t of pkg.targets || []) {
-      const v = dlValue(t, dlWindow);
-      if (v != null && v > 0) { segs.push({ reg: t.registry, name: t.name, v }); total += v; }
+      const b = dlBest(t);
+      if (b && b.value > 0) { segs.push({ reg: t.registry, name: t.name, ...b }); total += b.value; if (b.lower) lower = true; }
     }
-    if (total > 0) rows.push({ pkg, segs, total });
+    if (total > 0) rows.push({ pkg, segs, total, lower });
   }
   rows.sort((a, b) => b.total - a.total);
-  if (!rows.length) {
-    body.appendChild(el("p", { class: "admin-note", text: `No download data reported for this ${dlWindow} window.` }));
-    return;
-  }
+  if (!rows.length) { box.appendChild(el("p", { class: "admin-note", text: "No download stats available." })); return; }
   const max = rows[0].total;
 
   for (const row of rows) {
     const r = el("div", { class: "dlrow" });
-    const prim = row.segs.slice().sort((a, b) => b.v - a.v)[0];
+    const prim = row.segs.slice().sort((a, b) => b.value - a.value)[0];
     r.appendChild(el("a", { class: "dl-name", text: row.pkg.id, attrs: { href: registryUrl(prim.reg, prim.name, row.pkg.repo), target: "_blank", rel: "noopener", title: row.pkg.id } }));
     const bar = el("div", { class: "dlbar", attrs: { style: `width:${Math.max(6, (row.total / max) * 100)}%` } });
-    for (const s of row.segs.sort((a, b) => b.v - a.v)) {
-      const seg = el("a", { class: "dlseg", attrs: { href: registryUrl(s.reg, s.name, row.pkg.repo), target: "_blank", rel: "noopener", style: `width:${(s.v / row.total) * 100}%;background:${REG_COLOR[s.reg]}` } });
-      attachTip(seg, `<b>${s.name}</b><div class="tt-row">${REG_LABEL[s.reg]} · ${fmtInt(s.v)}</div>`);
+    for (const s of row.segs.sort((a, b) => b.value - a.value)) {
+      const seg = el("a", { class: "dlseg", attrs: { href: registryUrl(s.reg, s.name, row.pkg.repo), target: "_blank", rel: "noopener", style: `width:${(s.value / row.total) * 100}%;background:${REG_COLOR[s.reg]}` } });
+      attachTip(seg, `<b>${s.name}</b><div class="tt-row">${REG_LABEL[s.reg]} · ${s.lower ? "&gt;" : ""}${fmtInt(s.value)} <span style="opacity:.6">(${s.window})</span></div>`);
       bar.appendChild(seg);
     }
     r.appendChild(bar);
-    r.appendChild(el("span", { class: "dl-tot", text: fmtInt(row.total) }));
-    body.appendChild(r);
+    r.appendChild(el("span", { class: "dl-tot", text: (row.lower ? ">" : "") + fmtInt(row.total) }));
+    box.appendChild(r);
   }
 
   const axis = el("div", { class: "dl-axis" });
@@ -255,6 +242,7 @@ function renderDownloads(snap) {
     if (!rows.some((r) => r.segs.some((s) => s.reg === reg))) continue;
     axis.appendChild(el("span", {}, [el("span", { class: "dl-swatch", attrs: { style: `background:${REG_COLOR[reg]}` } }), el("span", { text: REG_LABEL[reg] })]));
   }
+  axis.appendChild(el("span", { class: "admin-note", text: "≈90-day view · > = lower bound (registry reports a shorter window)" }));
   box.appendChild(axis);
 }
 

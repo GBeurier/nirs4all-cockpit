@@ -509,10 +509,8 @@ packages:
     source_of_truth:
       strategy: cargo_workspace
       path: Cargo.toml
+    # Pure Rust library — no Python/WASM bindings planned, so only crates.io.
     targets:
-      - registry: pypi
-        name: dag-ml
-        state: planned
       - registry: crates
         name: dag-ml
         state: planned
@@ -528,12 +526,6 @@ packages:
       - registry: crates
         name: dag-ml-cli
         state: planned
-      - registry: crates
-        name: dag-ml-py
-        state: planned
-      - registry: crates
-        name: dag-ml-wasm
-        state: planned
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -544,10 +536,8 @@ packages:
     source_of_truth:
       strategy: cargo_workspace
       path: Cargo.toml
+    # Pure Rust library — no Python/WASM/R bindings planned, so only crates.io.
     targets:
-      - registry: pypi
-        name: dag-ml-data
-        state: planned
       - registry: crates
         name: dag-ml-data
         state: planned
@@ -565,14 +555,5 @@ packages:
         state: planned
       - registry: crates
         name: dag-ml-data-provider
-        state: planned
-      - registry: crates
-        name: dag-ml-data-py
-        state: planned
-      - registry: crates
-        name: dag-ml-data-wasm
-        state: planned
-      - registry: r-universe
-        name: dagmldata
         state: planned
     version_aliases: {}

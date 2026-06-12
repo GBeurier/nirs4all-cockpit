@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-12T13:35:27.904254+00:00",
+  "generated_at": "2026-06-12T14:29:10.694779+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -81,7 +81,7 @@
         "bugs": 0
       },
       "repo_stats": {
-        "stars": 23,
+        "stars": 24,
         "forks": 0,
         "watchers": 1,
         "open_prs": 2,
@@ -728,7 +728,7 @@
         "merged_prs": 0,
         "size_kb": 118229,
         "license": "MIT",
-        "pushed_at": "2026-06-12T08:00:48Z",
+        "pushed_at": "2026-06-12T14:12:46Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -758,13 +758,13 @@
       },
       "actions_stats": {
         "workflows": 9,
-        "total_runs": 259,
+        "total_runs": 262,
         "recent_total": 100,
         "recent_success": 80,
         "recent_failure": 15,
         "success_rate": 84.2,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-12T08:01:24Z"
+        "last_created_at": "2026-06-12T14:12:49Z"
       }
     },
     {
@@ -1062,7 +1062,7 @@
         },
         {
           "file": "release-r.yml",
-          "conclusion": null,
+          "conclusion": "success",
           "created_at": "2026-06-12T13:34:28Z",
           "head_sha": "d56b6c315fdcc7538e2788132cf98d4eb924f558"
         }
@@ -1080,7 +1080,7 @@
         "merged_prs": 1,
         "size_kb": 3754,
         "license": "NOASSERTION",
-        "pushed_at": "2026-06-12T13:34:25Z",
+        "pushed_at": "2026-06-12T14:12:50Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -1111,13 +1111,13 @@
       },
       "actions_stats": {
         "workflows": 17,
-        "total_runs": 191,
+        "total_runs": 202,
         "recent_total": 100,
-        "recent_success": 75,
-        "recent_failure": 24,
-        "success_rate": 75.8,
-        "last_conclusion": null,
-        "last_created_at": "2026-06-12T13:34:28Z"
+        "recent_success": 73,
+        "recent_failure": 27,
+        "success_rate": 73.0,
+        "last_conclusion": "success",
+        "last_created_at": "2026-06-12T14:12:55Z"
       }
     },
     {
@@ -1368,7 +1368,7 @@
         },
         {
           "file": "release-r.yml",
-          "conclusion": null,
+          "conclusion": "success",
           "created_at": "2026-06-12T13:34:30Z",
           "head_sha": "9441ea5e7a167b3a0e320e7d74a48165147f4dc7"
         }
@@ -1384,7 +1384,7 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 250300,
+        "size_kb": 250311,
         "license": "MIT",
         "pushed_at": "2026-06-12T13:34:26Z",
         "default_branch": "main",
@@ -1395,15 +1395,15 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 35639,
-        "loc_comment": 6265,
-        "loc_blank": 7333,
-        "loc_total": 49237,
-        "files": 481,
-        "tests": 257,
+        "loc_code": 36298,
+        "loc_comment": 6285,
+        "loc_blank": 7409,
+        "loc_total": 49992,
+        "files": 480,
+        "tests": 260,
         "by_language": {
-          "Python": 27981,
-          "JavaScript": 2924,
+          "Python": 28686,
+          "JavaScript": 2878,
           "R": 2431,
           "Rust": 1841,
           "Shell": 203,
@@ -1419,10 +1419,10 @@
         "workflows": 11,
         "total_runs": 129,
         "recent_total": 100,
-        "recent_success": 86,
+        "recent_success": 87,
         "recent_failure": 12,
-        "success_rate": 87.8,
-        "last_conclusion": null,
+        "success_rate": 87.9,
+        "last_conclusion": "success",
         "last_created_at": "2026-06-12T13:34:30Z"
       }
     },
@@ -1628,7 +1628,7 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 208,
+        "size_kb": 209,
         "license": "MIT",
         "pushed_at": "2026-06-12T13:03:35Z",
         "default_branch": "main",
@@ -1776,27 +1776,6 @@
       "flags": [],
       "targets": [
         {
-          "registry": "pypi",
-          "name": "dag-ml",
-          "published_version": null,
-          "status": "missing",
-          "planned": true,
-          "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
-            "total": null,
-            "source": null,
-            "by_version": [],
-            "windows": {}
-          },
-          "evidence": {
-            "version_endpoint": null,
-            "downloads_endpoint": null
-          },
-          "error": null
-        },
-        {
           "registry": "crates",
           "name": "dag-ml",
           "published_version": null,
@@ -1900,48 +1879,6 @@
             "downloads_endpoint": null
           },
           "error": null
-        },
-        {
-          "registry": "crates",
-          "name": "dag-ml-py",
-          "published_version": null,
-          "status": "missing",
-          "planned": true,
-          "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
-            "total": null,
-            "source": null,
-            "by_version": [],
-            "windows": {}
-          },
-          "evidence": {
-            "version_endpoint": null,
-            "downloads_endpoint": null
-          },
-          "error": null
-        },
-        {
-          "registry": "crates",
-          "name": "dag-ml-wasm",
-          "published_version": null,
-          "status": "missing",
-          "planned": true,
-          "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
-            "total": null,
-            "source": null,
-            "by_version": [],
-            "windows": {}
-          },
-          "evidence": {
-            "version_endpoint": null,
-            "downloads_endpoint": null
-          },
-          "error": null
         }
       ],
       "workflows": [],
@@ -1967,20 +1904,20 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 65634,
-        "loc_comment": 1327,
-        "loc_blank": 4012,
-        "loc_total": 70973,
+        "loc_code": 65667,
+        "loc_comment": 1333,
+        "loc_blank": 4014,
+        "loc_total": 71014,
         "files": 57,
         "tests": 363,
         "by_language": {
           "Rust": 56743,
-          "Python": 7201,
+          "Python": 7234,
           "R": 1029,
           "JavaScript": 338,
           "C/C++ header": 323
         },
-        "coverage_pct": null,
+        "coverage_pct": 81.5,
         "source": "local-scan"
       },
       "actions_stats": {
@@ -2007,27 +1944,6 @@
       "rollup": "missing",
       "flags": [],
       "targets": [
-        {
-          "registry": "pypi",
-          "name": "dag-ml-data",
-          "published_version": null,
-          "status": "missing",
-          "planned": true,
-          "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
-            "total": null,
-            "source": null,
-            "by_version": [],
-            "windows": {}
-          },
-          "evidence": {
-            "version_endpoint": null,
-            "downloads_endpoint": null
-          },
-          "error": null
-        },
         {
           "registry": "crates",
           "name": "dag-ml-data",
@@ -2153,69 +2069,6 @@
             "downloads_endpoint": null
           },
           "error": null
-        },
-        {
-          "registry": "crates",
-          "name": "dag-ml-data-py",
-          "published_version": null,
-          "status": "missing",
-          "planned": true,
-          "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
-            "total": null,
-            "source": null,
-            "by_version": [],
-            "windows": {}
-          },
-          "evidence": {
-            "version_endpoint": null,
-            "downloads_endpoint": null
-          },
-          "error": null
-        },
-        {
-          "registry": "crates",
-          "name": "dag-ml-data-wasm",
-          "published_version": null,
-          "status": "missing",
-          "planned": true,
-          "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
-            "total": null,
-            "source": null,
-            "by_version": [],
-            "windows": {}
-          },
-          "evidence": {
-            "version_endpoint": null,
-            "downloads_endpoint": null
-          },
-          "error": null
-        },
-        {
-          "registry": "r-universe",
-          "name": "dagmldata",
-          "published_version": null,
-          "status": "missing",
-          "planned": true,
-          "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
-            "total": null,
-            "source": null,
-            "by_version": [],
-            "windows": {}
-          },
-          "evidence": {
-            "version_endpoint": null,
-            "downloads_endpoint": null
-          },
-          "error": null
         }
       ],
       "workflows": [],
@@ -2241,21 +2094,21 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 25511,
-        "loc_comment": 1836,
-        "loc_blank": 2167,
-        "loc_total": 29514,
+        "loc_code": 25544,
+        "loc_comment": 1842,
+        "loc_blank": 2169,
+        "loc_total": 29555,
         "files": 57,
         "tests": 255,
         "by_language": {
           "Rust": 21882,
-          "Python": 2924,
+          "Python": 2957,
           "C/C++ header": 253,
           "JavaScript": 250,
           "R": 196,
           "C": 6
         },
-        "coverage_pct": null,
+        "coverage_pct": 88.1,
         "source": "local-scan"
       },
       "actions_stats": {
@@ -2273,7 +2126,7 @@
   "summary": {
     "green": 38,
     "stale": 0,
-    "missing": 24,
+    "missing": 17,
     "broken": 0,
     "unknown": 0,
     "excluded": 0
@@ -2281,15 +2134,15 @@
   "totals": {
     "packages": 9,
     "repos": 9,
-    "stars": 66,
+    "stars": 67,
     "forks": 0,
     "watchers": 2,
     "open_issues": 0,
-    "loc_code": 708303,
-    "loc_total": 989126,
-    "tests": 9622,
-    "files": 3062,
-    "workflow_runs": 3190,
+    "loc_code": 709028,
+    "loc_total": 989963,
+    "tests": 9625,
+    "files": 3061,
+    "workflow_runs": 3204,
     "downloads_last_month": 4334
   }
 }
