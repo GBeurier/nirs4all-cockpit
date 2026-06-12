@@ -136,10 +136,12 @@ function renderMatrix(snap) {
   const hr = el("tr");
   hr.append(el("th", { class: "h-pkg", text: "package" }), el("th", { class: "h-ver", text: "version" }));
   const REG_SHORT = { pypi: "PyPI", crates: "crates", npm: "npm", "r-universe": "R-univ", cran: "CRAN", "github-release": "GitHub" };
+  const REG_BRAND = { pypi: "#3775A9", crates: "#C16C28", npm: "#CB3837", "r-universe": "#2E73C4", cran: "#1B5390", "github-release": "#24292F" };
   for (const reg of REGS) {
+    const col = REG_BRAND[reg] || "var(--text-2)";
     const th = el("th", { class: "reg-head", attrs: { scope: "col", title: REG_LABEL[reg] } });
-    th.appendChild(el("span", { class: "reg-ico", html: `<svg viewBox="0 0 24 24">${REGISTRY_ICONS[reg] ? `<path d="${REGISTRY_ICONS[reg]}"/>` : ""}</svg>` }));
-    th.appendChild(el("span", { class: "reg-name", text: REG_SHORT[reg] || reg }));
+    th.appendChild(el("span", { class: "reg-ico", attrs: { style: `color:${col}` }, html: `<svg viewBox="0 0 24 24">${REGISTRY_ICONS[reg] ? `<path d="${REGISTRY_ICONS[reg]}"/>` : ""}</svg>` }));
+    th.appendChild(el("span", { class: "reg-name", attrs: { style: `color:${col}` }, text: REG_SHORT[reg] || reg }));
     hr.appendChild(th);
   }
   thead.appendChild(hr);
