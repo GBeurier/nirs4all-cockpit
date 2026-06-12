@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-12T16:00:35.275618+00:00",
+  "generated_at": "2026-06-12T16:10:12.646629+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -85,8 +85,8 @@
         "forks": 0,
         "watchers": 1,
         "open_prs": 2,
-        "closed_prs": 16,
-        "merged_prs": 6,
+        "closed_prs": 24,
+        "merged_prs": 0,
         "size_kb": 173835,
         "license": "NOASSERTION",
         "pushed_at": "2026-06-11T22:34:01Z",
@@ -98,14 +98,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 220034,
-        "loc_comment": 100121,
-        "loc_blank": 65303,
-        "loc_total": 385458,
-        "files": 961,
-        "tests": 7238,
+        "loc_code": 218660,
+        "loc_comment": 99539,
+        "loc_blank": 64854,
+        "loc_total": 383053,
+        "files": 955,
+        "tests": 7180,
         "by_language": {
-          "Python": 218510,
+          "Python": 217136,
           "Shell": 1112,
           "JavaScript": 342,
           "CSS": 70
@@ -346,7 +346,7 @@
             "windows": {}
           },
           "evidence": {
-            "version_endpoint": "http://methods.nirs4all.org/",
+            "version_endpoint": "https://methods.nirs4all.org/",
             "downloads_endpoint": null
           },
           "error": null
@@ -387,8 +387,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 10,
-        "merged_prs": 7,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 493491,
         "license": "NOASSERTION",
         "pushed_at": "2026-06-12T16:00:04Z",
@@ -400,14 +400,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 246001,
-        "loc_comment": 39128,
-        "loc_blank": 27207,
-        "loc_total": 312336,
-        "files": 992,
-        "tests": 306,
+        "loc_code": 216502,
+        "loc_comment": 37338,
+        "loc_blank": 23740,
+        "loc_total": 277580,
+        "files": 943,
+        "tests": 303,
         "by_language": {
-          "Python": 108540,
+          "Python": 79041,
           "C++": 73123,
           "C": 28515,
           "C++ header": 12267,
@@ -427,10 +427,10 @@
         "workflows": 17,
         "total_runs": 1522,
         "recent_total": 100,
-        "recent_success": 81,
+        "recent_success": 88,
         "recent_failure": 9,
-        "success_rate": 90.0,
-        "last_conclusion": null,
+        "success_rate": 90.7,
+        "last_conclusion": "success",
         "last_created_at": "2026-06-12T16:00:07Z"
       }
     },
@@ -728,7 +728,7 @@
             "windows": {}
           },
           "evidence": {
-            "version_endpoint": "http://formats.nirs4all.org/",
+            "version_endpoint": "https://formats.nirs4all.org/",
             "downloads_endpoint": null
           },
           "error": null
@@ -782,20 +782,19 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 49480,
-        "loc_comment": 2615,
-        "loc_blank": 4168,
-        "loc_total": 56263,
-        "files": 142,
+        "loc_code": 45288,
+        "loc_comment": 2348,
+        "loc_blank": 3793,
+        "loc_total": 51429,
+        "files": 132,
         "tests": 325,
         "by_language": {
           "Rust": 40100,
-          "JavaScript": 3468,
-          "HTML": 2650,
           "Python": 1979,
+          "JavaScript": 1481,
           "R": 900,
+          "HTML": 525,
           "Shell": 261,
-          "TypeScript": 80,
           "C": 29,
           "C/C++ header": 13
         },
@@ -806,10 +805,10 @@
         "workflows": 9,
         "total_runs": 265,
         "recent_total": 100,
-        "recent_success": 77,
-        "recent_failure": 15,
-        "success_rate": 83.7,
-        "last_conclusion": null,
+        "recent_success": 79,
+        "recent_failure": 16,
+        "success_rate": 83.2,
+        "last_conclusion": "success",
         "last_created_at": "2026-06-12T16:00:09Z"
       }
     },
@@ -1143,8 +1142,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 1,
-        "merged_prs": 1,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 3762,
         "license": "NOASSERTION",
         "pushed_at": "2026-06-12T14:12:50Z",
@@ -1156,14 +1155,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 40147,
-        "loc_comment": 3821,
-        "loc_blank": 3905,
-        "loc_total": 47873,
-        "files": 193,
-        "tests": 398,
+        "loc_code": 27162,
+        "loc_comment": 2768,
+        "loc_blank": 2981,
+        "loc_total": 32911,
+        "files": 150,
+        "tests": 307,
         "by_language": {
-          "Rust": 28264,
+          "Rust": 15345,
           "Python": 5533,
           "JavaScript": 3570,
           "CSS": 1428,
@@ -1173,7 +1172,7 @@
           "HTML": 174,
           "C": 148,
           "TypeScript": 146,
-          "C/C++ header": 99
+          "C/C++ header": 33
         },
         "coverage_pct": 82.2,
         "source": "local-scan"
@@ -1472,8 +1471,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 1,
-        "merged_prs": 1,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 250311,
         "license": "MIT",
         "pushed_at": "2026-06-12T15:40:03Z",
@@ -1485,24 +1484,20 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 137267,
-        "loc_comment": 6646,
-        "loc_blank": 15981,
-        "loc_total": 159894,
-        "files": 689,
-        "tests": 261,
+        "loc_code": 12293,
+        "loc_comment": 2440,
+        "loc_blank": 2578,
+        "loc_total": 17311,
+        "files": 92,
+        "tests": 219,
         "by_language": {
-          "HTML": 96971,
-          "Python": 28925,
-          "CSS": 3759,
-          "JavaScript": 2878,
-          "R": 2431,
+          "Python": 10003,
           "Rust": 1841,
           "Shell": 203,
           "C": 135,
-          "TypeScript": 42,
           "MATLAB/Octave": 42,
-          "C/C++ header": 40
+          "C/C++ header": 40,
+          "R": 29
         },
         "coverage_pct": 63.4,
         "source": "local-scan"
@@ -1731,22 +1726,20 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 5793,
-        "loc_comment": 116,
-        "loc_blank": 751,
-        "loc_total": 6660,
-        "files": 47,
+        "loc_code": 4666,
+        "loc_comment": 114,
+        "loc_blank": 597,
+        "loc_total": 5377,
+        "files": 31,
         "tests": 33,
         "by_language": {
-          "R": 1370,
           "Rust": 1269,
           "Python": 867,
           "JavaScript": 857,
           "MATLAB/Octave": 827,
-          "CSS": 221,
+          "R": 562,
           "Shell": 185,
-          "TypeScript": 99,
-          "HTML": 98
+          "TypeScript": 99
         },
         "coverage_pct": 30.3,
         "source": "local-scan"
@@ -1999,18 +1992,16 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 65667,
-        "loc_comment": 1333,
-        "loc_blank": 4014,
-        "loc_total": 71014,
-        "files": 57,
-        "tests": 363,
+        "loc_code": 56112,
+        "loc_comment": 533,
+        "loc_blank": 3141,
+        "loc_total": 59786,
+        "files": 34,
+        "tests": 285,
         "by_language": {
-          "Rust": 56743,
-          "Python": 7234,
-          "R": 1029,
-          "JavaScript": 338,
-          "C/C++ header": 323
+          "Rust": 50970,
+          "Python": 4842,
+          "C/C++ header": 300
         },
         "coverage_pct": 81.5,
         "source": "local-scan"
@@ -2189,19 +2180,16 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 25544,
-        "loc_comment": 1842,
-        "loc_blank": 2169,
-        "loc_total": 29555,
-        "files": 57,
-        "tests": 255,
+        "loc_code": 11262,
+        "loc_comment": 232,
+        "loc_blank": 934,
+        "loc_total": 12428,
+        "files": 24,
+        "tests": 79,
         "by_language": {
-          "Rust": 21882,
-          "Python": 2957,
-          "C/C++ header": 253,
-          "JavaScript": 250,
-          "R": 196,
-          "C": 6
+          "Rust": 10010,
+          "Python": 1115,
+          "C/C++ header": 137
         },
         "coverage_pct": 88.1,
         "source": "local-scan"
@@ -2240,8 +2228,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 2,
-        "merged_prs": 2,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 94,
         "license": null,
         "pushed_at": "2026-06-11T22:50:25Z",
@@ -2286,14 +2274,14 @@
         "expected_prod_version": null,
         "commit": null
       },
-      "rollup": "unknown",
+      "rollup": "green",
       "flags": [],
       "targets": [
         {
           "registry": "pages",
           "name": "nirs4all-org",
           "published_version": null,
-          "status": "unknown",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -2350,10 +2338,10 @@
         "workflows": 1,
         "total_runs": 65,
         "recent_total": 65,
-        "recent_success": 63,
+        "recent_success": 64,
         "recent_failure": 1,
-        "success_rate": 98.4,
-        "last_conclusion": null,
+        "success_rate": 98.5,
+        "last_conclusion": "success",
         "last_created_at": "2026-06-12T16:00:06Z"
       }
     },
@@ -2415,18 +2403,18 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 29978,
+        "loc_code": 21361,
         "loc_comment": 2472,
-        "loc_blank": 1860,
-        "loc_total": 34310,
-        "files": 187,
+        "loc_blank": 1846,
+        "loc_total": 25679,
+        "files": 186,
         "tests": 163,
         "by_language": {
           "TypeScript": 15766,
-          "HTML": 8648,
           "JavaScript": 5274,
           "CSS": 248,
-          "Shell": 42
+          "Shell": 42,
+          "HTML": 31
         },
         "coverage_pct": null,
         "source": "local-scan"
@@ -2444,11 +2432,11 @@
     }
   ],
   "summary": {
-    "green": 43,
+    "green": 44,
     "stale": 0,
     "missing": 11,
     "broken": 0,
-    "unknown": 1,
+    "unknown": 0,
     "excluded": 0,
     "pending": 6
   },
@@ -2459,10 +2447,10 @@
     "forks": 0,
     "watchers": 2,
     "open_issues": 0,
-    "loc_code": 856546,
-    "loc_total": 1153837,
-    "tests": 9895,
-    "files": 3500,
+    "loc_code": 649941,
+    "loc_total": 916028,
+    "tests": 9447,
+    "files": 2722,
     "workflow_runs": 3355,
     "downloads_last_month": 4334
   },
