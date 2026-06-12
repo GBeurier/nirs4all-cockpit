@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-12T09:34:18.736905+00:00",
+  "generated_at": "2026-06-12T12:30:32.265759+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -31,7 +31,8 @@
             "last_week": 595,
             "last_month": 1106,
             "total": null,
-            "source": "pypistats"
+            "source": "pypistats",
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all/json",
@@ -49,8 +50,9 @@
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": 0,
-            "source": "github-release-assets"
+            "total": null,
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all/releases/latest",
@@ -76,6 +78,8 @@
         "forks": 0,
         "watchers": 1,
         "open_prs": 2,
+        "closed_prs": 16,
+        "merged_prs": 6,
         "size_kb": 173835,
         "license": "NOASSERTION",
         "pushed_at": "2026-06-11T22:34:01Z",
@@ -87,16 +91,16 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 221270,
-        "loc_comment": 100065,
-        "loc_blank": 65113,
-        "loc_total": 386448,
-        "files": 973,
-        "tests": 7248,
+        "loc_code": 218590,
+        "loc_comment": 99534,
+        "loc_blank": 64843,
+        "loc_total": 382967,
+        "files": 954,
+        "tests": 7180,
         "by_language": {
           "Python": 217136,
-          "JavaScript": 3022,
-          "Shell": 1112
+          "Shell": 1112,
+          "JavaScript": 342
         },
         "coverage_pct": 66.9,
         "source": "local-scan"
@@ -136,7 +140,8 @@
             "last_week": 454,
             "last_month": 454,
             "total": null,
-            "source": "pypistats"
+            "source": "pypistats",
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-methods/json",
@@ -155,7 +160,8 @@
             "last_week": 308,
             "last_month": 1689,
             "total": null,
-            "source": "pypistats"
+            "source": "pypistats",
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/pls4all/json",
@@ -172,9 +178,10 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 0,
+            "last_month": 114,
             "total": null,
-            "source": "npm"
+            "source": "npm",
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://registry.npmjs.org/@nirs4all%2Fmethods-wasm",
@@ -193,7 +200,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.r-universe.dev/api/packages",
@@ -212,7 +220,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.r-universe.dev/api/packages",
@@ -231,7 +240,8 @@
             "last_week": null,
             "last_month": 0,
             "total": null,
-            "source": "cranlogs"
+            "source": "cranlogs",
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://crandb.r-pkg.org/n4m",
@@ -250,7 +260,8 @@
             "last_week": null,
             "last_month": 0,
             "total": null,
-            "source": "cranlogs"
+            "source": "cranlogs",
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://crandb.r-pkg.org/pls4all",
@@ -261,15 +272,16 @@
         {
           "registry": "github-release",
           "name": "nirs4all-methods",
-          "published_version": "v0.99.0",
+          "published_version": "0.99.0",
           "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": 5,
-            "source": "github-release-assets"
+            "total": null,
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-methods/releases/latest",
@@ -313,6 +325,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
+        "closed_prs": 10,
+        "merged_prs": 7,
         "size_kb": 493491,
         "license": "NOASSERTION",
         "pushed_at": "2026-06-12T05:27:58Z",
@@ -324,27 +338,23 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 246768,
-        "loc_comment": 40178,
-        "loc_blank": 27523,
-        "loc_total": 314469,
-        "files": 1021,
-        "tests": 333,
+        "loc_code": 241723,
+        "loc_comment": 38990,
+        "loc_blank": 26990,
+        "loc_total": 307703,
+        "files": 990,
+        "tests": 306,
         "by_language": {
-          "Python": 109866,
+          "Python": 108540,
           "C++": 73123,
-          "C": 28569,
+          "C": 28515,
           "C++ header": 12267,
-          "C/C++ header": 6286,
-          "R": 5802,
+          "C/C++ header": 6270,
+          "R": 5556,
           "MATLAB/Octave": 5029,
-          "JavaScript": 2774,
-          "Shell": 1040,
+          "Shell": 990,
           "TypeScript": 968,
-          "Rust": 360,
-          "Go": 317,
-          "Java": 185,
-          "Julia": 182
+          "JavaScript": 465
         },
         "coverage_pct": null,
         "source": "local-scan"
@@ -384,7 +394,8 @@
             "last_week": 128,
             "last_month": 128,
             "total": null,
-            "source": "pypistats"
+            "source": "pypistats",
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-formats/json",
@@ -403,7 +414,13 @@
             "last_week": null,
             "last_month": 18,
             "total": 18,
-            "source": "crates.io"
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.1.0",
+                "downloads": 18
+              }
+            ]
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-formats-core",
@@ -422,7 +439,13 @@
             "last_week": null,
             "last_month": 16,
             "total": 16,
-            "source": "crates.io"
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.1.0",
+                "downloads": 16
+              }
+            ]
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-formats",
@@ -441,7 +464,13 @@
             "last_week": null,
             "last_month": 12,
             "total": 12,
-            "source": "crates.io"
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.1.0",
+                "downloads": 12
+              }
+            ]
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-formats-capi",
@@ -460,7 +489,13 @@
             "last_week": null,
             "last_month": 12,
             "total": 12,
-            "source": "crates.io"
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.1.0",
+                "downloads": 12
+              }
+            ]
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-formats-cli",
@@ -477,9 +512,10 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 0,
+            "last_month": 132,
             "total": null,
-            "source": "npm"
+            "source": "npm",
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://registry.npmjs.org/@nirs4all%2Fformats-wasm",
@@ -498,7 +534,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.r-universe.dev/api/packages",
@@ -517,7 +554,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.r-universe.dev/api/packages",
@@ -536,7 +574,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -547,15 +586,16 @@
         {
           "registry": "github-release",
           "name": "nirs4all-formats",
-          "published_version": "v0.1.0",
+          "published_version": "0.1.0",
           "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": 0,
-            "source": "github-release-assets"
+            "total": null,
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-formats/releases/latest",
@@ -599,6 +639,8 @@
         "forks": 0,
         "watchers": 1,
         "open_prs": 0,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 118229,
         "license": "MIT",
         "pushed_at": "2026-06-12T08:00:48Z",
@@ -610,15 +652,15 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 49046,
-        "loc_comment": 3038,
-        "loc_blank": 4149,
-        "loc_total": 56233,
-        "files": 152,
-        "tests": 328,
+        "loc_code": 46830,
+        "loc_comment": 2615,
+        "loc_blank": 3931,
+        "loc_total": 53376,
+        "files": 139,
+        "tests": 325,
         "by_language": {
-          "Rust": 40299,
-          "JavaScript": 5485,
+          "Rust": 40100,
+          "JavaScript": 3468,
           "Python": 1979,
           "R": 900,
           "Shell": 261,
@@ -664,7 +706,8 @@
             "last_week": 156,
             "last_month": 156,
             "total": null,
-            "source": "pypistats"
+            "source": "pypistats",
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-io/json",
@@ -681,9 +724,19 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 19,
-            "total": 19,
-            "source": "crates.io"
+            "last_month": 47,
+            "total": 47,
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.1.1",
+                "downloads": 28
+              },
+              {
+                "version": "0.1.0",
+                "downloads": 19
+              }
+            ]
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-io-core",
@@ -700,9 +753,19 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 18,
-            "total": 18,
-            "source": "crates.io"
+            "last_month": 42,
+            "total": 42,
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.1.1",
+                "downloads": 24
+              },
+              {
+                "version": "0.1.0",
+                "downloads": 18
+              }
+            ]
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-io",
@@ -719,9 +782,19 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 12,
-            "total": 12,
-            "source": "crates.io"
+            "last_month": 26,
+            "total": 26,
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.1.1",
+                "downloads": 14
+              },
+              {
+                "version": "0.1.0",
+                "downloads": 12
+              }
+            ]
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-io-capi",
@@ -738,9 +811,19 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 12,
-            "total": 12,
-            "source": "crates.io"
+            "last_month": 28,
+            "total": 28,
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.1.1",
+                "downloads": 16
+              },
+              {
+                "version": "0.1.0",
+                "downloads": 12
+              }
+            ]
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-io-cli",
@@ -757,9 +840,10 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 0,
+            "last_month": 138,
             "total": null,
-            "source": "npm"
+            "source": "npm",
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://registry.npmjs.org/@nirs4all%2Fio-wasm",
@@ -778,7 +862,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.r-universe.dev/api/packages",
@@ -789,15 +874,16 @@
         {
           "registry": "github-release",
           "name": "nirs4all-io",
-          "published_version": "v0.1.1",
+          "published_version": "0.1.1",
           "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": 0,
-            "source": "github-release-assets"
+            "total": null,
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-io/releases/latest",
@@ -841,6 +927,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
+        "closed_prs": 1,
+        "merged_prs": 1,
         "size_kb": 3754,
         "license": "NOASSERTION",
         "pushed_at": "2026-06-12T07:41:43Z",
@@ -893,7 +981,7 @@
         "expected_prod_version": "v0.2.0",
         "commit": null
       },
-      "rollup": "broken",
+      "rollup": "green",
       "flags": [],
       "targets": [
         {
@@ -907,7 +995,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": "pypistats"
+            "source": "pypistats",
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-datasets/json",
@@ -924,9 +1013,15 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": null,
-            "total": 0,
-            "source": "crates.io"
+            "last_month": 16,
+            "total": 16,
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.2.0",
+                "downloads": 16
+              }
+            ]
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-datasets-core",
@@ -943,9 +1038,15 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": null,
-            "total": 0,
-            "source": "crates.io"
+            "last_month": 11,
+            "total": 11,
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.2.0",
+                "downloads": 11
+              }
+            ]
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-datasets-capi",
@@ -962,9 +1063,15 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": null,
-            "total": 0,
-            "source": "crates.io"
+            "last_month": 11,
+            "total": 11,
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.2.0",
+                "downloads": 11
+              }
+            ]
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-datasets-cli",
@@ -983,7 +1090,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": "npm"
+            "source": "npm",
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://registry.npmjs.org/@nirs4all%2Fdatasets-wasm",
@@ -994,15 +1102,16 @@
         {
           "registry": "r-universe",
           "name": "nirs4alldatasets",
-          "published_version": null,
-          "status": "broken",
+          "published_version": "0.2.0",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.r-universe.dev/api/packages",
@@ -1013,15 +1122,16 @@
         {
           "registry": "github-release",
           "name": "nirs4all-datasets",
-          "published_version": "v0.2.0",
+          "published_version": "0.2.0",
           "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": 0,
-            "source": "github-release-assets"
+            "total": null,
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-datasets/releases/latest",
@@ -1065,6 +1175,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 250300,
         "license": "MIT",
         "pushed_at": "2026-06-12T08:39:05Z",
@@ -1093,7 +1205,7 @@
           "MATLAB/Octave": 42,
           "C/C++ header": 40
         },
-        "coverage_pct": null,
+        "coverage_pct": 25.8,
         "source": "local-scan"
       },
       "actions_stats": {
@@ -1117,7 +1229,7 @@
         "expected_prod_version": "v0.1.0",
         "commit": null
       },
-      "rollup": "stale",
+      "rollup": "green",
       "flags": [],
       "targets": [
         {
@@ -1131,7 +1243,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": "pypistats"
+            "source": "pypistats",
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-lite/json",
@@ -1148,9 +1261,15 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": null,
-            "total": 0,
-            "source": "crates.io"
+            "last_month": 11,
+            "total": 11,
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.1.0",
+                "downloads": 11
+              }
+            ]
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all",
@@ -1169,7 +1288,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": "npm"
+            "source": "npm",
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://registry.npmjs.org/nirs4all",
@@ -1180,15 +1300,16 @@
         {
           "registry": "r-universe",
           "name": "nirs4all",
-          "published_version": "0.0.0",
-          "status": "stale",
+          "published_version": "0.1.0",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.r-universe.dev/api/packages",
@@ -1199,15 +1320,16 @@
         {
           "registry": "github-release",
           "name": "nirs4all-lite",
-          "published_version": "v0.1.0",
+          "published_version": "0.1.0",
           "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": 0,
-            "source": "github-release-assets"
+            "total": null,
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-lite/releases/latest",
@@ -1251,7 +1373,9 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "size_kb": 205,
+        "closed_prs": 0,
+        "merged_prs": 0,
+        "size_kb": 208,
         "license": "MIT",
         "pushed_at": "2026-06-12T09:18:34Z",
         "default_branch": "main",
@@ -1315,7 +1439,8 @@
             "last_week": 31,
             "last_month": 167,
             "total": null,
-            "source": "pypistats"
+            "source": "pypistats",
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-aom/json",
@@ -1341,6 +1466,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 51657,
         "license": "NOASSERTION",
         "pushed_at": "2026-06-06T11:25:38Z",
@@ -1352,22 +1479,15 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 377396,
-        "loc_comment": 91155,
-        "loc_blank": 64325,
-        "loc_total": 532876,
-        "files": 1328,
-        "tests": 747,
+        "loc_code": 30357,
+        "loc_comment": 6921,
+        "loc_blank": 5606,
+        "loc_total": 42884,
+        "files": 150,
+        "tests": 505,
         "by_language": {
-          "C/C++ header": 312432,
-          "Python": 57524,
-          "C++ header": 2982,
-          "C++": 2901,
-          "Julia": 448,
-          "R": 352,
-          "Shell": 347,
-          "JavaScript": 230,
-          "MATLAB/Octave": 180
+          "Python": 30329,
+          "Shell": 28
         },
         "coverage_pct": null,
         "source": "local-scan"
@@ -1407,7 +1527,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1426,7 +1547,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1445,7 +1567,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1464,7 +1587,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1483,7 +1607,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1502,7 +1627,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1521,7 +1647,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1540,7 +1667,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1559,6 +1687,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 2040,
         "license": "MIT",
         "pushed_at": "2026-06-06T11:25:37Z",
@@ -1621,7 +1751,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1640,7 +1771,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1659,7 +1791,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1678,7 +1811,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1697,7 +1831,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1716,7 +1851,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1735,7 +1871,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1754,7 +1891,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1773,7 +1911,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1792,7 +1931,8 @@
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null
+            "source": null,
+            "by_version": []
           },
           "evidence": {
             "version_endpoint": null,
@@ -1811,6 +1951,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 634,
         "license": "MIT",
         "pushed_at": "2026-06-06T10:57:31Z",
@@ -1852,10 +1994,10 @@
     }
   ],
   "summary": {
-    "green": 36,
-    "stale": 1,
+    "green": 38,
+    "stale": 0,
     "missing": 20,
-    "broken": 1,
+    "broken": 0,
     "unknown": 0,
     "excluded": 1
   },
@@ -1866,11 +2008,11 @@
     "forks": 0,
     "watchers": 2,
     "open_issues": 0,
-    "loc_code": 1064298,
-    "loc_total": 1491079,
-    "tests": 9959,
-    "files": 4303,
+    "loc_code": 707318,
+    "loc_total": 987983,
+    "tests": 9619,
+    "files": 3062,
     "workflow_runs": 3168,
-    "downloads_last_month": 3819
+    "downloads_last_month": 4334
   }
 }

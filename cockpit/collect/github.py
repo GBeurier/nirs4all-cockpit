@@ -288,6 +288,24 @@ def code_scanning_alerts(owner: str, repo: str) -> dict[str, Any]:
     return {"available": False, "open": None, "error": error or f"http {status}"}
 
 
+def pr_counts(owner: str, repo: str) -> dict[str, Any]:
+    """Closed and merged PR totals via the Search API (one call each).
+
+    ``/search/issues`` returns a ``total_count`` so a single request gives the
+    full count without paginating. Search has its own 30/min budget; two calls
+    per repo stays well under it.
+    """
+    base = f"{API}/search/issues?q=repo:{owner}/{repo}+is:pr"
+
+    def _count(qualifier: str) -> int | None:
+        status, body, _error = _get(f"{base}+{qualifier}&per_page=1")
+        if status == 200 and isinstance(body, dict):
+            return body.get("total_count")
+        return None
+
+    return {"closed": _count("is:closed"), "merged": _count("is:merged")}
+
+
 def actions_stats(owner: str, repo: str) -> dict[str, Any]:
     """GitHub Actions activity: workflow count, total runs, recent success rate.
 

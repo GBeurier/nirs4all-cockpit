@@ -206,6 +206,9 @@ def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traff
         repo_stats = RepoStats.model_validate(stats_dict)
         if raw_open is not None:
             repo_stats.open_prs = max(0, raw_open - issues.open)
+        prc = github.pr_counts(owner, pkg.repo)
+        repo_stats.closed_prs = prc.get("closed")
+        repo_stats.merged_prs = prc.get("merged")
         actions_stats = ActionsStats.model_validate(github.actions_stats(owner, pkg.repo))
 
     # Code stats are computed from the local checkout (no network); None if absent.
@@ -377,7 +380,10 @@ def _reconcile_github_release(
         )
 
     fact = github.latest_release_fact(owner, pkg.repo)
-    published = fact.get("published_version")
+    raw = fact.get("published_version")
+    # Normalise the tag (e.g. "v0.5.3" -> "0.5.3") so it matches the other
+    # registries' clean versions and the UI doesn't render a double "v".
+    published = ver.normalize(raw) if raw else None
     http_status = fact.get("http_status")
     error = fact.get("error")
     transient = _is_transient(http_status, error)
@@ -385,10 +391,11 @@ def _reconcile_github_release(
         expected, published, http_status=http_status, transient_error=transient,
         excluded=False, planned=False,
     )
-    downloads = Downloads(total=fact.get("asset_downloads"), source="github-release-assets")
+    # No downloads here: GitHub Release asset counts conflate CI / test / deploy
+    # artifact pulls with real installs, so they are deliberately not reported.
     return TargetStatus(
         registry=tgt.registry, name=tgt.name, published_version=published,
-        status=state, planned=False, downloads=downloads, evidence=evidence, error=error,
+        status=state, planned=False, downloads=Downloads(), evidence=evidence, error=error,
     )
 
 

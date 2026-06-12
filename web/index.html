@@ -3,84 +3,77 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>nirs4all-cockpit — release & health matrix</title>
+    <title>nirs4all · cockpit — release & health</title>
     <meta
       name="description"
-      content="Read-only release/health cockpit for the nirs4all ecosystem: package × registry status, downloads, issues and CI."
+      content="Read-only release & health cockpit for the nirs4all ecosystem: package × registry status, downloads, code & CI stats."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
     />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <a class="skip-link" href="#matrix">Skip to the matrix</a>
+    <div class="wrap">
+      <header class="hero">
+        <div>
+          <span class="brand"><span class="dot"></span>nirs4all<b>·</b>cockpit</span>
+          <p class="tagline">
+            Release &amp; health of the whole ecosystem — which package is current on which registry,
+            its downloads, code size, tests and CI. Read-only aggregation; it never reimplements a repo's logic.
+          </p>
+          <div class="meta" id="generated"><span>loading…</span></div>
+        </div>
+        <div class="scores" id="scores"></div>
+      </header>
 
-    <header class="banner" id="banner">
-      <div class="banner__title">
-        <h1>nirs4all&#8202;·&#8202;cockpit</h1>
-        <p class="banner__sub">release &amp; health matrix — read-only aggregation, never reimplements repo logic</p>
-      </div>
-      <div class="banner__meta" id="generated">
-        <span class="muted">loading…</span>
-      </div>
-    </header>
+      <section class="summary" id="summary" aria-label="Status totals" hidden></section>
+      <section class="summary" id="totals" aria-label="Ecosystem totals" hidden></section>
 
-    <section class="summary" id="summary" aria-label="Status totals" hidden></section>
-    <section class="totals" id="totals" aria-label="Ecosystem totals" hidden></section>
-
-    <main>
-      <section aria-labelledby="matrix-h">
+      <section class="block" aria-labelledby="matrix-h" id="matrix-section">
         <h2 id="matrix-h" class="section-h">Package × registry</h2>
-        <div class="legend" id="legend" aria-hidden="false"></div>
-        <div class="table-wrap">
+        <div class="legend" id="legend"></div>
+        <div class="card table-wrap">
           <table id="matrix" class="matrix">
             <caption class="sr-only">
-              Published status of every tracked package on every registry. Each cell shows a status symbol, a
-              status word, and the published version.
+              Published status of every tracked package on every registry: a status dot, a status word, and
+              the published version per cell.
             </caption>
           </table>
         </div>
       </section>
 
-      <section class="panel panel--wide" aria-labelledby="gh-h">
-        <h2 id="gh-h" class="section-h">GitHub stats <span class="muted">(traffic = local push-scoped run only)</span></h2>
-        <div id="repostats"></div>
+      <section class="block" aria-labelledby="dl-h">
+        <h2 id="dl-h" class="section-h">Downloads <span class="muted">(only the metrics each registry actually reports · click crates for per-version)</span></h2>
+        <div class="card panel" id="downloads"></div>
       </section>
 
-      <section class="panel panel--wide" aria-labelledby="code-h">
-        <h2 id="code-h" class="section-h">Code &amp; Actions <span class="muted">(LOC from local checkout; runs/health from GitHub Actions)</span></h2>
-        <div id="codestats"></div>
+      <section class="block" aria-labelledby="gh-h">
+        <h2 id="gh-h" class="section-h">GitHub <span class="muted">stars · forks · PRs (open / merged / closed)</span></h2>
+        <div class="card panel panel--wide"><div id="repostats"></div></div>
       </section>
 
-      <div class="panels">
-        <section class="panel" aria-labelledby="dl-h">
-          <h2 id="dl-h" class="section-h">Downloads</h2>
-          <div id="downloads"></div>
-        </section>
+      <section class="block" aria-labelledby="code-h">
+        <h2 id="code-h" class="section-h">Code &amp; Actions <span class="muted">effective LOC &amp; tests from source · workflow runs / success</span></h2>
+        <div class="card panel panel--wide"><div id="codestats"></div></div>
+      </section>
 
-        <section class="panel" aria-labelledby="issues-h">
-          <h2 id="issues-h" class="section-h">Issues</h2>
-          <div id="issues"></div>
-        </section>
+      <section class="block admin" id="admin" hidden>
+        <h2 class="section-h">Admin <span class="muted">— local only (traffic · PR detail · security · Sentry); absent from the public site</span></h2>
+        <div id="admin-body"></div>
+      </section>
 
-        <section class="panel" aria-labelledby="ci-h">
-          <h2 id="ci-h" class="section-h">CI / workflow health</h2>
-          <div id="ci"></div>
-        </section>
-      </div>
-    </main>
+      <p id="error" class="error" role="alert" hidden></p>
 
-    <section class="admin" id="admin" hidden>
-      <h2 class="section-h">
-        Admin <span class="muted">— local only (traffic · PRs · security · Sentry); absent from the public site</span>
-      </h2>
-      <div id="admin-body"></div>
-    </section>
-
-    <p id="error" class="error" role="alert" hidden></p>
-
-    <footer class="foot">
-      <span>nirs4all-cockpit</span>
-      <span class="muted" id="schema"></span>
-    </footer>
+      <footer class="foot">
+        <span>nirs4all-cockpit · aggregates &amp; orchestrates, never reimplements</span>
+        <span><a href="https://github.com/GBeurier/nirs4all-cockpit">source</a> · <span id="schema"></span></span>
+      </footer>
+    </div>
 
     <script src="./app.js"></script>
   </body>

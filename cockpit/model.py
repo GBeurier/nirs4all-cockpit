@@ -43,6 +43,7 @@ class Downloads(BaseModel):
     last_month: int | None = None
     total: int | None = None
     source: str | None = None
+    by_version: list[dict] = Field(default_factory=list)
 
 
 class Evidence(BaseModel):
@@ -114,6 +115,8 @@ class RepoStats(BaseModel):
     forks: int | None = None
     watchers: int | None = None
     open_prs: int | None = None
+    closed_prs: int | None = None
+    merged_prs: int | None = None
     size_kb: int | None = None
     license: str | None = None
     pushed_at: str | None = None

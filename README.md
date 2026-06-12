@@ -152,11 +152,14 @@ falls back across `../data`, `./`, and `./data`.
 ## Public vs admin signals
 
 - **Public** (`data/current.json`, deployed to Pages): registry versions &
-  status, downloads, open issues, release-workflow health, **public GitHub
-  stats** (stars / forks / watchers / license), **code stats** (effective LOC,
-  comments, tests, coverage, per-language — scanned from the local checkout),
-  **GitHub Actions stats** (workflow count, total runs, recent success rate),
-  and an ecosystem-wide **`totals`** aggregate. Built by `collect`.
+  status, downloads (only the metrics each registry truly reports, plus
+  **per-version detail for crates**; GitHub Release asset counts are **excluded**
+  as they conflate CI/test/deploy pulls with installs), open issues, release-
+  workflow health, **public GitHub stats** (stars / forks / watchers / license /
+  PRs open·merged·closed), **code stats** (effective LOC, comments, tests,
+  coverage, per-language — scanned from the local checkout), **GitHub Actions
+  stats** (workflow count, total runs, recent success rate), and an ecosystem-
+  wide **`totals`** aggregate. Built by `collect`.
 - **Admin** (`data/admin/snapshot.admin.json`, gitignored, local only): GitHub
   **traffic** (views/clones), **open PRs**, **Dependabot / code-scanning**
   alerts, and **Sentry** unresolved issues. Built by `admin collect`. These are

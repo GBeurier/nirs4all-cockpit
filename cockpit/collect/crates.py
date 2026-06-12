@@ -28,6 +28,7 @@ def collect(name: str) -> dict[str, Any]:
     published_version: str | None = None
     total: int | None = None
     recent: int | None = None
+    by_version: list[dict[str, Any]] = []
     if status == 200 and isinstance(body, dict):
         crate = body.get("crate") or {}
         # max_version is the highest non-yanked release; fall back to newest.
@@ -36,6 +37,11 @@ def collect(name: str) -> dict[str, Any]:
         total = dl if isinstance(dl, int) else None
         rd = crate.get("recent_downloads")
         recent = rd if isinstance(rd, int) else None
+        # Per-version download breakdown (crates.io is the only registry that
+        # exposes this) — newest versions first, capped for snapshot size.
+        for ver in (body.get("versions") or [])[:20]:
+            if isinstance(ver, dict) and ver.get("num") is not None:
+                by_version.append({"version": ver.get("num"), "downloads": ver.get("downloads")})
 
     return {
         "published_version": published_version,
@@ -45,6 +51,7 @@ def collect(name: str) -> dict[str, Any]:
             "last_month": recent,
             "total": total,
             "source": "crates.io",
+            "by_version": by_version,
         },
         "evidence": {
             "version_endpoint": endpoint,

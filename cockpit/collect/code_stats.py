@@ -55,6 +55,12 @@ _SKIP_DIRS = {
     "node_modules", "target", "dist", "build", ".venv", "venv", "__pycache__",
     ".mypy_cache", ".ruff_cache", ".pytest_cache", "site-packages", "vendor",
     "release", "coverage", ".tox", "_site", "pkg", ".cargo", ".next", "third_party",
+    # vendored / generated trees that otherwise wildly inflate "effective LOC"
+    "extern", "external", "externals", "deps", "_deps", "subprojects", "submodules",
+    "eigen", "eigen3", "Eigen", "pybind11", "wheelhouse", "htmlcov", ".eggs", "cmake-build",
+    "generated", "_build", "docs_build",
+    # archived snapshots / vendored numeric libs committed into some repos
+    "_archive", "archive", "lapack", "lapacke", "boost", "unsupported",
 }
 
 _TEST_RE: dict[str, re.Pattern[str]] = {
@@ -115,7 +121,8 @@ def _iter_source_files(root: Path) -> Iterator[Path]:
             if entry.is_symlink():
                 continue
             if entry.is_dir():
-                if entry.name.startswith(".") or entry.name in _SKIP_DIRS:
+                name = entry.name
+                if name.startswith(".") or name in _SKIP_DIRS or name.endswith(".egg-info"):
                     continue
                 stack.append(entry)
             elif entry.is_file():
