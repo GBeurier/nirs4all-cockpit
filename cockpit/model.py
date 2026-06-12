@@ -125,8 +125,58 @@ class RepoStats(BaseModel):
     traffic_available: bool = False
 
 
+class CodeStats(BaseModel):
+    """Source-code statistics for a repo (computed from the local checkout).
+
+    ``loc_code`` is *effective* lines of code (non-blank, non-comment); comments
+    and blanks are tallied separately. ``tests`` and ``coverage_pct`` are
+    best-effort heuristics. ``source`` records how it was obtained (``local-scan``)
+    or is ``None`` when no local checkout was available.
+    """
+
+    loc_code: int = 0
+    loc_comment: int = 0
+    loc_blank: int = 0
+    loc_total: int = 0
+    files: int = 0
+    tests: int = 0
+    by_language: dict = Field(default_factory=dict)
+    coverage_pct: float | None = None
+    source: str | None = None
+
+
+class ActionsStats(BaseModel):
+    """GitHub Actions activity for a repo (over the most recent runs)."""
+
+    workflows: int | None = None
+    total_runs: int | None = None
+    recent_total: int = 0
+    recent_success: int = 0
+    recent_failure: int = 0
+    success_rate: float | None = None
+    last_conclusion: str | None = None
+    last_created_at: str | None = None
+
+
+class Totals(BaseModel):
+    """Ecosystem-wide aggregates summed across all packages in the snapshot."""
+
+    packages: int = 0
+    repos: int = 0
+    stars: int = 0
+    forks: int = 0
+    watchers: int = 0
+    open_issues: int = 0
+    loc_code: int = 0
+    loc_total: int = 0
+    tests: int = 0
+    files: int = 0
+    workflow_runs: int = 0
+    downloads_last_month: int = 0
+
+
 class PackageStatus(BaseModel):
-    """Reconciled snapshot for one package: source, rollup, targets, CI, issues, repo stats."""
+    """Reconciled snapshot for one package: source, rollup, targets, CI, issues, stats."""
 
     id: str
     repo: str
@@ -137,6 +187,8 @@ class PackageStatus(BaseModel):
     workflows: list[WorkflowHealth] = Field(default_factory=list)
     issues: Issues = Field(default_factory=Issues)
     repo_stats: RepoStats | None = None
+    code_stats: CodeStats | None = None
+    actions_stats: ActionsStats | None = None
 
 
 class Snapshot(BaseModel):
@@ -147,6 +199,7 @@ class Snapshot(BaseModel):
     generator: dict
     packages: list[PackageStatus]
     summary: dict[str, int]
+    totals: Totals = Field(default_factory=Totals)
 
 
 # --------------------------------------------------------------------------- #

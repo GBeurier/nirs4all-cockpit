@@ -24,6 +24,7 @@
     </header>
 
     <section class="summary" id="summary" aria-label="Status totals" hidden></section>
+    <section class="totals" id="totals" aria-label="Ecosystem totals" hidden></section>
 
     <main>
       <section aria-labelledby="matrix-h">
@@ -42,6 +43,11 @@
       <section class="panel panel--wide" aria-labelledby="gh-h">
         <h2 id="gh-h" class="section-h">GitHub stats <span class="muted">(traffic = local push-scoped run only)</span></h2>
         <div id="repostats"></div>
+      </section>
+
+      <section class="panel panel--wide" aria-labelledby="code-h">
+        <h2 id="code-h" class="section-h">Code &amp; Actions <span class="muted">(LOC from local checkout; runs/health from GitHub Actions)</span></h2>
+        <div id="codestats"></div>
       </section>
 
       <div class="panels">

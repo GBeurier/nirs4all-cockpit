@@ -152,8 +152,11 @@ falls back across `../data`, `./`, and `./data`.
 ## Public vs admin signals
 
 - **Public** (`data/current.json`, deployed to Pages): registry versions &
-  status, downloads, open issues, release-workflow health, and **public GitHub
-  stats** (stars / forks / watchers / license). Built by `collect`.
+  status, downloads, open issues, release-workflow health, **public GitHub
+  stats** (stars / forks / watchers / license), **code stats** (effective LOC,
+  comments, tests, coverage, per-language — scanned from the local checkout),
+  **GitHub Actions stats** (workflow count, total runs, recent success rate),
+  and an ecosystem-wide **`totals`** aggregate. Built by `collect`.
 - **Admin** (`data/admin/snapshot.admin.json`, gitignored, local only): GitHub
   **traffic** (views/clones), **open PRs**, **Dependabot / code-scanning**
   alerts, and **Sentry** unresolved issues. Built by `admin collect`. These are
@@ -189,3 +192,10 @@ pytest -q
 - `tests/test_admin.py` — the admin collectors: Sentry token-less degradation
   and issue shaping, PR draft/ready counts, security 403 → unavailable and the
   Dependabot severity breakdown.
+- `tests/test_stats.py` — the local code scanner (code/comment/blank/test counts,
+  vendored-dir skipping, missing-checkout → None) and the Actions success-rate.
+
+> **Note on code stats:** LOC/tests are a raw scan of the local sibling checkout
+> (`/home/delete/nirs4all/<repo>`), so they include tests/examples and need the
+> checkout present — the public CI cron omits them unless a checkout step is
+> added. Coverage is read from a Cobertura `coverage.xml` when present.

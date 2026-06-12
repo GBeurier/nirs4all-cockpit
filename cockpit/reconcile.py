@@ -24,9 +24,11 @@ from pathlib import Path
 import yaml
 
 from . import version as ver
-from .collect import cran, crates, github, local_manifests, npm, pypi, runiverse
+from .collect import code_stats, cran, crates, github, local_manifests, npm, pypi, runiverse
 from .collect.base import now_iso
 from .model import (
+    ActionsStats,
+    CodeStats,
     Downloads,
     Evidence,
     Issues,
@@ -38,6 +40,7 @@ from .model import (
     Target,
     Targets,
     TargetStatus,
+    Totals,
     WorkflowHealth,
 )
 
@@ -108,7 +111,30 @@ def reconcile(
         },
         packages=packages,
         summary=summary,
+        totals=_compute_totals(packages),
     )
+
+
+def _compute_totals(packages: list[PackageStatus]) -> Totals:
+    """Sum public, ecosystem-wide aggregates across the reconciled packages."""
+    totals = Totals(packages=len(packages), repos=len({p.repo for p in packages}))
+    for p in packages:
+        totals.open_issues += p.issues.open
+        if p.repo_stats:
+            totals.stars += p.repo_stats.stars or 0
+            totals.forks += p.repo_stats.forks or 0
+            totals.watchers += p.repo_stats.watchers or 0
+        if p.code_stats:
+            totals.loc_code += p.code_stats.loc_code
+            totals.loc_total += p.code_stats.loc_total
+            totals.tests += p.code_stats.tests
+            totals.files += p.code_stats.files
+        if p.actions_stats and p.actions_stats.total_runs:
+            totals.workflow_runs += p.actions_stats.total_runs
+        for t in p.targets:
+            if t.downloads.last_month:
+                totals.downloads_last_month += t.downloads.last_month
+    return totals
 
 
 def build_snapshot(
@@ -171,6 +197,7 @@ def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traff
 
     issues = Issues()
     repo_stats: RepoStats | None = None
+    actions_stats: ActionsStats | None = None
     if not no_network:
         issues_repo = pkg.issues_repo or pkg.repo
         issues = Issues.model_validate(github.open_issues(owner, issues_repo))
@@ -179,6 +206,11 @@ def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traff
         repo_stats = RepoStats.model_validate(stats_dict)
         if raw_open is not None:
             repo_stats.open_prs = max(0, raw_open - issues.open)
+        actions_stats = ActionsStats.model_validate(github.actions_stats(owner, pkg.repo))
+
+    # Code stats are computed from the local checkout (no network); None if absent.
+    code = code_stats.scan(pkg.repo)
+    code_model = CodeStats.model_validate(code) if code is not None else None
 
     rollup = _rollup(target_statuses)
 
@@ -198,6 +230,8 @@ def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traff
         workflows=workflows,
         issues=issues,
         repo_stats=repo_stats,
+        code_stats=code_model,
+        actions_stats=actions_stats,
     )
 
 

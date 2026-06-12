@@ -429,3 +429,24 @@ body {
 .stats .num {
   font-variant-numeric: tabular-nums;
 }
+
+/* Ecosystem totals strip */
+.totals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 8px 0 18px;
+}
+.totals .chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--accent, #4444aa) 8%, transparent);
+}
+.totals .count {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}

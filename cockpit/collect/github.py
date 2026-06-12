@@ -286,3 +286,38 @@ def code_scanning_alerts(owner: str, repo: str) -> dict[str, Any]:
     if status == 200 and isinstance(body, list):
         return {"available": True, "open": len(body), "error": None}
     return {"available": False, "open": None, "error": error or f"http {status}"}
+
+
+def actions_stats(owner: str, repo: str) -> dict[str, Any]:
+    """GitHub Actions activity: workflow count, total runs, recent success rate.
+
+    ``total_runs`` is the all-time count; the success rate is computed over the
+    most recent (up to 100) runs that have a conclusion, so it reflects current
+    health rather than ancient history.
+    """
+    out: dict[str, Any] = {
+        "workflows": None, "total_runs": None, "recent_total": 0,
+        "recent_success": 0, "recent_failure": 0, "success_rate": None,
+        "last_conclusion": None, "last_created_at": None,
+    }
+
+    wstatus, wbody, _ = _get(f"{API}/repos/{owner}/{repo}/actions/workflows?per_page=100")
+    if wstatus == 200 and isinstance(wbody, dict):
+        out["workflows"] = wbody.get("total_count")
+
+    rstatus, rbody, _ = _get(f"{API}/repos/{owner}/{repo}/actions/runs?per_page=100")
+    if rstatus == 200 and isinstance(rbody, dict):
+        out["total_runs"] = rbody.get("total_count")
+        runs = [r for r in (rbody.get("workflow_runs") or []) if isinstance(r, dict)]
+        out["recent_total"] = len(runs)
+        success = sum(1 for r in runs if r.get("conclusion") == "success")
+        failure = sum(1 for r in runs if r.get("conclusion") == "failure")
+        out["recent_success"] = success
+        out["recent_failure"] = failure
+        completed = success + failure
+        if completed:
+            out["success_rate"] = round(success / completed * 100, 1)
+        if runs:
+            out["last_conclusion"] = runs[0].get("conclusion")
+            out["last_created_at"] = runs[0].get("created_at")
+    return out

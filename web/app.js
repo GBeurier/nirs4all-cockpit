@@ -235,6 +235,79 @@ function renderRepoStats(snap) {
   }
 }
 
+function renderTotals(snap) {
+  const box = document.getElementById("totals");
+  if (!box) return;
+  const t = snap.totals;
+  if (!t) return;
+  box.innerHTML = "";
+  const items = [
+    ["LOC (code)", t.loc_code],
+    ["tests", t.tests],
+    ["files", t.files],
+    ["★ stars", t.stars],
+    ["forks", t.forks],
+    ["open issues", t.open_issues],
+    ["workflow runs", t.workflow_runs],
+    ["dl / month", t.downloads_last_month],
+    ["packages", t.packages],
+  ];
+  for (const [label, value] of items) {
+    const chip = el("span", { class: "chip" });
+    chip.appendChild(el("span", { class: "count", text: fmtInt(value) }));
+    chip.appendChild(el("span", { class: "muted", text: label }));
+    box.appendChild(chip);
+  }
+  box.hidden = false;
+}
+
+function renderCodeStats(snap) {
+  const box = document.getElementById("codestats");
+  if (!box) return;
+  box.innerHTML = "";
+  const table = el("table", { class: "stats" });
+  const thead = el("thead");
+  const hr = el("tr");
+  for (const h of ["package", "LOC code", "comments", "tests", "coverage", "top language", "workflows", "runs", "success", "last"]) {
+    hr.appendChild(el("th", { attrs: { scope: "col" }, text: h }));
+  }
+  thead.appendChild(hr);
+  table.appendChild(thead);
+
+  const tbody = el("tbody");
+  for (const pkg of snap.packages || []) {
+    const c = pkg.code_stats;
+    const a = pkg.actions_stats || {};
+    const tr = el("tr");
+    tr.appendChild(el("th", { class: "stats-repo", attrs: { scope: "row" }, text: pkg.id }));
+    const topLang = c && c.by_language ? (Object.keys(c.by_language)[0] || "—") : "—";
+    const cov = c && c.coverage_pct != null ? `${c.coverage_pct}%` : "—";
+    const rate = a.success_rate != null ? `${a.success_rate}%` : "—";
+    const cells = [
+      c ? fmtInt(c.loc_code) : "n/a",
+      c ? fmtInt(c.loc_comment) : "—",
+      c ? fmtInt(c.tests) : "—",
+      cov,
+      topLang,
+      fmtInt(a.workflows),
+      fmtInt(a.total_runs),
+      rate,
+    ];
+    for (const v of cells) tr.appendChild(el("td", { class: "num", text: v }));
+    const last = el("td");
+    const concl = (a.last_conclusion || "—").toLowerCase();
+    last.appendChild(el("span", {
+      class: "conclusion",
+      attrs: { "data-ok": concl === "success" ? "success" : concl === "failure" ? "failure" : "other" },
+      text: concl,
+    }));
+    tr.appendChild(last);
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  box.appendChild(table);
+}
+
 function renderDownloads(snap) {
   const box = document.getElementById("downloads");
   box.innerHTML = "";
@@ -388,7 +461,9 @@ async function main() {
     renderSummary(snap);
     renderLegend();
     renderMatrix(snap);
+    renderTotals(snap);
     renderRepoStats(snap);
+    renderCodeStats(snap);
     renderDownloads(snap);
     renderIssues(snap);
     renderCI(snap);
