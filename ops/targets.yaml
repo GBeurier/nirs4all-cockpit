@@ -587,6 +587,9 @@ packages:
     repo: nirs4all-org
     channel: production
     issues_repo: nirs4all-org
+    source_of_truth:
+      strategy: npm_package_json
+      path: package.json
     targets:
       - registry: pages
         name: nirs4all-org
