@@ -1,12 +1,12 @@
 name: collect
 
 # Read-only collection of registry / CI / issue state for the whole ecosystem,
-# reconciled into data/current.json and committed back. Runs every 6 hours and
-# on demand. The cockpit only aggregates public, read-only signals here.
+# reconciled into data/current.json and committed back. Runs daily and on
+# demand. The cockpit only aggregates public, read-only signals here.
 
 on:
   schedule:
-    - cron: "17 */6 * * *"
+    - cron: "17 0 * * *"
   workflow_dispatch: {}
 
 permissions:

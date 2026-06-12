@@ -6,9 +6,9 @@
 
 "use strict";
 
-const REGS = ["pypi", "crates", "npm", "r-universe", "cran", "github-release", "pages"];
-const REG_LABEL = { pypi: "PyPI", crates: "crates.io", npm: "npm", "r-universe": "R-universe", cran: "CRAN", "github-release": "GitHub Releases", pages: "GitHub Pages" };
-const REG_COLOR = { pypi: "#0d9488", crates: "#d97706", npm: "#e11d48", "r-universe": "#10b981", cran: "#4f46e5", "github-release": "#64748b" };
+const REGS = ["readthedocs", "pypi", "crates", "npm", "r-universe", "cran", "github-release", "pages"];
+const REG_LABEL = { readthedocs: "Read the Docs", pypi: "PyPI", crates: "crates.io", npm: "npm", "r-universe": "R-universe", cran: "CRAN", "github-release": "GitHub Releases", pages: "GitHub Pages" };
+const REG_COLOR = { readthedocs: "#8ca1af", pypi: "#0d9488", crates: "#d97706", npm: "#e11d48", "r-universe": "#10b981", cran: "#4f46e5", "github-release": "#64748b" };
 const STATE_COLOR = { green: "#10b981", stale: "#e0950c", pending: "#8b5cf6", missing: "#b9c0cb", broken: "#e11d48", unknown: "#06b6d4", excluded: "#cabf9e" };
 const STATES = ["green", "stale", "pending", "missing", "broken", "unknown", "excluded"];
 const RANK = { broken: 6, missing: 5, stale: 4, pending: 3, unknown: 2, green: 1, excluded: 0 };
@@ -17,6 +17,7 @@ const PAGES_URLS = {
   "nirs4all-formats": "https://formats.nirs4all.org/",
   "nirs4all-io": "https://io.nirs4all.org/",
   "nirs4all-methods": "https://methods.nirs4all.org/",
+  "nirs4all-cockpit": "https://cockpit.nirs4all.org/",
   "nirs4all-web": "https://web.nirs4all.org/",
 };
 let OWNER = "GBeurier";
@@ -44,6 +45,7 @@ function registryUrl(reg, name, repo) {
     case "npm": return `https://www.npmjs.com/package/${name}`;
     case "r-universe": return `https://${OWNER.toLowerCase()}.r-universe.dev/${name}`;
     case "cran": return `https://cran.r-project.org/package=${name}`;
+    case "readthedocs": return `https://${name}.readthedocs.io/`;
     case "github-release": return `https://github.com/${OWNER}/${repo}/releases`;
     case "pages": return PAGES_URLS[repo] || `https://${OWNER.toLowerCase()}.github.io/${repo}/`;
     default: return `https://github.com/${OWNER}/${repo}`;
@@ -94,7 +96,7 @@ function renderScores(snap) {
   const greenPk = pk.filter((p) => p.rollup === "green").length;
   const s = snap.summary || {};
   const tracked = (s.green || 0) + (s.stale || 0) + (s.missing || 0) + (s.broken || 0) + (s.unknown || 0);
-  box.appendChild(dial(pk.length ? (greenPk / pk.length) * 100 : 0, "var(--teal)", `${greenPk}/${pk.length}`, "packages current"));
+  box.appendChild(dial(pk.length ? (greenPk / pk.length) * 100 : 0, "var(--teal)", `${greenPk}/${pk.length}`, "package roll-ups green"));
   box.appendChild(dial(tracked ? ((s.green || 0) / tracked) * 100 : 0, "var(--green)", `${s.green || 0}/${tracked}`, "registry targets green"));
 }
 
@@ -143,8 +145,8 @@ function renderMatrix(snap) {
   const thead = el("thead");
   const hr = el("tr");
   hr.append(el("th", { class: "h-pkg", text: "package" }), el("th", { class: "h-ver", text: "version" }));
-  const REG_SHORT = { pypi: "PyPI", crates: "crates", npm: "npm", "r-universe": "R-univ", cran: "CRAN", "github-release": "GH rel", pages: "Pages" };
-  const REG_BRAND = { pypi: "#3775A9", crates: "#C16C28", npm: "#CB3837", "r-universe": "#2E73C4", cran: "#1B5390", "github-release": "#24292F", pages: "#0ea5e9" };
+  const REG_SHORT = { readthedocs: "RTD", pypi: "PyPI", crates: "crates", npm: "npm", "r-universe": "R-univ", cran: "CRAN", "github-release": "GH rel", pages: "Pages" };
+  const REG_BRAND = { readthedocs: "#8ca1af", pypi: "#3775A9", crates: "#C16C28", npm: "#CB3837", "r-universe": "#2E73C4", cran: "#1B5390", "github-release": "#24292F", pages: "#0ea5e9" };
   for (const reg of REGS) {
     const col = REG_BRAND[reg] || "var(--text-2)";
     const th = el("th", { class: "reg-head", attrs: { scope: "col", title: REG_LABEL[reg] } });
@@ -179,7 +181,7 @@ function renderMatrix(snap) {
       if (!targets || !targets.length) { td.appendChild(el("span", { class: "led led--none", attrs: { "aria-label": "no target" } })); tr.appendChild(td); continue; }
       const st = worstState(targets);
       const rep = facade(targets);
-      const href = reg === "pages" && rep.evidence && rep.evidence.version_endpoint
+      const href = (reg === "pages" || reg === "readthedocs") && rep.evidence && rep.evidence.version_endpoint
         ? rep.evidence.version_endpoint
         : registryUrl(reg, rep.name, pkg.repo);
       const link = el("a", { attrs: { href, target: "_blank", rel: "noopener" } });

@@ -20,7 +20,7 @@ from __future__ import annotations
 import pytest
 from conftest import load_fixture
 
-from cockpit.collect import cran, crates, npm, pypi, runiverse, visits
+from cockpit.collect import cran, crates, npm, pypi, readthedocs, runiverse, visits
 
 
 def _patch(monkeypatch, module, replies):
@@ -187,3 +187,40 @@ def test_visits_default_does_not_fetch_or_return_pages(monkeypatch) -> None:
     assert out["pages"] == []
     assert len(urls) == 4
     assert all("/stats/total" in url for url in urls)
+
+
+# --------------------------------------------------------------------------- #
+# Read the Docs
+# --------------------------------------------------------------------------- #
+
+
+def test_readthedocs_project_default_version_built(monkeypatch) -> None:
+    project = {
+        "default_version": "latest",
+        "urls": {"documentation": "https://nirs4all.readthedocs.io/en/latest/"},
+    }
+    version = {
+        "active": True,
+        "built": True,
+        "urls": {"documentation": "https://nirs4all.readthedocs.io/en/latest/"},
+    }
+    _patch(monkeypatch, readthedocs, [(200, project, None), (200, version, None)])
+
+    out = readthedocs.collect("nirs4all")
+
+    assert out["published_version"] == "latest"
+    assert out["http_status"] == 200
+    assert out["broken"] is False
+    assert out["evidence"]["version_endpoint"] == "https://nirs4all.readthedocs.io/en/latest/"
+
+
+def test_readthedocs_default_version_not_built_is_broken(monkeypatch) -> None:
+    project = {"default_version": "latest"}
+    version = {"active": True, "built": False}
+    _patch(monkeypatch, readthedocs, [(200, project, None), (200, version, None)])
+
+    out = readthedocs.collect("nirs4all")
+
+    assert out["published_version"] == "latest"
+    assert out["http_status"] == 200
+    assert out["broken"] is True

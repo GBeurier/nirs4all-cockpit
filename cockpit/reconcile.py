@@ -25,7 +25,19 @@ from pathlib import Path
 import yaml
 
 from . import version as ver
-from .collect import code_stats, cran, crates, github, local_manifests, npm, pypi, runiverse, sentry, visits
+from .collect import (
+    code_stats,
+    cran,
+    crates,
+    github,
+    local_manifests,
+    npm,
+    pypi,
+    readthedocs,
+    runiverse,
+    sentry,
+    visits,
+)
 from .collect.base import now_iso
 from .model import (
     ActionsStats,
@@ -54,6 +66,7 @@ _COLLECTORS = {
     "crates": crates.collect,
     "r-universe": runiverse.collect,
     "cran": cran.collect,
+    "readthedocs": readthedocs.collect,
 }
 
 # Version-tag prefix considered a production tag (vX.Y.Z, non-prerelease).
@@ -354,6 +367,15 @@ def _reconcile_target(
 
     if broken:
         state: str = "broken"
+    elif tgt.registry == "readthedocs":
+        state = ver.classify(
+            None,
+            published,
+            http_status=http_status,
+            transient_error=transient,
+            excluded=False,
+            planned=False,
+        )
     else:
         state = ver.classify(
             expected,

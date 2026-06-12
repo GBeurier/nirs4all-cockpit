@@ -21,7 +21,7 @@ import pytest
 from conftest import load_fixture
 
 from cockpit import version as v
-from cockpit.collect import cran, crates, npm, runiverse
+from cockpit.collect import cran, crates, npm, readthedocs, runiverse
 
 
 def _patch(monkeypatch, module, replies):
@@ -138,3 +138,27 @@ def test_runiverse_null_version_reconciles_broken(monkeypatch) -> None:
     state = _reconcile_target(collected, expected="0.3.1")
     assert state == "broken"
     assert state != "missing"
+
+
+# --------------------------------------------------------------------------- #
+# Scenario 5 — Read the Docs: docs version is presence/build health, not SemVer
+# --------------------------------------------------------------------------- #
+
+
+def test_readthedocs_latest_is_green_without_semver_comparison(monkeypatch) -> None:
+    project = {"default_version": "latest"}
+    version = {"active": True, "built": True}
+    _patch(monkeypatch, readthedocs, [(200, project, None), (200, version, None)])
+    collected = readthedocs.collect("nirs4all")
+
+    assert collected["published_version"] == "latest"
+    state = v.classify(
+        None,
+        collected["published_version"],
+        http_status=collected["http_status"],
+        transient_error=False,
+        excluded=False,
+        planned=False,
+    )
+
+    assert state == "green"
