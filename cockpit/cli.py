@@ -116,6 +116,20 @@ def collect(
     targets_model = _load_targets(targets)
     only_ids = [p.strip() for p in only.split(",") if p.strip()] if only else None
 
+    # Coverage is read from each repo's ``coverage.xml``, which is not always
+    # present (CI shallow-clones a repo without it). Carry the last-known coverage
+    # from the committed snapshot forward so a scan that lacks the artifact does
+    # not flap the column back to "—".
+    prior_coverage: dict[str, float] = {}
+    if out.exists():
+        try:
+            for p in json.loads(out.read_text(encoding="utf-8")).get("packages", []):
+                cov = (p.get("code_stats") or {}).get("coverage_pct")
+                if cov is not None:
+                    prior_coverage[p["repo"]] = cov
+        except (OSError, ValueError):
+            pass
+
     snap = reconcile.build_snapshot(
         targets_model,
         only=only_ids,
@@ -123,6 +137,10 @@ def collect(
         with_traffic=with_traffic,
         generated_at=_utc_now(),
     )
+    for p in snap.packages:
+        if p.code_stats and p.code_stats.coverage_pct is None and p.repo in prior_coverage:
+            p.code_stats.coverage_pct = prior_coverage[p.repo]
+
     snapshot_io.write_snapshot(snap, out)
 
     typer.secho(f"wrote {out}", fg="green")
@@ -201,6 +219,10 @@ def _print_summary(snap: Snapshot) -> None:
     parts = [f"{state}={snap.summary.get(state, 0)}" for state in order]
     typer.echo(f"generated_at: {snap.generated_at}")
     typer.echo("summary: " + "  ".join(parts))
+    v = snap.visits
+    if v.available:
+        w = v.windows
+        typer.echo(f"visits: 30d={w.get('30d')} total={w.get('total')} · {len(v.pages)} pages")
 
 
 @app.command()
@@ -377,8 +399,6 @@ def admin_collect(
 
     s = snap.sentry
     typer.echo(f"sentry: available={s.available} unresolved={s.unresolved}" + (f" ({s.error})" if s.error else ""))
-    v = snap.visits
-    typer.echo(f"visits: available={v.available} " + (str(v.windows) if v.available else f"({v.error})"))
     for r in snap.repos:
         typer.echo(
             f"  {r.repo:28} PRs open={r.pulls.open} (draft {r.pulls.draft}) | "

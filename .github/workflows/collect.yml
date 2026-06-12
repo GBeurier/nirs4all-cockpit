@@ -52,6 +52,12 @@ jobs:
         env:
           # Ambient token: GitHub releases / workflow runs / issues (5000/h).
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Read-only GoatCounter API token: public Pages-visit counts (aggregate
+          # + per-page). Counts only ever enter the snapshot, never the token.
+          GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
+          # Sentry auth token (project:read): public unresolved-error COUNT only —
+          # issue titles stay in the local admin snapshot, never on the public site.
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           # Point the local-scan stats (LOC, tests, coverage, manifest versions)
           # at the shallow clones above, instead of the maintainer's working tree.
           N4A_SIBLINGS_ROOT: ${{ github.workspace }}/_siblings
@@ -62,4 +68,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore(collect): refresh data/current.json"
-          file_pattern: "data/*.json data/history/*.json"
+          file_pattern: "data/*.json"

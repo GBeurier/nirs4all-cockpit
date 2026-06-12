@@ -200,6 +200,45 @@ class PackageStatus(BaseModel):
     actions_stats: ActionsStats | None = None
 
 
+class VisitPage(BaseModel):
+    """One page's all-time pageview count (a GoatCounter path)."""
+
+    path: str
+    title: str | None = None
+    count: int = 0
+
+
+class Visits(BaseModel):
+    """GoatCounter Pages-site visits: aggregate windows + per-page breakdown.
+
+    Public, count-only signal (the API token never enters the snapshot).
+    ``windows`` holds ecosystem-wide totals (7d/30d/365d/all-time); ``pages``
+    is the per-page breakdown, highest-traffic first.
+    """
+
+    available: bool = False
+    site: str | None = None
+    windows: dict = Field(default_factory=dict)
+    pages: list[VisitPage] = Field(default_factory=list)
+    error: str | None = None
+
+
+class SentryStatus(BaseModel):
+    """Unresolved Sentry issues for the studio project.
+
+    The public snapshot carries the count only (``unresolved``); the per-issue
+    ``issues`` list is populated solely in the local admin snapshot, never on the
+    public site (titles can leak context).
+    """
+
+    available: bool = False
+    org: str | None = None
+    project: str | None = None
+    unresolved: int | None = None
+    issues: list[dict] = Field(default_factory=list)
+    error: str | None = None
+
+
 class Snapshot(BaseModel):
     """Top-level document written to ``data/current.json``."""
 
@@ -209,6 +248,8 @@ class Snapshot(BaseModel):
     packages: list[PackageStatus]
     summary: dict[str, int]
     totals: Totals = Field(default_factory=Totals)
+    visits: Visits = Field(default_factory=Visits)
+    sentry: SentryStatus = Field(default_factory=SentryStatus)
 
 
 # --------------------------------------------------------------------------- #
@@ -257,33 +298,12 @@ class RepoAdmin(BaseModel):
     security: Security = Field(default_factory=Security)
 
 
-class SentryStatus(BaseModel):
-    """Unresolved Sentry issues for the studio project (admin-only)."""
-
-    available: bool = False
-    org: str | None = None
-    project: str | None = None
-    unresolved: int | None = None
-    issues: list[dict] = Field(default_factory=list)
-    error: str | None = None
-
-
-class Visits(BaseModel):
-    """GoatCounter Pages-site visits per window (admin-only)."""
-
-    available: bool = False
-    site: str | None = None
-    windows: dict = Field(default_factory=dict)
-    error: str | None = None
-
-
 class AdminSnapshot(BaseModel):
     """Top-level local-only document written to ``data/admin/snapshot.admin.json``."""
 
     schema_version: int = 1
     generated_at: str
     sentry: SentryStatus = Field(default_factory=SentryStatus)
-    visits: Visits = Field(default_factory=Visits)
     repos: list[RepoAdmin] = Field(default_factory=list)
 
 

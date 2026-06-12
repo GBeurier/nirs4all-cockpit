@@ -336,6 +336,67 @@ function renderCodeStats(snap) {
   table.appendChild(tbody); box.appendChild(table);
 }
 
+// ---- pages visits (public · GoatCounter) -----------------------------------
+
+function prettyPath(path) {
+  if (!path || path === "/") return "/ (root)";
+  return path.replace(/^\/+|\/+$/g, "") || "/";
+}
+
+function renderVisits(snap) {
+  const v = snap.visits || {};
+  const block = document.getElementById("visits-block"), box = document.getElementById("visits");
+  if (!box || !v.available) return; // token absent at collect time → section stays hidden
+  block.hidden = false;
+  box.innerHTML = "";
+
+  // aggregate across every ecosystem page
+  const w = v.windows || {};
+  const chips = el("div", { class: "vchips" });
+  for (const [lab, key] of [["7 days", "7d"], ["30 days", "30d"], ["365 days", "365d"], ["all-time", "total"]]) {
+    const c = el("div", { class: "vchip" });
+    c.append(el("span", { class: "vchip__n", text: fmtInt(w[key]) }), el("span", { class: "vchip__l", text: lab }));
+    chips.appendChild(c);
+  }
+  box.appendChild(chips);
+
+  // per-page breakdown (highest-traffic first)
+  const pages = (v.pages || []).filter((p) => (p.count || 0) > 0);
+  if (!pages.length) {
+    box.appendChild(el("p", { class: "admin-note", text: "No per-page traffic recorded yet — analytics were just installed; pages appear here as visitors arrive." }));
+    return;
+  }
+  box.appendChild(el("p", { class: "vcap", text: `Per page · ${pages.length} tracked across the ecosystem sites` }));
+  const max = pages[0].count || 1;
+  const list = el("div", { class: "vpages" });
+  for (const p of pages.slice(0, 14)) {
+    const row = el("div", { class: "vpage" });
+    row.appendChild(el("span", { class: "vpage__path", text: prettyPath(p.path), attrs: { title: p.title ? `${p.title} — ${p.path}` : p.path } }));
+    const track = el("span", { class: "vpage__track" });
+    track.appendChild(el("i", { attrs: { style: `width:${Math.max(2, Math.round((p.count / max) * 100))}%` } }));
+    row.append(track, el("span", { class: "vpage__n", text: fmtInt(p.count) }));
+    list.appendChild(row);
+  }
+  box.appendChild(list);
+}
+
+// ---- errors (public · Sentry count) ----------------------------------------
+
+function renderSentry(snap) {
+  const s = snap.sentry || {};
+  const block = document.getElementById("sentry-block"), box = document.getElementById("sentry");
+  if (!box || !s.available) return; // no auth token at collect time → section stays hidden
+  block.hidden = false;
+  box.innerHTML = "";
+  const n = s.unresolved || 0;
+  const chips = el("div", { class: "vchips" });
+  const c = el("div", { class: `vchip${n ? " vchip--alert" : ""}` });
+  c.append(el("span", { class: "vchip__n", text: fmtInt(n) }), el("span", { class: "vchip__l", text: "unresolved · 14 d" }));
+  chips.appendChild(c);
+  box.appendChild(chips);
+  box.appendChild(el("p", { class: "vcap", text: `${s.project || "nirs4all-studio"} · live error monitoring${n ? "" : " · all clear"}` }));
+}
+
 // ---- admin (local) ---------------------------------------------------------
 
 function renderAdmin(admin) {
@@ -355,24 +416,6 @@ function renderAdmin(admin) {
     }
   } else sb.appendChild(el("p", { class: "admin-note", text: `unavailable — ${s.error || "set SENTRY_AUTH_TOKEN"}` }));
   body.appendChild(sb);
-
-  // visits (GoatCounter)
-  const v = admin.visits || {};
-  const vb = el("div", { class: "card panel" });
-  vb.appendChild(el("h3", { class: "section-h", text: "Pages visits — GoatCounter" }));
-  if (v.available) {
-    const w = v.windows || {};
-    const row = el("div", { class: "chips" });
-    for (const [lab, key] of [["7 d", "7d"], ["30 d", "30d"], ["365 d", "365d"], ["all-time", "total"]]) {
-      const c = el("span", { class: "chip" });
-      c.append(el("span", { class: "count", text: fmtInt(w[key]) }), el("span", { class: "muted", text: lab }));
-      row.appendChild(c);
-    }
-    vb.appendChild(row);
-  } else {
-    vb.appendChild(el("p", { class: "admin-note", text: `unavailable — ${v.error || "set GOATCOUNTER_TOKEN"}` }));
-  }
-  body.appendChild(vb);
 
   const wrap = el("div", { class: "card panel" });
   wrap.appendChild(el("h3", { class: "section-h", text: "Per-repo — traffic · PRs · security" }));
@@ -474,6 +517,8 @@ async function main() {
     renderLegend(snap);
     renderMatrix(snap);
     renderDownloads(snap);
+    renderVisits(snap);
+    renderSentry(snap);
     renderRepoStats(snap);
     renderCodeStats(snap);
     renderAdmin(await loadAdmin());

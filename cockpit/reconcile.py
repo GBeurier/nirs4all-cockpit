@@ -25,7 +25,7 @@ from pathlib import Path
 import yaml
 
 from . import version as ver
-from .collect import code_stats, cran, crates, github, local_manifests, npm, pypi, runiverse
+from .collect import code_stats, cran, crates, github, local_manifests, npm, pypi, runiverse, sentry, visits
 from .collect.base import now_iso
 from .model import (
     ActionsStats,
@@ -37,11 +37,13 @@ from .model import (
     PackageSource,
     PackageStatus,
     RepoStats,
+    SentryStatus,
     Snapshot,
     Target,
     Targets,
     TargetStatus,
     Totals,
+    Visits,
     WorkflowHealth,
 )
 
@@ -99,9 +101,17 @@ def reconcile(
         for tgt in status.targets:
             summary[tgt.status] = summary.get(tgt.status, 0) + 1
 
+    stamp = generated_at or now_iso()
+    if no_network:
+        visits_status, sentry_status = Visits(), SentryStatus()
+    else:
+        visits_status = Visits.model_validate(visits.collect(ref_date=stamp[:10]))
+        # Public Sentry is count-only: drop the per-issue list (titles stay admin-local).
+        sentry_status = SentryStatus.model_validate({**sentry.collect(), "issues": []})
+
     return Snapshot(
         schema_version=1,
-        generated_at=generated_at or now_iso(),
+        generated_at=stamp,
         generator={
             "repo": f"{targets.owner}/nirs4all-cockpit",
             "workflow": "collect.yml",
@@ -110,6 +120,8 @@ def reconcile(
         packages=packages,
         summary=summary,
         totals=_compute_totals(packages),
+        visits=visits_status,
+        sentry=sentry_status,
     )
 
 

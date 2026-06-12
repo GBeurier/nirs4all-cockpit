@@ -49,6 +49,10 @@ _LANG: dict[str, tuple[str, tuple[str, ...], bool, bool]] = {
     ".go": ("Go", ("//",), True, False),
     ".sh": ("Shell", ("#",), False, False),
     ".m": ("MATLAB/Octave", ("%", "#"), False, False),
+    ".html": ("HTML", (), False, False),
+    ".htm": ("HTML", (), False, False),
+    ".css": ("CSS", (), True, False),
+    ".scss": ("SCSS", ("//",), True, False),
 }
 
 _SKIP_DIRS = {
