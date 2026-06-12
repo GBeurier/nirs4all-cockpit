@@ -4,66 +4,73 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>nirs4all · cockpit — release & health</title>
-    <meta
-      name="description"
-      content="Read-only release & health cockpit for the nirs4all ecosystem: package × registry status, downloads, code & CI stats."
-    />
+    <meta name="description" content="Read-only release & health cockpit for the nirs4all ecosystem: package × registry status, downloads, code & CI stats." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <a class="skip-link" href="#matrix">Skip to the matrix</a>
-    <div class="wrap">
-      <header class="hero">
+
+    <header class="hero">
+      <div class="hero-dots"></div>
+      <div class="hero-grain"></div>
+      <svg class="hero-spectra" viewBox="0 0 1440 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d9488" stop-opacity="0.42" /><stop offset="100%" stop-color="#0d9488" stop-opacity="0" /></linearGradient>
+          <linearGradient id="sg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#06b6d4" stop-opacity="0.34" /><stop offset="100%" stop-color="#06b6d4" stop-opacity="0" /></linearGradient>
+          <linearGradient id="sg3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#10b981" stop-opacity="0.24" /><stop offset="100%" stop-color="#10b981" stop-opacity="0" /></linearGradient>
+        </defs>
+        <path class="spectrum-area" id="area0" fill="url(#sg1)" opacity="0.7" />
+        <path class="spectrum-area" id="area1" fill="url(#sg2)" opacity="0.55" />
+        <path class="spectrum-area" id="area2" fill="url(#sg3)" opacity="0.35" />
+        <path class="spectrum-line" id="line0" stroke="#0f766e" stroke-width="1.3" opacity="0.7" />
+        <path class="spectrum-line" id="line1" stroke="#0891b2" stroke-width="1.0" opacity="0.5" />
+        <path class="spectrum-line" id="line2" stroke="#059669" stroke-width="0.8" opacity="0.32" />
+        <g id="wave-dots"></g>
+      </svg>
+
+      <div class="hero-inner">
         <div>
           <span class="brand"><span class="dot"></span>nirs4all<b>·</b>cockpit</span>
-          <p class="tagline">
-            Release &amp; health of the whole ecosystem — which package is current on which registry,
-            its downloads, code size, tests and CI. Read-only aggregation; it never reimplements a repo's logic.
-          </p>
+          <p class="tagline">Release &amp; health of the whole ecosystem at a glance — which package is current on which registry, its downloads, code size, tests and CI. Read-only aggregation; it never reimplements a repo's logic.</p>
           <div class="meta" id="generated"><span>loading…</span></div>
         </div>
         <div class="scores" id="scores"></div>
-      </header>
+      </div>
 
-      <section class="summary" id="summary" aria-label="Status totals" hidden></section>
-      <section class="summary" id="totals" aria-label="Ecosystem totals" hidden></section>
+      <div class="wl-strip" aria-hidden="true">
+        <span>900&#8202;nm</span><span>1100</span><span>1300</span><span>1500</span><span>1700</span><span>1900</span><span>2100</span><span>2300</span><span>2500&#8202;nm</span>
+      </div>
+    </header>
 
-      <section class="block" aria-labelledby="matrix-h" id="matrix-section">
-        <h2 id="matrix-h" class="section-h">Package × registry</h2>
+    <div class="wrap">
+      <section class="chips" id="summary" aria-label="Status totals" hidden></section>
+
+      <section class="block" id="matrix" aria-labelledby="mx-h">
+        <h2 id="mx-h" class="section-h">Release matrix <span class="muted">— one LED per registry · click to open the package page</span></h2>
         <div class="legend" id="legend"></div>
-        <div class="card table-wrap">
-          <table id="matrix" class="matrix">
-            <caption class="sr-only">
-              Published status of every tracked package on every registry: a status dot, a status word, and
-              the published version per cell.
-            </caption>
-          </table>
-        </div>
+        <div class="card mx-wrap"><table class="mx" id="mxtable"><caption class="sr-only">Per-package status on every registry.</caption></table></div>
       </section>
 
       <section class="block" aria-labelledby="dl-h">
-        <h2 id="dl-h" class="section-h">Downloads <span class="muted">(only the metrics each registry actually reports · click crates for per-version)</span></h2>
-        <div class="card panel" id="downloads"></div>
+        <h2 id="dl-h" class="section-h">Downloads <span class="muted">— recent installs by package, split by registry</span></h2>
+        <div class="card dlchart" id="downloads"></div>
       </section>
 
       <section class="block" aria-labelledby="gh-h">
-        <h2 id="gh-h" class="section-h">GitHub <span class="muted">stars · forks · PRs (open / merged / closed)</span></h2>
-        <div class="card panel panel--wide"><div id="repostats"></div></div>
+        <h2 id="gh-h" class="section-h">GitHub <span class="muted">— stars · forks · PRs (open / merged / closed) · issues</span></h2>
+        <div class="card panel"><div id="repostats"></div></div>
       </section>
 
       <section class="block" aria-labelledby="code-h">
-        <h2 id="code-h" class="section-h">Code &amp; Actions <span class="muted">effective LOC &amp; tests from source · workflow runs / success</span></h2>
-        <div class="card panel panel--wide"><div id="codestats"></div></div>
+        <h2 id="code-h" class="section-h">Code &amp; Actions <span class="muted">— effective LOC &amp; tests from source · workflow runs / success</span></h2>
+        <div class="card panel"><div id="codestats"></div></div>
       </section>
 
       <section class="block admin" id="admin" hidden>
-        <h2 class="section-h">Admin <span class="muted">— local only (traffic · PR detail · security · Sentry); absent from the public site</span></h2>
+        <h2 class="section-h">Admin <span class="muted">— local only (traffic · PRs · security · Sentry); absent from the public site</span></h2>
         <div id="admin-body"></div>
       </section>
 
@@ -75,6 +82,8 @@
       </footer>
     </div>
 
+    <div class="tooltip" id="tooltip" hidden></div>
+    <script src="./icons.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>
