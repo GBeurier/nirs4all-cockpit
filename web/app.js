@@ -12,6 +12,13 @@ const REG_COLOR = { pypi: "#0d9488", crates: "#d97706", npm: "#e11d48", "r-unive
 const STATE_COLOR = { green: "#10b981", stale: "#e0950c", pending: "#8b5cf6", missing: "#b9c0cb", broken: "#e11d48", unknown: "#06b6d4", excluded: "#cabf9e" };
 const STATES = ["green", "stale", "pending", "missing", "broken", "unknown", "excluded"];
 const RANK = { broken: 6, missing: 5, stale: 4, pending: 3, unknown: 2, green: 1, excluded: 0 };
+const PAGES_URLS = {
+  "nirs4all-datasets": "https://datasets.nirs4all.org/",
+  "nirs4all-formats": "https://formats.nirs4all.org/",
+  "nirs4all-io": "https://io.nirs4all.org/",
+  "nirs4all-methods": "https://methods.nirs4all.org/",
+  "nirs4all-web": "https://web.nirs4all.org/",
+};
 let OWNER = "GBeurier";
 
 // ---- helpers ---------------------------------------------------------------
@@ -38,7 +45,7 @@ function registryUrl(reg, name, repo) {
     case "r-universe": return `https://${OWNER.toLowerCase()}.r-universe.dev/${name}`;
     case "cran": return `https://cran.r-project.org/package=${name}`;
     case "github-release": return `https://github.com/${OWNER}/${repo}/releases`;
-    case "pages": return `https://${OWNER.toLowerCase()}.github.io/${repo}/`;
+    case "pages": return PAGES_URLS[repo] || `https://${OWNER.toLowerCase()}.github.io/${repo}/`;
     default: return `https://github.com/${OWNER}/${repo}`;
   }
 }
@@ -136,7 +143,7 @@ function renderMatrix(snap) {
   const thead = el("thead");
   const hr = el("tr");
   hr.append(el("th", { class: "h-pkg", text: "package" }), el("th", { class: "h-ver", text: "version" }));
-  const REG_SHORT = { pypi: "PyPI", crates: "crates", npm: "npm", "r-universe": "R-univ", cran: "CRAN", "github-release": "GH rel", pages: "gh.io" };
+  const REG_SHORT = { pypi: "PyPI", crates: "crates", npm: "npm", "r-universe": "R-univ", cran: "CRAN", "github-release": "GH rel", pages: "Pages" };
   const REG_BRAND = { pypi: "#3775A9", crates: "#C16C28", npm: "#CB3837", "r-universe": "#2E73C4", cran: "#1B5390", "github-release": "#24292F", pages: "#0ea5e9" };
   for (const reg of REGS) {
     const col = REG_BRAND[reg] || "var(--text-2)";
