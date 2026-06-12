@@ -15,6 +15,12 @@ on:
       - "web/**"
       - "data/**"
       - ".github/workflows/pages.yml"
+  # The collect cron commits data/current.json with GITHUB_TOKEN, whose pushes do
+  # NOT trigger other workflows — so deploy on collect's completion instead, or the
+  # live site would freeze at the last human/PAT push while git kept updating.
+  workflow_run:
+    workflows: ["collect"]
+    types: [completed]
   workflow_dispatch: {}
 
 permissions:
@@ -28,6 +34,9 @@ concurrency:
 
 jobs:
   build:
+    # On a collect-completion trigger, only deploy if that collect succeeded
+    # (a failed collect commits nothing — redeploying would be a no-op at best).
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
