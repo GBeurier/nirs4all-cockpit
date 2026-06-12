@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-12T16:32:03.684222+00:00",
+  "generated_at": "2026-06-12T16:39:57.510873+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -85,8 +85,8 @@
         "forks": 0,
         "watchers": 1,
         "open_prs": 2,
-        "closed_prs": 24,
-        "merged_prs": 0,
+        "closed_prs": 16,
+        "merged_prs": 6,
         "size_kb": 173835,
         "license": "NOASSERTION",
         "pushed_at": "2026-06-12T16:26:22Z",
@@ -98,14 +98,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 218660,
-        "loc_comment": 99539,
-        "loc_blank": 64854,
-        "loc_total": 383053,
-        "files": 955,
-        "tests": 7180,
+        "loc_code": 221099,
+        "loc_comment": 100413,
+        "loc_blank": 65569,
+        "loc_total": 387081,
+        "files": 965,
+        "tests": 7293,
         "by_language": {
-          "Python": 217136,
+          "Python": 219575,
           "Shell": 1112,
           "JavaScript": 342,
           "CSS": 70
@@ -117,10 +117,10 @@
         "workflows": 11,
         "total_runs": 859,
         "recent_total": 100,
-        "recent_success": 69,
+        "recent_success": 77,
         "recent_failure": 15,
-        "success_rate": 82.1,
-        "last_conclusion": null,
+        "success_rate": 83.7,
+        "last_conclusion": "success",
         "last_created_at": "2026-06-12T16:26:27Z"
       }
     },
@@ -387,11 +387,11 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 0,
-        "merged_prs": 0,
+        "closed_prs": 10,
+        "merged_prs": 7,
         "size_kb": 493491,
         "license": "NOASSERTION",
-        "pushed_at": "2026-06-12T16:25:47Z",
+        "pushed_at": "2026-06-12T16:36:45Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -400,14 +400,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 216502,
-        "loc_comment": 37338,
-        "loc_blank": 23740,
-        "loc_total": 277580,
-        "files": 943,
-        "tests": 303,
+        "loc_code": 246001,
+        "loc_comment": 39128,
+        "loc_blank": 27207,
+        "loc_total": 312336,
+        "files": 992,
+        "tests": 306,
         "by_language": {
-          "Python": 79041,
+          "Python": 108540,
           "C++": 73123,
           "C": 28515,
           "C++ header": 12267,
@@ -427,9 +427,9 @@
         "workflows": 17,
         "total_runs": 1530,
         "recent_total": 100,
-        "recent_success": 83,
+        "recent_success": 85,
         "recent_failure": 8,
-        "success_rate": 91.2,
+        "success_rate": 91.4,
         "last_conclusion": null,
         "last_created_at": "2026-06-12T16:25:46Z"
       }
@@ -782,19 +782,20 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 45288,
-        "loc_comment": 2348,
-        "loc_blank": 3793,
-        "loc_total": 51429,
-        "files": 132,
+        "loc_code": 49480,
+        "loc_comment": 2615,
+        "loc_blank": 4168,
+        "loc_total": 56263,
+        "files": 142,
         "tests": 325,
         "by_language": {
           "Rust": 40100,
+          "JavaScript": 3468,
+          "HTML": 2650,
           "Python": 1979,
-          "JavaScript": 1481,
           "R": 900,
-          "HTML": 525,
           "Shell": 261,
+          "TypeScript": 80,
           "C": 29,
           "C/C++ header": 13
         },
@@ -805,9 +806,9 @@
         "workflows": 9,
         "total_runs": 273,
         "recent_total": 100,
-        "recent_success": 75,
-        "recent_failure": 14,
-        "success_rate": 84.3,
+        "recent_success": 77,
+        "recent_failure": 15,
+        "success_rate": 83.7,
         "last_conclusion": "success",
         "last_created_at": "2026-06-12T16:25:01Z"
       }
@@ -1110,25 +1111,25 @@
       "workflows": [
         {
           "file": "release.yml",
-          "conclusion": null,
+          "conclusion": "failure",
           "created_at": "2026-06-12T16:25:05Z",
           "head_sha": "5606f6901649e926801843d0f497d0e508d4a07b"
         },
         {
           "file": "release-crates.yml",
-          "conclusion": null,
+          "conclusion": "success",
           "created_at": "2026-06-12T16:25:04Z",
           "head_sha": "5606f6901649e926801843d0f497d0e508d4a07b"
         },
         {
           "file": "release-npm.yml",
-          "conclusion": null,
+          "conclusion": "failure",
           "created_at": "2026-06-12T16:25:04Z",
           "head_sha": "5606f6901649e926801843d0f497d0e508d4a07b"
         },
         {
           "file": "release-r.yml",
-          "conclusion": null,
+          "conclusion": "failure",
           "created_at": "2026-06-12T16:25:04Z",
           "head_sha": "5606f6901649e926801843d0f497d0e508d4a07b"
         }
@@ -1142,8 +1143,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 0,
-        "merged_prs": 0,
+        "closed_prs": 1,
+        "merged_prs": 1,
         "size_kb": 3762,
         "license": "NOASSERTION",
         "pushed_at": "2026-06-12T16:25:01Z",
@@ -1155,14 +1156,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 27162,
-        "loc_comment": 2768,
-        "loc_blank": 2981,
-        "loc_total": 32911,
-        "files": 150,
-        "tests": 307,
+        "loc_code": 40147,
+        "loc_comment": 3821,
+        "loc_blank": 3905,
+        "loc_total": 47873,
+        "files": 193,
+        "tests": 398,
         "by_language": {
-          "Rust": 15345,
+          "Rust": 28264,
           "Python": 5533,
           "JavaScript": 3570,
           "CSS": 1428,
@@ -1172,7 +1173,7 @@
           "HTML": 174,
           "C": 148,
           "TypeScript": 146,
-          "C/C++ header": 33
+          "C/C++ header": 99
         },
         "coverage_pct": 82.2,
         "source": "local-scan"
@@ -1181,9 +1182,9 @@
         "workflows": 17,
         "total_runs": 226,
         "recent_total": 100,
-        "recent_success": 55,
-        "recent_failure": 31,
-        "success_rate": 64.0,
+        "recent_success": 63,
+        "recent_failure": 37,
+        "success_rate": 63.0,
         "last_conclusion": "success",
         "last_created_at": "2026-06-12T16:25:05Z"
       }
@@ -1457,7 +1458,7 @@
         },
         {
           "file": "release-r.yml",
-          "conclusion": null,
+          "conclusion": "success",
           "created_at": "2026-06-12T16:24:49Z",
           "head_sha": "23af6fbf202885460136ad981d9fc53bb480f3e8"
         }
@@ -1471,8 +1472,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 0,
-        "merged_prs": 0,
+        "closed_prs": 1,
+        "merged_prs": 1,
         "size_kb": 252241,
         "license": "MIT",
         "pushed_at": "2026-06-12T16:24:47Z",
@@ -1484,20 +1485,24 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 12293,
-        "loc_comment": 2440,
-        "loc_blank": 2578,
-        "loc_total": 17311,
-        "files": 92,
-        "tests": 219,
+        "loc_code": 137267,
+        "loc_comment": 6646,
+        "loc_blank": 15981,
+        "loc_total": 159894,
+        "files": 689,
+        "tests": 261,
         "by_language": {
-          "Python": 10003,
+          "HTML": 96971,
+          "Python": 28925,
+          "CSS": 3759,
+          "JavaScript": 2878,
+          "R": 2431,
           "Rust": 1841,
           "Shell": 203,
           "C": 135,
+          "TypeScript": 42,
           "MATLAB/Octave": 42,
-          "C/C++ header": 40,
-          "R": 29
+          "C/C++ header": 40
         },
         "coverage_pct": 63.4,
         "source": "local-scan"
@@ -1506,9 +1511,9 @@
         "workflows": 11,
         "total_runs": 154,
         "recent_total": 100,
-        "recent_success": 85,
+        "recent_success": 87,
         "recent_failure": 10,
-        "success_rate": 89.5,
+        "success_rate": 89.7,
         "last_conclusion": "success",
         "last_created_at": "2026-06-12T16:24:49Z"
       }
@@ -1681,25 +1686,25 @@
       "workflows": [
         {
           "file": "release-python.yml",
-          "conclusion": null,
+          "conclusion": "success",
           "created_at": "2026-06-12T16:25:16Z",
           "head_sha": "ba497f7af4443b4dd6356a3d7e8f0b8ee74150fd"
         },
         {
           "file": "release-crates.yml",
-          "conclusion": null,
+          "conclusion": "success",
           "created_at": "2026-06-12T16:25:17Z",
           "head_sha": "ba497f7af4443b4dd6356a3d7e8f0b8ee74150fd"
         },
         {
           "file": "release-npm.yml",
-          "conclusion": null,
+          "conclusion": "failure",
           "created_at": "2026-06-12T16:25:16Z",
           "head_sha": "ba497f7af4443b4dd6356a3d7e8f0b8ee74150fd"
         },
         {
           "file": "release-r.yml",
-          "conclusion": null,
+          "conclusion": "failure",
           "created_at": "2026-06-12T16:25:16Z",
           "head_sha": "ba497f7af4443b4dd6356a3d7e8f0b8ee74150fd"
         }
@@ -1726,20 +1731,22 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 4666,
-        "loc_comment": 114,
-        "loc_blank": 597,
-        "loc_total": 5377,
-        "files": 31,
+        "loc_code": 5793,
+        "loc_comment": 116,
+        "loc_blank": 751,
+        "loc_total": 6660,
+        "files": 47,
         "tests": 33,
         "by_language": {
+          "R": 1370,
           "Rust": 1269,
           "Python": 867,
           "JavaScript": 857,
           "MATLAB/Octave": 827,
-          "R": 562,
+          "CSS": 221,
           "Shell": 185,
-          "TypeScript": 99
+          "TypeScript": 99,
+          "HTML": 98
         },
         "coverage_pct": 30.3,
         "source": "local-scan"
@@ -1748,9 +1755,9 @@
         "workflows": 7,
         "total_runs": 51,
         "recent_total": 51,
-        "recent_success": 27,
-        "recent_failure": 18,
-        "success_rate": 60.0,
+        "recent_success": 29,
+        "recent_failure": 20,
+        "success_rate": 59.2,
         "last_conclusion": null,
         "last_created_at": "2026-06-12T16:25:17Z"
       }
@@ -1992,17 +1999,18 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 61195,
-        "loc_comment": 950,
-        "loc_blank": 3519,
-        "loc_total": 65664,
-        "files": 39,
-        "tests": 323,
+        "loc_code": 65667,
+        "loc_comment": 1333,
+        "loc_blank": 4014,
+        "loc_total": 71014,
+        "files": 57,
+        "tests": 363,
         "by_language": {
-          "Rust": 54294,
-          "Python": 5552,
+          "Rust": 56743,
+          "Python": 7234,
           "R": 1029,
-          "C/C++ header": 320
+          "JavaScript": 338,
+          "C/C++ header": 323
         },
         "coverage_pct": 81.5,
         "source": "local-scan"
@@ -2181,16 +2189,19 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 15974,
-        "loc_comment": 666,
-        "loc_blank": 1237,
-        "loc_total": 17877,
-        "files": 27,
-        "tests": 140,
+        "loc_code": 25544,
+        "loc_comment": 1842,
+        "loc_blank": 2169,
+        "loc_total": 29555,
+        "files": 57,
+        "tests": 255,
         "by_language": {
-          "Rust": 14496,
-          "Python": 1275,
-          "C/C++ header": 203
+          "Rust": 21882,
+          "Python": 2957,
+          "C/C++ header": 253,
+          "JavaScript": 250,
+          "R": 196,
+          "C": 6
         },
         "coverage_pct": 88.1,
         "source": "local-scan"
@@ -2229,8 +2240,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 0,
-        "merged_prs": 0,
+        "closed_prs": 2,
+        "merged_prs": 2,
         "size_kb": 94,
         "license": null,
         "pushed_at": "2026-06-12T16:24:34Z",
@@ -2269,20 +2280,20 @@
       "id": "nirs4all-org",
       "repo": "nirs4all-org",
       "source": {
-        "manifest_version": null,
+        "manifest_version": "1.0.0",
         "latest_prod_tag": null,
         "latest_any_tag": null,
-        "expected_prod_version": null,
+        "expected_prod_version": "1.0.0",
         "commit": null
       },
-      "rollup": "unknown",
+      "rollup": "green",
       "flags": [],
       "targets": [
         {
           "registry": "pages",
           "name": "nirs4all-org",
           "published_version": null,
-          "status": "unknown",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -2314,7 +2325,7 @@
         "merged_prs": 0,
         "size_kb": 3859,
         "license": null,
-        "pushed_at": "2026-06-12T16:25:49Z",
+        "pushed_at": "2026-06-12T16:39:36Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2337,13 +2348,13 @@
       },
       "actions_stats": {
         "workflows": 1,
-        "total_runs": 66,
-        "recent_total": 66,
-        "recent_success": 64,
+        "total_runs": 67,
+        "recent_total": 67,
+        "recent_success": 65,
         "recent_failure": 1,
         "success_rate": 98.5,
         "last_conclusion": null,
-        "last_created_at": "2026-06-12T16:25:51Z"
+        "last_created_at": "2026-06-12T16:39:38Z"
       }
     },
     {
@@ -2404,18 +2415,18 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 21361,
+        "loc_code": 29978,
         "loc_comment": 2472,
-        "loc_blank": 1846,
-        "loc_total": 25679,
-        "files": 186,
+        "loc_blank": 1860,
+        "loc_total": 34310,
+        "files": 187,
         "tests": 163,
         "by_language": {
           "TypeScript": 15766,
+          "HTML": 8648,
           "JavaScript": 5274,
           "CSS": 248,
-          "Shell": 42,
-          "HTML": 31
+          "Shell": 42
         },
         "coverage_pct": null,
         "source": "local-scan"
@@ -2433,11 +2444,11 @@
     }
   ],
   "summary": {
-    "green": 43,
+    "green": 44,
     "stale": 0,
     "missing": 11,
     "broken": 0,
-    "unknown": 1,
+    "unknown": 0,
     "excluded": 0,
     "pending": 6
   },
@@ -2448,11 +2459,11 @@
     "forks": 0,
     "watchers": 2,
     "open_issues": 0,
-    "loc_code": 659736,
-    "loc_total": 927355,
-    "tests": 9546,
-    "files": 2730,
-    "workflow_runs": 3433,
+    "loc_code": 857611,
+    "loc_total": 1155460,
+    "tests": 9950,
+    "files": 3504,
+    "workflow_runs": 3434,
     "downloads_last_month": 4334
   },
   "visits": {
@@ -2472,7 +2483,223 @@
     "org": "wwwciradfr",
     "project": "nirs4all-studio",
     "unresolved": 9,
-    "issues": [],
+    "resolved": 25,
+    "events": 416,
+    "users_affected": 0,
+    "issues": [
+      {
+        "title": "Failed to create default workspace: 503: ML dependencies have not started loading yet.",
+        "culprit": "",
+        "level": "error",
+        "count": 99,
+        "userCount": 0,
+        "firstSeen": "2026-04-16T10:43:36.637095Z",
+        "lastSeen": "2026-06-12T16:38:51.275296Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/112540604/"
+      },
+      {
+        "title": "Failed to install autogluon==1.2.0: pip install failed with code 1:",
+        "culprit": "/api/config/align",
+        "level": "error",
+        "count": 20,
+        "userCount": 0,
+        "firstSeen": "2026-03-26T15:44:54.396629Z",
+        "lastSeen": "2026-06-10T13:16:27.448687Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/107467988/"
+      },
+      {
+        "title": "pip install autogluon==1.2.0 failed with code 1. Output:",
+        "culprit": "/api/config/align",
+        "level": "error",
+        "count": 13,
+        "userCount": 0,
+        "firstSeen": "2026-04-08T09:48:28.038469Z",
+        "lastSeen": "2026-06-10T13:16:27.442756Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/110547618/"
+      },
+      {
+        "title": "Error checking PyPI releases:",
+        "culprit": "/api/updates/check",
+        "level": "error",
+        "count": 97,
+        "userCount": 0,
+        "firstSeen": "2026-04-10T13:21:53.125894Z",
+        "lastSeen": "2026-06-10T11:49:25.966791Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/111146232/"
+      },
+      {
+        "title": "OSError: [WinError 193] %1 n’est pas une application Win32 valide. Error loading \"D:\\Projets\\Nirs4all\\.nirs4all\\userData\\python-env\\venv\\Lib\\site-packages\\torch\\lib\\curand64_10.dll\" or one of its dependencies.",
+        "culprit": "/api/config/diff",
+        "level": "error",
+        "count": 13,
+        "userCount": 0,
+        "firstSeen": "2026-04-16T11:51:28.591392Z",
+        "lastSeen": "2026-06-10T11:49:07.990664Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/112566653/"
+      },
+      {
+        "title": "Task was destroyed but it is pending!",
+        "culprit": "/api/updates/venv/status",
+        "level": "error",
+        "count": 138,
+        "userCount": 0,
+        "firstSeen": "2026-06-10T11:40:52.877780Z",
+        "lastSeen": "2026-06-10T11:40:57.574317Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/126763006/"
+      },
+      {
+        "title": "Error checking outdated packages: Command '['C:\\\\Users\\\\Skyle\\\\AppData\\\\Roaming\\\\nirs4all-webapp\\\\python-env\\\\venv\\\\Scripts\\\\python.exe', '-m', 'pip', 'list', '--outdated', '--format=json']' timed out after 60 seconds",
+        "culprit": "/api/config/diff",
+        "level": "error",
+        "count": 19,
+        "userCount": 0,
+        "firstSeen": "2026-03-11T10:40:09.591766Z",
+        "lastSeen": "2026-06-10T10:00:12.382417Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/102394191/"
+      },
+      {
+        "title": "Failed to restore workspace post-ML-load: 503: ML dependencies are still loading. Please wait a moment and retry.",
+        "culprit": "",
+        "level": "error",
+        "count": 1,
+        "userCount": 0,
+        "firstSeen": "2026-06-09T16:39:48.557339Z",
+        "lastSeen": "2026-06-09T16:39:48.557339Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/126525074/"
+      },
+      {
+        "title": "Error: Command \"tar -xzf C:/Users/Skyle/AppData/Roaming/nirs4all-webapp/python-env/cpython-3.11.13+20250828-x86_64-pc-windows-msvc-install_only.tar.gz -C C:/Users/Skyle/AppData/Roaming/nirs4all-webapp/python-env\" failed (code 1): python/DLLs/libcrypto-3-x64.dl...",
+        "culprit": "ChildProcess.?(dist-electron:main)",
+        "level": "error",
+        "count": 16,
+        "userCount": 0,
+        "firstSeen": "2026-02-24T15:51:49.663000Z",
+        "lastSeen": "2026-06-09T09:13:59.975000Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/98835667/"
+      }
+    ],
+    "resolved_issues": [
+      {
+        "title": "HTTPException: Operator registry reference could not be loaded from node definitions",
+        "culprit": "/api/system/operator-availability",
+        "level": "error",
+        "count": 298,
+        "userCount": 0,
+        "firstSeen": "2026-04-17T06:14:43.102291Z",
+        "lastSeen": "2026-06-08T13:32:06.523025Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/112787995/"
+      },
+      {
+        "title": "ValueError: Error loading X data from /home/ecarnot/Documents/INRA/Projets/MalaNIRS_Mais/smpl_2025/NIRS_CRBGamet2025_SingleKernel_mean.csv: Failed to load X data from /home/ecarnot/Documents/INRA/Projets/MalaNIRS_Mais/smpl_2025/NIRS_CRBGamet2025_SingleKernel_mean.c...",
+        "culprit": "/api/runs",
+        "level": "error",
+        "count": 3,
+        "userCount": 0,
+        "firstSeen": "2026-06-04T16:29:46.656440Z",
+        "lastSeen": "2026-06-05T06:45:40.110186Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/125164239/"
+      },
+      {
+        "title": "Dataset 'smpl_2025' failed: Error loading X data from /home/ecarnot/Documents/INRA/Projets/MalaNIRS_Mais/smpl_2025/NIRS_CRBGamet2025_SingleKernel_mean.csv: Failed to load X data from /home/ecarnot/Documents/INRA/Projets/MalaNIRS_Mais/smpl_2025/NIRS_CRBG...",
+        "culprit": "/api/runs",
+        "level": "error",
+        "count": 1,
+        "userCount": 0,
+        "firstSeen": "2026-06-05T06:45:40.076914Z",
+        "lastSeen": "2026-06-05T06:45:40.076914Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/125293019/"
+      },
+      {
+        "title": "Dataset 'smpl_2025' failed: Error loading X data from /home/ecarnot/Documents/INRA/Projets/MalaNIRS_Mais/smpl_2025/NIRS_CRBGamet2025_SingleKernel_red.csv: Failed to load X data from /home/ecarnot/Documents/INRA/Projets/MalaNIRS_Mais/smpl_2025/NIRS_CRBGa...",
+        "culprit": "/api/runs",
+        "level": "error",
+        "count": 2,
+        "userCount": 0,
+        "firstSeen": "2026-06-04T16:29:46.612559Z",
+        "lastSeen": "2026-06-05T06:17:04.180662Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/125164237/"
+      },
+      {
+        "title": "ValidationError: 1 validation error for PackageDiff",
+        "culprit": "/api/config/diff",
+        "level": "error",
+        "count": 44,
+        "userCount": 0,
+        "firstSeen": "2026-03-31T04:57:44.014673Z",
+        "lastSeen": "2026-06-05T06:11:53.052059Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/108794400/"
+      },
+      {
+        "title": "ValidationError: 3 validation errors for ProfileInfo",
+        "culprit": "/api/config/recommended",
+        "level": "error",
+        "count": 60,
+        "userCount": 0,
+        "firstSeen": "2026-03-31T04:57:56.391198Z",
+        "lastSeen": "2026-06-04T16:00:31.841744Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/108794417/"
+      },
+      {
+        "title": "<unknown>",
+        "culprit": "/",
+        "level": "error",
+        "count": 2,
+        "userCount": 0,
+        "firstSeen": "2026-05-13T14:59:22.976000Z",
+        "lastSeen": "2026-06-04T12:23:20.333000Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/119677410/"
+      },
+      {
+        "title": "RuntimeError: Pipeline step 1 failed: Step execution failed: Transform 'SavitzkyGolay' received NaN input. Set na_policy on this step or handle NAs upstream.",
+        "culprit": "/api/runs",
+        "level": "error",
+        "count": 2,
+        "userCount": 0,
+        "firstSeen": "2026-06-02T18:09:52.905729Z",
+        "lastSeen": "2026-06-03T16:27:10.230859Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/124506305/"
+      },
+      {
+        "title": "Dataset 'Desktop' failed: Pipeline step 1 failed: Step execution failed: Transform 'SavitzkyGolay' received NaN input. Set na_policy on this step or handle NAs upstream.",
+        "culprit": "/api/runs",
+        "level": "error",
+        "count": 1,
+        "userCount": 0,
+        "firstSeen": "2026-06-03T16:27:09.881413Z",
+        "lastSeen": "2026-06-03T16:27:09.881413Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/124823168/"
+      },
+      {
+        "title": "Pipeline config_380dcac9 on dataset Desktop failed: Pipeline step 1 failed: Step execution failed: Transform 'SavitzkyGolay' received NaN input. Set na_policy on this step or handle NAs upstream.",
+        "culprit": "/api/runs",
+        "level": "error",
+        "count": 1,
+        "userCount": 0,
+        "firstSeen": "2026-06-03T16:27:09.762093Z",
+        "lastSeen": "2026-06-03T16:27:09.762093Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/124823172/"
+      },
+      {
+        "title": "Large HTTP payload",
+        "culprit": "/",
+        "level": "info",
+        "count": 7,
+        "userCount": 0,
+        "firstSeen": "2026-03-27T15:08:16.219300Z",
+        "lastSeen": "2026-06-03T15:37:22.232000Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/107691827/"
+      },
+      {
+        "title": "ValueError: Error loading X data from C:\\Users\\Mridul\\OneDrive\\Desktop\\Wood_NIR_PCA_Ready.csv: Failed to load X data from C:\\Users\\Mridul\\OneDrive\\Desktop\\Wood_NIR_PCA_Ready.csv: Le fichier n'existe pas: C:\\Users\\Mridul\\OneDrive\\Desktop\\Wood_NIR_PCA_Ready.csv",
+        "culprit": "/api/spectra/{dataset_id}",
+        "level": "error",
+        "count": 11,
+        "userCount": 0,
+        "firstSeen": "2026-03-27T12:31:24.752181Z",
+        "lastSeen": "2026-06-03T14:35:33.740554Z",
+        "permalink": "https://wwwciradfr.sentry.io/issues/107655437/"
+      }
+    ],
     "error": null
   }
 }

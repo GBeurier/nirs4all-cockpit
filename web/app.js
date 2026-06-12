@@ -430,7 +430,7 @@ function renderSentry(snap) {
   head.append(
     sentryStat(s.unresolved, "unresolved", (s.unresolved || 0) > 0),
     sentryStat(s.resolved, "resolved", false),
-    sentryStat(s.events, "events · 14d", false),
+    sentryStat(s.events, "events", false),
     sentryStat(s.users_affected, "users affected", false),
   );
   box.appendChild(head);

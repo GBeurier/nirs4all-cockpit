@@ -432,10 +432,10 @@ def _reconcile_pages(owner: str, pkg: Package, tgt: Target, *, no_network: bool)
         state = "missing"
     elif info["build_status"] == "errored":
         state = "broken"
-    elif info["build_status"] == "building":
-        state = "unknown"
     else:
-        state = "green"  # built, or enabled & live (status often null for Actions deploys)
+        # built, null (Actions deploys), or building — a rebuild keeps serving the
+        # previous deploy, so the site is live; don't flap it to "unknown".
+        state = "green"
     return TargetStatus(
         registry="pages", name=tgt.name, published_version=None, status=state, planned=False,
         downloads=Downloads(), evidence=Evidence(version_endpoint=info.get("html_url")), error=None,
