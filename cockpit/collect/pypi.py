@@ -61,5 +61,6 @@ def _downloads(endpoint: str) -> dict[str, Any]:
         out["last_day"] = data.get("last_day")
         out["last_week"] = data.get("last_week")
         out["last_month"] = data.get("last_month")
+    out["windows"] = {"7d": out["last_week"], "30d": out["last_month"], "90d": None, "total": None}
     # 429 / timeout / 404 → counts stay None ("unknown"); never reddens version.
     return out

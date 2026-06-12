@@ -52,6 +52,7 @@ def collect(name: str) -> dict[str, Any]:
             "total": total,
             "source": "crates.io",
             "by_version": by_version,
+            "windows": {"7d": None, "30d": None, "90d": recent, "total": total},
         },
         "evidence": {
             "version_endpoint": endpoint,

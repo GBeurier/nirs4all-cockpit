@@ -44,6 +44,9 @@ class Downloads(BaseModel):
     total: int | None = None
     source: str | None = None
     by_version: list[dict] = Field(default_factory=list)
+    # Window → count, for the UI period selector. Keys: "7d"/"30d"/"90d"/"total".
+    # Each registry fills only the windows its API reports (None elsewhere).
+    windows: dict = Field(default_factory=dict)
 
 
 class Evidence(BaseModel):

@@ -93,12 +93,6 @@ function renderScores(snap) {
 function renderSummary(snap) {
   const box = document.getElementById("summary");
   box.innerHTML = "";
-  const s = snap.summary || {};
-  for (const st of STATES) {
-    const c = el("span", { class: "chip" });
-    c.append(led(st), el("span", { class: "count", text: String(s[st] || 0) }), el("span", { class: "muted", text: st }));
-    box.appendChild(c);
-  }
   const t = snap.totals;
   if (t) {
     for (const [lab, v] of [["LOC", t.loc_code], ["tests", t.tests], ["★", t.stars], ["CI runs", t.workflow_runs], ["dl/mo", t.downloads_last_month]]) {
@@ -110,10 +104,16 @@ function renderSummary(snap) {
   box.hidden = false;
 }
 
-function renderLegend() {
+// Legend doubles as the status totals: each state shows an LED + its count.
+function renderLegend(snap) {
   const box = document.getElementById("legend");
   box.innerHTML = "";
-  for (const st of STATES) box.appendChild(el("span", {}, [led(st), el("span", { text: st })]));
+  const s = snap.summary || {};
+  for (const st of STATES) {
+    const item = el("span", { class: "leg" });
+    item.append(led(st), el("b", { class: "leg-n", text: String(s[st] || 0) }), el("span", { class: "leg-l", text: st }));
+    box.appendChild(item);
+  }
 }
 
 // ---- matrix ----------------------------------------------------------------
@@ -135,10 +135,11 @@ function renderMatrix(snap) {
   const thead = el("thead");
   const hr = el("tr");
   hr.append(el("th", { class: "h-pkg", text: "package" }), el("th", { class: "h-ver", text: "version" }));
+  const REG_SHORT = { pypi: "PyPI", crates: "crates", npm: "npm", "r-universe": "R-univ", cran: "CRAN", "github-release": "GitHub" };
   for (const reg of REGS) {
-    const th = el("th", { attrs: { scope: "col", title: REG_LABEL[reg] } });
-    const ic = el("span", { class: "reg-ico", html: `<svg viewBox="0 0 24 24">${REGISTRY_ICONS[reg] ? `<path d="${REGISTRY_ICONS[reg]}"/>` : ""}</svg>` });
-    th.appendChild(ic);
+    const th = el("th", { class: "reg-head", attrs: { scope: "col", title: REG_LABEL[reg] } });
+    th.appendChild(el("span", { class: "reg-ico", html: `<svg viewBox="0 0 24 24">${REGISTRY_ICONS[reg] ? `<path d="${REGISTRY_ICONS[reg]}"/>` : ""}</svg>` }));
+    th.appendChild(el("span", { class: "reg-name", text: REG_SHORT[reg] || reg }));
     hr.appendChild(th);
   }
   thead.appendChild(hr);
@@ -150,10 +151,18 @@ function renderMatrix(snap) {
     const byReg = new Map();
     for (const t of pkg.targets || []) { if (!byReg.has(t.registry)) byReg.set(t.registry, []); byReg.get(t.registry).push(t); }
 
-    // package cell: rollup LED + name (link to repo)
+    // package cell: rollup LED (with a why-tooltip) + name (link to repo)
     const cPkg = el("th", { class: "c-pkg", attrs: { scope: "row" } });
     const a = el("a", { attrs: { href: `https://github.com/${OWNER}/${pkg.repo}`, target: "_blank", rel: "noopener" } });
-    a.append(led(pkg.rollup || "missing"), el("span", { class: "pkg-name", text: pkg.id }));
+    const rollLed = led(pkg.rollup || "missing");
+    const regWorst = {};
+    for (const t of pkg.targets || []) { const r = t.registry; if (regWorst[r] == null || (RANK[t.status] ?? 1) > (RANK[regWorst[r]] ?? 1)) regWorst[r] = t.status; }
+    const issues = Object.entries(regWorst)
+      .filter(([, st]) => st !== "green" && st !== "excluded")
+      .map(([r, st]) => `<div class="tt-row"><span class="led led--${st}"></span> ${REG_LABEL[r]} · ${st}</div>`)
+      .join("");
+    attachTip(rollLed, `<b>${pkg.id}</b> · rollup = ${pkg.rollup}${issues ? "<div style='margin-top:4px;opacity:.8'>not yet current on:</div>" + issues : "<div class='tt-row'>current on every registry ✓</div>"}`);
+    a.append(rollLed, el("span", { class: "pkg-name", text: pkg.id }));
     if ((pkg.flags || []).includes("source_ahead")) a.append(el("span", { class: "pkg-flag", attrs: { title: "repo manifest ahead of the latest prod tag" }, text: "ahead" }));
     cPkg.appendChild(a);
     tr.appendChild(cPkg);
@@ -183,21 +192,45 @@ function renderMatrix(snap) {
 
 // ---- downloads dataviz (stacked bars by registry) --------------------------
 
+const DL_WINDOWS = [["7d", "7 d"], ["30d", "30 d"], ["90d", "90 d"], ["total", "all-time"]];
+let dlWindow = "30d";
+
+function dlValue(t, win) {
+  const w = t.downloads && t.downloads.windows;
+  return w && w[win] != null ? w[win] : null;
+}
+
 function renderDownloads(snap) {
   const box = document.getElementById("downloads");
   box.innerHTML = "";
+
+  // period selector
+  const sel = el("div", { class: "dlwin", attrs: { role: "tablist" } });
+  for (const [key, label] of DL_WINDOWS) {
+    const b = el("button", { class: "dlwin-btn" + (key === dlWindow ? " on" : ""), attrs: { type: "button" }, text: label });
+    b.addEventListener("click", () => { dlWindow = key; renderDownloads(snap); });
+    sel.appendChild(b);
+  }
+  box.appendChild(sel);
+
+  const body = el("div", { class: "dlchart-body" });
+  box.appendChild(body);
+
   const rows = [];
   for (const pkg of snap.packages || []) {
     const segs = [];
     let total = 0;
     for (const t of pkg.targets || []) {
-      const v = t.downloads ? t.downloads.last_month : null;
+      const v = dlValue(t, dlWindow);
       if (v != null && v > 0) { segs.push({ reg: t.registry, name: t.name, v }); total += v; }
     }
     if (total > 0) rows.push({ pkg, segs, total });
   }
   rows.sort((a, b) => b.total - a.total);
-  if (!rows.length) { box.appendChild(el("p", { class: "admin-note", text: "No download stats available." })); return; }
+  if (!rows.length) {
+    body.appendChild(el("p", { class: "admin-note", text: `No download data reported for this ${dlWindow} window.` }));
+    return;
+  }
   const max = rows[0].total;
 
   for (const row of rows) {
@@ -207,19 +240,19 @@ function renderDownloads(snap) {
     const bar = el("div", { class: "dlbar", attrs: { style: `width:${Math.max(6, (row.total / max) * 100)}%` } });
     for (const s of row.segs.sort((a, b) => b.v - a.v)) {
       const seg = el("a", { class: "dlseg", attrs: { href: registryUrl(s.reg, s.name, row.pkg.repo), target: "_blank", rel: "noopener", style: `width:${(s.v / row.total) * 100}%;background:${REG_COLOR[s.reg]}` } });
-      attachTip(seg, `<b>${s.name}</b><div class="tt-row">${REG_LABEL[s.reg]} · ${fmtInt(s.v)} recent</div>`);
+      attachTip(seg, `<b>${s.name}</b><div class="tt-row">${REG_LABEL[s.reg]} · ${fmtInt(s.v)}</div>`);
       bar.appendChild(seg);
     }
     r.appendChild(bar);
     r.appendChild(el("span", { class: "dl-tot", text: fmtInt(row.total) }));
-    box.appendChild(r);
+    body.appendChild(r);
   }
+
   const axis = el("div", { class: "dl-axis" });
   for (const reg of REGS) {
     if (!rows.some((r) => r.segs.some((s) => s.reg === reg))) continue;
     axis.appendChild(el("span", {}, [el("span", { class: "dl-swatch", attrs: { style: `background:${REG_COLOR[reg]}` } }), el("span", { text: REG_LABEL[reg] })]));
   }
-  axis.appendChild(el("span", { class: "admin-note", text: "· recent = pypi/npm/cran 30d, crates 90d" }));
   box.appendChild(axis);
 }
 
@@ -262,6 +295,17 @@ function renderRepoStats(snap) {
 
 // ---- code & actions --------------------------------------------------------
 
+function langCell(lang) {
+  const td = el("td", { class: "num" });
+  if (!lang) { td.textContent = "—"; return td; }
+  const ic = typeof LANG_ICONS !== "undefined" ? LANG_ICONS[lang] : null;
+  const wrap = el("span", { class: "langcell" });
+  if (ic) wrap.appendChild(el("span", { class: "lang-ico", attrs: { style: `color:${ic.c}` }, html: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="${ic.d}"/></svg>` }));
+  wrap.appendChild(el("span", { text: lang }));
+  td.appendChild(wrap);
+  return td;
+}
+
 function renderCodeStats(snap) {
   const box = document.getElementById("codestats");
   box.innerHTML = "";
@@ -287,7 +331,7 @@ function renderCodeStats(snap) {
       w.append(`${c.coverage_pct}%`, bar); cov.appendChild(w);
     } else cov.textContent = "—";
     tr.appendChild(cov);
-    tr.appendChild(el("td", { class: "num", text: c && c.by_language ? Object.keys(c.by_language)[0] || "—" : "—" }));
+    tr.appendChild(langCell(c && c.by_language ? Object.keys(c.by_language)[0] : null));
     tr.appendChild(el("td", { class: "num", text: fmtInt(a.workflows) }));
     tr.appendChild(numLink(a.total_runs, `${base}/actions`));
     tr.appendChild(el("td", { class: "num", text: a.success_rate != null ? `${a.success_rate}%` : "—" }));
@@ -344,16 +388,15 @@ function startWave() {
   const dotsG = document.getElementById("wave-dots");
   if (!lines[0] || !dotsG) return;
   const waves = [
-    { baseY: 250, amp: 50, freq: 0.0044, phase: 0, speed: 0.00035, dot: "rgba(15,118,110,.95)", col: "#0f766e" },
-    { baseY: 285, amp: 38, freq: 0.0038, phase: 2.1, speed: 0.00028, dot: "rgba(8,145,178,.85)", col: "#0891b2" },
-    { baseY: 225, amp: 30, freq: 0.0052, phase: 4.2, speed: 0.00022, dot: "rgba(5,150,105,.75)", col: "#059669" },
+    { baseY: 250, amp: 52, freq: 0.0044, phase: 0, speed: 0.00090, dot: "rgba(15,118,110,.95)", col: "#0f766e" },
+    { baseY: 285, amp: 40, freq: 0.0038, phase: 2.1, speed: 0.00072, dot: "rgba(8,145,178,.85)", col: "#0891b2" },
+    { baseY: 225, amp: 32, freq: 0.0052, phase: 4.2, speed: 0.00056, dot: "rgba(5,150,105,.75)", col: "#059669" },
   ];
   const yAt = (w, x, now) => w.baseY + Math.sin(x * w.freq + w.phase + now * w.speed) * w.amp + Math.sin(x * w.freq * 1.7 + w.phase * 0.6 + now * w.speed * 0.7) * w.amp * 0.2;
   const linePath = (w, now) => { let d = ""; for (let x = 0; x <= W; x += STEP) d += (x === 0 ? "M" : "L") + x + "," + yAt(w, x, now).toFixed(1); return d; };
   const areaPath = (w, now) => linePath(w, now) + `L${W},${H}L0,${H}Z`;
   const dots = [];
   let last = 0;
-  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function frame(now) {
     waves.forEach((w, i) => { lines[i].setAttribute("d", linePath(w, now)); areas[i].setAttribute("d", areaPath(w, now)); });
     if (now - last > 360 && dots.length < 14) {
@@ -369,7 +412,7 @@ function startWave() {
       d.e.setAttribute("cx", d.x); d.e.setAttribute("cy", yAt(d.w, d.x, now).toFixed(1));
       d.e.setAttribute("opacity", (Math.sin((age / life) * Math.PI) * 0.9).toFixed(2));
     }
-    if (!reduce) requestAnimationFrame(frame);
+    requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
 }
@@ -385,7 +428,7 @@ async function main() {
     renderMeta(snap);
     renderScores(snap);
     renderSummary(snap);
-    renderLegend();
+    renderLegend(snap);
     renderMatrix(snap);
     renderDownloads(snap);
     renderRepoStats(snap);

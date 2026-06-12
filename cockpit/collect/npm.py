@@ -73,4 +73,5 @@ def _downloads(endpoint: str) -> dict[str, Any]:
         count = body.get("downloads")
         if isinstance(count, int):
             out["last_month"] = count
+    out["windows"] = {"7d": None, "30d": out["last_month"], "90d": None, "total": None}
     return out

@@ -199,8 +199,10 @@ section.block { margin: 0 0 34px; }
   font-weight: 600; text-align: center; white-space: nowrap;
 }
 .mx thead th.h-pkg, .mx thead th.h-ver { text-align: left; padding-left: 16px; font-family: var(--display); }
-.mx thead .reg-ico { width: 17px; height: 17px; display: inline-block; color: var(--text-2); opacity: 0.85; }
+.mx thead th.reg-head { vertical-align: bottom; padding-bottom: 8px; }
+.mx thead .reg-ico { width: 18px; height: 18px; display: block; margin: 0 auto; color: var(--text-2); opacity: 0.9; }
 .mx thead .reg-ico svg { width: 100%; height: 100%; display: block; fill: currentColor; }
+.mx thead .reg-name { display: block; margin-top: 4px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; color: var(--muted); font-family: var(--display); }
 
 .mx tbody td, .mx tbody th { padding: 7px 6px; border-bottom: 1px solid var(--line-2); text-align: center; }
 .mx tbody tr:last-child td, .mx tbody tr:last-child th { border-bottom: none; }
@@ -215,19 +217,42 @@ section.block { margin: 0 0 34px; }
 .mx .c-led a { display: inline-block; line-height: 0; }
 .mx .c-led a:hover .led { transform: scale(1.25); transition: transform 0.12s ease; }
 .led-multi { position: relative; }
-.led-multi .badge-n { position: absolute; top: -7px; right: -10px; font-family: var(--mono); font-size: 0.56rem; color: var(--muted); }
+.led-multi .badge-n {
+  position: absolute; bottom: -7px; right: -12px;
+  font-family: var(--mono); font-size: 0.58rem; font-weight: 700; line-height: 1;
+  color: var(--text-2); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 6px; padding: 1px 3px;
+}
 
-/* legend */
-.legend { display: flex; flex-wrap: wrap; gap: 14px; margin: 2px 0 12px; font-size: 0.76rem; color: var(--text-2); }
-.legend span { display: inline-flex; align-items: center; gap: 6px; }
+/* legend = the status totals: LED + count + label */
+.legend { display: flex; flex-wrap: wrap; gap: 9px; margin: 2px 0 14px; }
+.leg {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 4px 11px 4px 9px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--surface); box-shadow: var(--shadow);
+}
+.leg-n { font-family: var(--mono); font-weight: 700; font-size: 0.84rem; }
+.leg-l { color: var(--muted); font-size: 0.74rem; }
 
 /* ========================================================== downloads ==== */
 
 .dlchart { padding: 18px 20px; }
+
+/* period selector (segmented control) */
+.dlwin { display: inline-flex; gap: 4px; padding: 3px; background: var(--paper-2); border-radius: 999px; margin-bottom: 16px; }
+.dlwin-btn { border: none; background: none; font: inherit; font-size: 0.76rem; color: var(--text-2); padding: 4px 13px; border-radius: 999px; cursor: pointer; transition: background 0.15s, color 0.15s; }
+.dlwin-btn:hover { color: var(--text); }
+.dlwin-btn.on { background: var(--surface); color: var(--teal-d); font-weight: 600; box-shadow: var(--shadow); }
+
+.langcell { display: inline-flex; align-items: center; gap: 6px; justify-content: flex-end; }
+.lang-ico { width: 14px; height: 14px; display: inline-block; }
+.lang-ico svg { width: 100%; height: 100%; display: block; fill: currentColor; }
+
 .dlrow { display: grid; grid-template-columns: 168px 1fr 86px; align-items: center; gap: 14px; padding: 6px 0; }
 .dlrow .dl-name { font-family: var(--mono); font-size: 0.78rem; text-decoration: none; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .dlrow .dl-name:hover { color: var(--teal-d); }
-.dlbar { height: 15px; border-radius: 8px; background: var(--paper-2); display: flex; overflow: hidden; }
+.dlbar { height: 15px; border-radius: 8px; background: var(--paper-2); display: flex; overflow: hidden; transform-origin: left; animation: growx 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes growx { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .dlseg { height: 100%; transition: opacity 0.15s ease; }
 .dlseg:hover { opacity: 0.78; }
 .dlrow .dl-tot { font-family: var(--mono); font-size: 0.8rem; font-weight: 700; text-align: right; color: var(--text); }
