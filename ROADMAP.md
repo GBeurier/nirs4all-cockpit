@@ -1,22 +1,13 @@
-# nirs4all-cockpit — Roadmap d'implémentation (spec one-shot, lean)
+# nirs4all-cockpit — Implementation roadmap (one-shot spec, lean)
 
-> Objectif : implémenter en **un one-shot rushé mais complet** le cœur du cockpit. Front **vanilla statique**
-> (zéro build), admin = **CLI** (`gh`-wrapping). Sentry/PR/sécurité + UI FastAPI = **stubs/phase 2** clairement
-> marqués. Principe non négociable : **le cockpit agrège & orchestre, il ne réimplémente aucune logique de repo.**
-> Spec détaillée du design : `docs/DESIGN.md`.
+> Objective: implement the heart of the cockpit in **a rushed but complete one-shot**. Forehead **vanilla static**
+> (zero build), admin = **CLI** (`gh`-wrapping). Sentry/PR/security + UI FastAPI = **stubs/phase 2** clearly
+> marked. Non-negotiable principle: **the cockpit aggregates & orchestrates, it does not reimplement any repository logic.**
+> Detailed design spec:`docs/DESIGN.md`.
 
-## Scope v1 (ce qu'on construit MAINTENANT)
+## Scope v1 (what we're building NOW)
 
-- ✅ `ops/targets.yaml` — inventaire déclaratif complet (paquet × registre × nom exact × workflow × trigger × version-de-vérité).
-- ✅ `ops/manual-actions.yaml` — migration structurée de `RELEASE_ACTIONS.md` (avec `after_done` + `auto_check`).
-- ✅ Collecteurs **read-only publics** : pypi, npm, crates, r-universe, cran, github (releases + workflow runs + issues), local_manifests (version-de-vérité).
-- ✅ `reconcile` — modèle **3 versions** (manifest / release_tag / published) → `green/stale/missing/broken/unknown` (+`source-ahead`, +`excluded`).
-- ✅ `current.json` (+ `history/YYYY-MM-DD.json`) committés dans `data/`.
-- ✅ Front **vanilla** `web/index.html` + `app.js` + `style.css` lisant `../data/current.json` → matrice paquet×registre + downloads + issues + CI.
-- ✅ CI : `.github/workflows/collect.yml` (cron 6 h → collect → commit) + `pages.yml` (déploie `web/` + `data/`).
-- ✅ CLI `n4a-cockpit` : `collect`, `validate-targets`, `summarize`, `status`, `admin run`, `admin set-secret`, `admin actions`.
-- ✅ Tests à fixtures (offline) pour reconcile + parsing collecteurs.
-- 🟡 **Phase 2 (stubs marqués TODO)** : collecteurs `sentry`, `github_prs`, `github_security`, store `snapshot.admin.json`, UI FastAPI 127.0.0.1.
+- ✅`ops/targets.yaml`— complete declarative inventory (package × registry × exact name × workflow × trigger × version-of-truth). - ✅`ops/manual-actions.yaml`— structured migration of`RELEASE_ACTIONS.md`(with`after_done`+`auto_check`). - ✅ **read-only public** collectors: pypi, npm, crates, r-universe, cran, github (releases + workflow runs + issues), local_manifests (version-of-truth). - ✅`reconcile`— model **3 versions** (manifest / release_tag / published) →`green/stale/missing/broken/unknown`(+`source-ahead`, +`excluded`). - ✅`current.json`(+`history/YYYY-MM-DD.json`) committed in`data/`. - ✅ Front **vanilla**`web/index.html`+`app.js`+`style.css`reading`../data/current.json`→ packet × register matrix + downloads + issues + CI. - ✅ CI:`.github/workflows/collect.yml`(cron 6 h → collect → commit) +`pages.yml`(deploy`web/`+`data/`). - ✅`n4a-cockpit`CLI:`collect`,`validate-targets`,`summarize`,`status`,`admin run`,`admin set-secret`,`admin actions`. - ✅ Fixture tests (offline) to reconcile + collector analysis. - 🟡 **Phase 2 (stubs marked TODO)**: collectors`sentry`,`github_prs`,`github_security`, store`snapshot.admin.json`, UI FastAPI 127.0.0.1.
 
 ## Layout
 
@@ -60,7 +51,7 @@ nirs4all-cockpit/
     └── pages.yml
 ```
 
-## Contrats de données
+## Data contracts
 
 ### `ops/targets.yaml`
 ```yaml
@@ -101,34 +92,15 @@ packages:
   "summary": {"green":0,"stale":0,"missing":0,"broken":0,"unknown":0,"excluded":0} }
 ```
 
-## Machine à états (reconcile)
-- `expected_version` = `release_tag_version` si un tag prod existe, sinon `manifest_version`.
-- `manifest_version > release_tag_version` ⇒ badge **`source-ahead`** (pas un faux rouge).
-- `published == expected` ⇒ **green** · `published < expected` ⇒ **stale** · 404/absent ⇒ **missing**
-  · `Version:null`/build failed/last release-run failed ⇒ **broken** · timeout/429/5xx ⇒ **unknown** · `state:excluded` ⇒ **excluded**.
-- Comparaison **SemVer/PEP440-aware** (jamais lexicale), prereleases via `version_aliases`.
-- Roll-up paquet = pire cellule (broken>missing>stale>unknown>source-ahead>green ; excluded ignoré).
+## State machine (reconcile)
+-`expected_version`=`release_tag_version`if a prod tag exists, otherwise`manifest_version`. -`manifest_version > release_tag_version`⇒ badge **`source-ahead`** (not a fake red). -`published == expected`⇒ **green** ·`published < expected`⇒ **stale** · 404/absent ⇒ **missing**
+  ·`Version:null`/build failed/last release-run failed ⇒ **broken** · timeout/429/5xx ⇒ **unknown** ·`state:excluded`⇒ **excluded**. - Comparison **SemVer/PEP440-aware** (never lexical), prereleases via`version_aliases`. - Roll-up packet = worst cell (broken>missing>stale>unknown>source-ahead>green; excluded ignored).
 
-## APIs (endpoints, pièges) — résumé (détail dans docs/DESIGN.md §4 et Annexe C §4)
-- PyPI `https://pypi.org/pypi/{pkg}/json` → `info.version` (pas de vrais downloads ici). 404=missing.
-- pypistats `…/api/packages/{pkg}/recent` (**429 possible** → cache+backoff, `unknown`). overall ~180 j.
-- npm `https://registry.npmjs.org/{pkg}` (scoped `%2F`) ; downloads `api.npmjs.org/downloads/point/last-month/{pkg}` (**scoped 404 + erreur en HTTP 200** → parser le corps).
-- crates `https://crates.io/api/v1/crates/{crate}` (**User-Agent obligatoire**, sinon 403). 404=missing.
-- R-universe `https://gbeurier.r-universe.dev/api/packages` (`Version:null`=broken).
-- CRAN `https://crandb.r-pkg.org/{pkg}` (404 tant que non accepté) ; cranlogs `…/downloads/total/last-month/{pkg}` (**0 en 200** ≠ missing).
-- GitHub releases/runs/issues : `GITHUB_TOKEN` ambiant (5000/h) ; Search issues 30/min ; `download_count` par asset.
+## APIs (endpoints, traps) — summary (details in docs/DESIGN.md §4 and Appendix C §4)
+- PyPI`https://pypi.org/pypi/{pkg}/json`→`info.version`(no real downloads here). 404=missing. - pypistats`…/api/packages/{pkg}/recent`(**429 possible** → cache+backoff,`unknown`). overall ~180 days. - npm`https://registry.npmjs.org/{pkg}`(scoped`%2F`); downloads`api.npmjs.org/downloads/point/last-month/{pkg}`(**scoped 404 + error in HTTP 200** → parse the body). -`https://crates.io/api/v1/crates/{crate}`crates (**User-Agent required**, otherwise 403). 404=missing. - R-universe`https://gbeurier.r-universe.dev/api/packages`(`Version:null`=broken). - CRAN`https://crandb.r-pkg.org/{pkg}`(404 as long as not accepted); cranlogs`…/downloads/total/last-month/{pkg}`(**0 in 200** ≠ missing). - GitHub releases/runs/issues:`GITHUB_TOKEN`ambient (5000/h); Search issues 30/min;`download_count`per asset.
 
-## Inventaire des paquets (à VERROUILLER dans targets.yaml — vérifier noms/inputs contre les vrais workflows)
-- **nirs4all** (repo nirs4all, python_pyproject) — pypi `nirs4all` ; github-release. trigger `github_release_published` (`publish.yml`).
-- **nirs4all-methods** (tag) — pypi `nirs4all-methods` (release-wheels.yml) **+** pypi `pls4all` (release-python.yml) ; npm `@nirs4all/methods-wasm` (release-npm.yml) ; r-universe `n4m` + `pls4all` (release-r.yml) ; cran `n4m`+`pls4all` ; github-release.
-- **nirs4all-formats** (cargo_workspace) — pypi `nirs4all-formats` (release.yml) ; crates `nirs4all-formats{,-core,-capi,-cli}` (release-crates.yml, input dry_run) ; npm `@nirs4all/formats-wasm` (release-npm.yml, input publish) ; r-universe `nirs4allformats`+`nirs4allformats.lite` (release-r.yml) ; cran **excluded** (>5Mo) ; github-release.
-- **nirs4all-io** (cargo_workspace) — pypi `nirs4all-io` (release.yml) ; crates `nirs4all-io{,-core,-capi,-cli}` ; npm `@nirs4all/io-wasm` ; r-universe `nirs4allio` ; github-release.
-- **nirs4all-datasets** (cargo_workspace ou python) — pypi `nirs4all-datasets` (release-python.yml) ; crates `nirs4all-datasets{,-core,-capi,-cli}` ; npm `@nirs4all/datasets-wasm` ; r-universe `nirs4alldatasets` ; github-release.
-- **nirs4all-lite** (cargo_workspace) — pypi **`nirs4all-lite`** ; crates **`nirs4all`** ; npm **`nirs4all`** ; r-universe **`nirs4all`** (⚠ nom logique ≠ nom registre).
-- **nirs4all-aom** (python) — pypi `nirs4all-aom` (publish-pypi.yml).
-- **dag-ml** (cargo_workspace) — crates `dag-ml{,-core,-arrow,-capi,-cli,-py,-wasm}` (aujourd'hui **missing**) ; npm `@nirs4all/dag-ml-wasm`. release-trigger: pas encore de workflow → admin signale « pas de bouton ».
-- **dag-ml-data** (cargo_workspace) — crates `dag-ml-data{,-core,-arrow,-capi,-cli,-provider,-py,-wasm}` ; r-universe `dagmldata`.
-- (Pages-only, pas de paquet : nirs4all-web, nirs4all-org, formats demo-pages, methods docs → suivis en `deploy` côté CI.)
+## Package inventory (LOCK in targets.yaml — check names/inputs against real workflows)
+- **nirs4all** (nirs4all repo, python_pyproject) — pypi`nirs4all`; github-release. trigger`github_release_published`(`publish.yml`). - **nirs4all-methods** (tag) — pypi`nirs4all-methods`(release-wheels.yml) **+** pypi`pls4all`(release-python.yml); npm`@nirs4all/methods-wasm`(release-npm.yml); r-universe`n4m`+`pls4all`(release-r.yml); notch`n4m`+`pls4all`; github-release. - **nirs4all-formats** (cargo_workspace) — pypi`nirs4all-formats`(release.yml); crates`nirs4all-formats{,-core,-capi,-cli}`(release-crates.yml, input dry_run); npm`@nirs4all/formats-wasm`(release-npm.yml, input publish); r-universe`nirs4allformats`+`nirs4allformats.lite`(release-r.yml); screen **excluded** (>5MB); github-release. - **nirs4all-io** (cargo_workspace) — pypi`nirs4all-io`(release.yml); crates`nirs4all-io{,-core,-capi,-cli}`; npm`@nirs4all/io-wasm`; r-universe`nirs4allio`; github-release. - **nirs4all-datasets** (cargo_workspace or python) — pypi`nirs4all-datasets`(release-python.yml); crates`nirs4all-datasets{,-core,-capi,-cli}`; npm`@nirs4all/datasets-wasm`; r-universe`nirs4alldatasets`; github-release. - **nirs4all-lite** (cargo_workspace) — pypi **`nirs4all-lite`**; crates **`nirs4all`** ; npm **`nirs4all`**; r-universe **`nirs4all`** (⚠ logical name ≠ register name). - **nirs4all-aom** (python) — pypi`nirs4all-aom`(publish-pypi.yml). - **dag-ml** (cargo_workspace) — crates`dag-ml{,-core,-arrow,-capi,-cli,-py,-wasm}`(today **missing**); npm`@nirs4all/dag-ml-wasm`. release-trigger: no workflow yet → admin reports “no button”. - **dag-ml-data** (cargo_workspace) — crates`dag-ml-data{,-core,-arrow,-capi,-cli,-provider,-py,-wasm}`; r-universe`dagmldata`. - (Pages-only, no packages: nirs4all-web, nirs4all-org, demo-pages formats, methods docs → followed in`deploy`on the CI side.)
 
 ## CLI
 ```
@@ -140,22 +112,14 @@ n4a-cockpit admin run <pkg> <registry> [--publish] [--dry-run/--no-dry-run]   # 
 n4a-cockpit admin set-secret <repo> <NAME> --from-file <path>                 # gh secret set, jamais affiché
 n4a-cockpit admin actions [--md]                 # manual-actions.yaml + auto_check vs current.json
 ```
-Garde-fous admin : refuse si `gh auth status` échoue ; `--dry-run` défaut ; confirmation pour publish/secret/tag ; tokens référencés par chemin, jamais lus sauf `gh secret set` ; refuse trigger ≠ déclarable (tag-only → propose la commande tag, ne la lance pas).
+Admin guardrails: refuse if`gh auth status`fails;`--dry-run`default; confirmation for publish/secret/tag; tokens referenced by path, never read except`gh secret set`; refuse trigger ≠ declarable (tag-only → offers the tag command, does not run it).
 
 ## CI
-- `collect.yml` : `schedule cron "17 */6 * * *"` + `workflow_dispatch` ; permissions `contents: write, actions: read, issues: read` ; pip install -e .[collect] ; `n4a-cockpit collect` ; commit `data/*.json` via git-auto-commit ; `GITHUB_TOKEN` ambiant. **MVP : collecter les repos frères absents → le collect tourne sur l'API publique seulement (local_manifests via GitHub raw quand le repo n'est pas un sibling local).**
-- `pages.yml` : déploie `web/` + `data/` sur GitHub Pages (actions/upload-pages-artifact + deploy-pages).
+-`collect.yml`:`schedule cron "17 */6 * * *"`+`workflow_dispatch`;`contents: write, actions: read, issues: read`permissions; pip install -e .[collect];`n4a-cockpit collect`; commit`data/*.json`via git-auto-commit;`GITHUB_TOKEN`ambient. **MVP: collect absent sibling repos → collect runs on the public API only (local_manifests via GitHub raw when the repo is not a local sibling).**
+-`pages.yml`: deploys`web/`+`data/`on GitHub Pages (actions/upload-pages-artifact + deploy-pages).
 
-## Décisions « lean » assumées
-- Front **vanilla** (pas Vite/React) : Pages immédiat, zéro node_modules, zéro build CI. Upgrade React possible plus tard.
-- Admin = **CLI** seulement (pas de FastAPI UI en v1).
-- Store public seulement (`current.json`) ; `snapshot.admin.json` + Sentry/PR/sécurité = phase 2 stubbée.
-- `local_manifests` : en CI (pas de siblings) → lit la version-de-vérité via **GitHub raw** (`raw.githubusercontent.com/GBeurier/{repo}/{default}/…`) ; en local → lit `../<repo>`.
+## “Lean” decisions assumed
+- Front **vanilla** (not Vite/React): Immediate pages, zero node_modules, zero CI build. Upgrade React possible later. - Admin = **CLI** only (no FastAPI UI in v1). - Public store only (`current.json`);`snapshot.admin.json`+ Sentry/PR/security = phase 2 stubbed. -`local_manifests`: in CI (no siblings) → reads the truth-version via **GitHub raw** (`raw.githubusercontent.com/GBeurier/{repo}/{default}/…`); locally → reads`../<repo>`.
 
-## Définition de « terminé » (gate one-shot)
-1. `python -m compileall cockpit` OK ; `ruff check` propre si dispo.
-2. `n4a-cockpit validate-targets ops/targets.yaml` OK.
-3. `n4a-cockpit collect --only nirs4all,nirs4all-formats,dag-ml` produit un `data/current.json` réel (réseau) avec au moins : nirs4all green PyPI, formats green crates/npm, dag-ml missing crates.
-4. `tests/` passent (offline, fixtures).
-5. `web/index.html` ouvre et rend la matrice depuis `data/current.json`.
-6. README explique collect/serve/admin + le statut phase 2.
+## Definition of “finished” (gate one-shot)
+1.`python -m compileall cockpit`OK;`ruff check`clean if available. 2.`n4a-cockpit validate-targets ops/targets.yaml`OK. 3.`n4a-cockpit collect --only nirs4all,nirs4all-formats,dag-ml`produces a real`data/current.json`(network) with at least: nirs4all green PyPI, green crates/npm formats, dag-ml missing crates. 4.`tests/`pass (offline, fixtures). 5.`web/index.html`opens and renders the matrix from`data/current.json`. 6. README explains collect/serve/admin + phase 2 status.

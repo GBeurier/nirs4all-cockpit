@@ -20,7 +20,7 @@ from __future__ import annotations
 import pytest
 from conftest import load_fixture
 
-from cockpit.collect import cran, crates, npm, pypi, runiverse
+from cockpit.collect import cran, crates, npm, pypi, runiverse, visits
 
 
 def _patch(monkeypatch, module, replies):
@@ -164,3 +164,26 @@ def test_cranlogs_zero_is_real_zero_not_none(monkeypatch) -> None:
     assert out["published_version"] is None  # not on CRAN yet
     assert out["downloads"]["last_month"] == 0  # a real zero, not None
     assert out["downloads"]["last_month"] is not None
+
+
+# --------------------------------------------------------------------------- #
+# GoatCounter visits  (aggregate-only by default)
+# --------------------------------------------------------------------------- #
+
+
+def test_visits_default_does_not_fetch_or_return_pages(monkeypatch) -> None:
+    urls = []
+
+    def _fake(url, headers=None, *, accept="application/json"):  # noqa: ARG001
+        urls.append(url)
+        return 200, {"total": 12}, None
+
+    monkeypatch.setattr(visits, "get_json", _fake)
+
+    out = visits.collect(token="tok", ref_date="2026-06-12")
+
+    assert out["available"] is True
+    assert out["windows"]["30d"] == 12
+    assert out["pages"] == []
+    assert len(urls) == 4
+    assert all("/stats/total" in url for url in urls)

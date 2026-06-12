@@ -52,11 +52,11 @@ jobs:
         env:
           # Ambient token: GitHub releases / workflow runs / issues (5000/h).
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Read-only GoatCounter API token: public Pages-visit counts (aggregate
-          # + per-page). Counts only ever enter the snapshot, never the token.
+          # Read-only GoatCounter API token: public aggregate Pages-visit counts
+          # only. Counts enter the snapshot, never the token or per-page detail.
           GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
-          # Sentry auth token (project:read): public unresolved-error COUNT only —
-          # issue titles stay in the local admin snapshot, never on the public site.
+          # Sentry auth token (project:read): aggregate public counters only.
+          # Issue titles, permalinks, and user-identifying details stay out.
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           # Point the local-scan stats (LOC, tests, coverage, manifest versions)
           # at the shallow clones above, instead of the maintainer's working tree.

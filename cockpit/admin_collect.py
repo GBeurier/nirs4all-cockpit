@@ -69,7 +69,7 @@ def build_admin_snapshot(
         )
 
     stamp = generated_at or now_iso()
-    sentry_status = SentryStatus.model_validate(sentry.collect())
+    sentry_status = SentryStatus.model_validate(sentry.collect(include_issues=False))
 
     return AdminSnapshot(
         schema_version=1,

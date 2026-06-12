@@ -338,11 +338,6 @@ function renderCodeStats(snap) {
 
 // ---- pages visits (public · GoatCounter) -----------------------------------
 
-function prettyPath(path) {
-  if (!path || path === "/") return "/ (root)";
-  return path.replace(/^\/+|\/+$/g, "") || "/";
-}
-
 function renderVisits(snap) {
   const v = snap.visits || {};
   const block = document.getElementById("visits-block"), box = document.getElementById("visits");
@@ -359,64 +354,15 @@ function renderVisits(snap) {
     chips.appendChild(c);
   }
   box.appendChild(chips);
-
-  // per-page breakdown (highest-traffic first)
-  const pages = (v.pages || []).filter((p) => (p.count || 0) > 0);
-  if (!pages.length) {
-    box.appendChild(el("p", { class: "admin-note", text: "No per-page traffic recorded yet — analytics were just installed; pages appear here as visitors arrive." }));
-    return;
-  }
-  box.appendChild(el("p", { class: "vcap", text: `Per page · ${pages.length} tracked across the ecosystem sites` }));
-  const max = pages[0].count || 1;
-  const list = el("div", { class: "vpages" });
-  for (const p of pages.slice(0, 14)) {
-    const row = el("div", { class: "vpage" });
-    row.appendChild(el("span", { class: "vpage__path", text: prettyPath(p.path), attrs: { title: p.title ? `${p.title} — ${p.path}` : p.path } }));
-    const track = el("span", { class: "vpage__track" });
-    track.appendChild(el("i", { attrs: { style: `width:${Math.max(2, Math.round((p.count / max) * 100))}%` } }));
-    row.append(track, el("span", { class: "vpage__n", text: fmtInt(p.count) }));
-    list.appendChild(row);
-  }
-  box.appendChild(list);
+  box.appendChild(el("p", { class: "vcap", text: `${v.site || "GoatCounter"} · aggregate pageviews across ecosystem sites` }));
 }
 
 // ---- errors (public · Sentry) ----------------------------------------------
-
-const SENTRY_LVL = { fatal: "#7c3aed", error: "#e11d48", warning: "#d97706", info: "#0891b2", debug: "#8a93a2", sample: "#0d9488" };
-
-function timeAgo(iso) {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  if (isNaN(d)) return "—";
-  const days = Math.floor((Date.now() - d.getTime()) / 86400000);
-  if (days <= 0) return "today";
-  if (days === 1) return "yesterday";
-  if (days < 30) return `${days}d ago`;
-  const mo = Math.floor(days / 30);
-  return mo < 12 ? `${mo}mo ago` : `${Math.floor(mo / 12)}y ago`;
-}
 
 function sentryStat(n, label, alert) {
   const c = el("div", { class: `sentry-stat${alert ? " sentry-stat--alert" : ""}` });
   c.append(el("span", { class: "sentry-stat__n", text: fmtInt(n) }), el("span", { class: "sentry-stat__l", text: label }));
   return c;
-}
-
-function sentryIssue(it, resolved) {
-  const lvl = (it.level || "error").toLowerCase();
-  const color = SENTRY_LVL[lvl] || SENTRY_LVL.error;
-  const row = el("div", { class: `sentry-issue${resolved ? " sentry-issue--resolved" : ""}`, attrs: { style: `--lvl:${color}` } });
-  const titleNode = el(it.permalink ? "a" : "span", {
-    class: "sentry-issue__title", text: it.title || "—",
-    attrs: it.permalink ? { href: it.permalink, target: "_blank", rel: "noopener", title: it.title || "" } : { title: it.title || "" },
-  });
-  row.appendChild(el("div", { class: "sentry-issue__head" }, [el("span", { class: "sentry-issue__lvl", text: lvl }), titleNode]));
-  const bits = [];
-  if (it.count != null) bits.push(`${fmtInt(it.count)} events`);
-  if (it.userCount) bits.push(`${fmtInt(it.userCount)} users`);
-  bits.push(resolved ? `resolved · seen ${timeAgo(it.lastSeen)}` : `first seen ${timeAgo(it.firstSeen)}`);
-  row.appendChild(el("div", { class: "sentry-issue__meta", text: bits.join("  ·  ") }));
-  return row;
 }
 
 function renderSentry(snap) {
@@ -434,26 +380,7 @@ function renderSentry(snap) {
     sentryStat(s.users_affected, "users affected", false),
   );
   box.appendChild(head);
-  box.appendChild(el("p", { class: "vcap", text: `${s.project || "nirs4all-studio"} · live error monitoring (Sentry)` }));
-
-  const issues = s.issues || [];
-  if (issues.length) {
-    const list = el("div", { class: "sentry-list" });
-    for (const it of issues.slice(0, 12)) list.appendChild(sentryIssue(it, false));
-    box.appendChild(list);
-  } else {
-    box.appendChild(el("p", { class: "admin-note", text: "No unresolved issues — all clear. ✓" }));
-  }
-
-  const resolved = s.resolved_issues || [];
-  if (resolved.length) {
-    const det = el("details", { class: "sentry-closed" });
-    det.appendChild(el("summary", { text: `Recently resolved — ${s.resolved != null ? fmtInt(s.resolved) : resolved.length} closed` }));
-    const list = el("div", { class: "sentry-list" });
-    for (const it of resolved) list.appendChild(sentryIssue(it, true));
-    det.appendChild(list);
-    box.appendChild(det);
-  }
+  box.appendChild(el("p", { class: "vcap", text: `${s.project || "nirs4all-studio"} · aggregate Sentry counters only` }));
 }
 
 // ---- admin (local) ---------------------------------------------------------
@@ -466,13 +393,15 @@ function renderAdmin(admin) {
   const sb = el("div", { class: "card panel" });
   sb.appendChild(el("h3", { class: "section-h", text: `Sentry — ${s.project || "?"}` }));
   if (s.available) {
-    sb.appendChild(el("p", { class: "admin-note", text: `${fmtInt(s.unresolved)} unresolved (14d)` }));
-    for (const i of (s.issues || []).slice(0, 8)) {
-      const row = el("div", { class: "kv" });
-      row.appendChild(el("div", { class: "kv__head" }, [el("span", { class: "kv__name", text: i.title || "—" }), el("span", { class: "conclusion", attrs: { "data-ok": "failure" }, text: i.level || "issue" })]));
-      row.appendChild(el("span", { class: "admin-note", text: `${fmtInt(i.count)}× · ${fmtInt(i.userCount)} users` }));
-      sb.appendChild(row);
-    }
+    const head = el("div", { class: "sentry-head" });
+    head.append(
+      sentryStat(s.unresolved, "unresolved", (s.unresolved || 0) > 0),
+      sentryStat(s.resolved, "resolved", false),
+      sentryStat(s.events, "events", false),
+      sentryStat(s.users_affected, "users affected", false),
+    );
+    sb.appendChild(head);
+    sb.appendChild(el("p", { class: "admin-note", text: "Aggregate Sentry counters only; issue titles and user details are not displayed." }));
   } else sb.appendChild(el("p", { class: "admin-note", text: `unavailable — ${s.error || "set SENTRY_AUTH_TOKEN"}` }));
   body.appendChild(sb);
 

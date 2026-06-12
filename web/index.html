@@ -59,16 +59,6 @@
         <div class="card dlchart" id="downloads"></div>
       </section>
 
-      <section class="block" id="visits-block" aria-labelledby="visits-h" hidden>
-        <h2 id="visits-h" class="section-h">Pages visits <span class="muted">— GoatCounter pageviews across the ecosystem sites · aggregated &amp; per page</span></h2>
-        <div class="card panel" id="visits"></div>
-      </section>
-
-      <section class="block" id="sentry-block" aria-labelledby="sentry-h" hidden>
-        <h2 id="sentry-h" class="section-h">Errors <span class="muted">— unresolved Sentry issues in nirs4all-studio (last 14 days)</span></h2>
-        <div class="card panel" id="sentry"></div>
-      </section>
-
       <section class="block" aria-labelledby="gh-h">
         <h2 id="gh-h" class="section-h">GitHub <span class="muted">— stars · forks · PRs (open / merged / closed) · issues</span></h2>
         <div class="card panel"><div id="repostats"></div></div>
@@ -82,6 +72,16 @@
       <section class="block admin" id="admin" hidden>
         <h2 class="section-h">Admin <span class="muted">— local only (traffic · PRs · security · Sentry); absent from the public site</span></h2>
         <div id="admin-body"></div>
+      </section>
+
+      <section class="block" id="visits-block" aria-labelledby="visits-h" hidden>
+        <h2 id="visits-h" class="section-h">Pages visits <span class="muted">— GoatCounter aggregate pageviews</span></h2>
+        <div class="card panel" id="visits"></div>
+      </section>
+
+      <section class="block" id="sentry-block" aria-labelledby="sentry-h" hidden>
+        <h2 id="sentry-h" class="section-h">Errors <span class="muted">— Sentry aggregate counters only</span></h2>
+        <div class="card panel" id="sentry"></div>
       </section>
 
       <p id="error" class="error" role="alert" hidden></p>

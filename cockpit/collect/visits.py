@@ -1,9 +1,8 @@
 """GoatCounter visits collector (public signal).
 
 Reads pageview totals for the ecosystem's GoatCounter site over a few windows
-(7 d / 30 d / 365 d / all-time) **and** a per-page breakdown, so the dashboard
-can show real Pages-site visits — aggregated across every nirs4all page and page
-by page — something GitHub itself does not expose.
+(7 d / 30 d / 365 d / all-time), so the dashboard can show aggregate Pages-site
+visits — something GitHub itself does not expose.
 
 Auth: a GoatCounter **API token** in ``GOATCOUNTER_TOKEN`` (created under the
 site's Settings → API), sent as ``Authorization: Bearer``. The site URL defaults
@@ -11,7 +10,8 @@ to ``https://nirs4all.goatcounter.com`` (override with ``GOATCOUNTER_SITE``).
 Without a token the collector degrades gracefully (``available=False``) and never
 raises, so a collect without analytics configured still succeeds.
 
-Only aggregate counts and per-path totals enter the snapshot — never the token.
+Only aggregate counts enter the public snapshot — never the token or per-page
+detail.
 """
 
 from __future__ import annotations
@@ -38,11 +38,17 @@ def _ref_date(ref_date: str | None) -> date:
     return date.today()
 
 
-def collect(site: str | None = None, token: str | None = None, ref_date: str | None = None) -> dict[str, Any]:
-    """Collect GoatCounter pageview totals per window plus a per-page breakdown.
+def collect(
+    site: str | None = None,
+    token: str | None = None,
+    ref_date: str | None = None,
+    include_pages: bool = False,
+) -> dict[str, Any]:
+    """Collect GoatCounter pageview totals per window.
 
     Returns ``{"available", "site", "windows": {"7d","30d","365d","total"},
-    "pages": [{"path","title","count"}], "error"}``.
+    "pages": [], "error"}``. Per-page details are returned only when
+    ``include_pages=True`` for local use.
     """
     site = (site or os.environ.get("GOATCOUNTER_SITE", DEFAULT_SITE)).rstrip("/")
     token = token or os.environ.get("GOATCOUNTER_TOKEN")
@@ -69,23 +75,23 @@ def collect(site: str | None = None, token: str | None = None, ref_date: str | N
     windows["total"] = _total(_EPOCH)
     out["windows"] = windows
 
-    # Per-page breakdown (all-time), highest-traffic first. Each nirs4all Pages
-    # site lands under its own path prefix (/nirs4all-methods/, …), so the path
-    # is a faithful per-page key; nirs4all.org sits at the root path.
-    status, body, _error = get_json(
-        f"{site}/api/v0/stats/hits?start={_EPOCH}&end={end}&limit={_MAX_PAGES}", headers=headers
-    )
-    if status == 200 and isinstance(body, dict):
-        pages = [
-            {
-                "path": h.get("path") or "/",
-                "title": (h.get("title") or "").strip() or None,
-                "count": h.get("count") if isinstance(h.get("count"), int) else 0,
-            }
-            for h in body.get("hits", [])
-        ]
-        pages.sort(key=lambda p: p["count"], reverse=True)
-        out["pages"] = pages
+    if include_pages:
+        # Per-page breakdown (all-time), highest-traffic first. Kept opt-in so
+        # public snapshots remain aggregate-only.
+        status, body, _error = get_json(
+            f"{site}/api/v0/stats/hits?start={_EPOCH}&end={end}&limit={_MAX_PAGES}", headers=headers
+        )
+        if status == 200 and isinstance(body, dict):
+            pages = [
+                {
+                    "path": h.get("path") or "/",
+                    "title": (h.get("title") or "").strip() or None,
+                    "count": h.get("count") if isinstance(h.get("count"), int) else 0,
+                }
+                for h in body.get("hits", [])
+            ]
+            pages.sort(key=lambda p: p["count"], reverse=True)
+            out["pages"] = pages
 
     out["available"] = any(v is not None for v in windows.values()) or bool(out["pages"])
     return out

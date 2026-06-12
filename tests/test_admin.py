@@ -31,7 +31,7 @@ def test_sentry_no_token_degrades(monkeypatch) -> None:
     assert "SENTRY_AUTH_TOKEN" in out["error"]
 
 
-def test_sentry_with_token_shapes_issues(monkeypatch) -> None:
+def test_sentry_with_token_shapes_stats_only_by_default(monkeypatch) -> None:
     body = [
         {
             "title": "TypeError: x is undefined",
@@ -47,6 +47,13 @@ def test_sentry_with_token_shapes_issues(monkeypatch) -> None:
     out = sentry.collect(token="tok")
     assert out["available"] is True
     assert out["unresolved"] == 2
+    assert out["events"] == 45
+    assert out["users_affected"] == 6
+    assert out["issues"] == []
+    assert out["resolved_issues"] == []
+
+    _patch_seq(monkeypatch, sentry, (200, body, None))
+    out = sentry.collect(token="tok", include_issues=True)
     assert out["issues"][0]["title"] == "TypeError: x is undefined"
 
 

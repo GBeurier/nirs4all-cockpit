@@ -209,11 +209,11 @@ class VisitPage(BaseModel):
 
 
 class Visits(BaseModel):
-    """GoatCounter Pages-site visits: aggregate windows + per-page breakdown.
+    """GoatCounter Pages-site visits.
 
     Public, count-only signal (the API token never enters the snapshot).
-    ``windows`` holds ecosystem-wide totals (7d/30d/365d/all-time); ``pages``
-    is the per-page breakdown, highest-traffic first.
+    ``windows`` holds ecosystem-wide totals (7d/30d/365d/all-time). ``pages`` is
+    empty unless a local caller explicitly opts into per-page details.
     """
 
     available: bool = False
@@ -224,8 +224,11 @@ class Visits(BaseModel):
 
 
 class SentryStatus(BaseModel):
-    """Runtime-error health for the studio project (public): unresolved vs
-    resolved counts, total events + users affected, and both issue lists."""
+    """Runtime-error health for the studio project.
+
+    Public snapshots use aggregate counters only. Issue lists are empty unless a
+    local caller explicitly opts into details.
+    """
 
     available: bool = False
     org: str | None = None

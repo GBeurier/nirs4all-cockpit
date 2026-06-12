@@ -222,7 +222,8 @@ def _print_summary(snap: Snapshot) -> None:
     v = snap.visits
     if v.available:
         w = v.windows
-        typer.echo(f"visits: 30d={w.get('30d')} total={w.get('total')} · {len(v.pages)} pages")
+        pages = f" · {len(v.pages)} pages" if v.pages else ""
+        typer.echo(f"visits: 30d={w.get('30d')} total={w.get('total')}{pages}")
 
 
 @app.command()

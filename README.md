@@ -89,7 +89,7 @@ n4a-cockpit admin collect            # traffic + open PRs + security alerts + Se
 
 - **GitHub traffic** (views/clones, 14 d) needs a push-scoped token.
 - **Open PRs** and **Dependabot / code-scanning** alerts per repo.
-- **Sentry** unresolved issues for `nirs4all-studio` (org `wwwciradfr`,
+- **Sentry** aggregate counters for `nirs4all-studio` (org `wwwciradfr`,
   `de.sentry.io`) — set `SENTRY_AUTH_TOKEN` to enable; it degrades gracefully
   (`available=false`) otherwise.
 
@@ -158,17 +158,17 @@ falls back across `../data`, `./`, and `./data`.
   workflow health, **public GitHub stats** (stars / forks / watchers / license /
   PRs open·merged·closed), **code stats** (effective LOC, comments, tests,
   coverage, per-language — scanned from the local checkout), **GitHub Actions
-  stats** (workflow count, total runs, recent success rate), and an ecosystem-
-  wide **`totals`** aggregate. Built by `collect`.
+  stats** (workflow count, total runs, recent success rate), aggregate
+  **GoatCounter visits**, aggregate **Sentry counters**, and an ecosystem-wide
+  **`totals`** aggregate. Built by `collect`.
 - **Admin** (`data/admin/snapshot.admin.json`, gitignored, local only): GitHub
   **traffic** (views/clones), **open PRs**, **Dependabot / code-scanning**
-  alerts, and **Sentry** unresolved issues. Built by `admin collect`. These are
+  alerts, and **Sentry** aggregate counters. Built by `admin collect`. These are
   push-scoped or semi-private and never enter the public snapshot.
 
 ### Still ahead
 
-- A **FastAPI** local admin UI (admin is CLI + local dashboard section for now).
-- **Rich download history** and monthly history compaction.
+- A **FastAPI** local admin UI (admin is CLI + local dashboard section for now). - **Rich download history** and monthly history compaction.
 
 ---
 
@@ -193,7 +193,7 @@ pytest -q
   missing, npm scoped error-200 → version OK + downloads unknown, cranlogs `0`
   ≠ missing, R-universe null → broken.
 - `tests/test_admin.py` — the admin collectors: Sentry token-less degradation
-  and issue shaping, PR draft/ready counts, security 403 → unavailable and the
+  and aggregate counter shaping, PR draft/ready counts, security 403 → unavailable and the
   Dependabot severity breakdown.
 - `tests/test_stats.py` — the local code scanner (code/comment/blank/test counts,
   vendored-dir skipping, missing-checkout → None) and the Actions success-rate.

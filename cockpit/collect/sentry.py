@@ -1,8 +1,8 @@
-"""Sentry collector: unresolved + recently-resolved issues for the studio project.
+"""Sentry collector: aggregate runtime-error counters for the studio project.
 
 Reads the ``nirs4all-studio`` Sentry project so the cockpit can show a runtime-
 health panel: how many issues are unresolved vs resolved, how many events and
-users they hit, and the issues themselves (current unresolved + recently closed).
+users they hit.
 
 Coordinates (verified): org ``wwwciradfr`` on region ``https://de.sentry.io``,
 project ``nirs4all-studio``. All overridable via ``SENTRY_ORG`` / ``SENTRY_PROJECT``
@@ -12,7 +12,8 @@ Auth: a Sentry **auth token** in ``SENTRY_AUTH_TOKEN`` (``Authorization: Bearer`
 — distinct from the ingest DSN. Without it the collector degrades gracefully
 (``available=False`` + an explanatory ``error``) and never raises.
 
-Only aggregate counts + issue metadata enter the snapshot — never the token.
+Only aggregate counts enter the public snapshot — never the token, issue titles,
+culprits, permalinks, or user-identifying details.
 """
 
 from __future__ import annotations
@@ -36,7 +37,7 @@ def _to_int(x: Any) -> int | None:
 
 
 def _issue(it: dict) -> dict:
-    """Project one Sentry issue down to the public-safe fields the panel shows."""
+    """Project one Sentry issue down to local-only fields when explicitly requested."""
     return {
         "title": it.get("title"),
         "culprit": it.get("culprit"),
@@ -56,13 +57,14 @@ def collect(
     token: str | None = None,
     stats_period: str = "14d",
     limit: int = 25,
+    include_issues: bool = False,
 ) -> dict[str, Any]:
-    """Collect unresolved + recently-resolved Sentry issues for a project.
+    """Collect aggregate Sentry issue counters for a project.
 
     Returns ``{"available", "org", "project", "unresolved", "resolved", "events",
-    "users_affected", "issues": [...], "resolved_issues": [...], "error"}``. Each
-    issue carries ``title/culprit/level/count/userCount/firstSeen/lastSeen/
-    permalink``. Never raises: any auth/transport failure sets ``available=False``.
+    "users_affected", "issues": [], "resolved_issues": [], "error"}``. Detailed
+    issue lists are returned only when ``include_issues=True`` for local use.
+    Never raises: any auth/transport failure sets ``available=False``.
     """
     org = org or os.environ.get("SENTRY_ORG", ORG)
     project = project or os.environ.get("SENTRY_PROJECT", PROJECT)
@@ -112,7 +114,7 @@ def collect(
         resolved=len(resolved_issues) if resolved_raw is not None else None,
         events=sum(i["count"] or 0 for i in issues),
         users_affected=sum(i["userCount"] or 0 for i in issues),
-        issues=issues,
-        resolved_issues=resolved_issues[:12],
     )
+    if include_issues:
+        out.update(issues=issues, resolved_issues=resolved_issues[:12])
     return out
