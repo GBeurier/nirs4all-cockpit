@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-12T16:10:12.646629+00:00",
+  "generated_at": "2026-06-12T16:19:50.894414+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -2467,11 +2467,11 @@
     "error": null
   },
   "sentry": {
-    "available": false,
+    "available": true,
     "org": "wwwciradfr",
     "project": "nirs4all-studio",
-    "unresolved": null,
+    "unresolved": 9,
     "issues": [],
-    "error": "no SENTRY_AUTH_TOKEN in env (admin-only; set it to enable Sentry)"
+    "error": null
   }
 }
