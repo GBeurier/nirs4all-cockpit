@@ -26,6 +26,7 @@
 
   --green: #10b981;
   --stale: #e0950c;
+  --pending: #8b5cf6;
   --missing: #b9c0cb;
   --broken: #e11d48;
   --unknown: #06b6d4;
@@ -84,11 +85,12 @@ a { color: var(--teal-d); }
   background-size: 220px 220px;
 }
 .hero-spectra {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  width: 100%; height: 80%; z-index: 0; pointer-events: none;
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: calc(100% - 48px); max-width: 1180px; height: 80%; z-index: 0; pointer-events: none;
 }
 .spectrum-line { fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .wave-dot { fill: currentColor; filter: drop-shadow(0 0 6px currentColor); }
+.wave-connector { fill: none; stroke-dasharray: 1.5 4; stroke-linecap: round; mix-blend-mode: multiply; }
 
 .hero-inner {
   position: relative; z-index: 2;
@@ -180,6 +182,7 @@ section.block { margin: 0 0 34px; }
 }
 .led--green   { --st: var(--green);   box-shadow: 0 0 0 2px color-mix(in srgb, var(--green) 16%, transparent), 0 0 8px color-mix(in srgb, var(--green) 75%, transparent); }
 .led--stale   { --st: var(--stale);   box-shadow: 0 0 0 2px color-mix(in srgb, var(--stale) 16%, transparent), 0 0 7px color-mix(in srgb, var(--stale) 60%, transparent); }
+.led--pending { --st: var(--pending); box-shadow: 0 0 0 2px color-mix(in srgb, var(--pending) 18%, transparent), 0 0 7px color-mix(in srgb, var(--pending) 55%, transparent); animation: led-pulse 2s ease-in-out infinite; }
 .led--unknown { --st: var(--unknown); box-shadow: 0 0 0 2px color-mix(in srgb, var(--unknown) 16%, transparent); }
 .led--broken  { --st: var(--broken);  box-shadow: 0 0 0 2px color-mix(in srgb, var(--broken) 18%, transparent), 0 0 8px color-mix(in srgb, var(--broken) 70%, transparent); animation: led-pulse 1.6s ease-in-out infinite; }
 .led--missing { background: transparent; border: 1.5px solid var(--missing); box-shadow: none; }

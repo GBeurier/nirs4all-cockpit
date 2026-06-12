@@ -20,10 +20,13 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-State = Literal["green", "stale", "missing", "broken", "unknown", "excluded"]
-"""Registry status of a single target. ``source_ahead`` is a package flag, not a
-status; ``planned`` is carried separately on ``TargetStatus`` (a planned target
-reconciles as ``missing`` but is flagged and given no admin button)."""
+State = Literal["green", "stale", "pending", "missing", "broken", "unknown", "excluded"]
+"""Registry status of a single target. ``pending`` = built & submitted but not yet
+live (e.g. the R source tarball is attached to a GitHub Release but the package
+is not on CRAN yet — awaiting manual review); it is distinct from ``stale`` (an
+*older* version IS published) and from ``missing`` (nothing built/submitted).
+``source_ahead`` is a package flag, not a status; ``planned`` is carried
+separately on ``TargetStatus``."""
 
 
 # --------------------------------------------------------------------------- #
@@ -331,7 +334,7 @@ class Package(BaseModel):
     repo: str
     channel: str = "production"
     issues_repo: str | None = None
-    source_of_truth: SourceOfTruth
+    source_of_truth: SourceOfTruth | None = None
     targets: list[Target]
     version_aliases: dict = Field(default_factory=dict)
 

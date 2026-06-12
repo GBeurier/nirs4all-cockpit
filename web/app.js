@@ -6,12 +6,12 @@
 
 "use strict";
 
-const REGS = ["pypi", "crates", "npm", "r-universe", "cran", "github-release"];
-const REG_LABEL = { pypi: "PyPI", crates: "crates.io", npm: "npm", "r-universe": "R-universe", cran: "CRAN", "github-release": "GitHub Releases" };
+const REGS = ["pypi", "crates", "npm", "r-universe", "cran", "github-release", "pages"];
+const REG_LABEL = { pypi: "PyPI", crates: "crates.io", npm: "npm", "r-universe": "R-universe", cran: "CRAN", "github-release": "GitHub Releases", pages: "GitHub Pages" };
 const REG_COLOR = { pypi: "#0d9488", crates: "#d97706", npm: "#e11d48", "r-universe": "#10b981", cran: "#4f46e5", "github-release": "#64748b" };
-const STATE_COLOR = { green: "#10b981", stale: "#e0950c", missing: "#b9c0cb", broken: "#e11d48", unknown: "#06b6d4", excluded: "#cabf9e" };
-const STATES = ["green", "stale", "missing", "broken", "unknown", "excluded"];
-const RANK = { broken: 5, missing: 4, stale: 3, unknown: 2, green: 1, excluded: 0 };
+const STATE_COLOR = { green: "#10b981", stale: "#e0950c", pending: "#8b5cf6", missing: "#b9c0cb", broken: "#e11d48", unknown: "#06b6d4", excluded: "#cabf9e" };
+const STATES = ["green", "stale", "pending", "missing", "broken", "unknown", "excluded"];
+const RANK = { broken: 6, missing: 5, stale: 4, pending: 3, unknown: 2, green: 1, excluded: 0 };
 let OWNER = "GBeurier";
 
 // ---- helpers ---------------------------------------------------------------
@@ -38,6 +38,7 @@ function registryUrl(reg, name, repo) {
     case "r-universe": return `https://${OWNER.toLowerCase()}.r-universe.dev/${name}`;
     case "cran": return `https://cran.r-project.org/package=${name}`;
     case "github-release": return `https://github.com/${OWNER}/${repo}/releases`;
+    case "pages": return `https://${OWNER.toLowerCase()}.github.io/${repo}/`;
     default: return `https://github.com/${OWNER}/${repo}`;
   }
 }
@@ -135,8 +136,8 @@ function renderMatrix(snap) {
   const thead = el("thead");
   const hr = el("tr");
   hr.append(el("th", { class: "h-pkg", text: "package" }), el("th", { class: "h-ver", text: "version" }));
-  const REG_SHORT = { pypi: "PyPI", crates: "crates", npm: "npm", "r-universe": "R-univ", cran: "CRAN", "github-release": "GH rel" };
-  const REG_BRAND = { pypi: "#3775A9", crates: "#C16C28", npm: "#CB3837", "r-universe": "#2E73C4", cran: "#1B5390", "github-release": "#24292F" };
+  const REG_SHORT = { pypi: "PyPI", crates: "crates", npm: "npm", "r-universe": "R-univ", cran: "CRAN", "github-release": "GH rel", pages: "gh.io" };
+  const REG_BRAND = { pypi: "#3775A9", crates: "#C16C28", npm: "#CB3837", "r-universe": "#2E73C4", cran: "#1B5390", "github-release": "#24292F", pages: "#0ea5e9" };
   for (const reg of REGS) {
     const col = REG_BRAND[reg] || "var(--text-2)";
     const th = el("th", { class: "reg-head", attrs: { scope: "col", title: REG_LABEL[reg] } });
@@ -153,18 +154,11 @@ function renderMatrix(snap) {
     const byReg = new Map();
     for (const t of pkg.targets || []) { if (!byReg.has(t.registry)) byReg.set(t.registry, []); byReg.get(t.registry).push(t); }
 
-    // package cell: rollup LED (with a why-tooltip) + name (link to repo)
+    // package cell: just the name (link to repo) — the registry cells already
+    // show what's published/missing, so no redundant left-hand rollup LED.
     const cPkg = el("th", { class: "c-pkg", attrs: { scope: "row" } });
     const a = el("a", { attrs: { href: `https://github.com/${OWNER}/${pkg.repo}`, target: "_blank", rel: "noopener" } });
-    const rollLed = led(pkg.rollup || "missing");
-    const regWorst = {};
-    for (const t of pkg.targets || []) { const r = t.registry; if (regWorst[r] == null || (RANK[t.status] ?? 1) > (RANK[regWorst[r]] ?? 1)) regWorst[r] = t.status; }
-    const issues = Object.entries(regWorst)
-      .filter(([, st]) => st !== "green" && st !== "excluded")
-      .map(([r, st]) => `<div class="tt-row"><span class="led led--${st}"></span> ${REG_LABEL[r]} · ${st}</div>`)
-      .join("");
-    attachTip(rollLed, `<b>${pkg.id}</b> · rollup = ${pkg.rollup}${issues ? "<div style='margin-top:4px;opacity:.8'>not yet current on:</div>" + issues : "<div class='tt-row'>current on every registry ✓</div>"}`);
-    a.append(rollLed, el("span", { class: "pkg-name", text: pkg.id }));
+    a.append(el("span", { class: "pkg-name", text: pkg.id }));
     if ((pkg.flags || []).includes("source_ahead")) a.append(el("span", { class: "pkg-flag", attrs: { title: "repo manifest ahead of the latest prod tag" }, text: "ahead" }));
     cPkg.appendChild(a);
     tr.appendChild(cPkg);
@@ -178,7 +172,10 @@ function renderMatrix(snap) {
       if (!targets || !targets.length) { td.appendChild(el("span", { class: "led led--none", attrs: { "aria-label": "no target" } })); tr.appendChild(td); continue; }
       const st = worstState(targets);
       const rep = facade(targets);
-      const link = el("a", { attrs: { href: registryUrl(reg, rep.name, pkg.repo), target: "_blank", rel: "noopener" } });
+      const href = reg === "pages" && rep.evidence && rep.evidence.version_endpoint
+        ? rep.evidence.version_endpoint
+        : registryUrl(reg, rep.name, pkg.repo);
+      const link = el("a", { attrs: { href, target: "_blank", rel: "noopener" } });
       const dot = led(st);
       if (targets.length > 1) { const wrap = el("span", { class: "led-multi" }); wrap.append(dot, el("span", { class: "badge-n", text: `×${targets.length}` })); link.appendChild(wrap); }
       else link.appendChild(dot);
@@ -405,20 +402,51 @@ function startWave() {
   const areaPath = (w, now) => linePath(w, now) + `L${W},${H}L0,${H}Z`;
   const dots = [];
   let last = 0;
+  const MAX_DX = 240; // SVG-space window for cross-spectral connectors
   function frame(now) {
     waves.forEach((w, i) => { lines[i].setAttribute("d", linePath(w, now)); areas[i].setAttribute("d", areaPath(w, now)); });
-    if (now - last > 360 && dots.length < 14) {
+    if (now - last > 320 && dots.length < 16) {
       last = now;
-      const w = waves[(Math.random() * 3) | 0], x = 80 + Math.random() * (W - 160);
+      const wi = (Math.random() * 3) | 0, w = waves[wi], x = 80 + Math.random() * (W - 160);
       const e = document.createElementNS("http://www.w3.org/2000/svg", "circle");
       e.setAttribute("r", "3"); e.setAttribute("fill", w.dot); e.classList.add("wave-dot"); e.style.color = w.col;
-      dotsG.appendChild(e); dots.push({ e, w, x, born: now });
+      dotsG.appendChild(e); dots.push({ e, wi, x, born: now, conns: [] });
     }
+    // move dots; cull the dead
     for (let i = dots.length - 1; i >= 0; i--) {
       const d = dots[i], age = now - d.born, life = 2600;
-      if (age > life) { d.e.remove(); dots.splice(i, 1); continue; }
-      d.e.setAttribute("cx", d.x); d.e.setAttribute("cy", yAt(d.w, d.x, now).toFixed(1));
-      d.e.setAttribute("opacity", (Math.sin((age / life) * Math.PI) * 0.9).toFixed(2));
+      if (age > life) { d.e.remove(); d.conns.forEach((c) => c.remove()); dots.splice(i, 1); continue; }
+      d.y = yAt(waves[d.wi], d.x, now);
+      d.op = Math.sin((age / life) * Math.PI) * 0.9;
+      d.e.setAttribute("cx", d.x); d.e.setAttribute("cy", d.y.toFixed(1)); d.e.setAttribute("opacity", d.op.toFixed(2));
+    }
+    // dotted connector traces between dots living on DIFFERENT waves (cross-spectral)
+    dots.forEach((d) => { d.conns.forEach((c) => c.remove()); d.conns = []; });
+    const seen = new Set();
+    for (let i = 0; i < dots.length; i++) {
+      const a = dots[i]; if (a.op < 0.18) continue;
+      let best = null;
+      for (let j = 0; j < dots.length; j++) {
+        if (i === j) continue;
+        const b = dots[j];
+        if (b.wi === a.wi || b.op < 0.18) continue;
+        const dx = Math.abs(a.x - b.x); if (dx > MAX_DX) continue;
+        if (!best || dx < best.dx) best = { b, j, dx };
+      }
+      if (!best) continue;
+      const key = i < best.j ? i + ":" + best.j : best.j + ":" + i;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const op = Math.min(a.op, best.b.op) * 0.55 * (0.35 + 0.65 * (1 - best.dx / MAX_DX));
+      if (op < 0.03) continue;
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      line.setAttribute("d", `M${a.x.toFixed(1)},${a.y.toFixed(1)} L${best.b.x.toFixed(1)},${best.b.y.toFixed(1)}`);
+      line.setAttribute("stroke", waves[a.wi].col);
+      line.setAttribute("stroke-width", "0.75");
+      line.setAttribute("opacity", op.toFixed(3));
+      line.classList.add("wave-connector");
+      dotsG.insertBefore(line, dotsG.firstChild);
+      a.conns.push(line);
     }
     requestAnimationFrame(frame);
   }

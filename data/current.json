@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-12T14:29:10.694779+00:00",
+  "generated_at": "2026-06-12T14:54:38.567946+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -133,7 +133,7 @@
         "expected_prod_version": "v0.99.0",
         "commit": null
       },
-      "rollup": "missing",
+      "rollup": "green",
       "flags": [],
       "targets": [
         {
@@ -260,7 +260,7 @@
           "registry": "cran",
           "name": "n4m",
           "published_version": null,
-          "status": "missing",
+          "status": "pending",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -286,7 +286,7 @@
           "registry": "cran",
           "name": "pls4all",
           "published_version": null,
-          "status": "missing",
+          "status": "pending",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -325,6 +325,27 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-methods/releases/latest",
+            "downloads_endpoint": null
+          },
+          "error": null
+        },
+        {
+          "registry": "pages",
+          "name": "nirs4all-methods",
+          "published_version": null,
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": "https://gbeurier.github.io/nirs4all-methods/",
             "downloads_endpoint": null
           },
           "error": null
@@ -420,7 +441,7 @@
         "expected_prod_version": "v0.1.0",
         "commit": null
       },
-      "rollup": "missing",
+      "rollup": "green",
       "flags": [],
       "targets": [
         {
@@ -645,7 +666,7 @@
           "registry": "cran",
           "name": "nirs4allformats",
           "published_version": null,
-          "status": "missing",
+          "status": "pending",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -684,6 +705,27 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-formats/releases/latest",
+            "downloads_endpoint": null
+          },
+          "error": null
+        },
+        {
+          "registry": "pages",
+          "name": "nirs4all-formats",
+          "published_version": null,
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": "https://gbeurier.github.io/nirs4all-formats/",
             "downloads_endpoint": null
           },
           "error": null
@@ -777,7 +819,7 @@
         "expected_prod_version": "v0.1.1",
         "commit": null
       },
-      "rollup": "missing",
+      "rollup": "green",
       "flags": [],
       "targets": [
         {
@@ -997,7 +1039,7 @@
           "registry": "cran",
           "name": "nirs4allio",
           "published_version": null,
-          "status": "missing",
+          "status": "pending",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -1036,6 +1078,27 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-io/releases/latest",
+            "downloads_endpoint": null
+          },
+          "error": null
+        },
+        {
+          "registry": "pages",
+          "name": "nirs4all-io",
+          "published_version": null,
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": "https://gbeurier.github.io/nirs4all-io/",
             "downloads_endpoint": null
           },
           "error": null
@@ -1078,7 +1141,7 @@
         "open_prs": 0,
         "closed_prs": 1,
         "merged_prs": 1,
-        "size_kb": 3754,
+        "size_kb": 3762,
         "license": "NOASSERTION",
         "pushed_at": "2026-06-12T14:12:50Z",
         "default_branch": "main",
@@ -1130,7 +1193,7 @@
         "expected_prod_version": "v0.2.0",
         "commit": null
       },
-      "rollup": "missing",
+      "rollup": "green",
       "flags": [],
       "targets": [
         {
@@ -1303,7 +1366,7 @@
           "registry": "cran",
           "name": "nirs4alldatasets",
           "published_version": null,
-          "status": "missing",
+          "status": "pending",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -1342,6 +1405,27 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-datasets/releases/latest",
+            "downloads_endpoint": null
+          },
+          "error": null
+        },
+        {
+          "registry": "pages",
+          "name": "nirs4all-datasets",
+          "published_version": null,
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": "https://gbeurier.github.io/nirs4all-datasets/",
             "downloads_endpoint": null
           },
           "error": null
@@ -1395,14 +1479,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 36298,
+        "loc_code": 36417,
         "loc_comment": 6285,
-        "loc_blank": 7409,
-        "loc_total": 49992,
+        "loc_blank": 7412,
+        "loc_total": 50114,
         "files": 480,
         "tests": 260,
         "by_language": {
-          "Python": 28686,
+          "Python": 28805,
           "JavaScript": 2878,
           "R": 2431,
           "Rust": 1841,
@@ -1436,7 +1520,7 @@
         "expected_prod_version": "v0.1.0",
         "commit": null
       },
-      "rollup": "missing",
+      "rollup": "green",
       "flags": [],
       "targets": [
         {
@@ -1547,7 +1631,7 @@
           "registry": "cran",
           "name": "nirs4all",
           "published_version": null,
-          "status": "missing",
+          "status": "pending",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -1748,7 +1832,7 @@
           "Python": 30329,
           "Shell": 28
         },
-        "coverage_pct": null,
+        "coverage_pct": 87.0,
         "source": "local-scan"
       },
       "actions_stats": {
@@ -2121,28 +2205,250 @@
         "last_conclusion": "success",
         "last_created_at": "2026-05-26T14:50:37Z"
       }
+    },
+    {
+      "id": "nirs4all-cluster",
+      "repo": "nirs4all-cluster",
+      "source": {
+        "manifest_version": "0.0.1",
+        "latest_prod_tag": null,
+        "latest_any_tag": null,
+        "expected_prod_version": "0.0.1",
+        "commit": null
+      },
+      "rollup": "green",
+      "flags": [],
+      "targets": [],
+      "workflows": [],
+      "issues": {
+        "open": 0,
+        "bugs": 0
+      },
+      "repo_stats": {
+        "stars": 2,
+        "forks": 0,
+        "watchers": 0,
+        "open_prs": 0,
+        "closed_prs": 2,
+        "merged_prs": 2,
+        "size_kb": 94,
+        "license": null,
+        "pushed_at": "2026-06-11T22:50:25Z",
+        "default_branch": "main",
+        "traffic_views_14d": null,
+        "traffic_views_uniques": null,
+        "traffic_clones_14d": null,
+        "traffic_clones_uniques": null,
+        "traffic_available": false
+      },
+      "code_stats": {
+        "loc_code": 3387,
+        "loc_comment": 511,
+        "loc_blank": 686,
+        "loc_total": 4584,
+        "files": 23,
+        "tests": 48,
+        "by_language": {
+          "Python": 3387
+        },
+        "coverage_pct": null,
+        "source": "local-scan"
+      },
+      "actions_stats": {
+        "workflows": 0,
+        "total_runs": 0,
+        "recent_total": 0,
+        "recent_success": 0,
+        "recent_failure": 0,
+        "success_rate": null,
+        "last_conclusion": null,
+        "last_created_at": null
+      }
+    },
+    {
+      "id": "nirs4all-org",
+      "repo": "nirs4all-org",
+      "source": {
+        "manifest_version": null,
+        "latest_prod_tag": null,
+        "latest_any_tag": null,
+        "expected_prod_version": null,
+        "commit": null
+      },
+      "rollup": "green",
+      "flags": [],
+      "targets": [
+        {
+          "registry": "pages",
+          "name": "nirs4all-org",
+          "published_version": null,
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": "https://nirs4all.org/",
+            "downloads_endpoint": null
+          },
+          "error": null
+        }
+      ],
+      "workflows": [],
+      "issues": {
+        "open": 0,
+        "bugs": 0
+      },
+      "repo_stats": {
+        "stars": 2,
+        "forks": 0,
+        "watchers": 0,
+        "open_prs": 0,
+        "closed_prs": 0,
+        "merged_prs": 0,
+        "size_kb": 3858,
+        "license": null,
+        "pushed_at": "2026-06-12T14:12:45Z",
+        "default_branch": "main",
+        "traffic_views_14d": null,
+        "traffic_views_uniques": null,
+        "traffic_clones_14d": null,
+        "traffic_clones_uniques": null,
+        "traffic_available": false
+      },
+      "code_stats": {
+        "loc_code": 0,
+        "loc_comment": 0,
+        "loc_blank": 0,
+        "loc_total": 0,
+        "files": 0,
+        "tests": 0,
+        "by_language": {},
+        "coverage_pct": null,
+        "source": "local-scan"
+      },
+      "actions_stats": {
+        "workflows": 1,
+        "total_runs": 64,
+        "recent_total": 64,
+        "recent_success": 63,
+        "recent_failure": 1,
+        "success_rate": 98.4,
+        "last_conclusion": "success",
+        "last_created_at": "2026-06-12T14:12:46Z"
+      }
+    },
+    {
+      "id": "nirs4all-web",
+      "repo": "nirs4all-web",
+      "source": {
+        "manifest_version": "0.1.0",
+        "latest_prod_tag": null,
+        "latest_any_tag": null,
+        "expected_prod_version": "0.1.0",
+        "commit": null
+      },
+      "rollup": "green",
+      "flags": [],
+      "targets": [
+        {
+          "registry": "pages",
+          "name": "nirs4all-web",
+          "published_version": null,
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": "https://gbeurier.github.io/nirs4all-web/",
+            "downloads_endpoint": null
+          },
+          "error": null
+        }
+      ],
+      "workflows": [],
+      "issues": {
+        "open": 0,
+        "bugs": 0
+      },
+      "repo_stats": {
+        "stars": 2,
+        "forks": 0,
+        "watchers": 0,
+        "open_prs": 0,
+        "closed_prs": 0,
+        "merged_prs": 0,
+        "size_kb": 8067,
+        "license": null,
+        "pushed_at": "2026-06-12T14:12:48Z",
+        "default_branch": "main",
+        "traffic_views_14d": null,
+        "traffic_views_uniques": null,
+        "traffic_clones_14d": null,
+        "traffic_clones_uniques": null,
+        "traffic_available": false
+      },
+      "code_stats": {
+        "loc_code": 21082,
+        "loc_comment": 2444,
+        "loc_blank": 1816,
+        "loc_total": 25342,
+        "files": 181,
+        "tests": 163,
+        "by_language": {
+          "TypeScript": 15766,
+          "JavaScript": 5274,
+          "Shell": 42
+        },
+        "coverage_pct": null,
+        "source": "local-scan"
+      },
+      "actions_stats": {
+        "workflows": 1,
+        "total_runs": 61,
+        "recent_total": 61,
+        "recent_success": 60,
+        "recent_failure": 1,
+        "success_rate": 98.4,
+        "last_conclusion": "success",
+        "last_created_at": "2026-06-12T14:12:52Z"
+      }
     }
   ],
   "summary": {
-    "green": 38,
+    "green": 44,
     "stale": 0,
-    "missing": 17,
+    "missing": 11,
     "broken": 0,
     "unknown": 0,
-    "excluded": 0
+    "excluded": 0,
+    "pending": 6
   },
   "totals": {
-    "packages": 9,
-    "repos": 9,
-    "stars": 67,
+    "packages": 12,
+    "repos": 12,
+    "stars": 73,
     "forks": 0,
     "watchers": 2,
     "open_issues": 0,
-    "loc_code": 709028,
-    "loc_total": 989963,
-    "tests": 9625,
-    "files": 3061,
-    "workflow_runs": 3204,
+    "loc_code": 733616,
+    "loc_total": 1020011,
+    "tests": 9836,
+    "files": 3265,
+    "workflow_runs": 3329,
     "downloads_last_month": 4334
   }
 }

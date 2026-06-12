@@ -122,6 +122,9 @@ packages:
       - registry: github-release
         name: nirs4all-methods
         state: tracked
+      - registry: pages
+        name: nirs4all-methods
+        state: tracked
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -230,6 +233,9 @@ packages:
       - registry: github-release
         name: nirs4all-formats
         state: tracked
+      - registry: pages
+        name: nirs4all-formats
+        state: tracked
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -329,6 +335,9 @@ packages:
       - registry: github-release
         name: nirs4all-io
         state: tracked
+      - registry: pages
+        name: nirs4all-io
+        state: tracked
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -414,6 +423,9 @@ packages:
         state: tracked
         reason: "manual web submission; no admin button"
       - registry: github-release
+        name: nirs4all-datasets
+        state: tracked
+      - registry: pages
         name: nirs4all-datasets
         state: tracked
     version_aliases: {}
@@ -556,4 +568,40 @@ packages:
       - registry: crates
         name: dag-ml-data-provider
         state: planned
+    version_aliases: {}
+
+  # ------------------------------------------------------------------------- #
+  # Public ecosystem projects WITHOUT registry packages — tracked for GitHub
+  # stats, code/CI, and (where present) their GitHub Pages site.
+  - id: nirs4all-cluster
+    repo: nirs4all-cluster
+    channel: production
+    issues_repo: nirs4all-cluster
+    source_of_truth:
+      strategy: python_pyproject
+      path: pyproject.toml
+    targets: []
+    version_aliases: {}
+
+  - id: nirs4all-org
+    repo: nirs4all-org
+    channel: production
+    issues_repo: nirs4all-org
+    targets:
+      - registry: pages
+        name: nirs4all-org
+        state: tracked
+    version_aliases: {}
+
+  - id: nirs4all-web
+    repo: nirs4all-web
+    channel: production
+    issues_repo: nirs4all-web
+    source_of_truth:
+      strategy: npm_package_json
+      path: studio-lite/package.json
+    targets:
+      - registry: pages
+        name: nirs4all-web
+        state: tracked
     version_aliases: {}

@@ -23,6 +23,7 @@ Strategies (``source_of_truth.strategy``):
 
 from __future__ import annotations
 
+import json
 import os
 import re
 import tomllib
@@ -109,6 +110,12 @@ def _extract(strategy: str, text: str, attr: str | None) -> str | None:
     if strategy == "r_description":
         m = re.search(r"^Version:\s*(.+?)\s*$", text, re.MULTILINE)
         return m.group(1) if m else None
+
+    if strategy == "npm_package_json":
+        try:
+            return json.loads(text).get("version")
+        except (json.JSONDecodeError, AttributeError):
+            return None
 
     if strategy in ("python_pyproject", "cargo_workspace", "cargo_package"):
         try:

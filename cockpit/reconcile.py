@@ -18,6 +18,7 @@ worst-cell verdict. The rules it enforces (from the Codex review):
 
 from __future__ import annotations
 
+import re
 from collections.abc import Iterable
 from pathlib import Path
 
@@ -43,9 +44,6 @@ from .model import (
     Totals,
     WorkflowHealth,
 )
-
-# Worst-cell ordering for the package roll-up (excluded is out of band).
-_RANK = {"broken": 5, "missing": 4, "stale": 3, "unknown": 2, "green": 1}
 
 # registry → collector entry function (each returns the fact dict).
 _COLLECTORS = {
@@ -246,13 +244,15 @@ def _source_versions(
         return None, None, None, None
 
     sot = pkg.source_of_truth
-    manifest = local_manifests.read_manifest_version(
-        owner=owner,
-        repo=pkg.repo,
-        strategy=sot.strategy,
-        path=sot.path,
-        attr=sot.attr,
-    )
+    manifest = None
+    if sot is not None:
+        manifest = local_manifests.read_manifest_version(
+            owner=owner,
+            repo=pkg.repo,
+            strategy=sot.strategy,
+            path=sot.path,
+            attr=sot.attr,
+        )
 
     tag_names = github.tags(owner, pkg.repo)
     latest_prod = _latest_prod_tag(tag_names)
@@ -303,6 +303,9 @@ def _reconcile_target(
     if tgt.registry == "github-release":
         return _reconcile_github_release(owner, pkg, tgt, expected, no_network=no_network)
 
+    if tgt.registry == "pages":
+        return _reconcile_pages(owner, pkg, tgt, no_network=no_network)
+
     if planned:
         # No release workflow yet → missing, flagged planned, no probe needed.
         return TargetStatus(
@@ -349,6 +352,12 @@ def _reconcile_target(
             excluded=False,
             planned=False,
         )
+
+    # CRAN submissions awaiting manual review: not on CRAN yet (missing) but the R
+    # source tarball is already built and attached to a GitHub Release → pending.
+    if state == "missing" and tgt.registry == "cran" and not no_network:
+        if github.release_asset_matches(owner, pkg.repo, rf"^{re.escape(tgt.name)}_.*\.tar\.gz$"):
+            state = "pending"
 
     return TargetStatus(
         registry=tgt.registry,
@@ -399,23 +408,47 @@ def _reconcile_github_release(
     )
 
 
+def _reconcile_pages(owner: str, pkg: Package, tgt: Target, *, no_network: bool) -> TargetStatus:
+    """Reconcile a GitHub Pages 'gh.io' target: is the site published & healthy?"""
+    endpoint = f"https://api.github.com/repos/{owner}/{pkg.repo}/pages"
+    if no_network:
+        return TargetStatus(
+            registry="pages", name=tgt.name, published_version=None, status="unknown",
+            planned=False, downloads=Downloads(), evidence=Evidence(version_endpoint=endpoint), error="no-network",
+        )
+    info = github.pages_status(owner, pkg.repo)
+    if not info["available"]:
+        state = "missing"
+    elif info["build_status"] == "errored":
+        state = "broken"
+    elif info["build_status"] == "building":
+        state = "unknown"
+    else:
+        state = "green"  # built, or enabled & live (status often null for Actions deploys)
+    return TargetStatus(
+        registry="pages", name=tgt.name, published_version=None, status=state, planned=False,
+        downloads=Downloads(), evidence=Evidence(version_endpoint=info.get("html_url")), error=None,
+    )
+
+
 def _is_transient(http_status: int | None, error: str | None) -> bool:
     """A timeout / transport failure (status 0 with an error) is transient → unknown."""
     return http_status in (None, 0) and error is not None
 
 
 def _rollup(targets: list[TargetStatus]) -> str:
-    """Worst-cell roll-up; ``excluded`` cells are ignored, all-excluded → green."""
-    worst = "green"
-    worst_rank = _RANK["green"]
-    for ts in targets:
-        if ts.status == "excluded":
-            continue
-        rank = _RANK.get(ts.status, _RANK["green"])
-        if rank > worst_rank:
-            worst = ts.status
-            worst_rank = rank
-    return worst
+    """Package roll-up. ``excluded`` cells are ignored, all-excluded → green.
+
+    A real *problem* dominates (``broken`` then ``stale``); otherwise being current
+    *somewhere* wins, so ``green`` outranks ``pending``/``unknown``/``missing`` — a
+    package published & current on its live registries is not reddened just because
+    another registry (e.g. a pending CRAN submission) is not live yet.
+    """
+    states = {ts.status for ts in targets if ts.status != "excluded"}
+    for s in ("broken", "stale", "green", "pending", "unknown", "missing"):
+        if s in states:
+            return s
+    return "green"
 
 
 def collect_snapshot(

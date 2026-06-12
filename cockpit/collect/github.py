@@ -18,6 +18,7 @@ Design choices required by the review:
 from __future__ import annotations
 
 import os
+import re
 from typing import Any
 
 from ..http import get_json
@@ -165,6 +166,43 @@ def latest_release_fact(owner: str, repo: str) -> dict[str, Any]:
             "asset_downloads": sum(a.get("download_count", 0) for a in assets if isinstance(a, dict)),
         }
     return {"published_version": None, "http_status": status, "error": error, "asset_downloads": None}
+
+
+def pages_status(owner: str, repo: str) -> dict[str, Any]:
+    """GitHub Pages site status: enabled?, html_url, build status, custom domain.
+
+    ``GET /repos/{o}/{r}/pages`` → 200 when Pages is enabled (with ``html_url``
+    and a ``status`` of ``built``/``building``/``errored``/``null``); 404 = no
+    Pages site. Needs a token for private repos; public repos answer anonymously.
+    """
+    status, body, _error = _get(f"{API}/repos/{owner}/{repo}/pages")
+    if status == 200 and isinstance(body, dict):
+        return {
+            "available": True,
+            "html_url": body.get("html_url"),
+            "build_status": body.get("status"),
+            "cname": body.get("cname"),
+        }
+    return {"available": False, "html_url": None, "build_status": None, "cname": None}
+
+
+def release_asset_matches(owner: str, repo: str, pattern: str) -> bool:
+    """Whether any asset on the repo's releases matches ``pattern`` (regex on name).
+
+    Scans the most recent releases (one page). Used to detect a built-but-not-yet-
+    published artifact — e.g. an R source tarball ``<pkg>_<ver>.tar.gz`` attached
+    to a Release while the package is not on CRAN yet (a ``pending`` submission).
+    """
+    rx = re.compile(pattern)
+    status, body, _error = _get(f"{API}/repos/{owner}/{repo}/releases?per_page=20")
+    if status == 200 and isinstance(body, list):
+        for rel in body:
+            if not isinstance(rel, dict):
+                continue
+            for asset in rel.get("assets") or []:
+                if isinstance(asset, dict) and rx.search(asset.get("name", "")):
+                    return True
+    return False
 
 
 def workflow_last_run(owner: str, repo: str, workflow_file: str) -> dict[str, Any] | None:
