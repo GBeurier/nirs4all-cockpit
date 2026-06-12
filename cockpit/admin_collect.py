@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
-from .collect import github, github_prs, github_security, sentry
+from .collect import github, github_prs, github_security, sentry, visits
 from .collect.base import now_iso
 from .model import (
     AdminSnapshot,
@@ -23,6 +23,7 @@ from .model import (
     SentryStatus,
     Targets,
     Traffic,
+    Visits,
 )
 
 
@@ -68,11 +69,14 @@ def build_admin_snapshot(
             RepoAdmin(repo=f"{owner}/{pkg.repo}", traffic=traffic, pulls=pulls, security=security)
         )
 
+    stamp = generated_at or now_iso()
     sentry_status = SentryStatus.model_validate(sentry.collect())
+    visits_status = Visits.model_validate(visits.collect(ref_date=stamp[:10]))
 
     return AdminSnapshot(
         schema_version=1,
-        generated_at=generated_at or now_iso(),
+        generated_at=stamp,
         sentry=sentry_status,
+        visits=visits_status,
         repos=repos,
     )

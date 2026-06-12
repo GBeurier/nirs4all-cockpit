@@ -265,12 +265,22 @@ class SentryStatus(BaseModel):
     error: str | None = None
 
 
+class Visits(BaseModel):
+    """GoatCounter Pages-site visits per window (admin-only)."""
+
+    available: bool = False
+    site: str | None = None
+    windows: dict = Field(default_factory=dict)
+    error: str | None = None
+
+
 class AdminSnapshot(BaseModel):
     """Top-level local-only document written to ``data/admin/snapshot.admin.json``."""
 
     schema_version: int = 1
     generated_at: str
     sentry: SentryStatus = Field(default_factory=SentryStatus)
+    visits: Visits = Field(default_factory=Visits)
     repos: list[RepoAdmin] = Field(default_factory=list)
 
 

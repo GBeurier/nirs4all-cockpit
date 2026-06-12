@@ -362,6 +362,24 @@ function renderAdmin(admin) {
   } else sb.appendChild(el("p", { class: "admin-note", text: `unavailable — ${s.error || "set SENTRY_AUTH_TOKEN"}` }));
   body.appendChild(sb);
 
+  // visits (GoatCounter)
+  const v = admin.visits || {};
+  const vb = el("div", { class: "card panel" });
+  vb.appendChild(el("h3", { class: "section-h", text: "Pages visits — GoatCounter" }));
+  if (v.available) {
+    const w = v.windows || {};
+    const row = el("div", { class: "chips" });
+    for (const [lab, key] of [["7 d", "7d"], ["30 d", "30d"], ["365 d", "365d"], ["all-time", "total"]]) {
+      const c = el("span", { class: "chip" });
+      c.append(el("span", { class: "count", text: fmtInt(w[key]) }), el("span", { class: "muted", text: lab }));
+      row.appendChild(c);
+    }
+    vb.appendChild(row);
+  } else {
+    vb.appendChild(el("p", { class: "admin-note", text: `unavailable — ${v.error || "set GOATCOUNTER_TOKEN"}` }));
+  }
+  body.appendChild(vb);
+
   const wrap = el("div", { class: "card panel" });
   wrap.appendChild(el("h3", { class: "section-h", text: "Per-repo — traffic · PRs · security" }));
   const table = el("table", { class: "stats" });

@@ -377,6 +377,8 @@ def admin_collect(
 
     s = snap.sentry
     typer.echo(f"sentry: available={s.available} unresolved={s.unresolved}" + (f" ({s.error})" if s.error else ""))
+    v = snap.visits
+    typer.echo(f"visits: available={v.available} " + (str(v.windows) if v.available else f"({v.error})"))
     for r in snap.repos:
         typer.echo(
             f"  {r.repo:28} PRs open={r.pulls.open} (draft {r.pulls.draft}) | "
