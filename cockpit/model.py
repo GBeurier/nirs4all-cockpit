@@ -150,6 +150,72 @@ class Snapshot(BaseModel):
 
 
 # --------------------------------------------------------------------------- #
+# Admin snapshot family (data/admin/snapshot.admin.json — LOCAL ONLY)
+# --------------------------------------------------------------------------- #
+# These carry push-scoped / semi-private signals (traffic, PRs, security alerts,
+# Sentry). They are written to a gitignored local file by `n4a-cockpit admin
+# collect` and never enter the public snapshot or GitHub Pages.
+
+
+class Traffic(BaseModel):
+    """14-day GitHub traffic for a repo (push-scoped; local admin only)."""
+
+    views_14d: int | None = None
+    views_uniques: int | None = None
+    clones_14d: int | None = None
+    clones_uniques: int | None = None
+    available: bool = False
+
+
+class PullRequests(BaseModel):
+    """Open pull-request counts for a repo, with a light per-PR list."""
+
+    open: int = 0
+    draft: int = 0
+    ready: int = 0
+    items: list[dict] = Field(default_factory=list)
+
+
+class Security(BaseModel):
+    """Open security-alert counts for a repo (Dependabot + code scanning)."""
+
+    available: bool = False
+    dependabot_open: int | None = None
+    dependabot_by_severity: dict = Field(default_factory=dict)
+    code_scanning_open: int | None = None
+    error: str | None = None
+
+
+class RepoAdmin(BaseModel):
+    """Admin-only signals for one repo: traffic, open PRs, security alerts."""
+
+    repo: str
+    traffic: Traffic = Field(default_factory=Traffic)
+    pulls: PullRequests = Field(default_factory=PullRequests)
+    security: Security = Field(default_factory=Security)
+
+
+class SentryStatus(BaseModel):
+    """Unresolved Sentry issues for the studio project (admin-only)."""
+
+    available: bool = False
+    org: str | None = None
+    project: str | None = None
+    unresolved: int | None = None
+    issues: list[dict] = Field(default_factory=list)
+    error: str | None = None
+
+
+class AdminSnapshot(BaseModel):
+    """Top-level local-only document written to ``data/admin/snapshot.admin.json``."""
+
+    schema_version: int = 1
+    generated_at: str
+    sentry: SentryStatus = Field(default_factory=SentryStatus)
+    repos: list[RepoAdmin] = Field(default_factory=list)
+
+
+# --------------------------------------------------------------------------- #
 # Targets family (ops/targets.yaml)
 # --------------------------------------------------------------------------- #
 

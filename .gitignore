@@ -13,3 +13,6 @@ dist/
 # generated history snapshots (keep the current pointer)
 data/history/*
 !data/current.json
+
+# local-only admin snapshot (traffic / PRs / security / Sentry) — never public
+data/admin/

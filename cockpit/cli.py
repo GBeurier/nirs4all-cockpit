@@ -351,6 +351,40 @@ def admin_set_secret(
         raise typer.Exit(code=result.returncode)
 
 
+@admin_app.command("collect")
+def admin_collect(
+    targets: Path = typer.Option(DEFAULT_TARGETS, "--targets", help="Inventory YAML."),
+    out: Path = typer.Option(
+        Path("data/admin/snapshot.admin.json"), "--out", help="Local-only admin snapshot path."
+    ),
+    only: str | None = typer.Option(None, "--only", help="Comma-separated package ids."),
+) -> None:
+    """Collect LOCAL-ONLY admin signals: traffic, open PRs, security alerts, Sentry.
+
+    Writes a gitignored ``data/admin/snapshot.admin.json`` — never the public
+    snapshot. Traffic needs a push-scoped token; Sentry needs ``SENTRY_AUTH_TOKEN``
+    (both degrade gracefully when absent).
+    """
+    from cockpit import admin_collect as admin_collect_mod
+
+    model = _load_targets(targets)
+    only_ids = [p.strip() for p in only.split(",") if p.strip()] if only else None
+    snap = admin_collect_mod.build_admin_snapshot(model, only=only_ids, generated_at=_utc_now())
+
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(snap.model_dump_json(indent=2), encoding="utf-8")
+    typer.secho(f"wrote {out}  (LOCAL ONLY — gitignored, never deployed)", fg="yellow")
+
+    s = snap.sentry
+    typer.echo(f"sentry: available={s.available} unresolved={s.unresolved}" + (f" ({s.error})" if s.error else ""))
+    for r in snap.repos:
+        typer.echo(
+            f"  {r.repo:28} PRs open={r.pulls.open} (draft {r.pulls.draft}) | "
+            f"dependabot={r.security.dependabot_open} | "
+            f"views14d={r.traffic.views_14d} clones14d={r.traffic.clones_14d}"
+        )
+
+
 @admin_app.command("actions")
 def admin_actions(
     actions: Path = typer.Option(DEFAULT_ACTIONS, "--actions", help="Manual-actions YAML."),

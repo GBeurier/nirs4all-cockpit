@@ -77,6 +77,25 @@ n4a-cockpit admin run <pkg> <registry> --publish --no-dry-run   # guarded dispat
 n4a-cockpit admin set-secret <repo> <NAME> --from-file <path>   # gh secret set
 ```
 
+### 5. Local admin signals (traffic, PRs, security, Sentry)
+
+`admin collect` gathers **push-scoped / semi-private** signals into a
+**gitignored** `data/admin/snapshot.admin.json` — never the public snapshot,
+never deployed:
+
+```bash
+n4a-cockpit admin collect            # traffic + open PRs + security alerts + Sentry
+```
+
+- **GitHub traffic** (views/clones, 14 d) needs a push-scoped token.
+- **Open PRs** and **Dependabot / code-scanning** alerts per repo.
+- **Sentry** unresolved issues for `nirs4all-studio` (org `wwwciradfr`,
+  `de.sentry.io`) — set `SENTRY_AUTH_TOKEN` to enable; it degrades gracefully
+  (`available=false`) otherwise.
+
+The dashboard renders these in an **Admin** section *only* when that local file
+is present, so the public site never shows them.
+
 ---
 
 ## Status model
@@ -130,19 +149,20 @@ falls back across `../data`, `./`, and `./data`.
 
 ---
 
-## Phase 2 (stubbed)
+## Public vs admin signals
 
-The following are intentionally **out of scope for v1** and shipped as marked
-TODO stubs only:
+- **Public** (`data/current.json`, deployed to Pages): registry versions &
+  status, downloads, open issues, release-workflow health, and **public GitHub
+  stats** (stars / forks / watchers / license). Built by `collect`.
+- **Admin** (`data/admin/snapshot.admin.json`, gitignored, local only): GitHub
+  **traffic** (views/clones), **open PRs**, **Dependabot / code-scanning**
+  alerts, and **Sentry** unresolved issues. Built by `admin collect`. These are
+  push-scoped or semi-private and never enter the public snapshot.
 
-- **Sentry** error/issue ingestion.
-- **GitHub PRs** and **security advisories** collectors.
-- The private **admin snapshot** store (`snapshot.admin.json`).
-- A **FastAPI** local UI (v1 admin is CLI-only).
+### Still ahead
+
+- A **FastAPI** local admin UI (admin is CLI + local dashboard section for now).
 - **Rich download history** and monthly history compaction.
-
-v1 is exactly: `collect`, `validate-targets`, `current.json`, the matrix UI, and
-offline fixture tests.
 
 ---
 
@@ -166,3 +186,6 @@ pytest -q
 - `tests/test_reconcile.py` — the four reconcile scenarios: planned crate →
   missing, npm scoped error-200 → version OK + downloads unknown, cranlogs `0`
   ≠ missing, R-universe null → broken.
+- `tests/test_admin.py` — the admin collectors: Sentry token-less degradation
+  and issue shaping, PR draft/ready counts, security 403 → unavailable and the
+  Dependabot severity breakdown.

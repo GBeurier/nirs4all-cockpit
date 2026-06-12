@@ -309,6 +309,75 @@ function renderCI(snap) {
   if (!any) box.appendChild(el("p", { class: "muted", text: "No workflow runs recorded." }));
 }
 
+// ---- admin (local-only) ----------------------------------------------------
+
+// The admin snapshot (traffic / PRs / security / Sentry) is gitignored and only
+// present on a local run. Fetch it best-effort; if absent (e.g. the public Pages
+// site), the admin section simply stays hidden.
+async function loadAdmin() {
+  const candidates = ["../data/admin/snapshot.admin.json", "./data/admin/snapshot.admin.json"];
+  for (const url of candidates) {
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      if (res.ok) return await res.json();
+    } catch (e) {
+      /* ignore — admin data is optional */
+    }
+  }
+  return null;
+}
+
+function renderAdmin(admin) {
+  const section = document.getElementById("admin");
+  const body = document.getElementById("admin-body");
+  if (!admin || !body) return;
+  body.innerHTML = "";
+  section.hidden = false;
+
+  // Sentry panel
+  const s = admin.sentry || {};
+  const sentryBox = el("div", { class: "panel" });
+  sentryBox.appendChild(el("h3", { class: "section-h", text: `Sentry — ${s.project || "?"}` }));
+  if (s.available) {
+    sentryBox.appendChild(el("p", { text: `${fmtInt(s.unresolved)} unresolved (14d)` }));
+    for (const iss of (s.issues || []).slice(0, 8)) {
+      const row = el("div", { class: "ci-row" });
+      row.appendChild(el("span", { class: "conclusion", attrs: { "data-ok": "failure" }, text: iss.level || "issue" }));
+      row.appendChild(el("span", { class: "ci-file", text: iss.title || "—" }));
+      row.appendChild(el("span", { class: "muted", text: `${fmtInt(iss.count)}× / ${fmtInt(iss.userCount)}u` }));
+      sentryBox.appendChild(row);
+    }
+  } else {
+    sentryBox.appendChild(el("p", { class: "muted", text: `unavailable — ${s.error || "set SENTRY_AUTH_TOKEN"}` }));
+  }
+  body.appendChild(sentryBox);
+
+  // Per-repo admin table
+  const table = el("table", { class: "stats" });
+  const thead = el("thead");
+  const hr = el("tr");
+  for (const h of ["repo", "open PRs", "drafts", "dependabot", "code-scan", "views 14d", "clones 14d"]) {
+    hr.appendChild(el("th", { attrs: { scope: "col" }, text: h }));
+  }
+  thead.appendChild(hr);
+  table.appendChild(thead);
+  const tbody = el("tbody");
+  for (const r of admin.repos || []) {
+    const p = r.pulls || {}, sec = r.security || {}, tr_ = r.traffic || {};
+    const row = el("tr");
+    row.appendChild(el("th", { class: "stats-repo", attrs: { scope: "row" }, text: r.repo }));
+    for (const v of [fmtInt(p.open), fmtInt(p.draft), fmtInt(sec.dependabot_open), fmtInt(sec.code_scanning_open), fmtInt(tr_.views_14d), fmtInt(tr_.clones_14d)]) {
+      row.appendChild(el("td", { class: "num", text: v }));
+    }
+    tbody.appendChild(row);
+  }
+  table.appendChild(tbody);
+  const tableBox = el("div", { class: "panel panel--wide" });
+  tableBox.appendChild(el("h3", { class: "section-h", text: "Per-repo (traffic / PRs / security)" }));
+  tableBox.appendChild(table);
+  body.appendChild(tableBox);
+}
+
 // ---- boot ------------------------------------------------------------------
 
 async function main() {
@@ -323,6 +392,7 @@ async function main() {
     renderDownloads(snap);
     renderIssues(snap);
     renderCI(snap);
+    renderAdmin(await loadAdmin());
   } catch (e) {
     errBox.hidden = false;
     errBox.textContent =

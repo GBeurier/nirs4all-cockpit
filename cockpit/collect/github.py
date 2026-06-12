@@ -221,3 +221,68 @@ def open_issues(owner: str, repo: str) -> dict[str, int]:
             break
         page += 1
     return {"open": open_count, "bugs": bug_count}
+
+
+def open_pull_requests(owner: str, repo: str) -> dict[str, Any]:
+    """Open PRs for a repo: total, drafts, ready, and a light per-PR list.
+
+    Uses ``/repos/{o}/{r}/pulls?state=open`` (paginated). ``mergeable_state`` is
+    intentionally *not* fetched (it needs one extra GET per PR); draft/labels/age
+    are enough for the admin view.
+    """
+    items: list[dict[str, Any]] = []
+    page = 1
+    while True:
+        url = f"{API}/repos/{owner}/{repo}/pulls?state=open&per_page=100&page={page}"
+        status, body, _error = _get(url)
+        if status != 200 or not isinstance(body, list) or not body:
+            break
+        for pr in body:
+            if not isinstance(pr, dict):
+                continue
+            items.append(
+                {
+                    "number": pr.get("number"),
+                    "title": pr.get("title"),
+                    "draft": bool(pr.get("draft")),
+                    "user": (pr.get("user") or {}).get("login"),
+                    "created_at": pr.get("created_at"),
+                    "labels": [
+                        lbl.get("name") for lbl in (pr.get("labels") or []) if isinstance(lbl, dict)
+                    ],
+                }
+            )
+        if len(body) < 100:
+            break
+        page += 1
+    drafts = sum(1 for p in items if p["draft"])
+    return {"open": len(items), "draft": drafts, "ready": len(items) - drafts, "items": items}
+
+
+def dependabot_alerts(owner: str, repo: str) -> dict[str, Any]:
+    """Open Dependabot alert count + severity breakdown.
+
+    Needs a token with security scope and Dependabot enabled on the repo; a
+    403/404 (feature off / no access) yields ``available=False`` rather than an
+    error state. Counts the first page (100) — enough for a health signal.
+    """
+    url = f"{API}/repos/{owner}/{repo}/dependabot/alerts?state=open&per_page=100"
+    status, body, error = _get(url)
+    if status == 200 and isinstance(body, list):
+        by_severity: dict[str, int] = {}
+        for alert in body:
+            adv = alert.get("security_advisory") if isinstance(alert, dict) else None
+            sev = adv.get("severity") if isinstance(adv, dict) else None
+            if sev:
+                by_severity[sev] = by_severity.get(sev, 0) + 1
+        return {"available": True, "open": len(body), "by_severity": by_severity, "error": None}
+    return {"available": False, "open": None, "by_severity": {}, "error": error or f"http {status}"}
+
+
+def code_scanning_alerts(owner: str, repo: str) -> dict[str, Any]:
+    """Open code-scanning alert count (``available=False`` if disabled / no access)."""
+    url = f"{API}/repos/{owner}/{repo}/code-scanning/alerts?state=open&per_page=100"
+    status, body, error = _get(url)
+    if status == 200 and isinstance(body, list):
+        return {"available": True, "open": len(body), "error": None}
+    return {"available": False, "open": None, "error": error or f"http {status}"}
