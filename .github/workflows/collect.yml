@@ -35,10 +35,26 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .
 
+      - name: Checkout sibling repos (shallow — for code stats & manifest reads)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p _siblings
+          repos=$(python -c "import yaml; d=yaml.safe_load(open('ops/targets.yaml')); print(' '.join(sorted({p['repo'] for p in d['packages']})))")
+          for r in $repos; do
+            echo "::group::clone $r"
+            git clone --depth 1 "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository_owner }}/$r.git" "_siblings/$r" \
+              || echo "skip $r (private or unavailable — its LOC/coverage will be omitted)"
+            echo "::endgroup::"
+          done
+
       - name: Collect snapshot
         env:
           # Ambient token: GitHub releases / workflow runs / issues (5000/h).
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Point the local-scan stats (LOC, tests, coverage, manifest versions)
+          # at the shallow clones above, instead of the maintainer's working tree.
+          N4A_SIBLINGS_ROOT: ${{ github.workspace }}/_siblings
         run: |
           n4a-cockpit collect --targets ops/targets.yaml --out data/current.json
 

@@ -1,10 +1,14 @@
 """Source-of-truth version reader (``manifest_version``).
 
 Reads the in-repo version declaration named by a package's ``source_of_truth``.
-The file is read **locally** when the sibling checkout exists under
-``/home/delete/nirs4all/<repo>``; otherwise it is fetched over **raw GitHub**
-at the repo's *default branch* (resolved via :func:`github.default_branch`,
-never hardcoded to ``main`` — local ``dag-ml*`` checkouts sit on work branches).
+The file is read **locally** when a sibling checkout exists under
+``SIBLINGS_ROOT/<repo>``; otherwise it is fetched over **raw GitHub** at the
+repo's *default branch* (resolved via :func:`github.default_branch`, never
+hardcoded to ``main`` — local ``dag-ml*`` checkouts sit on work branches).
+
+``SIBLINGS_ROOT`` defaults to the parent of this checkout (the sibling working
+tree) and is overridable with ``N4A_SIBLINGS_ROOT`` — the CI cron sets it to a
+directory of shallow clones so code/manifest stats work off the runner too.
 
 Strategies (``source_of_truth.strategy``):
 
@@ -19,6 +23,7 @@ Strategies (``source_of_truth.strategy``):
 
 from __future__ import annotations
 
+import os
 import re
 import tomllib
 from pathlib import Path
@@ -26,7 +31,11 @@ from pathlib import Path
 from ..http import get_json
 from . import github
 
-SIBLINGS_ROOT = Path("/home/delete/nirs4all")
+# Where sibling repo checkouts live. Default: the parent of this checkout (the
+# working tree that holds the ecosystem repos side by side). Override with
+# N4A_SIBLINGS_ROOT (the CI cron points it at its shallow-clone directory).
+_DEFAULT_SIBLINGS_ROOT = Path(__file__).resolve().parents[3]
+SIBLINGS_ROOT = Path(os.environ.get("N4A_SIBLINGS_ROOT", str(_DEFAULT_SIBLINGS_ROOT)))
 RAW_BASE = "https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{path}"
 
 
