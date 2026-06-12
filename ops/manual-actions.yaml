@@ -1,0 +1,110 @@
+# nirs4all-cockpit — manual release actions (structured migration of RELEASE_ACTIONS.md).
+#
+# These are the human-only steps (accounts, tokens, web forms) the cockpit cannot
+# perform: it only surfaces them, points at the web URL, and — once done — lists
+# the workflows the admin layer can re-run plus an auto_check against current.json.
+#
+# Field reference per action:
+#   id              stable identifier
+#   status          todo | done | blocked
+#   severity        info | important | blocker
+#   title           one-line summary
+#   manual_url      the web form / page the human must visit
+#   affects         [repo:workflow] release workflows unblocked by this action
+#   secret_updates  [{repo, name}] secrets the admin re-sets after (gh secret set, never echoed)
+#   after_done      [{run_workflow: {repo, workflow, ref, inputs}}] re-runs to trigger once done
+#   auto_check      {registry, name, expect} verification probe against current.json
+
+actions:
+  - id: npm-automation-token
+    status: todo
+    severity: important
+    title: "npm — regenerate the publish token as an Automation token (bypasses 2FA)"
+    manual_url: "https://www.npmjs.com/settings/~/tokens"
+    affects:
+      - "nirs4all-methods:release-npm.yml"
+      - "nirs4all-formats:release-npm.yml"
+    secret_updates:
+      - { repo: nirs4all-methods, name: NPM_TOKEN }
+      - { repo: nirs4all-formats, name: NPM_TOKEN }
+    after_done:
+      - run_workflow:
+          repo: nirs4all-methods
+          workflow: release-npm.yml
+          ref: main
+          inputs: { publish: "true" }
+      - run_workflow:
+          repo: nirs4all-formats
+          workflow: release-npm.yml
+          ref: main
+          inputs: { publish: "true" }
+    auto_check:
+      registry: npm
+      name: "@nirs4all/methods-wasm"
+      expect: published
+
+  - id: pypi-publisher-pls4all
+    status: todo
+    severity: important
+    title: "PyPI — fix the Trusted Publisher of pls4all (repo nirs4all-methods, release-python.yml, env pypi)"
+    manual_url: "https://pypi.org/manage/account/publishing/"
+    affects:
+      - "nirs4all-methods:release-python.yml"
+    after_done:
+      - run_workflow:
+          repo: nirs4all-methods
+          workflow: release-python.yml
+          ref: main
+          inputs: {}
+    auto_check:
+      registry: pypi
+      name: pls4all
+      expect: published
+
+  - id: pypi-publisher-io
+    status: todo
+    severity: important
+    title: "PyPI — create the pending Trusted Publisher of nirs4all-io (repo nirs4all-io, release.yml, env pypi)"
+    manual_url: "https://pypi.org/manage/account/publishing/"
+    affects:
+      - "nirs4all-io:release.yml"
+    after_done:
+      - run_workflow:
+          repo: nirs4all-io
+          workflow: release.yml
+          ref: main
+          inputs: { dry_run: "false" }
+    auto_check:
+      registry: pypi
+      name: nirs4all-io
+      expect: published
+
+  - id: crates-verify-email
+    status: todo
+    severity: important
+    title: "crates.io — verify the account email (publish failed: 400 verified email required)"
+    manual_url: "https://crates.io/settings/profile"
+    affects:
+      - "nirs4all-formats:release-crates.yml"
+      - "nirs4all-io:release-crates.yml"
+    after_done:
+      - run_workflow:
+          repo: nirs4all-formats
+          workflow: release-crates.yml
+          ref: main
+          inputs: { dry_run: "false" }
+    auto_check:
+      registry: crates
+      name: nirs4all-formats
+      expect: published
+
+  - id: cran-resubmit-n4m-pls4all
+    status: todo
+    severity: important
+    title: "CRAN — re-submit n4m + pls4all (fixed tarballs on Release v0.99.0); do NOT submit nirs4allformats"
+    manual_url: "https://cran.r-project.org/submit.html"
+    affects: []
+    auto_check:
+      registry: cran
+      name: n4m
+      expect: published

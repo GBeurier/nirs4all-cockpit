@@ -1,0 +1,223 @@
+"""GitHub collector: repo metadata, tags, releases, workflow runs, issues.
+
+Uses the ambient ``GITHUB_TOKEN`` (``Authorization: Bearer ...``) when present
+to lift the rate limit to 5000/h; anonymous calls still work at 60/h. Every
+function returns plain data and never raises on an API error — failures surface
+as ``None``/empty results so a partial collect still produces a snapshot.
+
+Design choices required by the review:
+
+* issues use ``/repos/{o}/{r}/issues?state=open`` (NOT the Search API, capped at
+  30/min) and exclude pull requests, which that endpoint otherwise mixes in;
+* the default branch is read from ``/repos/{o}/{r}`` and never hardcoded to
+  ``main`` — local working checkouts of ``dag-ml*`` sit on feature branches;
+* both lightweight tags and GitHub Releases are collected (the tag is the source
+  of a release; the Release object carries per-asset ``download_count``).
+"""
+
+from __future__ import annotations
+
+import os
+from typing import Any
+
+from ..http import get_json
+
+API = "https://api.github.com"
+
+
+def _headers() -> dict[str, str]:
+    headers = {"X-GitHub-Api-Version": "2022-11-28"}
+    token = os.environ.get("GITHUB_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    return headers
+
+
+def _get(url: str) -> tuple[int, Any | None, str | None]:
+    return get_json(url, headers=_headers(), accept="application/vnd.github+json")
+
+
+def default_branch(owner: str, repo: str) -> str | None:
+    """Return the repo's default branch, or ``None`` if the repo is unreachable."""
+    status, body, _error = _get(f"{API}/repos/{owner}/{repo}")
+    if status == 200 and isinstance(body, dict):
+        return body.get("default_branch")
+    return None
+
+
+def tags(owner: str, repo: str) -> list[str]:
+    """Return all tag names (newest first as GitHub orders them), paginated."""
+    names: list[str] = []
+    page = 1
+    while True:
+        url = f"{API}/repos/{owner}/{repo}/tags?per_page=100&page={page}"
+        status, body, _error = _get(url)
+        if status != 200 or not isinstance(body, list) or not body:
+            break
+        names.extend(t.get("name") for t in body if isinstance(t, dict) and t.get("name"))
+        if len(body) < 100:
+            break
+        page += 1
+    return names
+
+
+def releases(owner: str, repo: str) -> list[dict[str, Any]]:
+    """Return release objects with tag, draft/prerelease flags, and asset downloads."""
+    out: list[dict[str, Any]] = []
+    status, body, _error = _get(f"{API}/repos/{owner}/{repo}/releases?per_page=100")
+    if status == 200 and isinstance(body, list):
+        for rel in body:
+            if not isinstance(rel, dict):
+                continue
+            assets = rel.get("assets") or []
+            downloads = sum(a.get("download_count", 0) for a in assets if isinstance(a, dict))
+            out.append(
+                {
+                    "tag_name": rel.get("tag_name"),
+                    "draft": bool(rel.get("draft")),
+                    "prerelease": bool(rel.get("prerelease")),
+                    "published_at": rel.get("published_at"),
+                    "asset_downloads": downloads,
+                }
+            )
+    return out
+
+
+def latest_release(owner: str, repo: str) -> dict[str, Any] | None:
+    """Return the repo's ``latest`` (non-draft, non-prerelease) release, if any."""
+    status, body, _error = _get(f"{API}/repos/{owner}/{repo}/releases/latest")
+    if status == 200 and isinstance(body, dict):
+        assets = body.get("assets") or []
+        return {
+            "tag_name": body.get("tag_name"),
+            "published_at": body.get("published_at"),
+            "asset_downloads": sum(a.get("download_count", 0) for a in assets if isinstance(a, dict)),
+        }
+    return None
+
+
+def repo_stats(owner: str, repo: str, *, with_traffic: bool = False) -> dict[str, Any]:
+    """Collect public repo stats, and (only when ``with_traffic``) 14-day traffic.
+
+    Public block (no auth): stars, forks, watchers, size, license, pushed_at,
+    default_branch, and ``_open_issues_count`` (GitHub's count that mixes issues
+    and PRs — the reconcile layer subtracts real issues to derive ``open_prs``).
+
+    Traffic block: ``/traffic/views`` and ``/traffic/clones`` need a token with
+    **push** access and expose semi-private analytics, so it is collected **only**
+    when ``with_traffic=True`` (a local admin run) — never in the public/committed
+    snapshot. Without push access the calls 403 and the fields stay ``None``.
+    """
+    out: dict[str, Any] = {
+        "stars": None, "forks": None, "watchers": None, "size_kb": None,
+        "license": None, "pushed_at": None, "default_branch": None,
+        "_open_issues_count": None,
+        "traffic_views_14d": None, "traffic_views_uniques": None,
+        "traffic_clones_14d": None, "traffic_clones_uniques": None,
+        "traffic_available": False,
+    }
+    status, body, _error = _get(f"{API}/repos/{owner}/{repo}")
+    if status == 200 and isinstance(body, dict):
+        lic = body.get("license")
+        out.update(
+            stars=body.get("stargazers_count"),
+            forks=body.get("forks_count"),
+            watchers=body.get("subscribers_count"),
+            size_kb=body.get("size"),
+            license=(lic.get("spdx_id") if isinstance(lic, dict) else None),
+            pushed_at=body.get("pushed_at"),
+            default_branch=body.get("default_branch"),
+            _open_issues_count=body.get("open_issues_count"),
+        )
+
+    if with_traffic:
+        vstatus, vbody, _ = _get(f"{API}/repos/{owner}/{repo}/traffic/views")
+        if vstatus == 200 and isinstance(vbody, dict):
+            out["traffic_views_14d"] = vbody.get("count")
+            out["traffic_views_uniques"] = vbody.get("uniques")
+            out["traffic_available"] = True
+        cstatus, cbody, _ = _get(f"{API}/repos/{owner}/{repo}/traffic/clones")
+        if cstatus == 200 and isinstance(cbody, dict):
+            out["traffic_clones_14d"] = cbody.get("count")
+            out["traffic_clones_uniques"] = cbody.get("uniques")
+            out["traffic_available"] = True
+    return out
+
+
+def latest_release_fact(owner: str, repo: str) -> dict[str, Any]:
+    """Probe the latest release, carrying the HTTP status for state classification.
+
+    Unlike :func:`latest_release` (which collapses any non-200 to ``None``), this
+    keeps the status so the reconcile layer can tell a genuine *no release yet*
+    (404 → ``missing``) apart from a transport/rate-limit failure (status 0 / 5xx
+    → ``unknown``).
+
+    Returns:
+        ``{"published_version", "http_status", "error", "asset_downloads"}``.
+    """
+    status, body, error = _get(f"{API}/repos/{owner}/{repo}/releases/latest")
+    if status == 200 and isinstance(body, dict):
+        assets = body.get("assets") or []
+        return {
+            "published_version": body.get("tag_name"),
+            "http_status": 200,
+            "error": None,
+            "asset_downloads": sum(a.get("download_count", 0) for a in assets if isinstance(a, dict)),
+        }
+    return {"published_version": None, "http_status": status, "error": error, "asset_downloads": None}
+
+
+def workflow_last_run(owner: str, repo: str, workflow_file: str) -> dict[str, Any] | None:
+    """Return the most recent run of one workflow file (conclusion + sha + time).
+
+    Args:
+        owner: Repo owner.
+        repo: Repo name.
+        workflow_file: Workflow filename, e.g. ``release.yml``.
+
+    Returns:
+        ``{"file", "conclusion", "created_at", "head_sha"}`` for the newest run,
+        or ``None`` if the workflow has never run / is unreachable.
+    """
+    url = f"{API}/repos/{owner}/{repo}/actions/workflows/{workflow_file}/runs?per_page=1"
+    status, body, _error = _get(url)
+    if status == 200 and isinstance(body, dict):
+        runs = body.get("workflow_runs") or []
+        if runs:
+            run = runs[0]
+            return {
+                "file": workflow_file,
+                "conclusion": run.get("conclusion"),
+                "created_at": run.get("created_at"),
+                "head_sha": run.get("head_sha"),
+            }
+    return {"file": workflow_file, "conclusion": None, "created_at": None, "head_sha": None}
+
+
+def open_issues(owner: str, repo: str) -> dict[str, int]:
+    """Count open *issues* (pull requests excluded) and how many are labelled bug.
+
+    Uses the issues list endpoint (5000/h with a token) rather than Search
+    Issues (30/min). The issues endpoint includes PRs, which carry a
+    ``pull_request`` key, so those are filtered out.
+    """
+    open_count = 0
+    bug_count = 0
+    page = 1
+    while True:
+        url = f"{API}/repos/{owner}/{repo}/issues?state=open&per_page=100&page={page}"
+        status, body, _error = _get(url)
+        if status != 200 or not isinstance(body, list) or not body:
+            break
+        for item in body:
+            if not isinstance(item, dict) or "pull_request" in item:
+                continue
+            open_count += 1
+            labels = item.get("labels") or []
+            names = {lbl.get("name", "").lower() for lbl in labels if isinstance(lbl, dict)}
+            if "bug" in names:
+                bug_count += 1
+        if len(body) < 100:
+            break
+        page += 1
+    return {"open": open_count, "bugs": bug_count}

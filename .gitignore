@@ -1,0 +1,15 @@
+# secrets / tokens — never commit
+*_token
+*.env
+secrets.local.*
+
+# python noise
+__pycache__/
+.venv/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# generated history snapshots (keep the current pointer)
+data/history/*
+!data/current.json

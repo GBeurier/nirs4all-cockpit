@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>nirs4all-cockpit — release & health matrix</title>
+    <meta
+      name="description"
+      content="Read-only release/health cockpit for the nirs4all ecosystem: package × registry status, downloads, issues and CI."
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#matrix">Skip to the matrix</a>
+
+    <header class="banner" id="banner">
+      <div class="banner__title">
+        <h1>nirs4all&#8202;·&#8202;cockpit</h1>
+        <p class="banner__sub">release &amp; health matrix — read-only aggregation, never reimplements repo logic</p>
+      </div>
+      <div class="banner__meta" id="generated">
+        <span class="muted">loading…</span>
+      </div>
+    </header>
+
+    <section class="summary" id="summary" aria-label="Status totals" hidden></section>
+
+    <main>
+      <section aria-labelledby="matrix-h">
+        <h2 id="matrix-h" class="section-h">Package × registry</h2>
+        <div class="legend" id="legend" aria-hidden="false"></div>
+        <div class="table-wrap">
+          <table id="matrix" class="matrix">
+            <caption class="sr-only">
+              Published status of every tracked package on every registry. Each cell shows a status symbol, a
+              status word, and the published version.
+            </caption>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel panel--wide" aria-labelledby="gh-h">
+        <h2 id="gh-h" class="section-h">GitHub stats <span class="muted">(traffic = local push-scoped run only)</span></h2>
+        <div id="repostats"></div>
+      </section>
+
+      <div class="panels">
+        <section class="panel" aria-labelledby="dl-h">
+          <h2 id="dl-h" class="section-h">Downloads</h2>
+          <div id="downloads"></div>
+        </section>
+
+        <section class="panel" aria-labelledby="issues-h">
+          <h2 id="issues-h" class="section-h">Issues</h2>
+          <div id="issues"></div>
+        </section>
+
+        <section class="panel" aria-labelledby="ci-h">
+          <h2 id="ci-h" class="section-h">CI / workflow health</h2>
+          <div id="ci"></div>
+        </section>
+      </div>
+    </main>
+
+    <p id="error" class="error" role="alert" hidden></p>
+
+    <footer class="foot">
+      <span>nirs4all-cockpit</span>
+      <span class="muted" id="schema"></span>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

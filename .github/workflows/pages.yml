@@ -1,0 +1,59 @@
+name: pages
+
+# Publish the vanilla dashboard to GitHub Pages.
+#
+# Pages serves a single artifact root. We assemble it so the dashboard IS the
+# site root: web/* is copied to _site/ and data/ is copied to _site/data/. The
+# page then reads ./data/current.json (app.js also falls back to ../data and
+# ./current.json, so serving the repo root would work too — this layout is the
+# simplest and needs no rewrite).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "web/**"
+      - "data/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Assemble site (web/ as root, data/ alongside)
+        run: |
+          mkdir -p _site/data
+          cp -R web/. _site/
+          cp -R data/. _site/data/
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "_site"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,431 @@
+/* nirs4all-cockpit — vanilla dashboard styles.
+ * Sober, responsive, accessible. Status is encoded by BOTH colour and a symbol
+ * (never colour alone) so the matrix is legible without colour perception. */
+
+:root {
+  --bg: #0f1419;
+  --panel: #171d26;
+  --panel-2: #1d2531;
+  --line: #2a3340;
+  --fg: #e6edf3;
+  --muted: #8b97a6;
+  --accent: #4aa3ff;
+
+  /* status palette — chosen for contrast and colour-blind separation */
+  --green: #2ea043;
+  --stale: #d8a72c;
+  --missing: #6e7681;
+  --broken: #e5484d;
+  --unknown: #8957e5;
+  --excluded: #3b4150;
+
+  --radius: 8px;
+  --gap: 14px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f6f8fa;
+    --panel: #ffffff;
+    --panel-2: #f0f3f6;
+    --line: #d7dee6;
+    --fg: #1f2328;
+    --muted: #5a636e;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark light;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  background: var(--bg);
+  color: var(--fg);
+  padding: 0 clamp(12px, 3vw, 32px) 48px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 8px;
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  z-index: 10;
+}
+.skip-link:focus {
+  left: 12px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* ---------- banner ---------- */
+
+.banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 24px 0 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.banner__title h1 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: 0.2px;
+}
+
+.banner__sub {
+  margin: 4px 0 0;
+  color: var(--muted);
+  max-width: 64ch;
+}
+
+.banner__meta {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- summary chips ---------- */
+
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px 0 4px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  font-variant-numeric: tabular-nums;
+}
+
+.chip .count {
+  font-weight: 700;
+}
+
+/* ---------- section headings ---------- */
+
+.section-h {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 28px 0 10px;
+}
+
+/* ---------- legend ---------- */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.legend .pill {
+  font-size: 12px;
+}
+
+/* ---------- status pill ---------- */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.pill .sym {
+  font-weight: 700;
+  font-size: 0.95em;
+  line-height: 1;
+}
+
+.pill[data-state="green"]    { background: color-mix(in srgb, var(--green) 22%, transparent);    border-color: var(--green); }
+.pill[data-state="stale"]    { background: color-mix(in srgb, var(--stale) 22%, transparent);    border-color: var(--stale); }
+.pill[data-state="missing"]  { background: color-mix(in srgb, var(--missing) 22%, transparent);  border-color: var(--missing); }
+.pill[data-state="broken"]   { background: color-mix(in srgb, var(--broken) 24%, transparent);   border-color: var(--broken); }
+.pill[data-state="unknown"]  { background: color-mix(in srgb, var(--unknown) 22%, transparent);  border-color: var(--unknown); }
+.pill[data-state="excluded"] { background: color-mix(in srgb, var(--excluded) 30%, transparent); border-color: var(--excluded); color: var(--muted); }
+
+/* ---------- matrix table ---------- */
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.matrix {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 720px;
+}
+
+.matrix th,
+.matrix td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.matrix thead th {
+  position: sticky;
+  top: 0;
+  background: var(--panel-2);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  z-index: 1;
+}
+
+.matrix tbody tr:nth-child(odd) td {
+  background: color-mix(in srgb, var(--panel) 55%, transparent);
+}
+
+.matrix tbody tr:hover td {
+  background: var(--panel);
+}
+
+.pkg-head {
+  min-width: 200px;
+}
+
+.pkg-id {
+  font-weight: 700;
+  display: block;
+}
+
+.pkg-sub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.pkg-ver {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.badge {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+
+.badge--rollup {
+  border-color: var(--line);
+  color: var(--muted);
+  background: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cell-empty {
+  color: var(--muted);
+  opacity: 0.5;
+}
+
+.cell-name {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 3px;
+  word-break: break-all;
+}
+
+.cell-ver {
+  display: block;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+
+.cell-err {
+  display: block;
+  font-size: 11px;
+  color: var(--broken);
+  margin-top: 2px;
+}
+
+.tag-planned {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  border: 1px dashed var(--line);
+  border-radius: 4px;
+  padding: 0 4px;
+  margin-left: 4px;
+}
+
+/* ---------- panels ---------- */
+
+.panels {
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: 8px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px 16px 16px;
+}
+
+.kv {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.kv:last-child {
+  border-bottom: 0;
+}
+
+.kv__name {
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.kv__line {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.kv__line b {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.dl-src {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.ci-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+}
+.ci-row:last-child {
+  border-bottom: 0;
+}
+
+.ci-file {
+  font-weight: 600;
+}
+
+.conclusion {
+  font-weight: 700;
+}
+.conclusion[data-ok="success"] { color: var(--green); }
+.conclusion[data-ok="failure"] { color: var(--broken); }
+.conclusion[data-ok="other"]   { color: var(--stale); }
+
+/* ---------- error + footer ---------- */
+
+.error {
+  margin: 24px 0;
+  padding: 14px 16px;
+  border: 1px solid var(--broken);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--broken) 12%, transparent);
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 40px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* GitHub stats panel */
+.panel--wide {
+  grid-column: 1 / -1;
+}
+.stats {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.stats th,
+.stats td {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+  white-space: nowrap;
+}
+.stats thead th {
+  color: var(--muted);
+  font-weight: 600;
+}
+.stats .stats-repo {
+  text-align: left;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.stats .num {
+  font-variant-numeric: tabular-nums;
+}

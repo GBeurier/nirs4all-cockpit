@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nirs4all-cockpit"
+version = "0.1.0"
+description = "Release/health cockpit for the nirs4all ecosystem: aggregates registry, CI, and issue state — it never reimplements repo logic."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Gregory Beurier", email = "beurier@cirad.fr" }]
+dependencies = [
+    "httpx",
+    "pydantic>=2",
+    "pyyaml",
+    "typer",
+    "packaging",
+]
+
+[project.optional-dependencies]
+collect = ["rich"]
+dev = ["ruff", "pytest"]
+
+[project.scripts]
+n4a-cockpit = "cockpit.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["cockpit"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+# Typer's idiom is to call Option()/Argument() in parameter defaults.
+"cockpit/cli.py" = ["B008"]

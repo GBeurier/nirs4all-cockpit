@@ -1,0 +1,566 @@
+# nirs4all-cockpit — locked release inventory.
+#
+# Conforms to cockpit.model.Targets. One entry per package; each target names an
+# EXACT registry name and, where a release workflow exists, its trigger + danger
+# class + declared dispatch inputs. The cockpit only reads registries from this
+# file; it never reimplements repo logic and never invents names.
+#
+# danger semantics (what a workflow_dispatch does):
+#   safe      = dispatch never publishes
+#   publish   = dispatch publishes only with the right input/tag
+#   dangerous = dispatch publishes outright (strong confirmation in admin)
+#
+# state semantics:
+#   tracked   = expected to be published; reconciled normally
+#   excluded  = intentionally not on this registry (reason mandatory)
+#   planned   = no release workflow yet (reconciles as missing, flagged, no admin button)
+
+schema_version: 1
+owner: GBeurier
+
+packages:
+  # ------------------------------------------------------------------------- #
+  - id: nirs4all
+    repo: nirs4all
+    channel: production
+    issues_repo: nirs4all
+    source_of_truth:
+      strategy: python_attr
+      path: nirs4all/__init__.py
+      attr: __version__
+    targets:
+      - registry: pypi
+        name: nirs4all
+        state: tracked
+        workflow:
+          file: publish.yml
+          trigger: release_published
+          danger: dangerous
+          publishes_on_dispatch: true
+          inputs: []
+      - registry: github-release
+        name: nirs4all
+        state: tracked
+    version_aliases: {}
+
+  # ------------------------------------------------------------------------- #
+  - id: nirs4all-methods
+    repo: nirs4all-methods
+    channel: production
+    issues_repo: nirs4all-methods
+    source_of_truth:
+      strategy: c_header
+      path: cpp/include/n4m/n4m_version.h
+      attr: N4M_PROJECT_VERSION_STRING
+    targets:
+      - registry: pypi
+        name: nirs4all-methods
+        state: tracked
+        workflow:
+          file: release-wheels.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: version_tag
+              type: string
+              required: true
+            - name: publish
+              type: boolean
+              default: false
+      - registry: pypi
+        name: pls4all
+        state: tracked
+        workflow:
+          file: release-python.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: false
+          inputs:
+            - name: publish_to
+              type: choice
+              options: [none, testpypi]
+              default: none
+      - registry: npm
+        name: "@nirs4all/methods-wasm"
+        state: tracked
+        workflow:
+          file: release-npm.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: publish
+              type: boolean
+              default: false
+      - registry: r-universe
+        name: n4m
+        state: tracked
+        workflow:
+          file: release-r.yml
+          trigger: tag
+          danger: safe
+          publishes_on_dispatch: false
+          inputs: []
+      - registry: r-universe
+        name: pls4all
+        state: tracked
+        workflow:
+          file: release-r.yml
+          trigger: tag
+          danger: safe
+          publishes_on_dispatch: false
+          inputs: []
+      - registry: cran
+        name: n4m
+        state: tracked
+        reason: "manual web submission; no admin button"
+      - registry: cran
+        name: pls4all
+        state: tracked
+        reason: "manual web submission; no admin button"
+      - registry: github-release
+        name: nirs4all-methods
+        state: tracked
+    version_aliases: {}
+
+  # ------------------------------------------------------------------------- #
+  - id: nirs4all-formats
+    repo: nirs4all-formats
+    channel: production
+    issues_repo: nirs4all-formats
+    source_of_truth:
+      strategy: cargo_workspace
+      path: Cargo.toml
+    targets:
+      - registry: pypi
+        name: nirs4all-formats
+        state: tracked
+        workflow:
+          file: release.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: false
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: crates
+        name: nirs4all-formats-core
+        state: tracked
+        workflow:
+          file: release-crates.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: crates
+        name: nirs4all-formats
+        state: tracked
+        workflow:
+          file: release-crates.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: crates
+        name: nirs4all-formats-capi
+        state: tracked
+        workflow:
+          file: release-crates.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: crates
+        name: nirs4all-formats-cli
+        state: tracked
+        workflow:
+          file: release-crates.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: npm
+        name: "@nirs4all/formats-wasm"
+        state: tracked
+        workflow:
+          file: release-npm.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: publish
+              type: boolean
+              default: false
+      - registry: r-universe
+        name: nirs4allformats
+        state: tracked
+        workflow:
+          file: release-r.yml
+          trigger: tag
+          danger: safe
+          publishes_on_dispatch: false
+          inputs: []
+      - registry: r-universe
+        name: nirs4allformats.lite
+        state: tracked
+        workflow:
+          file: release-r.yml
+          trigger: tag
+          danger: safe
+          publishes_on_dispatch: false
+          inputs: []
+      - registry: cran
+        name: nirs4allformats
+        state: excluded
+        reason: "tarball >5Mo; canal officiel = R-universe"
+      - registry: github-release
+        name: nirs4all-formats
+        state: tracked
+    version_aliases: {}
+
+  # ------------------------------------------------------------------------- #
+  - id: nirs4all-io
+    repo: nirs4all-io
+    channel: production
+    issues_repo: nirs4all-io
+    source_of_truth:
+      strategy: cargo_workspace
+      path: Cargo.toml
+    targets:
+      - registry: pypi
+        name: nirs4all-io
+        state: tracked
+        workflow:
+          file: release.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: false
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: crates
+        name: nirs4all-io-core
+        state: tracked
+        workflow:
+          file: release-crates.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: crates
+        name: nirs4all-io
+        state: tracked
+        workflow:
+          file: release-crates.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: crates
+        name: nirs4all-io-capi
+        state: tracked
+        workflow:
+          file: release-crates.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: crates
+        name: nirs4all-io-cli
+        state: tracked
+        workflow:
+          file: release-crates.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: npm
+        name: "@nirs4all/io-wasm"
+        state: tracked
+        workflow:
+          file: release-npm.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: publish
+              type: boolean
+              default: false
+      - registry: r-universe
+        name: nirs4allio
+        state: tracked
+        workflow:
+          file: release-r.yml
+          trigger: tag
+          danger: safe
+          publishes_on_dispatch: false
+          inputs: []
+      - registry: github-release
+        name: nirs4all-io
+        state: tracked
+    version_aliases: {}
+
+  # ------------------------------------------------------------------------- #
+  - id: nirs4all-datasets
+    repo: nirs4all-datasets
+    channel: production
+    issues_repo: nirs4all-datasets
+    source_of_truth:
+      strategy: cargo_workspace
+      path: Cargo.toml
+    targets:
+      - registry: pypi
+        name: nirs4all-datasets
+        state: tracked
+        workflow:
+          file: release-python.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: false
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: crates
+        name: nirs4all-datasets-core
+        state: tracked
+        workflow:
+          file: release-crates.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: crates
+        name: nirs4all-datasets-capi
+        state: tracked
+        workflow:
+          file: release-crates.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: crates
+        name: nirs4all-datasets-cli
+        state: tracked
+        workflow:
+          file: release-crates.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: npm
+        name: "@nirs4all/datasets-wasm"
+        state: tracked
+        workflow:
+          file: release-npm.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: publish
+              type: boolean
+              default: false
+      - registry: r-universe
+        name: nirs4alldatasets
+        state: tracked
+        workflow:
+          file: release-r.yml
+          trigger: tag
+          danger: safe
+          publishes_on_dispatch: false
+          inputs: []
+      - registry: github-release
+        name: nirs4all-datasets
+        state: tracked
+    version_aliases: {}
+
+  # ------------------------------------------------------------------------- #
+  - id: nirs4all-lite
+    repo: nirs4all-lite
+    channel: production
+    issues_repo: nirs4all-lite
+    source_of_truth:
+      strategy: cargo_package
+      path: bindings/rust/nirs4all/Cargo.toml
+    targets:
+      - registry: pypi
+        name: nirs4all-lite
+        state: tracked
+        workflow:
+          file: release-python.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: false
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: crates
+        name: nirs4all
+        state: tracked
+        workflow:
+          file: release-crates.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
+      - registry: npm
+        name: nirs4all
+        state: tracked
+        workflow:
+          file: release-npm.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: publish
+              type: boolean
+              default: false
+      - registry: r-universe
+        name: nirs4all
+        state: tracked
+        workflow:
+          file: release-r.yml
+          trigger: tag
+          danger: safe
+          publishes_on_dispatch: false
+          inputs: []
+      - registry: github-release
+        name: nirs4all-lite
+        state: tracked
+    version_aliases: {}
+
+  # ------------------------------------------------------------------------- #
+  - id: nirs4all-aom
+    repo: nirs4all-aom
+    channel: production
+    issues_repo: nirs4all-aom
+    source_of_truth:
+      strategy: python_pyproject
+      path: pyproject.toml
+    targets:
+      - registry: pypi
+        name: nirs4all-aom
+        state: tracked
+        workflow:
+          file: publish-pypi.yml
+          trigger: release_published
+          danger: dangerous
+          publishes_on_dispatch: true
+          inputs: []
+    version_aliases: {}
+
+  # ------------------------------------------------------------------------- #
+  - id: dag-ml
+    repo: dag-ml
+    channel: production
+    issues_repo: dag-ml
+    source_of_truth:
+      strategy: cargo_workspace
+      path: Cargo.toml
+    targets:
+      - registry: pypi
+        name: dag-ml
+        state: planned
+      - registry: crates
+        name: dag-ml
+        state: planned
+      - registry: crates
+        name: dag-ml-core
+        state: planned
+      - registry: crates
+        name: dag-ml-arrow
+        state: planned
+      - registry: crates
+        name: dag-ml-capi
+        state: planned
+      - registry: crates
+        name: dag-ml-cli
+        state: planned
+      - registry: crates
+        name: dag-ml-py
+        state: planned
+      - registry: crates
+        name: dag-ml-wasm
+        state: planned
+    version_aliases: {}
+
+  # ------------------------------------------------------------------------- #
+  - id: dag-ml-data
+    repo: dag-ml-data
+    channel: production
+    issues_repo: dag-ml-data
+    source_of_truth:
+      strategy: cargo_workspace
+      path: Cargo.toml
+    targets:
+      - registry: pypi
+        name: dag-ml-data
+        state: planned
+      - registry: crates
+        name: dag-ml-data
+        state: planned
+      - registry: crates
+        name: dag-ml-data-core
+        state: planned
+      - registry: crates
+        name: dag-ml-data-arrow
+        state: planned
+      - registry: crates
+        name: dag-ml-data-capi
+        state: planned
+      - registry: crates
+        name: dag-ml-data-cli
+        state: planned
+      - registry: crates
+        name: dag-ml-data-provider
+        state: planned
+      - registry: crates
+        name: dag-ml-data-py
+        state: planned
+      - registry: crates
+        name: dag-ml-data-wasm
+        state: planned
+      - registry: r-universe
+        name: dagmldata
+        state: planned
+    version_aliases: {}
