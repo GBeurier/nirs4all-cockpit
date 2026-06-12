@@ -380,7 +380,44 @@ function renderVisits(snap) {
   box.appendChild(list);
 }
 
-// ---- errors (public · Sentry count) ----------------------------------------
+// ---- errors (public · Sentry) ----------------------------------------------
+
+const SENTRY_LVL = { fatal: "#7c3aed", error: "#e11d48", warning: "#d97706", info: "#0891b2", debug: "#8a93a2", sample: "#0d9488" };
+
+function timeAgo(iso) {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  if (isNaN(d)) return "—";
+  const days = Math.floor((Date.now() - d.getTime()) / 86400000);
+  if (days <= 0) return "today";
+  if (days === 1) return "yesterday";
+  if (days < 30) return `${days}d ago`;
+  const mo = Math.floor(days / 30);
+  return mo < 12 ? `${mo}mo ago` : `${Math.floor(mo / 12)}y ago`;
+}
+
+function sentryStat(n, label, alert) {
+  const c = el("div", { class: `sentry-stat${alert ? " sentry-stat--alert" : ""}` });
+  c.append(el("span", { class: "sentry-stat__n", text: fmtInt(n) }), el("span", { class: "sentry-stat__l", text: label }));
+  return c;
+}
+
+function sentryIssue(it, resolved) {
+  const lvl = (it.level || "error").toLowerCase();
+  const color = SENTRY_LVL[lvl] || SENTRY_LVL.error;
+  const row = el("div", { class: `sentry-issue${resolved ? " sentry-issue--resolved" : ""}`, attrs: { style: `--lvl:${color}` } });
+  const titleNode = el(it.permalink ? "a" : "span", {
+    class: "sentry-issue__title", text: it.title || "—",
+    attrs: it.permalink ? { href: it.permalink, target: "_blank", rel: "noopener", title: it.title || "" } : { title: it.title || "" },
+  });
+  row.appendChild(el("div", { class: "sentry-issue__head" }, [el("span", { class: "sentry-issue__lvl", text: lvl }), titleNode]));
+  const bits = [];
+  if (it.count != null) bits.push(`${fmtInt(it.count)} events`);
+  if (it.userCount) bits.push(`${fmtInt(it.userCount)} users`);
+  bits.push(resolved ? `resolved · seen ${timeAgo(it.lastSeen)}` : `first seen ${timeAgo(it.firstSeen)}`);
+  row.appendChild(el("div", { class: "sentry-issue__meta", text: bits.join("  ·  ") }));
+  return row;
+}
 
 function renderSentry(snap) {
   const s = snap.sentry || {};
@@ -388,13 +425,35 @@ function renderSentry(snap) {
   if (!box || !s.available) return; // no auth token at collect time → section stays hidden
   block.hidden = false;
   box.innerHTML = "";
-  const n = s.unresolved || 0;
-  const chips = el("div", { class: "vchips" });
-  const c = el("div", { class: `vchip${n ? " vchip--alert" : ""}` });
-  c.append(el("span", { class: "vchip__n", text: fmtInt(n) }), el("span", { class: "vchip__l", text: "unresolved · 14 d" }));
-  chips.appendChild(c);
-  box.appendChild(chips);
-  box.appendChild(el("p", { class: "vcap", text: `${s.project || "nirs4all-studio"} · live error monitoring${n ? "" : " · all clear"}` }));
+
+  const head = el("div", { class: "sentry-head" });
+  head.append(
+    sentryStat(s.unresolved, "unresolved", (s.unresolved || 0) > 0),
+    sentryStat(s.resolved, "resolved", false),
+    sentryStat(s.events, "events · 14d", false),
+    sentryStat(s.users_affected, "users affected", false),
+  );
+  box.appendChild(head);
+  box.appendChild(el("p", { class: "vcap", text: `${s.project || "nirs4all-studio"} · live error monitoring (Sentry)` }));
+
+  const issues = s.issues || [];
+  if (issues.length) {
+    const list = el("div", { class: "sentry-list" });
+    for (const it of issues.slice(0, 12)) list.appendChild(sentryIssue(it, false));
+    box.appendChild(list);
+  } else {
+    box.appendChild(el("p", { class: "admin-note", text: "No unresolved issues — all clear. ✓" }));
+  }
+
+  const resolved = s.resolved_issues || [];
+  if (resolved.length) {
+    const det = el("details", { class: "sentry-closed" });
+    det.appendChild(el("summary", { text: `Recently resolved — ${s.resolved != null ? fmtInt(s.resolved) : resolved.length} closed` }));
+    const list = el("div", { class: "sentry-list" });
+    for (const it of resolved) list.appendChild(sentryIssue(it, true));
+    det.appendChild(list);
+    box.appendChild(det);
+  }
 }
 
 // ---- admin (local) ---------------------------------------------------------

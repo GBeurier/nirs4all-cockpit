@@ -106,8 +106,7 @@ def reconcile(
         visits_status, sentry_status = Visits(), SentryStatus()
     else:
         visits_status = Visits.model_validate(visits.collect(ref_date=stamp[:10]))
-        # Public Sentry is count-only: drop the per-issue list (titles stay admin-local).
-        sentry_status = SentryStatus.model_validate({**sentry.collect(), "issues": []})
+        sentry_status = SentryStatus.model_validate(sentry.collect())
 
     return Snapshot(
         schema_version=1,

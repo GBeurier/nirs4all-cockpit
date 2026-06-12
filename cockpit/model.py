@@ -224,18 +224,18 @@ class Visits(BaseModel):
 
 
 class SentryStatus(BaseModel):
-    """Unresolved Sentry issues for the studio project.
-
-    The public snapshot carries the count only (``unresolved``); the per-issue
-    ``issues`` list is populated solely in the local admin snapshot, never on the
-    public site (titles can leak context).
-    """
+    """Runtime-error health for the studio project (public): unresolved vs
+    resolved counts, total events + users affected, and both issue lists."""
 
     available: bool = False
     org: str | None = None
     project: str | None = None
     unresolved: int | None = None
+    resolved: int | None = None
+    events: int | None = None
+    users_affected: int | None = None
     issues: list[dict] = Field(default_factory=list)
+    resolved_issues: list[dict] = Field(default_factory=list)
     error: str | None = None
 
 
