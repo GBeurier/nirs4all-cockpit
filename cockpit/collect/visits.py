@@ -81,6 +81,11 @@ def collect(
             f"{site}/api/v0/stats/hits?start={_EPOCH}&end={end}&limit={_MAX_PAGES}", headers=headers
         )
         if status == 200 and isinstance(body, dict):
+            # Every ecosystem page sets an explicit per-site path via
+            # ``data-goatcounter-settings`` (e.g. ``/formats``, ``/io``, ``/methods``),
+            # so the per-page breakdown is keyed by site. The bare ``/`` bucket is
+            # only the legacy traffic recorded before those path overrides existed;
+            # drop it so it does not masquerade as one ecosystem page.
             pages = [
                 {
                     "path": h.get("path") or "/",
@@ -88,6 +93,7 @@ def collect(
                     "count": h.get("count") if isinstance(h.get("count"), int) else 0,
                 }
                 for h in body.get("hits", [])
+                if (h.get("path") or "/") != "/"
             ]
             pages.sort(key=lambda p: p["count"], reverse=True)
             out["pages"] = pages

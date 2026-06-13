@@ -212,6 +212,26 @@ def test_visits_include_pages_fetches_page_breakdown(monkeypatch) -> None:
     assert out["pages"][2]["title"] is None
 
 
+def test_visits_drops_legacy_bare_root_path(monkeypatch) -> None:
+    # The bare "/" bucket is pre-path-override legacy traffic; it must not appear
+    # as an ecosystem page now that every site reports an explicit "/name" path.
+    def _fake(url, headers=None, *, accept="application/json"):  # noqa: ARG001
+        if "/stats/hits" in url:
+            return 200, {
+                "hits": [
+                    {"path": "/", "title": "nirs4all-formats demo", "count": 23},
+                    {"path": "/formats/", "title": "nirs4all Formats", "count": 5},
+                ]
+            }, None
+        return 200, {"total": 28}, None
+
+    monkeypatch.setattr(visits, "get_json", _fake)
+
+    out = visits.collect(token="tok", ref_date="2026-06-12", include_pages=True)
+
+    assert [p["path"] for p in out["pages"]] == ["/formats/"]
+
+
 # --------------------------------------------------------------------------- #
 # Read the Docs
 # --------------------------------------------------------------------------- #
