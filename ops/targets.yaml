@@ -290,6 +290,9 @@ packages:
       strategy: cargo_workspace
       path: Cargo.toml
     targets:
+      - registry: readthedocs
+        name: nirs4all-io
+        state: tracked
       - registry: pypi
         name: nirs4all-io
         state: tracked
@@ -392,6 +395,9 @@ packages:
       strategy: cargo_workspace
       path: Cargo.toml
     targets:
+      - registry: readthedocs
+        name: nirs4all-datasets
+        state: tracked
       - registry: pypi
         name: nirs4all-datasets
         state: tracked
@@ -482,6 +488,9 @@ packages:
       strategy: cargo_package
       path: bindings/rust/nirs4all/Cargo.toml
     targets:
+      - registry: readthedocs
+        name: nirs4all-lite
+        state: tracked
       - registry: pypi
         name: nirs4all-lite
         state: tracked
@@ -564,8 +573,12 @@ packages:
     source_of_truth:
       strategy: cargo_workspace
       path: Cargo.toml
-    # Pure Rust library — no Python/WASM bindings planned, so only crates.io.
+    # Pure Rust library — no Python/WASM bindings planned, so only crates.io
+    # (plus Read the Docs for the documentation site).
     targets:
+      - registry: readthedocs
+        name: dag-ml
+        state: tracked
       - registry: crates
         name: dag-ml
         state: tracked
@@ -591,8 +604,12 @@ packages:
     source_of_truth:
       strategy: cargo_workspace
       path: Cargo.toml
-    # Pure Rust library — no Python/WASM/R bindings planned, so only crates.io.
+    # Pure Rust library — no Python/WASM/R bindings planned, so only crates.io
+    # (plus Read the Docs for the documentation site).
     targets:
+      - registry: readthedocs
+        name: dag-ml-data
+        state: tracked
       - registry: crates
         name: dag-ml-data
         state: tracked
