@@ -580,8 +580,8 @@ packages:
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
-  # Public ecosystem projects WITHOUT registry packages — tracked for GitHub
-  # stats, code/CI, and (where present) their GitHub Pages site.
+  # Public ecosystem projects without package-registry artifacts — tracked for
+  # GitHub stats, code/CI, GitHub Releases, and (where present) GitHub Pages.
   - id: nirs4all-cluster
     repo: nirs4all-cluster
     channel: production
@@ -616,6 +616,35 @@ packages:
       - registry: pages
         name: nirs4all-web
         state: tracked
+    version_aliases: {}
+
+  - id: nirs4all-studio
+    repo: nirs4all-studio
+    channel: production
+    issues_repo: nirs4all-studio
+    source_of_truth:
+      strategy: npm_package_json
+      path: package.json
+    tag_prefix: ""
+    targets:
+      - registry: github-release
+        name: nirs4all-studio
+        state: tracked
+        workflow:
+          file: release-unified.yml
+          trigger: workflow_dispatch
+          danger: dangerous
+          publishes_on_dispatch: true
+          inputs:
+            - name: tag
+              type: string
+              required: true
+            - name: skip_all_in_one
+              type: boolean
+              default: false
+            - name: skip_docker
+              type: boolean
+              default: false
     version_aliases: {}
 
   - id: nirs4all-cockpit

@@ -309,12 +309,31 @@ def _emit(result) -> None:
         typer.echo(msg)
 
 
+def _parse_input_options(values: list[str] | None) -> dict[str, str]:
+    """Parse repeated ``--input key=value`` options for workflow dispatch."""
+    out: dict[str, str] = {}
+    for raw in values or []:
+        if "=" not in raw:
+            typer.secho(f"invalid --input {raw!r}: expected key=value", fg="red", err=True)
+            raise typer.Exit(code=2)
+        key, value = raw.split("=", 1)
+        key = key.strip()
+        if not key:
+            typer.secho(f"invalid --input {raw!r}: key is empty", fg="red", err=True)
+            raise typer.Exit(code=2)
+        out[key] = value
+    return out
+
+
 @admin_app.command("run")
 def admin_run(
     pkg: str = typer.Argument(..., help="Package id from the inventory."),
     registry: str = typer.Argument(..., help="Registry key (pypi/crates/npm/r-universe/...)."),
     name: str | None = typer.Option(None, "--name", help="Exact registry name (disambiguates)."),
     ref: str = typer.Option("main", "--ref", help="Dispatch ref (branch or tag)."),
+    input_values: list[str] | None = typer.Option(
+        None, "--input", "-i", help="Workflow dispatch input as key=value; repeat for multiple inputs."
+    ),
     publish: bool = typer.Option(False, "--publish/--no-publish", help="Flip the publish gate on."),
     dry_run: bool = typer.Option(True, "--dry-run/--no-dry-run", help="Preview only (default)."),
     targets: Path = typer.Option(DEFAULT_TARGETS, "--targets", help="Inventory YAML."),
@@ -337,6 +356,7 @@ def admin_run(
             registry,
             name=name,
             ref=ref,
+            inputs=_parse_input_options(input_values),
             dry_run=dry_run,
             publish=publish if publish else None,
             confirm=confirm,

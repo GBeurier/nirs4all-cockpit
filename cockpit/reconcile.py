@@ -69,10 +69,6 @@ _COLLECTORS = {
     "readthedocs": readthedocs.collect,
 }
 
-# Version-tag prefix considered a production tag (vX.Y.Z, non-prerelease).
-_PROD_TAG = "v"
-
-
 def load_targets(path: str | Path) -> Targets:
     """Parse ``ops/targets.yaml`` into the :class:`Targets` inventory model."""
     data = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
@@ -279,21 +275,31 @@ def _source_versions(
         )
 
     tag_names = github.tags(owner, pkg.repo)
-    latest_prod = _latest_prod_tag(tag_names)
-    latest_any = _latest_any_tag(tag_names)
+    latest_prod = _latest_prod_tag(tag_names, pkg.tag_prefix)
+    latest_any = _latest_any_tag(tag_names, pkg.tag_prefix)
     return manifest, latest_prod, latest_any, None
 
 
-def _latest_prod_tag(tag_names: list[str]) -> str | None:
-    """Newest non-prerelease ``v*`` tag, version-sorted (not list order)."""
-    candidates = [t for t in tag_names if t.startswith(_PROD_TAG) and not ver.is_prerelease(t)]
+def _latest_prod_tag(tag_names: list[str], tag_prefix: str = "v") -> str | None:
+    """Newest non-prerelease production tag, version-sorted (not list order)."""
+    candidates = [t for t in tag_names if _matches_tag_prefix(t, tag_prefix) and not ver.is_prerelease(t)]
     return _max_version(candidates)
 
 
-def _latest_any_tag(tag_names: list[str]) -> str | None:
-    """Newest ``v*`` tag including prereleases, version-sorted."""
-    candidates = [t for t in tag_names if t.startswith(_PROD_TAG)]
+def _latest_any_tag(tag_names: list[str], tag_prefix: str = "v") -> str | None:
+    """Newest production-style tag including prereleases, version-sorted."""
+    candidates = [t for t in tag_names if _matches_tag_prefix(t, tag_prefix)]
     return _max_version(candidates)
+
+
+def _matches_tag_prefix(tag: str, tag_prefix: str) -> bool:
+    if tag_prefix:
+        if not tag.startswith(tag_prefix):
+            return False
+        tag = tag[len(tag_prefix):]
+    elif tag.startswith(("v", "V")):
+        return False
+    return ver.is_version(tag)
 
 
 def _max_version(tags: list[str]) -> str | None:

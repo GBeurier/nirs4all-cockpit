@@ -36,6 +36,12 @@ def test_normalize_unparseable_returns_stripped_raw() -> None:
     assert v.normalize("  not-a-version  ") == "not-a-version"
 
 
+def test_is_version_rejects_non_version_strings() -> None:
+    assert v.is_version("0.8.0") is True
+    assert v.is_version("v0.8.0") is True
+    assert v.is_version("2026-notes") is False
+
+
 # --------------------------------------------------------------------------- #
 # compare  (the load-bearing "never lexical" guarantee)
 # --------------------------------------------------------------------------- #

@@ -131,6 +131,10 @@ def _validate_inputs(wf: WorkflowRef, inputs: dict) -> dict[str, str]:
         AdminError: On any undeclared input name or out-of-set choice value.
     """
     declared = {spec["name"]: spec for spec in wf.inputs if "name" in spec}
+    for key, spec in declared.items():
+        if spec.get("required") and key not in inputs and "default" not in spec:
+            raise AdminError(f"required input {key!r} is missing for workflow {wf.file!r}")
+
     out: dict[str, str] = {}
     for key, value in inputs.items():
         if key not in declared:

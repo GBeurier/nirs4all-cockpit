@@ -90,8 +90,9 @@ class PackageSource(BaseModel):
     """Resolved version facts for a package (the four-version reconcile model).
 
     ``manifest_version`` is the source-of-truth in the repo; ``latest_prod_tag``
-    is the newest ``v*.*.*`` non-prerelease tag; ``latest_any_tag`` includes
-    prereleases; ``expected_prod_version`` is derived (prod tag, else manifest).
+    is the newest non-prerelease tag matching the package's declared tag prefix;
+    ``latest_any_tag`` includes prereleases; ``expected_prod_version`` is derived
+    (prod tag, else manifest).
     """
 
     manifest_version: str | None = None
@@ -358,6 +359,7 @@ class Package(BaseModel):
     channel: str = "production"
     issues_repo: str | None = None
     source_of_truth: SourceOfTruth | None = None
+    tag_prefix: str = "v"
     targets: list[Target]
     version_aliases: dict = Field(default_factory=dict)
 

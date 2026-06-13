@@ -8,9 +8,9 @@ machine that turns observed facts into a :data:`State`.
 The state machine is the contract from the Codex review:
 
 * Keep four version facts per package — ``manifest_version``,
-  ``latest_prod_tag``, ``latest_any_tag``, ``published_version`` — and derive
-  ``expected_prod_version`` = ``latest_prod_tag`` if present, else
-  ``manifest_version``.
+  ``latest_prod_tag`` (matching the package's declared tag prefix),
+  ``latest_any_tag``, ``published_version`` — and derive ``expected_prod_version``
+  = ``latest_prod_tag`` if present, else ``manifest_version``.
 * Target status is exactly ``green | stale | missing | broken | unknown |
   excluded``. ``source_ahead`` is a *package flag*, never a status, and never
   reddens a prod target. ``planned`` is reconciled as ``missing`` by the caller
@@ -75,6 +75,15 @@ def is_prerelease(v: str) -> bool:
     except InvalidVersion:
         return False
     return parsed.is_prerelease or parsed.is_devrelease
+
+
+def is_version(raw: str) -> bool:
+    """Return ``True`` when ``raw`` can be normalised and parsed as a version."""
+    try:
+        Version(normalize(raw))
+    except InvalidVersion:
+        return False
+    return True
 
 
 def compare(a: str, b: str) -> int:

@@ -22,6 +22,7 @@ from conftest import load_fixture
 
 from cockpit import version as v
 from cockpit.collect import cran, crates, npm, readthedocs, runiverse
+from cockpit.reconcile import _latest_any_tag, _latest_prod_tag
 
 
 def _patch(monkeypatch, module, replies):
@@ -162,3 +163,21 @@ def test_readthedocs_latest_is_green_without_semver_comparison(monkeypatch) -> N
     )
 
     assert state == "green"
+
+
+# --------------------------------------------------------------------------- #
+# Tag prefix handling — nirs4all-studio uses numeric tags, not v-prefixed tags
+# --------------------------------------------------------------------------- #
+
+
+def test_numeric_release_tags_can_be_declared_as_production_tags() -> None:
+    tags = ["2026-notes", "0.9.0rc1", "0.8.0", "v9.9.9"]
+
+    assert _latest_prod_tag(tags, "") == "0.8.0"
+    assert _latest_any_tag(tags, "") == "0.9.0rc1"
+
+
+def test_default_release_tags_still_require_v_prefix() -> None:
+    tags = ["0.9.0", "v0.8.0"]
+
+    assert _latest_prod_tag(tags) == "v0.8.0"
