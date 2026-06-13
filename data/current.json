@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-13T12:01:14.209169+00:00",
+  "generated_at": "2026-06-13T12:05:47.529515+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -48,15 +48,15 @@
           "status": "green",
           "planned": false,
           "downloads": {
-            "last_day": 40,
-            "last_week": 506,
-            "last_month": 1133,
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
             "total": null,
             "source": "pypistats",
             "by_version": [],
             "windows": {
-              "7d": 506,
-              "30d": 1133,
+              "7d": null,
+              "30d": null,
               "90d": null,
               "total": null
             }
@@ -106,8 +106,8 @@
         "forks": 0,
         "watchers": 1,
         "open_prs": 2,
-        "closed_prs": 16,
-        "merged_prs": 6,
+        "closed_prs": 24,
+        "merged_prs": 0,
         "size_kb": 177012,
         "license": "NOASSERTION",
         "pushed_at": "2026-06-13T12:00:10Z",
@@ -138,10 +138,10 @@
         "workflows": 11,
         "total_runs": 867,
         "recent_total": 100,
-        "recent_success": 79,
+        "recent_success": 81,
         "recent_failure": 17,
-        "success_rate": 82.3,
-        "last_conclusion": null,
+        "success_rate": 82.7,
+        "last_conclusion": "success",
         "last_created_at": "2026-06-13T12:00:13Z"
       }
     },
@@ -218,7 +218,7 @@
         "forks": 0,
         "watchers": 1,
         "open_prs": 0,
-        "closed_prs": 0,
+        "closed_prs": 8,
         "merged_prs": 0,
         "size_kb": 34954,
         "license": "NOASSERTION",
@@ -231,20 +231,19 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 494526,
-        "loc_comment": 112831,
-        "loc_blank": 115585,
-        "loc_total": 722942,
-        "files": 1788,
-        "tests": 1903,
+        "loc_code": 232591,
+        "loc_comment": 27734,
+        "loc_blank": 32453,
+        "loc_total": 292778,
+        "files": 907,
+        "tests": 1789,
         "by_language": {
-          "Python": 283512,
           "TypeScript": 184127,
-          "HTML": 20259,
-          "JavaScript": 5173,
-          "Shell": 557,
-          "CSS": 550,
-          "C": 348
+          "Python": 46765,
+          "Shell": 535,
+          "HTML": 510,
+          "CSS": 467,
+          "JavaScript": 187
         },
         "coverage_pct": null,
         "source": "local-scan"
@@ -544,8 +543,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 10,
-        "merged_prs": 7,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 490442,
         "license": "NOASSERTION",
         "pushed_at": "2026-06-12T16:36:45Z",
@@ -557,14 +556,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 246001,
-        "loc_comment": 39128,
-        "loc_blank": 27207,
-        "loc_total": 312336,
-        "files": 992,
-        "tests": 306,
+        "loc_code": 216502,
+        "loc_comment": 37338,
+        "loc_blank": 23740,
+        "loc_total": 277580,
+        "files": 943,
+        "tests": 303,
         "by_language": {
-          "Python": 108540,
+          "Python": 79041,
           "C++": 73123,
           "C": 28515,
           "C++ header": 12267,
@@ -960,20 +959,19 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 49480,
-        "loc_comment": 2615,
-        "loc_blank": 4168,
-        "loc_total": 56263,
-        "files": 142,
+        "loc_code": 45288,
+        "loc_comment": 2348,
+        "loc_blank": 3793,
+        "loc_total": 51429,
+        "files": 132,
         "tests": 325,
         "by_language": {
           "Rust": 40100,
-          "JavaScript": 3468,
-          "HTML": 2650,
           "Python": 1979,
+          "JavaScript": 1481,
           "R": 900,
+          "HTML": 525,
           "Shell": 261,
-          "TypeScript": 80,
           "C": 29,
           "C/C++ header": 13
         },
@@ -1321,8 +1319,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 1,
-        "merged_prs": 1,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 3573,
         "license": "NOASSERTION",
         "pushed_at": "2026-06-12T16:25:01Z",
@@ -1334,14 +1332,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 40147,
-        "loc_comment": 3821,
-        "loc_blank": 3905,
-        "loc_total": 47873,
-        "files": 193,
-        "tests": 398,
+        "loc_code": 27162,
+        "loc_comment": 2768,
+        "loc_blank": 2981,
+        "loc_total": 32911,
+        "files": 150,
+        "tests": 307,
         "by_language": {
-          "Rust": 28264,
+          "Rust": 15345,
           "Python": 5533,
           "JavaScript": 3570,
           "CSS": 1428,
@@ -1351,7 +1349,7 @@
           "HTML": 174,
           "C": 148,
           "TypeScript": 146,
-          "C/C++ header": 99
+          "C/C++ header": 33
         },
         "coverage_pct": 82.2,
         "source": "local-scan"
@@ -1650,8 +1648,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 1,
-        "merged_prs": 1,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 252241,
         "license": "MIT",
         "pushed_at": "2026-06-12T16:24:47Z",
@@ -1663,24 +1661,20 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 137267,
-        "loc_comment": 6646,
-        "loc_blank": 15981,
-        "loc_total": 159894,
-        "files": 689,
-        "tests": 261,
+        "loc_code": 12293,
+        "loc_comment": 2440,
+        "loc_blank": 2578,
+        "loc_total": 17311,
+        "files": 92,
+        "tests": 219,
         "by_language": {
-          "HTML": 96971,
-          "Python": 28925,
-          "CSS": 3759,
-          "JavaScript": 2878,
-          "R": 2431,
+          "Python": 10003,
           "Rust": 1841,
           "Shell": 203,
           "C": 135,
-          "TypeScript": 42,
           "MATLAB/Octave": 42,
-          "C/C++ header": 40
+          "C/C++ header": 40,
+          "R": 29
         },
         "coverage_pct": 63.4,
         "source": "local-scan"
@@ -1909,22 +1903,20 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 5793,
-        "loc_comment": 116,
-        "loc_blank": 751,
-        "loc_total": 6660,
-        "files": 47,
+        "loc_code": 4666,
+        "loc_comment": 114,
+        "loc_blank": 597,
+        "loc_total": 5377,
+        "files": 31,
         "tests": 33,
         "by_language": {
-          "R": 1370,
           "Rust": 1269,
           "Python": 867,
           "JavaScript": 857,
           "MATLAB/Octave": 827,
-          "CSS": 221,
+          "R": 562,
           "Shell": 185,
-          "TypeScript": 99,
-          "HTML": 98
+          "TypeScript": 99
         },
         "coverage_pct": 30.3,
         "source": "local-scan"
@@ -2177,15 +2169,15 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 70484,
+        "loc_code": 65667,
         "loc_comment": 1333,
-        "loc_blank": 4292,
-        "loc_total": 76109,
+        "loc_blank": 4014,
+        "loc_total": 71014,
         "files": 57,
-        "tests": 390,
+        "tests": 363,
         "by_language": {
-          "Rust": 60168,
-          "Python": 8626,
+          "Rust": 56743,
+          "Python": 7234,
           "R": 1029,
           "JavaScript": 338,
           "C/C++ header": 323
@@ -2367,19 +2359,16 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 25544,
-        "loc_comment": 1842,
-        "loc_blank": 2169,
-        "loc_total": 29555,
-        "files": 57,
-        "tests": 255,
+        "loc_code": 15974,
+        "loc_comment": 666,
+        "loc_blank": 1237,
+        "loc_total": 17877,
+        "files": 27,
+        "tests": 140,
         "by_language": {
-          "Rust": 21882,
-          "Python": 2957,
-          "C/C++ header": 253,
-          "JavaScript": 250,
-          "R": 196,
-          "C": 6
+          "Rust": 14496,
+          "Python": 1275,
+          "C/C++ header": 203
         },
         "coverage_pct": 88.1,
         "source": "local-scan"
@@ -2418,8 +2407,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 2,
-        "merged_prs": 2,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 109,
         "license": null,
         "pushed_at": "2026-06-13T09:20:30Z",
@@ -2593,18 +2582,18 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 29978,
+        "loc_code": 21361,
         "loc_comment": 2472,
-        "loc_blank": 1860,
-        "loc_total": 34310,
-        "files": 187,
+        "loc_blank": 1846,
+        "loc_total": 25679,
+        "files": 186,
         "tests": 163,
         "by_language": {
           "TypeScript": 15766,
-          "HTML": 8648,
           "JavaScript": 5274,
           "CSS": 248,
-          "Shell": 42
+          "Shell": 42,
+          "HTML": 31
         },
         "coverage_pct": null,
         "source": "local-scan"
@@ -2669,7 +2658,7 @@
         "merged_prs": 0,
         "size_kb": 178,
         "license": null,
-        "pushed_at": "2026-06-13T11:47:53Z",
+        "pushed_at": "2026-06-13T12:04:16Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2696,13 +2685,13 @@
       },
       "actions_stats": {
         "workflows": 2,
-        "total_runs": 29,
-        "recent_total": 29,
-        "recent_success": 25,
+        "total_runs": 31,
+        "recent_total": 31,
+        "recent_success": 26,
         "recent_failure": 4,
-        "success_rate": 86.2,
-        "last_conclusion": "success",
-        "last_created_at": "2026-06-13T11:47:56Z"
+        "success_rate": 86.7,
+        "last_conclusion": null,
+        "last_created_at": "2026-06-13T12:05:05Z"
       }
     }
   ],
@@ -2722,12 +2711,12 @@
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 1367132,
-    "loc_total": 1897666,
-    "tests": 12099,
-    "files": 5346,
-    "workflow_runs": 3708,
-    "downloads_last_month": 5345
+    "loc_code": 909416,
+    "loc_total": 1243680,
+    "tests": 11707,
+    "files": 3719,
+    "workflow_runs": 3710,
+    "downloads_last_month": 4212
   },
   "visits": {
     "available": true,
@@ -2738,7 +2727,13 @@
       "365d": 23,
       "total": 23
     },
-    "pages": [],
+    "pages": [
+      {
+        "path": "/",
+        "title": "nirs4all-formats · in-browser spectroscopy file reader (WASM demo)",
+        "count": 23
+      }
+    ],
     "error": null
   },
   "sentry": {
