@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-13T12:05:47.529515+00:00",
+  "generated_at": "2026-06-13T12:13:00.597630+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -48,15 +48,15 @@
           "status": "green",
           "planned": false,
           "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
+            "last_day": 40,
+            "last_week": 506,
+            "last_month": 1133,
             "total": null,
             "source": "pypistats",
             "by_version": [],
             "windows": {
-              "7d": null,
-              "30d": null,
+              "7d": 506,
+              "30d": 1133,
               "90d": null,
               "total": null
             }
@@ -108,9 +108,9 @@
         "open_prs": 2,
         "closed_prs": 24,
         "merged_prs": 0,
-        "size_kb": 177012,
-        "license": "NOASSERTION",
-        "pushed_at": "2026-06-13T12:00:10Z",
+        "size_kb": 177097,
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-06-13T12:08:20Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -136,13 +136,13 @@
       },
       "actions_stats": {
         "workflows": 11,
-        "total_runs": 867,
+        "total_runs": 871,
         "recent_total": 100,
-        "recent_success": 81,
-        "recent_failure": 17,
-        "success_rate": 82.7,
+        "recent_success": 82,
+        "recent_failure": 16,
+        "success_rate": 83.7,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-13T12:00:13Z"
+        "last_created_at": "2026-06-13T12:08:25Z"
       }
     },
     {
@@ -1322,8 +1322,8 @@
         "closed_prs": 0,
         "merged_prs": 0,
         "size_kb": 3573,
-        "license": "NOASSERTION",
-        "pushed_at": "2026-06-12T16:25:01Z",
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-06-13T12:08:39Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -1356,13 +1356,13 @@
       },
       "actions_stats": {
         "workflows": 17,
-        "total_runs": 226,
+        "total_runs": 236,
         "recent_total": 100,
-        "recent_success": 63,
-        "recent_failure": 37,
-        "success_rate": 63.0,
-        "last_conclusion": "success",
-        "last_created_at": "2026-06-12T16:25:05Z"
+        "recent_success": 61,
+        "recent_failure": 39,
+        "success_rate": 61.0,
+        "last_conclusion": "failure",
+        "last_created_at": "2026-06-13T12:08:41Z"
       }
     },
     {
@@ -1413,20 +1413,20 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 16,
-            "total": 16,
+            "last_month": 17,
+            "total": 17,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.0",
-                "downloads": 16
+                "downloads": 17
               }
             ],
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 16,
-              "total": 16
+              "90d": 17,
+              "total": 17
             }
           },
           "evidence": {
@@ -1651,8 +1651,8 @@
         "closed_prs": 0,
         "merged_prs": 0,
         "size_kb": 252241,
-        "license": "MIT",
-        "pushed_at": "2026-06-12T16:24:47Z",
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-06-13T12:08:57Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -1681,13 +1681,13 @@
       },
       "actions_stats": {
         "workflows": 11,
-        "total_runs": 154,
+        "total_runs": 158,
         "recent_total": 100,
-        "recent_success": 87,
-        "recent_failure": 11,
-        "success_rate": 88.8,
+        "recent_success": 88,
+        "recent_failure": 10,
+        "success_rate": 89.8,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-12T16:24:49Z"
+        "last_created_at": "2026-06-13T12:09:00Z"
       }
     },
     {
@@ -1992,8 +1992,8 @@
         "closed_prs": 0,
         "merged_prs": 0,
         "size_kb": 53792,
-        "license": "NOASSERTION",
-        "pushed_at": "2026-06-12T16:24:32Z",
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-06-13T12:08:48Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2410,8 +2410,8 @@
         "closed_prs": 0,
         "merged_prs": 0,
         "size_kb": 109,
-        "license": null,
-        "pushed_at": "2026-06-13T09:20:30Z",
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-06-13T12:09:09Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2657,8 +2657,8 @@
         "closed_prs": 0,
         "merged_prs": 0,
         "size_kb": 178,
-        "license": null,
-        "pushed_at": "2026-06-13T12:04:16Z",
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-06-13T12:12:01Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2685,13 +2685,13 @@
       },
       "actions_stats": {
         "workflows": 2,
-        "total_runs": 31,
-        "recent_total": 31,
-        "recent_success": 26,
-        "recent_failure": 4,
-        "success_rate": 86.7,
+        "total_runs": 35,
+        "recent_total": 35,
+        "recent_success": 28,
+        "recent_failure": 5,
+        "success_rate": 84.8,
         "last_conclusion": null,
-        "last_created_at": "2026-06-13T12:05:05Z"
+        "last_created_at": "2026-06-13T12:12:13Z"
       }
     }
   ],
@@ -2715,8 +2715,8 @@
     "loc_total": 1243680,
     "tests": 11707,
     "files": 3719,
-    "workflow_runs": 3710,
-    "downloads_last_month": 4212
+    "workflow_runs": 3732,
+    "downloads_last_month": 5346
   },
   "visits": {
     "available": true,
