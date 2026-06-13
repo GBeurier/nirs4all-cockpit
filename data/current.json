@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-13T14:52:35.681354+00:00",
+  "generated_at": "2026-06-13T23:03:02.730953+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -108,9 +108,9 @@
         "forks": 0,
         "watchers": 1,
         "open_prs": 0,
-        "closed_prs": 18,
-        "merged_prs": 8,
-        "size_kb": 177100,
+        "closed_prs": 24,
+        "merged_prs": 0,
+        "size_kb": 177115,
         "language": "Python",
         "license": "AGPL-3.0",
         "pushed_at": "2026-06-13T14:35:15Z",
@@ -164,8 +164,8 @@
         {
           "registry": "readthedocs",
           "name": "nirs4all-studio",
-          "published_version": null,
-          "status": "missing",
+          "published_version": "latest",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -177,7 +177,7 @@
             "windows": {}
           },
           "evidence": {
-            "version_endpoint": "https://readthedocs.org/api/v3/projects/nirs4all-studio/",
+            "version_endpoint": "https://nirs4all-studio.readthedocs.io/en/latest/",
             "downloads_endpoint": null
           },
           "error": null
@@ -192,11 +192,11 @@
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": 513,
+            "total": 515,
             "source": "github-release-assets",
             "by_version": [],
             "windows": {
-              "total": 513
+              "total": 515
             }
           },
           "evidence": {
@@ -223,7 +223,7 @@
         "forks": 0,
         "watchers": 1,
         "open_prs": 0,
-        "closed_prs": 0,
+        "closed_prs": 8,
         "merged_prs": 0,
         "size_kb": 35182,
         "language": "TypeScript",
@@ -237,20 +237,19 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 494625,
-        "loc_comment": 112834,
-        "loc_blank": 115611,
-        "loc_total": 723070,
-        "files": 1788,
-        "tests": 1908,
+        "loc_code": 232690,
+        "loc_comment": 27737,
+        "loc_blank": 32479,
+        "loc_total": 292906,
+        "files": 907,
+        "tests": 1794,
         "by_language": {
-          "Python": 283592,
           "TypeScript": 184146,
-          "HTML": 20259,
-          "JavaScript": 5173,
-          "Shell": 557,
-          "CSS": 550,
-          "C": 348
+          "Python": 46845,
+          "Shell": 535,
+          "HTML": 510,
+          "CSS": 467,
+          "JavaScript": 187
         },
         "coverage_pct": 53.1,
         "source": "local-scan"
@@ -282,8 +281,8 @@
         {
           "registry": "readthedocs",
           "name": "nirs4all-methods",
-          "published_version": null,
-          "status": "missing",
+          "published_version": "latest",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -295,7 +294,7 @@
             "windows": {}
           },
           "evidence": {
-            "version_endpoint": "https://readthedocs.org/api/v3/projects/nirs4all-methods/",
+            "version_endpoint": "https://nirs4all-methods.readthedocs.io/en/latest/",
             "downloads_endpoint": null
           },
           "error": null
@@ -552,12 +551,12 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 10,
-        "merged_prs": 7,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 490470,
         "language": "C++",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-13T12:14:59Z",
+        "pushed_at": "2026-06-13T22:34:53Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -566,38 +565,38 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 246443,
-        "loc_comment": 39226,
-        "loc_blank": 27276,
-        "loc_total": 312945,
-        "files": 994,
-        "tests": 306,
+        "loc_code": 218138,
+        "loc_comment": 37549,
+        "loc_blank": 23944,
+        "loc_total": 279631,
+        "files": 948,
+        "tests": 303,
         "by_language": {
-          "Python": 108982,
+          "Python": 79483,
           "C++": 73123,
           "C": 28515,
           "C++ header": 12267,
           "C/C++ header": 6270,
           "R": 5556,
           "MATLAB/Octave": 5029,
-          "HTML": 3224,
-          "CSS": 1054,
+          "HTML": 3334,
+          "CSS": 1412,
+          "JavaScript": 1191,
           "Shell": 990,
-          "TypeScript": 968,
-          "JavaScript": 465
+          "TypeScript": 968
         },
         "coverage_pct": 49.0,
         "source": "local-scan"
       },
       "actions_stats": {
         "workflows": 17,
-        "total_runs": 1539,
+        "total_runs": 1555,
         "recent_total": 100,
-        "recent_success": 92,
-        "recent_failure": 7,
-        "success_rate": 92.9,
+        "recent_success": 93,
+        "recent_failure": 5,
+        "success_rate": 94.9,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-13T12:15:02Z"
+        "last_created_at": "2026-06-13T22:34:56Z"
       }
     },
     {
@@ -616,8 +615,8 @@
         {
           "registry": "readthedocs",
           "name": "nirs4all-formats",
-          "published_version": null,
-          "status": "missing",
+          "published_version": "latest",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -629,7 +628,7 @@
             "windows": {}
           },
           "evidence": {
-            "version_endpoint": "https://readthedocs.org/api/v3/projects/nirs4all-formats/",
+            "version_endpoint": "https://nirs4all-formats.readthedocs.io/en/latest/",
             "downloads_endpoint": null
           },
           "error": null
@@ -960,10 +959,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 117766,
+        "size_kb": 117770,
         "language": "Rust",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-13T14:22:57Z",
+        "pushed_at": "2026-06-13T22:34:55Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -972,20 +971,19 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 49498,
-        "loc_comment": 2615,
-        "loc_blank": 4170,
-        "loc_total": 56283,
-        "files": 142,
+        "loc_code": 45343,
+        "loc_comment": 2350,
+        "loc_blank": 3798,
+        "loc_total": 51491,
+        "files": 132,
         "tests": 325,
         "by_language": {
           "Rust": 40100,
-          "JavaScript": 3468,
-          "HTML": 2650,
-          "Python": 1997,
+          "Python": 2034,
+          "JavaScript": 1481,
           "R": 900,
+          "HTML": 525,
           "Shell": 261,
-          "TypeScript": 80,
           "C": 29,
           "C/C++ header": 13
         },
@@ -994,13 +992,13 @@
       },
       "actions_stats": {
         "workflows": 9,
-        "total_runs": 285,
+        "total_runs": 289,
         "recent_total": 100,
-        "recent_success": 82,
-        "recent_failure": 14,
-        "success_rate": 85.4,
+        "recent_success": 83,
+        "recent_failure": 13,
+        "success_rate": 86.5,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-13T14:22:59Z"
+        "last_created_at": "2026-06-13T22:34:57Z"
       }
     },
     {
@@ -1016,6 +1014,27 @@
       "rollup": "green",
       "flags": [],
       "targets": [
+        {
+          "registry": "readthedocs",
+          "name": "nirs4all-io",
+          "published_version": "latest",
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": "https://nirs4all-io.readthedocs.io/en/latest/",
+            "downloads_endpoint": null
+          },
+          "error": null
+        },
         {
           "registry": "pypi",
           "name": "nirs4all-io",
@@ -1335,12 +1354,12 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 1,
-        "merged_prs": 1,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 3609,
         "language": "Rust",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-13T14:22:57Z",
+        "pushed_at": "2026-06-13T22:34:56Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -1349,15 +1368,15 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 40179,
-        "loc_comment": 3817,
-        "loc_blank": 3907,
-        "loc_total": 47903,
-        "files": 193,
-        "tests": 398,
+        "loc_code": 27231,
+        "loc_comment": 2775,
+        "loc_blank": 2991,
+        "loc_total": 32997,
+        "files": 151,
+        "tests": 307,
         "by_language": {
-          "Rust": 28296,
-          "Python": 5533,
+          "Rust": 15377,
+          "Python": 5570,
           "JavaScript": 3570,
           "CSS": 1428,
           "Shell": 360,
@@ -1366,20 +1385,20 @@
           "HTML": 174,
           "C": 148,
           "TypeScript": 146,
-          "C/C++ header": 99
+          "C/C++ header": 33
         },
         "coverage_pct": 82.2,
         "source": "local-scan"
       },
       "actions_stats": {
         "workflows": 17,
-        "total_runs": 277,
+        "total_runs": 297,
         "recent_total": 100,
-        "recent_success": 59,
-        "recent_failure": 41,
-        "success_rate": 59.0,
+        "recent_success": 57,
+        "recent_failure": 43,
+        "success_rate": 57.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-13T14:22:59Z"
+        "last_created_at": "2026-06-13T22:34:58Z"
       }
     },
     {
@@ -1395,6 +1414,27 @@
       "rollup": "green",
       "flags": [],
       "targets": [
+        {
+          "registry": "readthedocs",
+          "name": "nirs4all-datasets",
+          "published_version": null,
+          "status": "unknown",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": "https://readthedocs.org/api/v3/projects/nirs4all-datasets/",
+            "downloads_endpoint": null
+          },
+          "error": null
+        },
         {
           "registry": "pypi",
           "name": "nirs4all-datasets",
@@ -1667,12 +1707,12 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 1,
-        "merged_prs": 1,
-        "size_kb": 252276,
+        "closed_prs": 0,
+        "merged_prs": 0,
+        "size_kb": 252277,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-13T14:22:57Z",
+        "pushed_at": "2026-06-13T22:34:57Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -1681,37 +1721,33 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 137270,
-        "loc_comment": 6647,
-        "loc_blank": 15983,
-        "loc_total": 159900,
-        "files": 689,
-        "tests": 261,
+        "loc_code": 12333,
+        "loc_comment": 2456,
+        "loc_blank": 2589,
+        "loc_total": 17378,
+        "files": 93,
+        "tests": 219,
         "by_language": {
-          "HTML": 96971,
-          "Python": 28928,
-          "CSS": 3759,
-          "JavaScript": 2878,
-          "R": 2431,
+          "Python": 10043,
           "Rust": 1841,
           "Shell": 203,
           "C": 135,
-          "TypeScript": 42,
           "MATLAB/Octave": 42,
-          "C/C++ header": 40
+          "C/C++ header": 40,
+          "R": 29
         },
         "coverage_pct": 63.4,
         "source": "local-scan"
       },
       "actions_stats": {
         "workflows": 11,
-        "total_runs": 166,
+        "total_runs": 174,
         "recent_total": 100,
-        "recent_success": 90,
-        "recent_failure": 8,
-        "success_rate": 91.8,
+        "recent_success": 92,
+        "recent_failure": 6,
+        "success_rate": 93.9,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-13T14:22:59Z"
+        "last_created_at": "2026-06-13T22:34:59Z"
       }
     },
     {
@@ -1727,6 +1763,27 @@
       "rollup": "green",
       "flags": [],
       "targets": [
+        {
+          "registry": "readthedocs",
+          "name": "nirs4all-lite",
+          "published_version": null,
+          "status": "unknown",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": "https://readthedocs.org/api/v3/projects/nirs4all-lite/",
+            "downloads_endpoint": null
+          },
+          "error": null
+        },
         {
           "registry": "pypi",
           "name": "nirs4all-lite",
@@ -1921,7 +1978,7 @@
         "size_kb": 178,
         "language": "Rust",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-13T14:22:57Z",
+        "pushed_at": "2026-06-13T22:34:58Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -1930,35 +1987,33 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 5795,
-        "loc_comment": 116,
-        "loc_blank": 753,
-        "loc_total": 6664,
-        "files": 47,
+        "loc_code": 4701,
+        "loc_comment": 122,
+        "loc_blank": 612,
+        "loc_total": 5435,
+        "files": 32,
         "tests": 33,
         "by_language": {
-          "R": 1370,
           "Rust": 1271,
-          "Python": 867,
+          "Python": 900,
           "JavaScript": 857,
           "MATLAB/Octave": 827,
-          "CSS": 221,
+          "R": 562,
           "Shell": 185,
-          "TypeScript": 99,
-          "HTML": 98
+          "TypeScript": 99
         },
         "coverage_pct": 30.3,
         "source": "local-scan"
       },
       "actions_stats": {
         "workflows": 7,
-        "total_runs": 54,
-        "recent_total": 54,
-        "recent_success": 30,
+        "total_runs": 56,
+        "recent_total": 56,
+        "recent_success": 32,
         "recent_failure": 24,
-        "success_rate": 55.6,
+        "success_rate": 57.1,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-13T14:22:59Z"
+        "last_created_at": "2026-06-13T22:35:00Z"
       }
     },
     {
@@ -2071,6 +2126,27 @@
       "flags": [],
       "targets": [
         {
+          "registry": "readthedocs",
+          "name": "dag-ml",
+          "published_version": "latest",
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": "https://dag-ml.readthedocs.io/en/latest/",
+            "downloads_endpoint": null
+          },
+          "error": null
+        },
+        {
           "registry": "crates",
           "name": "dag-ml",
           "published_version": "0.1.0-alpha.0",
@@ -2079,20 +2155,20 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": null,
-            "total": 0,
+            "last_month": 16,
+            "total": 16,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.1.0-alpha.0",
-                "downloads": 0
+                "downloads": 16
               }
             ],
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": null,
-              "total": 0
+              "90d": 16,
+              "total": 16
             }
           },
           "evidence": {
@@ -2110,20 +2186,20 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": null,
-            "total": 0,
+            "last_month": 16,
+            "total": 16,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.1.0-alpha.0",
-                "downloads": 0
+                "downloads": 16
               }
             ],
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": null,
-              "total": 0
+              "90d": 16,
+              "total": 16
             }
           },
           "evidence": {
@@ -2135,134 +2211,6 @@
         {
           "registry": "crates",
           "name": "dag-ml-arrow",
-          "published_version": null,
-          "status": "missing",
-          "planned": true,
-          "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
-            "total": null,
-            "source": null,
-            "by_version": [],
-            "windows": {}
-          },
-          "evidence": {
-            "version_endpoint": null,
-            "downloads_endpoint": null
-          },
-          "error": null
-        },
-        {
-          "registry": "crates",
-          "name": "dag-ml-capi",
-          "published_version": null,
-          "status": "missing",
-          "planned": true,
-          "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
-            "total": null,
-            "source": null,
-            "by_version": [],
-            "windows": {}
-          },
-          "evidence": {
-            "version_endpoint": null,
-            "downloads_endpoint": null
-          },
-          "error": null
-        },
-        {
-          "registry": "crates",
-          "name": "dag-ml-cli",
-          "published_version": null,
-          "status": "missing",
-          "planned": true,
-          "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
-            "total": null,
-            "source": null,
-            "by_version": [],
-            "windows": {}
-          },
-          "evidence": {
-            "version_endpoint": null,
-            "downloads_endpoint": null
-          },
-          "error": null
-        }
-      ],
-      "workflows": [],
-      "issues": {
-        "open": 0,
-        "bugs": 0
-      },
-      "repo_stats": {
-        "stars": 2,
-        "forks": 0,
-        "watchers": 0,
-        "open_prs": 5,
-        "closed_prs": 0,
-        "merged_prs": 0,
-        "size_kb": 1767,
-        "language": "Rust",
-        "license": "AGPL-3.0",
-        "pushed_at": "2026-06-13T14:22:57Z",
-        "default_branch": "main",
-        "traffic_views_14d": null,
-        "traffic_views_uniques": null,
-        "traffic_clones_14d": null,
-        "traffic_clones_uniques": null,
-        "traffic_available": false
-      },
-      "code_stats": {
-        "loc_code": 70889,
-        "loc_comment": 1339,
-        "loc_blank": 4323,
-        "loc_total": 76551,
-        "files": 57,
-        "tests": 398,
-        "by_language": {
-          "Rust": 60564,
-          "Python": 8635,
-          "R": 1029,
-          "JavaScript": 338,
-          "C/C++ header": 323
-        },
-        "coverage_pct": 81.5,
-        "source": "local-scan"
-      },
-      "actions_stats": {
-        "workflows": 2,
-        "total_runs": 196,
-        "recent_total": 100,
-        "recent_success": 91,
-        "recent_failure": 9,
-        "success_rate": 91.0,
-        "last_conclusion": "failure",
-        "last_created_at": "2026-06-13T14:22:59Z"
-      }
-    },
-    {
-      "id": "dag-ml-data",
-      "repo": "dag-ml-data",
-      "source": {
-        "manifest_version": "0.1.0-alpha.0",
-        "latest_prod_tag": null,
-        "latest_any_tag": null,
-        "expected_prod_version": "0.1.0-alpha.0",
-        "commit": null
-      },
-      "rollup": "green",
-      "flags": [],
-      "targets": [
-        {
-          "registry": "crates",
-          "name": "dag-ml-data",
           "published_version": "0.1.0-alpha.0",
           "status": "green",
           "planned": false,
@@ -2283,6 +2231,185 @@
               "30d": null,
               "90d": null,
               "total": 0
+            }
+          },
+          "evidence": {
+            "version_endpoint": "https://crates.io/api/v1/crates/dag-ml-arrow",
+            "downloads_endpoint": "https://crates.io/api/v1/crates/dag-ml-arrow"
+          },
+          "error": null
+        },
+        {
+          "registry": "crates",
+          "name": "dag-ml-capi",
+          "published_version": "0.1.0-alpha.0",
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": 0,
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.1.0-alpha.0",
+                "downloads": 0
+              }
+            ],
+            "windows": {
+              "7d": null,
+              "30d": null,
+              "90d": null,
+              "total": 0
+            }
+          },
+          "evidence": {
+            "version_endpoint": "https://crates.io/api/v1/crates/dag-ml-capi",
+            "downloads_endpoint": "https://crates.io/api/v1/crates/dag-ml-capi"
+          },
+          "error": null
+        },
+        {
+          "registry": "crates",
+          "name": "dag-ml-cli",
+          "published_version": "0.1.0-alpha.0",
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": 0,
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.1.0-alpha.0",
+                "downloads": 0
+              }
+            ],
+            "windows": {
+              "7d": null,
+              "30d": null,
+              "90d": null,
+              "total": 0
+            }
+          },
+          "evidence": {
+            "version_endpoint": "https://crates.io/api/v1/crates/dag-ml-cli",
+            "downloads_endpoint": "https://crates.io/api/v1/crates/dag-ml-cli"
+          },
+          "error": null
+        }
+      ],
+      "workflows": [],
+      "issues": {
+        "open": 0,
+        "bugs": 0
+      },
+      "repo_stats": {
+        "stars": 2,
+        "forks": 0,
+        "watchers": 0,
+        "open_prs": 5,
+        "closed_prs": 0,
+        "merged_prs": 0,
+        "size_kb": 1771,
+        "language": "Rust",
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-06-13T22:34:59Z",
+        "default_branch": "main",
+        "traffic_views_14d": null,
+        "traffic_views_uniques": null,
+        "traffic_clones_14d": null,
+        "traffic_clones_uniques": null,
+        "traffic_available": false
+      },
+      "code_stats": {
+        "loc_code": 70897,
+        "loc_comment": 1343,
+        "loc_blank": 4323,
+        "loc_total": 76563,
+        "files": 57,
+        "tests": 398,
+        "by_language": {
+          "Rust": 60564,
+          "Python": 8643,
+          "R": 1029,
+          "JavaScript": 338,
+          "C/C++ header": 323
+        },
+        "coverage_pct": 81.5,
+        "source": "local-scan"
+      },
+      "actions_stats": {
+        "workflows": 3,
+        "total_runs": 198,
+        "recent_total": 100,
+        "recent_success": 90,
+        "recent_failure": 10,
+        "success_rate": 90.0,
+        "last_conclusion": "success",
+        "last_created_at": "2026-06-13T22:35:01Z"
+      }
+    },
+    {
+      "id": "dag-ml-data",
+      "repo": "dag-ml-data",
+      "source": {
+        "manifest_version": "0.1.0-alpha.0",
+        "latest_prod_tag": null,
+        "latest_any_tag": null,
+        "expected_prod_version": "0.1.0-alpha.0",
+        "commit": null
+      },
+      "rollup": "green",
+      "flags": [],
+      "targets": [
+        {
+          "registry": "readthedocs",
+          "name": "dag-ml-data",
+          "published_version": "latest",
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": "https://dag-ml-data.readthedocs.io/en/latest/",
+            "downloads_endpoint": null
+          },
+          "error": null
+        },
+        {
+          "registry": "crates",
+          "name": "dag-ml-data",
+          "published_version": "0.1.0-alpha.0",
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": 30,
+            "total": 30,
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.1.0-alpha.0",
+                "downloads": 30
+              }
+            ],
+            "windows": {
+              "7d": null,
+              "30d": null,
+              "90d": 30,
+              "total": 30
             }
           },
           "evidence": {
@@ -2300,20 +2427,20 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": null,
-            "total": 0,
+            "last_month": 38,
+            "total": 38,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.1.0-alpha.0",
-                "downloads": 0
+                "downloads": 38
               }
             ],
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": null,
-              "total": 0
+              "90d": 38,
+              "total": 38
             }
           },
           "evidence": {
@@ -2331,20 +2458,20 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": null,
-            "total": 0,
+            "last_month": 11,
+            "total": 11,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.1.0-alpha.0",
-                "downloads": 0
+                "downloads": 11
               }
             ],
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": null,
-              "total": 0
+              "90d": 11,
+              "total": 11
             }
           },
           "evidence": {
@@ -2356,27 +2483,6 @@
         {
           "registry": "crates",
           "name": "dag-ml-data-capi",
-          "published_version": null,
-          "status": "missing",
-          "planned": true,
-          "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
-            "total": null,
-            "source": null,
-            "by_version": [],
-            "windows": {}
-          },
-          "evidence": {
-            "version_endpoint": null,
-            "downloads_endpoint": null
-          },
-          "error": null
-        },
-        {
-          "registry": "crates",
-          "name": "dag-ml-data-cli",
           "published_version": "0.1.0-alpha.0",
           "status": "green",
           "planned": false,
@@ -2397,6 +2503,37 @@
               "30d": null,
               "90d": null,
               "total": 0
+            }
+          },
+          "evidence": {
+            "version_endpoint": "https://crates.io/api/v1/crates/dag-ml-data-capi",
+            "downloads_endpoint": "https://crates.io/api/v1/crates/dag-ml-data-capi"
+          },
+          "error": null
+        },
+        {
+          "registry": "crates",
+          "name": "dag-ml-data-cli",
+          "published_version": "0.1.0-alpha.0",
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": 11,
+            "total": 11,
+            "source": "crates.io",
+            "by_version": [
+              {
+                "version": "0.1.0-alpha.0",
+                "downloads": 11
+              }
+            ],
+            "windows": {
+              "7d": null,
+              "30d": null,
+              "90d": 11,
+              "total": 11
             }
           },
           "evidence": {
@@ -2414,20 +2551,20 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": null,
-            "total": 0,
+            "last_month": 13,
+            "total": 13,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.1.0-alpha.0",
-                "downloads": 0
+                "downloads": 13
               }
             ],
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": null,
-              "total": 0
+              "90d": 13,
+              "total": 13
             }
           },
           "evidence": {
@@ -2449,10 +2586,10 @@
         "open_prs": 5,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 499,
+        "size_kb": 501,
         "language": "Rust",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-13T14:22:57Z",
+        "pushed_at": "2026-06-13T22:35:00Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2461,15 +2598,15 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 25557,
-        "loc_comment": 1846,
+        "loc_code": 25561,
+        "loc_comment": 1849,
         "loc_blank": 2169,
-        "loc_total": 29572,
+        "loc_total": 29579,
         "files": 57,
         "tests": 255,
         "by_language": {
           "Rust": 21882,
-          "Python": 2970,
+          "Python": 2974,
           "C/C++ header": 253,
           "JavaScript": 250,
           "R": 196,
@@ -2479,14 +2616,14 @@
         "source": "local-scan"
       },
       "actions_stats": {
-        "workflows": 2,
-        "total_runs": 48,
-        "recent_total": 48,
-        "recent_success": 39,
-        "recent_failure": 9,
-        "success_rate": 81.2,
-        "last_conclusion": "failure",
-        "last_created_at": "2026-06-13T14:22:59Z"
+        "workflows": 3,
+        "total_runs": 50,
+        "recent_total": 50,
+        "recent_success": 40,
+        "recent_failure": 10,
+        "success_rate": 80.0,
+        "last_conclusion": "success",
+        "last_created_at": "2026-06-13T22:35:02Z"
       }
     },
     {
@@ -2512,8 +2649,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 2,
-        "merged_prs": 2,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 138,
         "language": "Python",
         "license": "AGPL-3.0",
@@ -2690,18 +2827,18 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 29988,
+        "loc_code": 21371,
         "loc_comment": 2494,
-        "loc_blank": 1862,
-        "loc_total": 34344,
-        "files": 187,
+        "loc_blank": 1848,
+        "loc_total": 25713,
+        "files": 186,
         "tests": 163,
         "by_language": {
           "TypeScript": 15769,
-          "HTML": 8648,
           "JavaScript": 5281,
           "CSS": 248,
-          "Shell": 42
+          "Shell": 42,
+          "HTML": 31
         },
         "coverage_pct": null,
         "source": "local-scan"
@@ -2764,10 +2901,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 282,
+        "size_kb": 294,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-13T13:39:33Z",
+        "pushed_at": "2026-06-13T23:01:52Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2776,14 +2913,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 4267,
-        "loc_comment": 1089,
-        "loc_blank": 1135,
-        "loc_total": 6491,
+        "loc_code": 4281,
+        "loc_comment": 1096,
+        "loc_blank": 1140,
+        "loc_total": 6517,
         "files": 39,
-        "tests": 64,
+        "tests": 65,
         "by_language": {
-          "Python": 3136,
+          "Python": 3150,
           "JavaScript": 516,
           "CSS": 292,
           "Shell": 236,
@@ -2794,22 +2931,22 @@
       },
       "actions_stats": {
         "workflows": 2,
-        "total_runs": 45,
-        "recent_total": 45,
-        "recent_success": 39,
+        "total_runs": 47,
+        "recent_total": 47,
+        "recent_success": 40,
         "recent_failure": 5,
-        "success_rate": 88.6,
-        "last_conclusion": "success",
-        "last_created_at": "2026-06-13T13:45:17Z"
+        "success_rate": 88.9,
+        "last_conclusion": null,
+        "last_created_at": "2026-06-13T23:02:10Z"
       }
     }
   ],
   "summary": {
-    "green": 54,
+    "green": 64,
     "stale": 0,
-    "missing": 7,
+    "missing": 0,
     "broken": 0,
-    "unknown": 0,
+    "unknown": 2,
     "excluded": 0,
     "pending": 6
   },
@@ -2820,38 +2957,32 @@
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 1368438,
-    "loc_total": 1899298,
-    "tests": 12119,
-    "files": 5348,
-    "workflow_runs": 3868,
-    "downloads_last_month": 5346
+    "loc_code": 926473,
+    "loc_total": 1263785,
+    "tests": 11870,
+    "files": 3757,
+    "workflow_runs": 3924,
+    "downloads_last_month": 5481
   },
   "visits": {
     "available": true,
     "site": "https://nirs4all.goatcounter.com",
     "windows": {
-      "7d": 23,
+      "7d": null,
       "30d": 23,
       "365d": 23,
       "total": 23
     },
-    "pages": [
-      {
-        "path": "/",
-        "title": "nirs4all-formats · in-browser spectroscopy file reader (WASM demo)",
-        "count": 23
-      }
-    ],
+    "pages": [],
     "error": null
   },
   "sentry": {
     "available": true,
     "org": "wwwciradfr",
     "project": "nirs4all-studio",
-    "unresolved": 8,
-    "resolved": 26,
-    "events": 317,
+    "unresolved": 0,
+    "resolved": 34,
+    "events": 0,
     "users_affected": 0,
     "issues": [],
     "resolved_issues": [],
