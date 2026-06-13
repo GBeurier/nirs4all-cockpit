@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-13T12:48:02.063737+00:00",
+  "generated_at": "2026-06-13T12:56:29.664937+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -140,9 +140,9 @@
         "workflows": 11,
         "total_runs": 875,
         "recent_total": 100,
-        "recent_success": 82,
+        "recent_success": 83,
         "recent_failure": 17,
-        "success_rate": 82.8,
+        "success_rate": 83.0,
         "last_conclusion": "success",
         "last_created_at": "2026-06-13T12:35:20Z"
       }
@@ -967,15 +967,15 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 45288,
+        "loc_code": 45306,
         "loc_comment": 2348,
-        "loc_blank": 3793,
-        "loc_total": 51429,
+        "loc_blank": 3795,
+        "loc_total": 51449,
         "files": 132,
         "tests": 325,
         "by_language": {
           "Rust": 40100,
-          "Python": 1979,
+          "Python": 1997,
           "JavaScript": 1481,
           "R": 900,
           "HTML": 525,
@@ -990,10 +990,10 @@
         "workflows": 9,
         "total_runs": 283,
         "recent_total": 100,
-        "recent_success": 77,
+        "recent_success": 81,
         "recent_failure": 15,
-        "success_rate": 83.7,
-        "last_conclusion": null,
+        "success_rate": 84.4,
+        "last_conclusion": "success",
         "last_created_at": "2026-06-13T12:48:11Z"
       }
     },
@@ -1333,7 +1333,7 @@
         "merged_prs": 0,
         "size_kb": 3573,
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-13T12:45:38Z",
+        "pushed_at": "2026-06-13T12:49:46Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -1366,13 +1366,13 @@
       },
       "actions_stats": {
         "workflows": 17,
-        "total_runs": 247,
+        "total_runs": 257,
         "recent_total": 100,
-        "recent_success": 59,
-        "recent_failure": 38,
-        "success_rate": 60.8,
-        "last_conclusion": null,
-        "last_created_at": "2026-06-13T12:45:40Z"
+        "recent_success": 60,
+        "recent_failure": 40,
+        "success_rate": 60.0,
+        "last_conclusion": "failure",
+        "last_created_at": "2026-06-13T12:49:49Z"
       }
     },
     {
@@ -1695,9 +1695,9 @@
         "workflows": 11,
         "total_runs": 162,
         "recent_total": 100,
-        "recent_success": 87,
+        "recent_success": 89,
         "recent_failure": 9,
-        "success_rate": 90.6,
+        "success_rate": 90.8,
         "last_conclusion": "success",
         "last_created_at": "2026-06-13T12:46:01Z"
       }
@@ -2204,9 +2204,9 @@
         "total_runs": 195,
         "recent_total": 100,
         "recent_success": 92,
-        "recent_failure": 7,
-        "success_rate": 92.9,
-        "last_conclusion": null,
+        "recent_failure": 8,
+        "success_rate": 92.0,
+        "last_conclusion": "failure",
         "last_created_at": "2026-06-13T12:44:27Z"
       }
     },
@@ -2395,9 +2395,9 @@
         "total_runs": 47,
         "recent_total": 47,
         "recent_success": 39,
-        "recent_failure": 3,
-        "success_rate": 92.9,
-        "last_conclusion": null,
+        "recent_failure": 8,
+        "success_rate": 83.0,
+        "last_conclusion": "failure",
         "last_created_at": "2026-06-13T12:46:24Z"
       }
     },
@@ -2508,8 +2508,8 @@
         "closed_prs": 0,
         "merged_prs": 0,
         "size_kb": 3357,
-        "license": "CC-BY-4.0",
-        "pushed_at": "2026-06-13T12:45:30Z",
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-06-13T12:54:33Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2532,13 +2532,13 @@
       },
       "actions_stats": {
         "workflows": 1,
-        "total_runs": 69,
-        "recent_total": 69,
-        "recent_success": 68,
+        "total_runs": 70,
+        "recent_total": 70,
+        "recent_success": 69,
         "recent_failure": 1,
         "success_rate": 98.6,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-13T12:45:31Z"
+        "last_created_at": "2026-06-13T12:54:34Z"
       }
     },
     {
@@ -2675,7 +2675,7 @@
         "merged_prs": 0,
         "size_kb": 254,
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-13T12:45:23Z",
+        "pushed_at": "2026-06-13T12:55:11Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2684,16 +2684,16 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 4090,
+        "loc_code": 4113,
         "loc_comment": 1086,
-        "loc_blank": 1109,
-        "loc_total": 6285,
+        "loc_blank": 1111,
+        "loc_total": 6310,
         "files": 39,
         "tests": 60,
         "by_language": {
           "Python": 2984,
-          "JavaScript": 498,
-          "CSS": 285,
+          "JavaScript": 514,
+          "CSS": 292,
           "Shell": 236,
           "HTML": 87
         },
@@ -2702,13 +2702,13 @@
       },
       "actions_stats": {
         "workflows": 2,
-        "total_runs": 38,
-        "recent_total": 38,
-        "recent_success": 31,
+        "total_runs": 41,
+        "recent_total": 41,
+        "recent_success": 34,
         "recent_failure": 5,
-        "success_rate": 86.1,
+        "success_rate": 87.2,
         "last_conclusion": null,
-        "last_created_at": "2026-06-13T12:46:15Z"
+        "last_created_at": "2026-06-13T12:55:38Z"
       }
     }
   ],
@@ -2728,11 +2728,11 @@
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 924307,
-    "loc_total": 1261022,
+    "loc_code": 924348,
+    "loc_total": 1261067,
     "tests": 11860,
     "files": 3749,
-    "workflow_runs": 3792,
+    "workflow_runs": 3806,
     "downloads_last_month": 5346
   },
   "visits": {
@@ -2757,9 +2757,9 @@
     "available": true,
     "org": "wwwciradfr",
     "project": "nirs4all-studio",
-    "unresolved": 9,
-    "resolved": 25,
-    "events": 416,
+    "unresolved": 8,
+    "resolved": 26,
+    "events": 317,
     "users_affected": 0,
     "issues": [],
     "resolved_issues": [],
