@@ -310,6 +310,13 @@ section.block { margin: 0 0 34px; }
 .kv:last-child { border-bottom: none; }
 .kv__head { display: flex; justify-content: space-between; gap: 10px; }
 .kv__name { font-family: var(--mono); font-size: 0.78rem; }
+.license-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 72px; padding: 3px 7px; border-radius: var(--radius-xs);
+  border: 1px solid var(--line); background: var(--surface-2);
+  color: var(--text); font-family: var(--mono); font-size: 0.72rem;
+  cursor: help;
+}
 
 /* tooltip */
 .tooltip {

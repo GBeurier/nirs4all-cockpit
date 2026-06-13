@@ -12,6 +12,9 @@ const REG_COLOR = { readthedocs: "#8ca1af", pypi: "#0d9488", crates: "#d97706", 
 const STATE_COLOR = { green: "#10b981", stale: "#e0950c", pending: "#8b5cf6", missing: "#b9c0cb", broken: "#e11d48", unknown: "#06b6d4", excluded: "#cabf9e" };
 const STATES = ["green", "stale", "pending", "missing", "broken", "unknown", "excluded"];
 const RANK = { broken: 6, missing: 5, stale: 4, pending: 3, unknown: 2, green: 1, excluded: 0 };
+const ECOSYSTEM_LICENSE_LABEL = "AGPL-3.0";
+const ECOSYSTEM_LICENSE_FULL = "CeCILL-2.1 OR AGPL-3.0-or-later";
+const COMMERCIAL_CONTACT = "nirs4all-admin@cirad.fr";
 const PAGES_URLS = {
   "nirs4all-datasets": "https://datasets.nirs4all.org/",
   "nirs4all-formats": "https://formats.nirs4all.org/",
@@ -261,6 +264,21 @@ function numLink(value, href) {
   td.appendChild(el("a", { class: "num", text: fmtInt(value), attrs: { href, target: "_blank", rel: "noopener" } }));
   return td;
 }
+
+function licenseCell(rawLicense) {
+  const td = el("td", { class: "num" });
+  const badge = el("span", { class: "license-badge", text: ECOSYSTEM_LICENSE_LABEL, attrs: { title: ECOSYSTEM_LICENSE_FULL } });
+  const observed = rawLicense && rawLicense !== ECOSYSTEM_LICENSE_LABEL
+    ? `<div class="tt-row">GitHub API: ${rawLicense}</div>`
+    : "";
+  attachTip(
+    badge,
+    `<b>${ECOSYSTEM_LICENSE_LABEL}</b><div class="tt-row">Open-source: ${ECOSYSTEM_LICENSE_FULL}</div><div class="tt-row">Commercial: ${COMMERCIAL_CONTACT}</div>${observed}`,
+  );
+  td.appendChild(badge);
+  return td;
+}
+
 function renderRepoStats(snap) {
   const box = document.getElementById("repostats");
   box.innerHTML = "";
@@ -283,7 +301,7 @@ function renderRepoStats(snap) {
     tr.appendChild(numLink(s.merged_prs, `${base}/pulls?q=is%3Apr+is%3Amerged`));
     tr.appendChild(numLink(s.closed_prs, `${base}/pulls?q=is%3Apr+is%3Aclosed`));
     tr.appendChild(numLink(pkg.issues ? pkg.issues.open : null, `${base}/issues`));
-    tr.appendChild(el("td", { class: "num", text: s.license || "—" }));
+    tr.appendChild(licenseCell(s.license));
     tr.appendChild(el("td", { class: "num", text: s.pushed_at ? fmtDate(s.pushed_at) : "—" }));
     tbody.appendChild(tr);
   }
