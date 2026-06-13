@@ -52,8 +52,8 @@ jobs:
         env:
           # Ambient token: GitHub releases / workflow runs / issues (5000/h).
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Read-only GoatCounter API token: public aggregate Pages-visit counts
-          # only. Counts enter the snapshot, never the token or per-page detail.
+          # Read-only GoatCounter API token: public aggregate and per-page
+          # Pages-visit counts only. The token never enters the snapshot.
           GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
           # Sentry auth token (project:read): aggregate public counters only.
           # Issue titles, permalinks, and user-identifying details stay out.
@@ -65,7 +65,13 @@ jobs:
           n4a-cockpit collect --targets ops/targets.yaml --out data/current.json
 
       - name: Commit snapshot
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "chore(collect): refresh data/current.json"
-          file_pattern: "data/*.json"
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/*.json
+          if git diff --cached --quiet; then
+            echo "No snapshot changes."
+            exit 0
+          fi
+          git commit -m "chore(collect): refresh data/current.json"
+          git push
