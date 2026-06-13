@@ -55,7 +55,7 @@ def _downloads(endpoint: str) -> dict[str, Any]:
         "total": None,
         "source": "pypistats",
     }
-    status, body, _error = get_json(endpoint)
+    status, body, _error = get_json(endpoint, max_retries=0)
     if status == 200 and isinstance(body, dict):
         data = body.get("data") or {}
         out["last_day"] = data.get("last_day")

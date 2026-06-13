@@ -32,7 +32,7 @@ def stub_get_json(monkeypatch, module, *, status: int, body, error=None):
     yields.
     """
 
-    def _fake(url, headers=None, *, accept="application/json"):  # noqa: ARG001
+    def _fake(url, headers=None, *, accept="application/json", max_retries=None):  # noqa: ARG001
         return status, body, error
 
     monkeypatch.setattr(module, "get_json", _fake)

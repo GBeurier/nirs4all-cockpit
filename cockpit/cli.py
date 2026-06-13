@@ -151,12 +151,14 @@ def collect(
 
 
 def _carry_forward_public_signals(snap: Snapshot, prior_snapshot: dict | None) -> None:
-    """Keep token-backed public aggregates when a local collect lacks tokens.
+    """Keep token-backed or flaky public aggregates when a collect lacks them.
 
     Maintainer machines often have GitHub auth but not GoatCounter/Sentry tokens.
     A local refresh should not erase the last successful public counters from the
     committed snapshot; the CI collect job will replace them when its secrets are
-    available.
+    available. Registry download counters can also transiently disappear when a
+    stats API rate-limits; keep the prior counters when the target is still
+    published and the new collect has no counts.
     """
     if not prior_snapshot:
         return
@@ -168,6 +170,40 @@ def _carry_forward_public_signals(snap: Snapshot, prior_snapshot: dict | None) -
     prior_sentry = prior_snapshot.get("sentry") or {}
     if not snap.sentry.available and prior_sentry.get("available") and _missing_public_signal_token(snap.sentry.error):
         snap.sentry = SentryStatus.model_validate(prior_sentry)
+
+    _carry_forward_target_downloads(snap, prior_snapshot)
+    snap.totals.downloads_last_month = sum(
+        target.downloads.last_month or 0
+        for package in snap.packages
+        for target in package.targets
+    )
+
+
+def _carry_forward_target_downloads(snap: Snapshot, prior_snapshot: dict) -> None:
+    prior_targets = {
+        (package.get("id"), target.get("registry"), target.get("name")): target
+        for package in prior_snapshot.get("packages", [])
+        for target in package.get("targets", [])
+        if isinstance(target, dict)
+    }
+
+    for package in snap.packages:
+        for target in package.targets:
+            if _has_download_counts(target.downloads.model_dump()):
+                continue
+            prior_target = prior_targets.get((package.id, target.registry, target.name))
+            if not prior_target or target.status not in {"green", "stale", "pending"}:
+                continue
+            prior_downloads = prior_target.get("downloads") or {}
+            if _has_download_counts(prior_downloads):
+                target.downloads = type(target.downloads).model_validate(prior_downloads)
+
+
+def _has_download_counts(downloads: dict) -> bool:
+    if any(downloads.get(key) is not None for key in ("last_day", "last_week", "last_month", "total")):
+        return True
+    windows = downloads.get("windows") or {}
+    return any(value is not None for value in windows.values())
 
 
 def _missing_public_signal_token(error: str | None) -> bool:

@@ -34,7 +34,7 @@ def _patch(monkeypatch, module, replies):
         replies = [replies]
     calls = {"i": 0}
 
-    def _fake(url, headers=None, *, accept="application/json"):  # noqa: ARG001
+    def _fake(url, headers=None, *, accept="application/json", max_retries=None):  # noqa: ARG001
         i = min(calls["i"], len(replies) - 1)
         calls["i"] += 1
         return replies[i]

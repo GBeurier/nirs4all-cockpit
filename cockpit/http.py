@@ -69,6 +69,7 @@ def get_json(
     headers: dict[str, str] | None = None,
     *,
     accept: str = "application/json",
+    max_retries: int = MAX_RETRIES,
 ) -> tuple[int, Any | None, str | None]:
     """Fetch ``url`` and parse the body as JSON, never raising on network error.
 
@@ -76,6 +77,7 @@ def get_json(
         url: Absolute URL to GET.
         headers: Extra request headers, merged over the descriptive defaults.
         accept: ``Accept`` header value (some registries vary their response).
+        max_retries: Number of retries for 429/5xx or transport failures.
 
     Returns:
         A ``(status, body, error)`` tuple.
@@ -101,7 +103,7 @@ def get_json(
     last_error: str | None = None
     last_status = 0
 
-    for attempt in range(MAX_RETRIES + 1):
+    for attempt in range(max_retries + 1):
         try:
             resp = httpx.get(url, headers=merged, timeout=TIMEOUT_S, follow_redirects=True)
         except httpx.HTTPError as exc:
@@ -109,7 +111,7 @@ def get_json(
             last_status = 0
         else:
             last_status = resp.status_code
-            if resp.status_code in RETRY_STATUSES and attempt < MAX_RETRIES:
+            if resp.status_code in RETRY_STATUSES and attempt < max_retries:
                 time.sleep(_retry_delay(resp, attempt))
                 continue
             try:
@@ -121,7 +123,7 @@ def get_json(
             _cache_write(cache_file, resp.status_code, body)
             return resp.status_code, body, None
 
-        if attempt < MAX_RETRIES:
+        if attempt < max_retries:
             time.sleep(_retry_delay(None, attempt))
 
     return last_status, None, last_error or f"http {last_status}"
