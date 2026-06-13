@@ -214,7 +214,7 @@ class Visits(BaseModel):
 
     Public, count-only signal (the API token never enters the snapshot).
     ``windows`` holds ecosystem-wide totals (7d/30d/365d/all-time). ``pages`` is
-    empty unless a local caller explicitly opts into per-page details.
+    an optional per-page breakdown with path/title/count aggregates.
     """
 
     available: bool = False

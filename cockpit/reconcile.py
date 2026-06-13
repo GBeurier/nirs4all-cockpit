@@ -114,7 +114,7 @@ def reconcile(
     if no_network:
         visits_status, sentry_status = Visits(), SentryStatus()
     else:
-        visits_status = Visits.model_validate(visits.collect(ref_date=stamp[:10], include_pages=False))
+        visits_status = Visits.model_validate(visits.collect(ref_date=stamp[:10], include_pages=True))
         sentry_status = SentryStatus.model_validate(sentry.collect(include_issues=False))
 
     return Snapshot(

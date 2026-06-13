@@ -10,8 +10,8 @@ to ``https://nirs4all.goatcounter.com`` (override with ``GOATCOUNTER_SITE``).
 Without a token the collector degrades gracefully (``available=False``) and never
 raises, so a collect without analytics configured still succeeds.
 
-Only aggregate counts enter the public snapshot — never the token or per-page
-detail.
+Only count data enters the public snapshot — never the token. Per-page details
+are path/title/count aggregates only.
 """
 
 from __future__ import annotations
@@ -48,7 +48,7 @@ def collect(
 
     Returns ``{"available", "site", "windows": {"7d","30d","365d","total"},
     "pages": [], "error"}``. Per-page details are returned only when
-    ``include_pages=True`` for local use.
+    ``include_pages=True``.
     """
     site = (site or os.environ.get("GOATCOUNTER_SITE", DEFAULT_SITE)).rstrip("/")
     token = token or os.environ.get("GOATCOUNTER_TOKEN")
@@ -76,8 +76,7 @@ def collect(
     out["windows"] = windows
 
     if include_pages:
-        # Per-page breakdown (all-time), highest-traffic first. Kept opt-in so
-        # public snapshots remain aggregate-only.
+        # Per-page breakdown (all-time), highest-traffic first.
         status, body, _error = get_json(
             f"{site}/api/v0/stats/hits?start={_EPOCH}&end={end}&limit={_MAX_PAGES}", headers=headers
         )

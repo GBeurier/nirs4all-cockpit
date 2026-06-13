@@ -31,7 +31,7 @@ from pydantic import ValidationError
 
 from cockpit import reconcile
 from cockpit import snapshot as snapshot_io
-from cockpit.model import Snapshot, Targets
+from cockpit.model import SentryStatus, Snapshot, Targets, Visits
 
 app = typer.Typer(
     add_completion=False,
@@ -121,9 +121,11 @@ def collect(
     # from the committed snapshot forward so a scan that lacks the artifact does
     # not flap the column back to "—".
     prior_coverage: dict[str, float] = {}
+    prior_snapshot: dict | None = None
     if out.exists():
         try:
-            for p in json.loads(out.read_text(encoding="utf-8")).get("packages", []):
+            prior_snapshot = json.loads(out.read_text(encoding="utf-8"))
+            for p in prior_snapshot.get("packages", []):
                 cov = (p.get("code_stats") or {}).get("coverage_pct")
                 if cov is not None:
                     prior_coverage[p["repo"]] = cov
@@ -140,11 +142,37 @@ def collect(
     for p in snap.packages:
         if p.code_stats and p.code_stats.coverage_pct is None and p.repo in prior_coverage:
             p.code_stats.coverage_pct = prior_coverage[p.repo]
+    _carry_forward_public_signals(snap, prior_snapshot)
 
     snapshot_io.write_snapshot(snap, out)
 
     typer.secho(f"wrote {out}", fg="green")
     _print_summary(snap)
+
+
+def _carry_forward_public_signals(snap: Snapshot, prior_snapshot: dict | None) -> None:
+    """Keep token-backed public aggregates when a local collect lacks tokens.
+
+    Maintainer machines often have GitHub auth but not GoatCounter/Sentry tokens.
+    A local refresh should not erase the last successful public counters from the
+    committed snapshot; the CI collect job will replace them when its secrets are
+    available.
+    """
+    if not prior_snapshot:
+        return
+
+    prior_visits = prior_snapshot.get("visits") or {}
+    if not snap.visits.available and prior_visits.get("available") and _missing_public_signal_token(snap.visits.error):
+        snap.visits = Visits.model_validate(prior_visits)
+
+    prior_sentry = prior_snapshot.get("sentry") or {}
+    if not snap.sentry.available and prior_sentry.get("available") and _missing_public_signal_token(snap.sentry.error):
+        snap.sentry = SentryStatus.model_validate(prior_sentry)
+
+
+def _missing_public_signal_token(error: str | None) -> bool:
+    """Whether a public aggregate is absent because this collect lacks secrets."""
+    return error is None or "no GOATCOUNTER_TOKEN" in error or "no SENTRY_AUTH_TOKEN" in error
 
 
 # --------------------------------------------------------------------------- #

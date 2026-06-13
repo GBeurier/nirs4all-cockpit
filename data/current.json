@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-13T11:36:43.597361+00:00",
+  "generated_at": "2026-06-13T12:01:14.209169+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -102,7 +102,7 @@
         "bugs": 0
       },
       "repo_stats": {
-        "stars": 24,
+        "stars": 25,
         "forks": 0,
         "watchers": 1,
         "open_prs": 2,
@@ -110,7 +110,7 @@
         "merged_prs": 6,
         "size_kb": 177012,
         "license": "NOASSERTION",
-        "pushed_at": "2026-06-13T11:11:36Z",
+        "pushed_at": "2026-06-13T12:00:10Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -136,13 +136,128 @@
       },
       "actions_stats": {
         "workflows": 11,
-        "total_runs": 859,
+        "total_runs": 867,
         "recent_total": 100,
-        "recent_success": 84,
-        "recent_failure": 16,
-        "success_rate": 84.0,
+        "recent_success": 79,
+        "recent_failure": 17,
+        "success_rate": 82.3,
+        "last_conclusion": null,
+        "last_created_at": "2026-06-13T12:00:13Z"
+      }
+    },
+    {
+      "id": "nirs4all-studio",
+      "repo": "nirs4all-studio",
+      "source": {
+        "manifest_version": "0.8.0",
+        "latest_prod_tag": "0.8.0",
+        "latest_any_tag": "0.8.0",
+        "expected_prod_version": "0.8.0",
+        "commit": null
+      },
+      "rollup": "green",
+      "flags": [],
+      "targets": [
+        {
+          "registry": "readthedocs",
+          "name": "nirs4all-studio",
+          "published_version": null,
+          "status": "missing",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": "https://readthedocs.org/api/v3/projects/nirs4all-studio/",
+            "downloads_endpoint": null
+          },
+          "error": null
+        },
+        {
+          "registry": "github-release",
+          "name": "nirs4all-studio",
+          "published_version": "0.8.0",
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-studio/releases/latest",
+            "downloads_endpoint": null
+          },
+          "error": null
+        }
+      ],
+      "workflows": [
+        {
+          "file": "release-unified.yml",
+          "conclusion": "failure",
+          "created_at": "2026-06-11T14:18:07Z",
+          "head_sha": "9d1a630a25f84405e999fc62161da947c440fb82"
+        }
+      ],
+      "issues": {
+        "open": 1,
+        "bugs": 0
+      },
+      "repo_stats": {
+        "stars": 18,
+        "forks": 0,
+        "watchers": 1,
+        "open_prs": 0,
+        "closed_prs": 0,
+        "merged_prs": 0,
+        "size_kb": 34954,
+        "license": "NOASSERTION",
+        "pushed_at": "2026-06-13T09:19:41Z",
+        "default_branch": "main",
+        "traffic_views_14d": null,
+        "traffic_views_uniques": null,
+        "traffic_clones_14d": null,
+        "traffic_clones_uniques": null,
+        "traffic_available": false
+      },
+      "code_stats": {
+        "loc_code": 494526,
+        "loc_comment": 112831,
+        "loc_blank": 115585,
+        "loc_total": 722942,
+        "files": 1788,
+        "tests": 1903,
+        "by_language": {
+          "Python": 283512,
+          "TypeScript": 184127,
+          "HTML": 20259,
+          "JavaScript": 5173,
+          "Shell": 557,
+          "CSS": 550,
+          "C": 348
+        },
+        "coverage_pct": null,
+        "source": "local-scan"
+      },
+      "actions_stats": {
+        "workflows": 3,
+        "total_runs": 218,
+        "recent_total": 100,
+        "recent_success": 54,
+        "recent_failure": 35,
+        "success_rate": 60.7,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-12T16:26:27Z"
+        "last_created_at": "2026-06-13T09:19:43Z"
       }
     },
     {
@@ -425,7 +540,7 @@
         "bugs": 0
       },
       "repo_stats": {
-        "stars": 16,
+        "stars": 17,
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
@@ -828,7 +943,7 @@
         "bugs": 0
       },
       "repo_stats": {
-        "stars": 17,
+        "stars": 18,
         "forks": 0,
         "watchers": 1,
         "open_prs": 0,
@@ -2062,15 +2177,15 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 70248,
+        "loc_code": 70484,
         "loc_comment": 1333,
-        "loc_blank": 4287,
-        "loc_total": 75868,
+        "loc_blank": 4292,
+        "loc_total": 76109,
         "files": 57,
-        "tests": 389,
+        "tests": 390,
         "by_language": {
-          "Rust": 60077,
-          "Python": 8481,
+          "Rust": 60168,
+          "Python": 8626,
           "R": 1029,
           "JavaScript": 338,
           "C/C++ header": 323
@@ -2506,100 +2621,6 @@
       }
     },
     {
-      "id": "nirs4all-studio",
-      "repo": "nirs4all-studio",
-      "source": {
-        "manifest_version": "0.8.0",
-        "latest_prod_tag": "0.8.0",
-        "latest_any_tag": "0.8.0",
-        "expected_prod_version": "0.8.0",
-        "commit": null
-      },
-      "rollup": "green",
-      "flags": [],
-      "targets": [
-        {
-          "registry": "github-release",
-          "name": "nirs4all-studio",
-          "published_version": "0.8.0",
-          "status": "green",
-          "planned": false,
-          "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
-            "total": null,
-            "source": null,
-            "by_version": [],
-            "windows": {}
-          },
-          "evidence": {
-            "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-studio/releases/latest",
-            "downloads_endpoint": null
-          },
-          "error": null
-        }
-      ],
-      "workflows": [
-        {
-          "file": "release-unified.yml",
-          "conclusion": "failure",
-          "created_at": "2026-06-11T14:18:07Z",
-          "head_sha": "9d1a630a25f84405e999fc62161da947c440fb82"
-        }
-      ],
-      "issues": {
-        "open": 1,
-        "bugs": 0
-      },
-      "repo_stats": {
-        "stars": 17,
-        "forks": 0,
-        "watchers": 1,
-        "open_prs": 0,
-        "closed_prs": 0,
-        "merged_prs": 0,
-        "size_kb": 34954,
-        "license": "NOASSERTION",
-        "pushed_at": "2026-06-13T09:19:41Z",
-        "default_branch": "main",
-        "traffic_views_14d": null,
-        "traffic_views_uniques": null,
-        "traffic_clones_14d": null,
-        "traffic_clones_uniques": null,
-        "traffic_available": false
-      },
-      "code_stats": {
-        "loc_code": 494526,
-        "loc_comment": 112831,
-        "loc_blank": 115585,
-        "loc_total": 722942,
-        "files": 1788,
-        "tests": 1903,
-        "by_language": {
-          "Python": 283512,
-          "TypeScript": 184127,
-          "HTML": 20259,
-          "JavaScript": 5173,
-          "Shell": 557,
-          "CSS": 550,
-          "C": 348
-        },
-        "coverage_pct": null,
-        "source": "local-scan"
-      },
-      "actions_stats": {
-        "workflows": 3,
-        "total_runs": 218,
-        "recent_total": 100,
-        "recent_success": 54,
-        "recent_failure": 35,
-        "success_rate": 60.7,
-        "last_conclusion": "success",
-        "last_created_at": "2026-06-13T09:19:43Z"
-      }
-    },
-    {
       "id": "nirs4all-cockpit",
       "repo": "nirs4all-cockpit",
       "source": {
@@ -2648,7 +2669,7 @@
         "merged_prs": 0,
         "size_kb": 178,
         "license": null,
-        "pushed_at": "2026-06-13T09:19:25Z",
+        "pushed_at": "2026-06-13T11:47:53Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2657,16 +2678,16 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 3893,
-        "loc_comment": 1076,
-        "loc_blank": 1064,
-        "loc_total": 6033,
-        "files": 38,
-        "tests": 54,
+        "loc_code": 3985,
+        "loc_comment": 1083,
+        "loc_blank": 1081,
+        "loc_total": 6149,
+        "files": 39,
+        "tests": 57,
         "by_language": {
-          "Python": 2809,
-          "JavaScript": 477,
-          "CSS": 284,
+          "Python": 2880,
+          "JavaScript": 497,
+          "CSS": 285,
           "Shell": 236,
           "HTML": 87
         },
@@ -2675,20 +2696,20 @@
       },
       "actions_stats": {
         "workflows": 2,
-        "total_runs": 28,
-        "recent_total": 28,
-        "recent_success": 24,
+        "total_runs": 29,
+        "recent_total": 29,
+        "recent_success": 25,
         "recent_failure": 4,
-        "success_rate": 85.7,
+        "success_rate": 86.2,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-13T08:28:50Z"
+        "last_created_at": "2026-06-13T11:47:56Z"
       }
     }
   ],
   "summary": {
     "green": 47,
     "stale": 0,
-    "missing": 13,
+    "missing": 14,
     "broken": 0,
     "unknown": 0,
     "excluded": 0,
@@ -2697,34 +2718,39 @@
   "totals": {
     "packages": 14,
     "repos": 14,
-    "stars": 90,
+    "stars": 94,
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 1366804,
-    "loc_total": 1897309,
-    "tests": 12095,
-    "files": 5345,
-    "workflow_runs": 3699,
+    "loc_code": 1367132,
+    "loc_total": 1897666,
+    "tests": 12099,
+    "files": 5346,
+    "workflow_runs": 3708,
     "downloads_last_month": 5345
   },
   "visits": {
-    "available": false,
+    "available": true,
     "site": "https://nirs4all.goatcounter.com",
-    "windows": {},
+    "windows": {
+      "7d": 23,
+      "30d": 23,
+      "365d": 23,
+      "total": 23
+    },
     "pages": [],
-    "error": "no GOATCOUNTER_TOKEN in env (create one in GoatCounter → Settings → API)"
+    "error": null
   },
   "sentry": {
-    "available": false,
+    "available": true,
     "org": "wwwciradfr",
     "project": "nirs4all-studio",
-    "unresolved": null,
-    "resolved": null,
-    "events": null,
-    "users_affected": null,
+    "unresolved": 9,
+    "resolved": 25,
+    "events": 416,
+    "users_affected": 0,
     "issues": [],
     "resolved_issues": [],
-    "error": "no SENTRY_AUTH_TOKEN in env (set it to enable Sentry)"
+    "error": null
   }
 }

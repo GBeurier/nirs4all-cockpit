@@ -189,6 +189,29 @@ def test_visits_default_does_not_fetch_or_return_pages(monkeypatch) -> None:
     assert all("/stats/total" in url for url in urls)
 
 
+def test_visits_include_pages_fetches_page_breakdown(monkeypatch) -> None:
+    def _fake(url, headers=None, *, accept="application/json"):  # noqa: ARG001
+        if "/stats/hits" in url:
+            return 200, {
+                "hits": [
+                    {"path": "/io/", "title": "nirs4all IO", "count": 7},
+                    {"path": "/formats/", "title": "nirs4all Formats", "count": 12},
+                    {"path": "/empty-title/", "title": "   ", "count": 1},
+                ]
+            }, None
+        return 200, {"total": 20}, None
+
+    monkeypatch.setattr(visits, "get_json", _fake)
+
+    out = visits.collect(token="tok", ref_date="2026-06-12", include_pages=True)
+
+    assert out["available"] is True
+    assert out["windows"]["total"] == 20
+    assert [p["path"] for p in out["pages"]] == ["/formats/", "/io/", "/empty-title/"]
+    assert out["pages"][0]["title"] == "nirs4all Formats"
+    assert out["pages"][2]["title"] is None
+
+
 # --------------------------------------------------------------------------- #
 # Read the Docs
 # --------------------------------------------------------------------------- #

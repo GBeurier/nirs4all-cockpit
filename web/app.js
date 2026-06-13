@@ -222,24 +222,24 @@ function renderDownloads(snap) {
       const b = dlBest(t);
       if (b && b.value > 0) { segs.push({ reg: t.registry, name: t.name, ...b }); total += b.value; if (b.lower) lower = true; }
     }
-    if (total > 0) rows.push({ pkg, segs, total, lower });
+    rows.push({ pkg, segs, total, lower });
   }
-  rows.sort((a, b) => b.total - a.total);
-  if (!rows.length) { box.appendChild(el("p", { class: "admin-note", text: "No download stats available." })); return; }
-  const max = rows[0].total;
+  if (!rows.length) { box.appendChild(el("p", { class: "admin-note", text: "No packages in snapshot." })); return; }
+  const max = Math.max(1, ...rows.map((r) => r.total));
 
   for (const row of rows) {
     const r = el("div", { class: "dlrow" });
     const prim = row.segs.slice().sort((a, b) => b.value - a.value)[0];
-    r.appendChild(el("a", { class: "dl-name", text: row.pkg.id, attrs: { href: registryUrl(prim.reg, prim.name, row.pkg.repo), target: "_blank", rel: "noopener", title: row.pkg.id } }));
-    const bar = el("div", { class: "dlbar", attrs: { style: `width:${Math.max(6, (row.total / max) * 100)}%` } });
+    const href = prim ? registryUrl(prim.reg, prim.name, row.pkg.repo) : `https://github.com/${OWNER}/${row.pkg.repo}`;
+    r.appendChild(el("a", { class: "dl-name", text: row.pkg.id, attrs: { href, target: "_blank", rel: "noopener", title: row.pkg.id } }));
+    const bar = el("div", { class: "dlbar", attrs: { style: `width:${row.total > 0 ? Math.max(6, (row.total / max) * 100) : 0}%` } });
     for (const s of row.segs.sort((a, b) => b.value - a.value)) {
       const seg = el("a", { class: "dlseg", attrs: { href: registryUrl(s.reg, s.name, row.pkg.repo), target: "_blank", rel: "noopener", style: `width:${(s.value / row.total) * 100}%;background:${REG_COLOR[s.reg]}` } });
       attachTip(seg, `<b>${s.name}</b><div class="tt-row">${REG_LABEL[s.reg]} · ${s.lower ? "&gt;" : ""}${fmtInt(s.value)} <span style="opacity:.6">(${s.window})</span></div>`);
       bar.appendChild(seg);
     }
     r.appendChild(bar);
-    r.appendChild(el("span", { class: "dl-tot", text: (row.lower ? ">" : "") + fmtInt(row.total) }));
+    r.appendChild(el("span", { class: "dl-tot", text: row.total > 0 ? (row.lower ? ">" : "") + fmtInt(row.total) : "—" }));
     box.appendChild(r);
   }
 
@@ -356,7 +356,27 @@ function renderVisits(snap) {
     chips.appendChild(c);
   }
   box.appendChild(chips);
-  box.appendChild(el("p", { class: "vcap", text: `${v.site || "GoatCounter"} · aggregate pageviews across ecosystem sites` }));
+  const pages = (v.pages || []).filter((p) => p && p.count > 0);
+  if (pages.length) {
+    const table = el("table", { class: "stats visits-table" });
+    const thead = el("thead"), hr = el("tr");
+    for (const h of ["page", "views"]) hr.appendChild(el("th", { text: h }));
+    thead.appendChild(hr); table.appendChild(thead);
+    const tbody = el("tbody");
+    for (const p of pages) {
+      const row = el("tr");
+      const label = p.title || p.path || "/";
+      const href = /^https?:\/\//.test(p.path || "") ? p.path : `${(v.site || "").replace(/\/$/, "")}${p.path || "/"}`;
+      const pageTd = el("th", { class: "s-repo", attrs: { scope: "row" } });
+      pageTd.appendChild(el("a", { text: label, attrs: { href, target: "_blank", rel: "noopener", title: p.path || label } }));
+      row.appendChild(pageTd);
+      row.appendChild(el("td", { class: "num", text: fmtInt(p.count) }));
+      tbody.appendChild(row);
+    }
+    table.appendChild(tbody);
+    box.appendChild(table);
+  }
+  box.appendChild(el("p", { class: "vcap", text: `${v.site || "GoatCounter"} · total counters plus per-page ecosystem breakdown when GoatCounter exposes it` }));
 }
 
 // ---- errors (public · Sentry) ----------------------------------------------
