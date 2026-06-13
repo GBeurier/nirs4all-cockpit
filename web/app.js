@@ -225,6 +225,7 @@ function renderDownloads(snap) {
     rows.push({ pkg, segs, total, lower });
   }
   if (!rows.length) { box.appendChild(el("p", { class: "admin-note", text: "No packages in snapshot." })); return; }
+  rows.sort((a, b) => b.total - a.total || a.pkg.id.localeCompare(b.pkg.id));
   const max = Math.max(1, ...rows.map((r) => r.total));
 
   for (const row of rows) {
@@ -248,7 +249,7 @@ function renderDownloads(snap) {
     if (!rows.some((r) => r.segs.some((s) => s.reg === reg))) continue;
     axis.appendChild(el("span", {}, [el("span", { class: "dl-swatch", attrs: { style: `background:${REG_COLOR[reg]}` } }), el("span", { text: REG_LABEL[reg] })]));
   }
-  axis.appendChild(el("span", { class: "admin-note", text: "≈90-day view · > = lower bound (registry reports a shorter window)" }));
+  axis.appendChild(el("span", { class: "admin-note", text: "Sorted by reported downloads · GitHub Releases are all-time asset downloads · > = lower bound" }));
   box.appendChild(axis);
 }
 

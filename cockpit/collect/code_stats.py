@@ -19,9 +19,16 @@ from __future__ import annotations
 
 import re
 import xml.etree.ElementTree as ET
+import zipfile
 from collections.abc import Iterator
+from io import BytesIO
 from pathlib import Path
+from typing import Any
 
+import httpx
+
+from ..http import TIMEOUT_S, USER_AGENT, get_json
+from . import github
 from .local_manifests import SIBLINGS_ROOT
 
 # ext -> (language, line-comment prefixes, has C-style /* */ block, is Python)
@@ -74,7 +81,7 @@ _TEST_RE: dict[str, re.Pattern[str]] = {
 _JS_TEST_RE = re.compile(r"\b(?:it|test)\s*\(")
 
 
-def scan(repo: str) -> dict | None:
+def scan(repo: str, *, allow_artifact_coverage: bool = True) -> dict | None:
     """Scan ``SIBLINGS_ROOT/<repo>`` for code stats, or ``None`` if absent."""
     root = SIBLINGS_ROOT / repo
     if not root.is_dir():
@@ -99,6 +106,10 @@ def scan(repo: str) -> dict | None:
         tests += _count_tests(lang[0], text)
         by_language[lang[0]] = by_language.get(lang[0], 0) + code
 
+    coverage = _coverage(root)
+    if coverage is None and allow_artifact_coverage:
+        coverage = _coverage_from_github_artifact(repo)
+
     return {
         "loc_code": loc_code,
         "loc_comment": loc_comment,
@@ -107,7 +118,7 @@ def scan(repo: str) -> dict | None:
         "files": files,
         "tests": tests,
         "by_language": dict(sorted(by_language.items(), key=lambda kv: -kv[1])),
-        "coverage_pct": _coverage(root),
+        "coverage_pct": coverage,
         "source": "local-scan",
     }
 
@@ -191,8 +202,17 @@ def _coverage(root: Path) -> float | None:
     if not cov.is_file():
         return None
     try:
-        node = ET.parse(cov).getroot()
-    except (ET.ParseError, OSError):
+        text = cov.read_text(encoding="utf-8")
+    except OSError:
+        return None
+    return _coverage_from_text(text)
+
+
+def _coverage_from_text(text: str) -> float | None:
+    """Parse a Cobertura XML string into a line coverage percentage."""
+    try:
+        node = ET.fromstring(text)
+    except ET.ParseError:
         return None
     rate = node.get("line-rate")
     if rate is not None:
@@ -207,4 +227,50 @@ def _coverage(root: Path) -> float | None:
             return round(float(covered) / total * 100, 1) if total > 0 else None
         except ValueError:
             return None
+    return None
+
+
+def _coverage_from_github_artifact(repo: str) -> float | None:
+    """Read ``coverage.xml`` from the latest GitHub Actions coverage artifact."""
+    artifact = _latest_coverage_artifact("GBeurier", repo)
+    if artifact is None:
+        return None
+    return _coverage_from_artifact_zip(artifact)
+
+
+def _latest_coverage_artifact(owner: str, repo: str) -> dict[str, Any] | None:
+    """Return the newest non-expired coverage artifact metadata for a repo."""
+    status, body, _error = get_json(
+        f"{github.API}/repos/{owner}/{repo}/actions/artifacts?per_page=100",
+        headers=github._headers(),
+    )
+    if status != 200 or not isinstance(body, dict):
+        return None
+    for artifact in body.get("artifacts") or []:
+        if not isinstance(artifact, dict):
+            continue
+        name = artifact.get("name") or ""
+        if artifact.get("expired"):
+            continue
+        if "coverage" in name and artifact.get("archive_download_url"):
+            return artifact
+    return None
+
+
+def _coverage_from_artifact_zip(artifact: dict[str, Any]) -> float | None:
+    """Download an artifact ZIP and parse the first contained ``coverage.xml``."""
+    token_headers = github._headers()
+    headers = {"User-Agent": USER_AGENT, **token_headers}
+    try:
+        resp = httpx.get(artifact["archive_download_url"], headers=headers, timeout=TIMEOUT_S, follow_redirects=True)
+        resp.raise_for_status()
+    except (httpx.HTTPError, KeyError):
+        return None
+    try:
+        with zipfile.ZipFile(BytesIO(resp.content)) as zf:
+            for name in zf.namelist():
+                if name.endswith("coverage.xml"):
+                    return _coverage_from_text(zf.read(name).decode("utf-8", errors="ignore"))
+    except (zipfile.BadZipFile, OSError, KeyError):
+        return None
     return None

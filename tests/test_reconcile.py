@@ -22,7 +22,8 @@ from conftest import load_fixture
 
 from cockpit import version as v
 from cockpit.collect import cran, crates, npm, readthedocs, runiverse
-from cockpit.reconcile import _latest_any_tag, _latest_prod_tag
+from cockpit.model import Package, Target
+from cockpit.reconcile import _latest_any_tag, _latest_prod_tag, _reconcile_github_release
 
 
 def _patch(monkeypatch, module, replies):
@@ -181,3 +182,27 @@ def test_default_release_tags_still_require_v_prefix() -> None:
     tags = ["0.9.0", "v0.8.0"]
 
     assert _latest_prod_tag(tags) == "v0.8.0"
+
+
+def test_github_release_asset_downloads_become_all_time_downloads(monkeypatch) -> None:
+    from cockpit.collect import github
+
+    monkeypatch.setattr(
+        github,
+        "latest_release_fact",
+        lambda owner, repo: {  # noqa: ARG005
+            "published_version": "0.8.0",
+            "http_status": 200,
+            "error": None,
+            "asset_downloads": 42,
+        },
+    )
+    pkg = Package(id="nirs4all-studio", repo="nirs4all-studio", targets=[])
+    tgt = Target(registry="github-release", name="nirs4all-studio")
+
+    status = _reconcile_github_release("GBeurier", pkg, tgt, "0.8.0", no_network=False)
+
+    assert status.status == "green"
+    assert status.downloads.total == 42
+    assert status.downloads.windows["total"] == 42
+    assert status.downloads.source == "github-release-assets"

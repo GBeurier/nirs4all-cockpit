@@ -229,8 +229,9 @@ def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traff
         repo_stats.merged_prs = prc.get("merged")
         actions_stats = ActionsStats.model_validate(github.actions_stats(owner, pkg.repo))
 
-    # Code stats are computed from the local checkout (no network); None if absent.
-    code = code_stats.scan(pkg.repo)
+    # Code stats are computed from the local checkout; coverage may be completed
+    # from CI artifacts only during online collection.
+    code = code_stats.scan(pkg.repo, allow_artifact_coverage=not no_network)
     code_model = CodeStats.model_validate(code) if code is not None else None
 
     rollup = _rollup(target_statuses)
@@ -439,11 +440,15 @@ def _reconcile_github_release(
         expected, published, http_status=http_status, transient_error=transient,
         excluded=False, planned=False,
     )
-    # No downloads here: GitHub Release asset counts conflate CI / test / deploy
-    # artifact pulls with real installs, so they are deliberately not reported.
+    asset_downloads = fact.get("asset_downloads")
+    downloads = Downloads(source="github-release-assets")
+    if isinstance(asset_downloads, int):
+        downloads.total = asset_downloads
+        downloads.windows["total"] = asset_downloads
+
     return TargetStatus(
         registry=tgt.registry, name=tgt.name, published_version=published,
-        status=state, planned=False, downloads=Downloads(), evidence=evidence, error=error,
+        status=state, planned=False, downloads=downloads, evidence=evidence, error=error,
     )
 
 
