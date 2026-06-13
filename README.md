@@ -202,3 +202,10 @@ pytest -q
 > (`/home/delete/nirs4all/<repo>`), so they include tests/examples and need the
 > checkout present — the public CI cron omits them unless a checkout step is
 > added. Coverage is read from a Cobertura `coverage.xml` when present.
+
+## License
+
+`nirs4all-cockpit` is dual-licensed open-source — **`CeCILL-2.1 OR AGPL-3.0-or-later`** (your choice) —
+with an optional **commercial license** for closed-source / SaaS use. For any commercial use, contact
+<nirs4all-admin@cirad.fr>. See [`LICENSING.md`](LICENSING.md), the texts under [`LICENSES/`](LICENSES/),
+and [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
