@@ -84,6 +84,7 @@ packages:
     repo: nirs4all-methods
     channel: production
     issues_repo: nirs4all-methods
+    primary_language: C++
     source_of_truth:
       strategy: c_header
       path: cpp/include/n4m/n4m_version.h
@@ -567,10 +568,10 @@ packages:
     targets:
       - registry: crates
         name: dag-ml
-        state: planned
+        state: tracked
       - registry: crates
         name: dag-ml-core
-        state: planned
+        state: tracked
       - registry: crates
         name: dag-ml-arrow
         state: planned
@@ -594,22 +595,22 @@ packages:
     targets:
       - registry: crates
         name: dag-ml-data
-        state: planned
+        state: tracked
       - registry: crates
         name: dag-ml-data-core
-        state: planned
+        state: tracked
       - registry: crates
         name: dag-ml-data-arrow
-        state: planned
+        state: tracked
       - registry: crates
         name: dag-ml-data-capi
         state: planned
       - registry: crates
         name: dag-ml-data-cli
-        state: planned
+        state: tracked
       - registry: crates
         name: dag-ml-data-provider
-        state: planned
+        state: tracked
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #

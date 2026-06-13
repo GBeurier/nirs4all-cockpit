@@ -221,6 +221,8 @@ def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traff
         issues = Issues.model_validate(github.open_issues(owner, issues_repo))
         stats_dict = github.repo_stats(owner, pkg.repo, with_traffic=with_traffic)
         raw_open = stats_dict.pop("_open_issues_count", None)
+        if pkg.primary_language:
+            stats_dict["language"] = pkg.primary_language
         repo_stats = RepoStats.model_validate(stats_dict)
         if raw_open is not None:
             repo_stats.open_prs = max(0, raw_open - issues.open)

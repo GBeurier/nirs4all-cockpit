@@ -85,6 +85,53 @@ def test_coverage_from_github_artifact_zip(monkeypatch) -> None:
     assert code_stats._coverage_from_artifact_zip(artifact) == 53.0
 
 
+def test_repo_stats_carries_github_primary_language(monkeypatch) -> None:
+    repo = (
+        200,
+        {
+            "stargazers_count": 1,
+            "forks_count": 2,
+            "subscribers_count": 3,
+            "size": 123,
+            "language": "C++",
+            "license": {"spdx_id": "AGPL-3.0"},
+            "pushed_at": "2026-06-13T00:00:00Z",
+            "default_branch": "main",
+            "open_issues_count": 4,
+        },
+        None,
+    )
+
+    monkeypatch.setattr(github, "get_json", lambda *args, **kwargs: repo)  # noqa: ARG005
+
+    out = github.repo_stats("GBeurier", "nirs4all-methods")
+
+    assert out["language"] == "C++"
+
+
+def test_latest_release_fact_sums_all_release_asset_downloads(monkeypatch) -> None:
+    def _fake_get(url):
+        if url.endswith("/releases/latest"):
+            return 200, {"tag_name": "0.8.0", "assets": [{"download_count": 15}]}, None
+        if url.endswith("/releases?per_page=100"):
+            return (
+                200,
+                [
+                    {"tag_name": "0.8.0", "draft": False, "prerelease": False, "assets": [{"download_count": 15}]},
+                    {"tag_name": "0.7.0", "draft": False, "prerelease": False, "assets": [{"download_count": 21}]},
+                ],
+                None,
+            )
+        raise AssertionError(url)
+
+    monkeypatch.setattr(github, "_get", _fake_get)
+
+    out = github.latest_release_fact("GBeurier", "nirs4all-studio")
+
+    assert out["published_version"] == "0.8.0"
+    assert out["asset_downloads"] == 36
+
+
 def test_actions_stats_success_rate(monkeypatch) -> None:
     workflows = (200, {"total_count": 5}, None)
     runs = (

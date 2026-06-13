@@ -111,7 +111,7 @@ def repo_stats(owner: str, repo: str, *, with_traffic: bool = False) -> dict[str
     """
     out: dict[str, Any] = {
         "stars": None, "forks": None, "watchers": None, "size_kb": None,
-        "license": None, "pushed_at": None, "default_branch": None,
+        "language": None, "license": None, "pushed_at": None, "default_branch": None,
         "_open_issues_count": None,
         "traffic_views_14d": None, "traffic_views_uniques": None,
         "traffic_clones_14d": None, "traffic_clones_uniques": None,
@@ -125,6 +125,7 @@ def repo_stats(owner: str, repo: str, *, with_traffic: bool = False) -> dict[str
             forks=body.get("forks_count"),
             watchers=body.get("subscribers_count"),
             size_kb=body.get("size"),
+            language=body.get("language"),
             license=(lic.get("spdx_id") if isinstance(lic, dict) else None),
             pushed_at=body.get("pushed_at"),
             default_branch=body.get("default_branch"),
@@ -158,12 +159,15 @@ def latest_release_fact(owner: str, repo: str) -> dict[str, Any]:
     """
     status, body, error = _get(f"{API}/repos/{owner}/{repo}/releases/latest")
     if status == 200 and isinstance(body, dict):
-        assets = body.get("assets") or []
+        all_release_downloads = sum(rel.get("asset_downloads", 0) for rel in releases(owner, repo))
+        if all_release_downloads <= 0:
+            assets = body.get("assets") or []
+            all_release_downloads = sum(a.get("download_count", 0) for a in assets if isinstance(a, dict))
         return {
             "published_version": body.get("tag_name"),
             "http_status": 200,
             "error": None,
-            "asset_downloads": sum(a.get("download_count", 0) for a in assets if isinstance(a, dict)),
+            "asset_downloads": all_release_downloads,
         }
     return {"published_version": None, "http_status": status, "error": error, "asset_downloads": None}
 

@@ -346,7 +346,9 @@ function renderCodeStats(snap) {
       w.append(`${c.coverage_pct}%`, bar); cov.appendChild(w);
     } else cov.textContent = "—";
     tr.appendChild(cov);
-    tr.appendChild(langCell(c && c.by_language ? Object.keys(c.by_language)[0] : null));
+    const primaryLanguage = (pkg.repo_stats && pkg.repo_stats.language) ||
+      (c && c.by_language ? Object.keys(c.by_language)[0] : null);
+    tr.appendChild(langCell(primaryLanguage));
     tr.appendChild(el("td", { class: "num", text: fmtInt(a.workflows) }));
     tr.appendChild(numLink(a.total_runs, `${base}/actions`));
     tr.appendChild(el("td", { class: "num", text: a.success_rate != null ? `${a.success_rate}%` : "—" }));

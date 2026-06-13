@@ -20,10 +20,11 @@ from __future__ import annotations
 import pytest
 from conftest import load_fixture
 
+from cockpit import reconcile as rec
 from cockpit import version as v
 from cockpit.collect import cran, crates, npm, readthedocs, runiverse
 from cockpit.model import Package, Target
-from cockpit.reconcile import _latest_any_tag, _latest_prod_tag, _reconcile_github_release
+from cockpit.reconcile import _latest_any_tag, _latest_prod_tag, _reconcile_github_release, _reconcile_package
 
 
 def _patch(monkeypatch, module, replies):
@@ -206,3 +207,32 @@ def test_github_release_asset_downloads_become_all_time_downloads(monkeypatch) -
     assert status.downloads.total == 42
     assert status.downloads.windows["total"] == 42
     assert status.downloads.source == "github-release-assets"
+
+
+def test_package_primary_language_overrides_github_language(monkeypatch) -> None:
+    monkeypatch.setattr(rec.github, "tags", lambda owner, repo: [])  # noqa: ARG005
+    monkeypatch.setattr(rec.github, "open_issues", lambda owner, repo: {"open": 0, "bugs": 0})  # noqa: ARG005
+    monkeypatch.setattr(
+        rec.github,
+        "repo_stats",
+        lambda owner, repo, *, with_traffic=False: {  # noqa: ARG005
+            "stars": 0,
+            "forks": 0,
+            "watchers": 0,
+            "size_kb": 0,
+            "language": "Python",
+            "license": "AGPL-3.0",
+            "pushed_at": None,
+            "default_branch": "main",
+            "_open_issues_count": 0,
+        },
+    )
+    monkeypatch.setattr(rec.github, "pr_counts", lambda owner, repo: {"closed": 0, "merged": 0})  # noqa: ARG005
+    monkeypatch.setattr(rec.github, "actions_stats", lambda owner, repo: {})  # noqa: ARG005
+    monkeypatch.setattr(rec.code_stats, "scan", lambda repo, *, allow_artifact_coverage=True: None)  # noqa: ARG005
+    pkg = Package(id="nirs4all-methods", repo="nirs4all-methods", primary_language="C++", targets=[])
+
+    status = _reconcile_package("GBeurier", pkg, no_network=False)
+
+    assert status.repo_stats is not None
+    assert status.repo_stats.language == "C++"

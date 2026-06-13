@@ -125,6 +125,7 @@ class RepoStats(BaseModel):
     closed_prs: int | None = None
     merged_prs: int | None = None
     size_kb: int | None = None
+    language: str | None = None
     license: str | None = None
     pushed_at: str | None = None
     default_branch: str | None = None
@@ -359,6 +360,7 @@ class Package(BaseModel):
     channel: str = "production"
     issues_repo: str | None = None
     source_of_truth: SourceOfTruth | None = None
+    primary_language: str | None = None
     tag_prefix: str = "v"
     targets: list[Target]
     version_aliases: dict = Field(default_factory=dict)
