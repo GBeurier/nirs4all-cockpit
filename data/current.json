@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-13T12:13:00.597630+00:00",
+  "generated_at": "2026-06-13T12:48:02.063737+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -11,13 +11,13 @@
       "id": "nirs4all",
       "repo": "nirs4all",
       "source": {
-        "manifest_version": "0.9.4",
+        "manifest_version": "0.10.0",
         "latest_prod_tag": null,
         "latest_any_tag": null,
-        "expected_prod_version": "0.9.4",
+        "expected_prod_version": "0.10.0",
         "commit": null
       },
-      "rollup": "green",
+      "rollup": "stale",
       "flags": [],
       "targets": [
         {
@@ -45,7 +45,7 @@
           "registry": "pypi",
           "name": "nirs4all",
           "published_version": "0.9.4",
-          "status": "green",
+          "status": "stale",
           "planned": false,
           "downloads": {
             "last_day": 40,
@@ -71,16 +71,18 @@
           "registry": "github-release",
           "name": "nirs4all",
           "published_version": "0.9.4",
-          "status": "green",
+          "status": "stale",
           "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": null,
-            "source": null,
+            "total": 0,
+            "source": "github-release-assets",
             "by_version": [],
-            "windows": {}
+            "windows": {
+              "total": 0
+            }
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all/releases/latest",
@@ -110,7 +112,7 @@
         "merged_prs": 0,
         "size_kb": 177097,
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-13T12:08:20Z",
+        "pushed_at": "2026-06-13T12:35:19Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -136,13 +138,13 @@
       },
       "actions_stats": {
         "workflows": 11,
-        "total_runs": 871,
+        "total_runs": 875,
         "recent_total": 100,
         "recent_success": 82,
-        "recent_failure": 16,
-        "success_rate": 83.7,
+        "recent_failure": 17,
+        "success_rate": 82.8,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-13T12:08:25Z"
+        "last_created_at": "2026-06-13T12:35:20Z"
       }
     },
     {
@@ -189,10 +191,12 @@
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": null,
-            "source": null,
+            "total": 13,
+            "source": "github-release-assets",
             "by_version": [],
-            "windows": {}
+            "windows": {
+              "total": 13
+            }
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-studio/releases/latest",
@@ -221,8 +225,8 @@
         "closed_prs": 8,
         "merged_prs": 0,
         "size_kb": 34954,
-        "license": "NOASSERTION",
-        "pushed_at": "2026-06-13T09:19:41Z",
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-06-13T12:13:49Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -245,18 +249,18 @@
           "CSS": 467,
           "JavaScript": 187
         },
-        "coverage_pct": null,
+        "coverage_pct": 53.0,
         "source": "local-scan"
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 218,
+        "total_runs": 220,
         "recent_total": 100,
-        "recent_success": 54,
-        "recent_failure": 35,
-        "success_rate": 60.7,
+        "recent_success": 55,
+        "recent_failure": 34,
+        "success_rate": 61.8,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-13T09:19:43Z"
+        "last_created_at": "2026-06-13T12:13:52Z"
       }
     },
     {
@@ -475,10 +479,12 @@
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": null,
-            "source": null,
+            "total": 13,
+            "source": "github-release-assets",
             "by_version": [],
-            "windows": {}
+            "windows": {
+              "total": 13
+            }
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-methods/releases/latest",
@@ -546,8 +552,8 @@
         "closed_prs": 0,
         "merged_prs": 0,
         "size_kb": 490442,
-        "license": "NOASSERTION",
-        "pushed_at": "2026-06-12T16:36:45Z",
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-06-13T12:14:59Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -581,13 +587,13 @@
       },
       "actions_stats": {
         "workflows": 17,
-        "total_runs": 1531,
+        "total_runs": 1539,
         "recent_total": 100,
-        "recent_success": 90,
-        "recent_failure": 9,
-        "success_rate": 90.9,
-        "last_conclusion": "failure",
-        "last_created_at": "2026-06-13T05:01:59Z"
+        "recent_success": 92,
+        "recent_failure": 7,
+        "success_rate": 92.9,
+        "last_conclusion": "success",
+        "last_created_at": "2026-06-13T12:15:02Z"
       }
     },
     {
@@ -878,10 +884,12 @@
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": null,
-            "source": null,
+            "total": 4,
+            "source": "github-release-assets",
             "by_version": [],
-            "windows": {}
+            "windows": {
+              "total": 4
+            }
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-formats/releases/latest",
@@ -949,8 +957,8 @@
         "closed_prs": 0,
         "merged_prs": 0,
         "size_kb": 117737,
-        "license": "MIT",
-        "pushed_at": "2026-06-13T09:20:21Z",
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-06-13T12:48:08Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -980,13 +988,13 @@
       },
       "actions_stats": {
         "workflows": 9,
-        "total_runs": 275,
+        "total_runs": 283,
         "recent_total": 100,
-        "recent_success": 80,
-        "recent_failure": 16,
-        "success_rate": 83.3,
-        "last_conclusion": "success",
-        "last_created_at": "2026-06-13T09:20:24Z"
+        "recent_success": 77,
+        "recent_failure": 15,
+        "success_rate": 83.7,
+        "last_conclusion": null,
+        "last_created_at": "2026-06-13T12:48:11Z"
       }
     },
     {
@@ -1251,10 +1259,12 @@
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": null,
-            "source": null,
+            "total": 3,
+            "source": "github-release-assets",
             "by_version": [],
-            "windows": {}
+            "windows": {
+              "total": 3
+            }
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-io/releases/latest",
@@ -1323,7 +1333,7 @@
         "merged_prs": 0,
         "size_kb": 3573,
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-13T12:08:39Z",
+        "pushed_at": "2026-06-13T12:45:38Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -1356,13 +1366,13 @@
       },
       "actions_stats": {
         "workflows": 17,
-        "total_runs": 236,
+        "total_runs": 247,
         "recent_total": 100,
-        "recent_success": 61,
-        "recent_failure": 39,
-        "success_rate": 61.0,
-        "last_conclusion": "failure",
-        "last_created_at": "2026-06-13T12:08:41Z"
+        "recent_success": 59,
+        "recent_failure": 38,
+        "success_rate": 60.8,
+        "last_conclusion": null,
+        "last_created_at": "2026-06-13T12:45:40Z"
       }
     },
     {
@@ -1580,10 +1590,12 @@
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": null,
-            "source": null,
+            "total": 0,
+            "source": "github-release-assets",
             "by_version": [],
-            "windows": {}
+            "windows": {
+              "total": 0
+            }
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-datasets/releases/latest",
@@ -1652,7 +1664,7 @@
         "merged_prs": 0,
         "size_kb": 252241,
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-13T12:08:57Z",
+        "pushed_at": "2026-06-13T12:45:58Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -1661,14 +1673,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 12293,
-        "loc_comment": 2440,
-        "loc_blank": 2578,
-        "loc_total": 17311,
+        "loc_code": 12296,
+        "loc_comment": 2441,
+        "loc_blank": 2580,
+        "loc_total": 17317,
         "files": 92,
         "tests": 219,
         "by_language": {
-          "Python": 10003,
+          "Python": 10006,
           "Rust": 1841,
           "Shell": 203,
           "C": 135,
@@ -1681,13 +1693,13 @@
       },
       "actions_stats": {
         "workflows": 11,
-        "total_runs": 158,
+        "total_runs": 162,
         "recent_total": 100,
-        "recent_success": 88,
-        "recent_failure": 10,
-        "success_rate": 89.8,
+        "recent_success": 87,
+        "recent_failure": 9,
+        "success_rate": 90.6,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-13T12:09:00Z"
+        "last_created_at": "2026-06-13T12:46:01Z"
       }
     },
     {
@@ -1843,10 +1855,12 @@
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": null,
-            "source": null,
+            "total": 3,
+            "source": "github-release-assets",
             "by_version": [],
-            "windows": {}
+            "windows": {
+              "total": 3
+            }
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-lite/releases/latest",
@@ -1893,8 +1907,8 @@
         "closed_prs": 0,
         "merged_prs": 0,
         "size_kb": 144,
-        "license": "MIT",
-        "pushed_at": "2026-06-12T16:25:14Z",
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-06-13T12:30:41Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -1923,13 +1937,13 @@
       },
       "actions_stats": {
         "workflows": 7,
-        "total_runs": 51,
-        "recent_total": 51,
+        "total_runs": 52,
+        "recent_total": 52,
         "recent_success": 29,
-        "recent_failure": 22,
-        "success_rate": 56.9,
+        "recent_failure": 23,
+        "success_rate": 55.8,
         "last_conclusion": "failure",
-        "last_created_at": "2026-06-12T16:25:17Z"
+        "last_created_at": "2026-06-13T12:30:44Z"
       }
     },
     {
@@ -2159,8 +2173,8 @@
         "closed_prs": 0,
         "merged_prs": 0,
         "size_kb": 1559,
-        "license": "MIT",
-        "pushed_at": "2026-06-13T09:24:32Z",
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-06-13T12:44:25Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2169,15 +2183,15 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 65667,
+        "loc_code": 70880,
         "loc_comment": 1333,
-        "loc_blank": 4014,
-        "loc_total": 71014,
+        "loc_blank": 4323,
+        "loc_total": 76536,
         "files": 57,
-        "tests": 363,
+        "tests": 398,
         "by_language": {
-          "Rust": 56743,
-          "Python": 7234,
+          "Rust": 60564,
+          "Python": 8626,
           "R": 1029,
           "JavaScript": 338,
           "C/C++ header": 323
@@ -2187,13 +2201,13 @@
       },
       "actions_stats": {
         "workflows": 2,
-        "total_runs": 194,
+        "total_runs": 195,
         "recent_total": 100,
-        "recent_success": 93,
+        "recent_success": 92,
         "recent_failure": 7,
-        "success_rate": 93.0,
-        "last_conclusion": "failure",
-        "last_created_at": "2026-06-13T09:24:36Z"
+        "success_rate": 92.9,
+        "last_conclusion": null,
+        "last_created_at": "2026-06-13T12:44:27Z"
       }
     },
     {
@@ -2345,12 +2359,12 @@
         "stars": 2,
         "forks": 0,
         "watchers": 0,
-        "open_prs": 0,
+        "open_prs": 5,
         "closed_prs": 0,
         "merged_prs": 0,
         "size_kb": 456,
-        "license": "MIT",
-        "pushed_at": "2026-06-12T16:24:21Z",
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-06-13T12:46:19Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2359,29 +2373,32 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 15974,
-        "loc_comment": 666,
-        "loc_blank": 1237,
-        "loc_total": 17877,
-        "files": 27,
-        "tests": 140,
+        "loc_code": 25544,
+        "loc_comment": 1842,
+        "loc_blank": 2169,
+        "loc_total": 29555,
+        "files": 57,
+        "tests": 255,
         "by_language": {
-          "Rust": 14496,
-          "Python": 1275,
-          "C/C++ header": 203
+          "Rust": 21882,
+          "Python": 2957,
+          "C/C++ header": 253,
+          "JavaScript": 250,
+          "R": 196,
+          "C": 6
         },
         "coverage_pct": 88.1,
         "source": "local-scan"
       },
       "actions_stats": {
-        "workflows": 1,
-        "total_runs": 33,
-        "recent_total": 33,
-        "recent_success": 31,
-        "recent_failure": 2,
-        "success_rate": 93.9,
-        "last_conclusion": "success",
-        "last_created_at": "2026-06-12T16:24:24Z"
+        "workflows": 2,
+        "total_runs": 47,
+        "recent_total": 47,
+        "recent_success": 39,
+        "recent_failure": 3,
+        "success_rate": 92.9,
+        "last_conclusion": null,
+        "last_created_at": "2026-06-13T12:46:24Z"
       }
     },
     {
@@ -2491,8 +2508,8 @@
         "closed_prs": 0,
         "merged_prs": 0,
         "size_kb": 3357,
-        "license": null,
-        "pushed_at": "2026-06-12T16:39:36Z",
+        "license": "CC-BY-4.0",
+        "pushed_at": "2026-06-13T12:45:30Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2515,13 +2532,13 @@
       },
       "actions_stats": {
         "workflows": 1,
-        "total_runs": 67,
-        "recent_total": 67,
-        "recent_success": 66,
+        "total_runs": 69,
+        "recent_total": 69,
+        "recent_success": 68,
         "recent_failure": 1,
-        "success_rate": 98.5,
+        "success_rate": 98.6,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-12T16:39:38Z"
+        "last_created_at": "2026-06-13T12:45:31Z"
       }
     },
     {
@@ -2572,8 +2589,8 @@
         "closed_prs": 0,
         "merged_prs": 0,
         "size_kb": 8470,
-        "license": null,
-        "pushed_at": "2026-06-13T09:19:39Z",
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-06-13T12:45:52Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2600,13 +2617,13 @@
       },
       "actions_stats": {
         "workflows": 1,
-        "total_runs": 62,
-        "recent_total": 62,
-        "recent_success": 61,
+        "total_runs": 64,
+        "recent_total": 64,
+        "recent_success": 63,
         "recent_failure": 1,
         "success_rate": 98.4,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-13T09:19:42Z"
+        "last_created_at": "2026-06-13T12:45:54Z"
       }
     },
     {
@@ -2656,9 +2673,9 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 178,
+        "size_kb": 254,
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-13T12:12:01Z",
+        "pushed_at": "2026-06-13T12:45:23Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2667,15 +2684,15 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 3985,
-        "loc_comment": 1083,
-        "loc_blank": 1081,
-        "loc_total": 6149,
+        "loc_code": 4090,
+        "loc_comment": 1086,
+        "loc_blank": 1109,
+        "loc_total": 6285,
         "files": 39,
-        "tests": 57,
+        "tests": 60,
         "by_language": {
-          "Python": 2880,
-          "JavaScript": 497,
+          "Python": 2984,
+          "JavaScript": 498,
           "CSS": 285,
           "Shell": 236,
           "HTML": 87
@@ -2685,19 +2702,19 @@
       },
       "actions_stats": {
         "workflows": 2,
-        "total_runs": 35,
-        "recent_total": 35,
-        "recent_success": 28,
+        "total_runs": 38,
+        "recent_total": 38,
+        "recent_success": 31,
         "recent_failure": 5,
-        "success_rate": 84.8,
+        "success_rate": 86.1,
         "last_conclusion": null,
-        "last_created_at": "2026-06-13T12:12:13Z"
+        "last_created_at": "2026-06-13T12:46:15Z"
       }
     }
   ],
   "summary": {
-    "green": 47,
-    "stale": 0,
+    "green": 45,
+    "stale": 2,
     "missing": 14,
     "broken": 0,
     "unknown": 0,
@@ -2711,11 +2728,11 @@
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 909416,
-    "loc_total": 1243680,
-    "tests": 11707,
-    "files": 3719,
-    "workflow_runs": 3732,
+    "loc_code": 924307,
+    "loc_total": 1261022,
+    "tests": 11860,
+    "files": 3749,
+    "workflow_runs": 3792,
     "downloads_last_month": 5346
   },
   "visits": {
