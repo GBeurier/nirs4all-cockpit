@@ -370,6 +370,18 @@ function renderCodeStats(snap) {
 
 // ---- pages visits (public · GoatCounter) -----------------------------------
 
+// The full ecosystem roster — every page is listed even at 0 views. `path` is the
+// explicit GoatCounter path each site reports; `repo` maps to its public URL.
+const ECO_PAGES = [
+  ["/org", "nirs4all.org", "nirs4all-org"],
+  ["/web", "web · studio-lite", "nirs4all-web"],
+  ["/formats", "formats · WASM demo", "nirs4all-formats"],
+  ["/io", "io · dataset builder", "nirs4all-io"],
+  ["/datasets", "datasets · catalog", "nirs4all-datasets"],
+  ["/methods", "methods · docs", "nirs4all-methods"],
+  ["/cockpit", "cockpit", "nirs4all-cockpit"],
+];
+
 function renderVisits(snap) {
   const v = snap.visits || {};
   const block = document.getElementById("visits-block"), box = document.getElementById("visits");
@@ -386,27 +398,28 @@ function renderVisits(snap) {
   }
   box.appendChild(chips);
 
-  const pages = (v.pages || []).filter((p) => p && p.count > 0).sort((a, b) => b.count - a.count);
-  if (pages.length) {
-    const table = el("table", { class: "stats visits-table" });
-    const thead = el("thead"), hr = el("tr");
-    for (const h of ["page", "views"]) hr.appendChild(el("th", { text: h }));
-    thead.appendChild(hr); table.appendChild(thead);
-    const tbody = el("tbody");
-    for (const p of pages) {
-      const row = el("tr");
-      const label = p.title || p.path || "/";
-      const href = /^https?:\/\//.test(p.path || "") ? p.path : `${(v.site || "").replace(/\/$/, "")}${p.path || "/"}`;
-      const pageTd = el("th", { class: "s-repo", attrs: { scope: "row" } });
-      pageTd.appendChild(el("a", { text: label, attrs: { href, target: "_blank", rel: "noopener", title: p.path || label } }));
-      row.appendChild(pageTd);
-      row.appendChild(el("td", { class: "num", text: fmtInt(p.count) }));
-      tbody.appendChild(row);
-    }
-    table.appendChild(tbody);
-    box.appendChild(table);
+  // Every ecosystem page, even at 0 views; counts come from the snapshot.
+  const counts = new Map((v.pages || []).map((p) => [p.path, p.count || 0]));
+  const rows = ECO_PAGES
+    .map(([path, label, repo]) => ({ path, label, repo, count: counts.get(path) || 0 }))
+    .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+  const table = el("table", { class: "stats visits-table" });
+  const thead = el("thead"), hr = el("tr");
+  for (const h of ["page", "views"]) hr.appendChild(el("th", { text: h }));
+  thead.appendChild(hr); table.appendChild(thead);
+  const tbody = el("tbody");
+  for (const r of rows) {
+    const row = el("tr");
+    const href = PAGES_URLS[r.repo] || `${(v.site || "").replace(/\/$/, "")}${r.path}`;
+    const pageTd = el("th", { class: "s-repo", attrs: { scope: "row" } });
+    pageTd.appendChild(el("a", { text: r.label, attrs: { href, target: "_blank", rel: "noopener", title: r.path } }));
+    row.appendChild(pageTd);
+    row.appendChild(el("td", { class: "num", text: fmtInt(r.count) }));
+    tbody.appendChild(row);
   }
-  box.appendChild(el("p", { class: "vcap", text: `${v.site || "GoatCounter"} · daily snapshot` }));
+  table.appendChild(tbody);
+  box.appendChild(table);
+  box.appendChild(el("p", { class: "vcap", text: `${v.site || "GoatCounter"} · daily snapshot · all ecosystem pages` }));
 }
 
 // ---- errors (public · Sentry) ----------------------------------------------
