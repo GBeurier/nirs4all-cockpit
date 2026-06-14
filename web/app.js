@@ -91,6 +91,7 @@ function renderMeta(snap) {
 
 function dial(pct, color, big, cap) {
   const d = el("div", { class: "score" });
+  d.style.setProperty("--accent", color);
   const r = el("div", { class: "dial" });
   r.style.setProperty("--p", Math.max(0, Math.min(100, Math.round(pct))));
   r.style.setProperty("--c", color);
@@ -391,11 +392,13 @@ function renderVisits(snap) {
 
   const w = v.windows || {};
   const chips = el("div", { class: "vchips" });
-  for (const [lab, key] of [["7 days", "7d"], ["30 days", "30d"], ["365 days", "365d"], ["all-time", "total"]]) {
+  const vacc = ["var(--teal)", "var(--cyan)", "var(--indigo)", "var(--amber)"];
+  [["7 days", "7d"], ["30 days", "30d"], ["365 days", "365d"], ["all-time", "total"]].forEach(([lab, key], i) => {
     const c = el("div", { class: "vchip" });
+    c.style.setProperty("--accent", vacc[i % vacc.length]);
     c.append(el("span", { class: "vchip__n", text: fmtInt(w[key]) }), el("span", { class: "vchip__l", text: lab }));
     chips.appendChild(c);
-  }
+  });
   box.appendChild(chips);
 
   // Every ecosystem page, even at 0 views; counts come from the snapshot.
@@ -424,8 +427,9 @@ function renderVisits(snap) {
 
 // ---- errors (public · Sentry) ----------------------------------------------
 
-function sentryStat(n, label, alert) {
+function sentryStat(n, label, alert, accent) {
   const c = el("div", { class: `sentry-stat${alert ? " sentry-stat--alert" : ""}` });
+  c.style.setProperty("--accent", accent || "var(--teal)");
   c.append(el("span", { class: "sentry-stat__n", text: fmtInt(n) }), el("span", { class: "sentry-stat__l", text: label }));
   return c;
 }
@@ -439,10 +443,10 @@ function renderSentry(snap) {
 
   const head = el("div", { class: "sentry-head" });
   head.append(
-    sentryStat(s.unresolved, "unresolved", (s.unresolved || 0) > 0),
-    sentryStat(s.resolved, "resolved", false),
-    sentryStat(s.events, "events", false),
-    sentryStat(s.users_affected, "users affected", false),
+    sentryStat(s.unresolved, "unresolved", (s.unresolved || 0) > 0, (s.unresolved || 0) > 0 ? "var(--broken)" : "var(--green)"),
+    sentryStat(s.resolved, "resolved", false, "var(--green)"),
+    sentryStat(s.events, "events", false, "var(--indigo)"),
+    sentryStat(s.users_affected, "users affected", false, "var(--amber)"),
   );
   box.appendChild(head);
   box.appendChild(el("p", { class: "vcap", text: `${s.project || "nirs4all-studio"} · aggregate Sentry counters only` }));

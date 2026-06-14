@@ -123,7 +123,9 @@ a { color: var(--teal-d); }
   background: rgba(255, 255, 255, 0.72); backdrop-filter: blur(6px);
   border: 1px solid var(--line); border-radius: var(--radius);
   padding: 14px 20px 14px 14px; box-shadow: var(--shadow); min-width: 176px;
+  position: relative; overflow: hidden;
 }
+.score::after { content: ""; position: absolute; right: -18px; top: -18px; width: 70px; height: 70px; border-radius: 50%; background: var(--accent, var(--teal)); opacity: 0.07; }
 .dial {
   position: relative; width: 62px; height: 62px; border-radius: 50%;
   display: grid; place-items: center;
@@ -290,12 +292,14 @@ section.block { margin: 0 0 34px; }
 
 /* pages visits (public · GoatCounter) */
 .vchips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.vchip { display: flex; flex-direction: column; gap: 2px; padding: 13px 16px; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); }
+.vchip { display: flex; flex-direction: column; gap: 2px; padding: 13px 16px; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); position: relative; overflow: hidden; }
+.vchip::after { content: ""; position: absolute; right: -18px; top: -18px; width: 70px; height: 70px; border-radius: 50%; background: var(--accent, var(--teal)); opacity: 0.07; }
 .vchip__n { font-family: var(--mono); font-weight: 700; font-size: 1.5rem; line-height: 1.1; color: var(--text); letter-spacing: -0.02em; }
 .vchip__l { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
 /* Sentry "Errors" panel */
 .sentry-head { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.sentry-stat { display: flex; flex-direction: column; gap: 2px; padding: 13px 16px; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); }
+.sentry-stat { display: flex; flex-direction: column; gap: 2px; padding: 13px 16px; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); position: relative; overflow: hidden; }
+.sentry-stat::after { content: ""; position: absolute; right: -18px; top: -18px; width: 70px; height: 70px; border-radius: 50%; background: var(--accent, var(--teal)); opacity: 0.07; }
 .sentry-stat__n { font-family: var(--mono); font-weight: 700; font-size: 1.5rem; line-height: 1.1; color: var(--text); letter-spacing: -0.02em; }
 .sentry-stat__l { font-size: 0.71rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
 .sentry-stat--alert { border-color: color-mix(in srgb, var(--broken) 42%, var(--line)); background: color-mix(in srgb, var(--broken) 7%, var(--surface-2)); }
