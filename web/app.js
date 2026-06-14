@@ -374,12 +374,12 @@ function renderCodeStats(snap) {
 // explicit GoatCounter path each site reports; `repo` maps to its public URL.
 const ECO_PAGES = [
   ["/org", "nirs4all.org", "nirs4all-org"],
-  ["/web", "web · studio-lite", "nirs4all-web"],
-  ["/formats", "formats · WASM demo", "nirs4all-formats"],
-  ["/io", "io · dataset builder", "nirs4all-io"],
-  ["/datasets", "datasets · catalog", "nirs4all-datasets"],
-  ["/methods", "methods · docs", "nirs4all-methods"],
-  ["/cockpit", "cockpit", "nirs4all-cockpit"],
+  ["/web", "web.nirs4all.org", "nirs4all-web"],
+  ["/formats", "formats.nirs4all.org", "nirs4all-formats"],
+  ["/io", "io.nirs4all.org", "nirs4all-io"],
+  ["/datasets", "datasets.nirs4all.org", "nirs4all-datasets"],
+  ["/methods", "methods.nirs4all.org", "nirs4all-methods"],
+  ["/cockpit", "cockpit.nirs4all.org", "nirs4all-cockpit"],
 ];
 
 function renderVisits(snap) {
