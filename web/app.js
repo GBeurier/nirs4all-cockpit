@@ -20,6 +20,7 @@ const ECOSYSTEM_LICENSE_LABEL = "AGPL-3.0";
 const ECOSYSTEM_LICENSE_FULL = "CeCILL-2.1 OR AGPL-3.0-or-later";
 const COMMERCIAL_CONTACT = "nirs4all-admin@cirad.fr";
 const PAGES_URLS = {
+  "nirs4all-org": "https://nirs4all.org/",
   "nirs4all-datasets": "https://datasets.nirs4all.org/",
   "nirs4all-formats": "https://formats.nirs4all.org/",
   "nirs4all-io": "https://io.nirs4all.org/",
@@ -368,43 +369,102 @@ function renderCodeStats(snap) {
 
 // ---- pages visits (public · GoatCounter) -----------------------------------
 
-function renderVisits(snap) {
-  const v = snap.visits || {};
-  const block = document.getElementById("visits-block"), box = document.getElementById("visits");
-  if (!box || !v.available) return; // token absent at collect time → section stays hidden
-  block.hidden = false;
-  box.innerHTML = "";
+// Canonical ecosystem pages and their explicit GoatCounter paths (each page sets
+// its path via data-goatcounter-settings). Used for the live public-counter pass.
+const GC_PAGES = [
+  ["/org", "nirs4all.org", "nirs4all-org"],
+  ["/web", "web · studio-lite", "nirs4all-web"],
+  ["/formats", "formats · WASM demo", "nirs4all-formats"],
+  ["/io", "io · dataset builder", "nirs4all-io"],
+  ["/datasets", "datasets · catalog", "nirs4all-datasets"],
+  ["/methods", "methods · docs", "nirs4all-methods"],
+  ["/cockpit", "cockpit", "nirs4all-cockpit"],
+];
 
-  // aggregate across every ecosystem page
-  const w = v.windows || {};
+// One public visitor counter (no token). `key` is "TOTAL" or an exact path.
+// Returns the integer count, or null when the counter is disabled/unreachable.
+async function gcCounter(site, key) {
+  const seg = key === "TOTAL" ? "TOTAL" : encodeURIComponent(key);
+  try {
+    const r = await fetch(`${site.replace(/\/$/, "")}/counter/${seg}.json`, { cache: "no-store" });
+    if (!r.ok) return null;
+    const j = await r.json();
+    const n = parseInt(String(j.count ?? "").replace(/[^0-9]/g, ""), 10);
+    return Number.isFinite(n) ? n : null;
+  } catch { return null; }
+}
+
+// Draw the window chips + per-page table into the visits box.
+function drawVisits(box, windows, rows, cap) {
+  box.innerHTML = "";
   const chips = el("div", { class: "vchips" });
   for (const [lab, key] of [["7 days", "7d"], ["30 days", "30d"], ["365 days", "365d"], ["all-time", "total"]]) {
     const c = el("div", { class: "vchip" });
-    c.append(el("span", { class: "vchip__n", text: fmtInt(w[key]) }), el("span", { class: "vchip__l", text: lab }));
+    c.append(el("span", { class: "vchip__n", text: fmtInt(windows[key]) }), el("span", { class: "vchip__l", text: lab }));
     chips.appendChild(c);
   }
   box.appendChild(chips);
-  const pages = (v.pages || []).filter((p) => p && p.count > 0);
-  if (pages.length) {
+  rows = rows.filter((r) => r && r.count > 0).sort((a, b) => b.count - a.count);
+  if (rows.length) {
     const table = el("table", { class: "stats visits-table" });
     const thead = el("thead"), hr = el("tr");
     for (const h of ["page", "views"]) hr.appendChild(el("th", { text: h }));
     thead.appendChild(hr); table.appendChild(thead);
     const tbody = el("tbody");
-    for (const p of pages) {
+    for (const r of rows) {
       const row = el("tr");
-      const label = p.title || p.path || "/";
-      const href = /^https?:\/\//.test(p.path || "") ? p.path : `${(v.site || "").replace(/\/$/, "")}${p.path || "/"}`;
       const pageTd = el("th", { class: "s-repo", attrs: { scope: "row" } });
-      pageTd.appendChild(el("a", { text: label, attrs: { href, target: "_blank", rel: "noopener", title: p.path || label } }));
+      pageTd.appendChild(el("a", { text: r.label, attrs: { href: r.href, target: "_blank", rel: "noopener", title: r.label } }));
       row.appendChild(pageTd);
-      row.appendChild(el("td", { class: "num", text: fmtInt(p.count) }));
+      row.appendChild(el("td", { class: "num", text: fmtInt(r.count) }));
       tbody.appendChild(row);
     }
     table.appendChild(tbody);
     box.appendChild(table);
   }
-  box.appendChild(el("p", { class: "vcap", text: `${v.site || "GoatCounter"} · total counters plus per-page ecosystem breakdown when GoatCounter exposes it` }));
+  box.appendChild(el("p", { class: "vcap", text: cap }));
+}
+
+function renderVisits(snap) {
+  const v = snap.visits || {};
+  const block = document.getElementById("visits-block"), box = document.getElementById("visits");
+  if (!box) return;
+  // Render the daily snapshot first (works offline); the live pass upgrades it.
+  if (v.available) {
+    block.hidden = false;
+    const rows = (v.pages || []).map((p) => ({
+      label: p.title || p.path || "/",
+      href: /^https?:\/\//.test(p.path || "") ? p.path : `${(v.site || "").replace(/\/$/, "")}${p.path || "/"}`,
+      count: p.count,
+    }));
+    drawVisits(box, v.windows || {}, rows, `${v.site || "GoatCounter"} · daily snapshot`);
+  }
+  refreshVisitsLive(snap);
+}
+
+// Progressive upgrade: live public-counter values (all-time per page + site
+// total), refreshed on every page load — no token, no waiting for the daily
+// collect. Needs the "visitor counter" setting enabled in GoatCounter; on any
+// failure it silently keeps the daily-snapshot view.
+async function refreshVisitsLive(snap) {
+  const v = snap.visits || {};
+  const site = v.site;
+  if (!site) return;
+  const block = document.getElementById("visits-block"), box = document.getElementById("visits");
+  if (!box) return;
+  const [total, ...counts] = await Promise.all([
+    gcCounter(site, "TOTAL"),
+    ...GC_PAGES.map(([path]) => gcCounter(site, path)),
+  ]);
+  if (total == null && counts.every((c) => c == null)) return; // counter disabled → keep snapshot
+  const rows = GC_PAGES.map(([path, label, repo], i) => ({
+    label,
+    href: PAGES_URLS[repo] || `${site.replace(/\/$/, "")}${path}`,
+    count: counts[i],
+  }));
+  const windows = { ...(v.windows || {}), total: total != null ? total : (v.windows || {}).total };
+  block.hidden = false;
+  drawVisits(box, windows, rows, `${site} · live visitor counter (all-time per page) · 7/30/365-day windows from the daily snapshot`);
 }
 
 // ---- errors (public · Sentry) ----------------------------------------------
