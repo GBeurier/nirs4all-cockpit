@@ -43,6 +43,7 @@ function el(tag, opts = {}, children = []) {
 }
 const fmtInt = (x) => (x == null ? "—" : Number(x).toLocaleString("en-US"));
 function fmtDate(iso) { if (!iso) return "—"; const d = new Date(iso); return isNaN(d) ? iso : d.toISOString().slice(0, 10); }
+function fmtDateTime(iso) { if (!iso) return "—"; const d = new Date(iso); return isNaN(d) ? iso : `${d.toISOString().slice(0, 16).replace("T", " ")} UTC`; }
 
 function led(state) { return el("span", { class: `led led--${state}`, attrs: { role: "img", "aria-label": state } }); }
 
@@ -83,7 +84,7 @@ async function loadAdmin() { try { return await loadJSON(["../data/admin/snapsho
 function renderMeta(snap) {
   const m = document.getElementById("generated");
   m.innerHTML = "";
-  m.appendChild(el("span", { text: `updated ${fmtDate(snap.generated_at)}` }));
+  m.appendChild(el("span", { text: `updated ${fmtDateTime(snap.generated_at)}` }));
   if (snap.generator && snap.generator.repo) m.appendChild(el("a", { text: snap.generator.repo, attrs: { href: `https://github.com/${snap.generator.repo}` } }));
   document.getElementById("schema").textContent = `schema v${snap.schema_version ?? "?"}`;
 }
@@ -369,102 +370,43 @@ function renderCodeStats(snap) {
 
 // ---- pages visits (public · GoatCounter) -----------------------------------
 
-// Canonical ecosystem pages and their explicit GoatCounter paths (each page sets
-// its path via data-goatcounter-settings). Used for the live public-counter pass.
-const GC_PAGES = [
-  ["/org", "nirs4all.org", "nirs4all-org"],
-  ["/web", "web · studio-lite", "nirs4all-web"],
-  ["/formats", "formats · WASM demo", "nirs4all-formats"],
-  ["/io", "io · dataset builder", "nirs4all-io"],
-  ["/datasets", "datasets · catalog", "nirs4all-datasets"],
-  ["/methods", "methods · docs", "nirs4all-methods"],
-  ["/cockpit", "cockpit", "nirs4all-cockpit"],
-];
-
-// One public visitor counter (no token). `key` is "TOTAL" or an exact path.
-// Returns the integer count, or null when the counter is disabled/unreachable.
-async function gcCounter(site, key) {
-  const seg = key === "TOTAL" ? "TOTAL" : encodeURIComponent(key);
-  try {
-    const r = await fetch(`${site.replace(/\/$/, "")}/counter/${seg}.json`, { cache: "no-store" });
-    if (!r.ok) return null;
-    const j = await r.json();
-    const n = parseInt(String(j.count ?? "").replace(/[^0-9]/g, ""), 10);
-    return Number.isFinite(n) ? n : null;
-  } catch { return null; }
-}
-
-// Draw the window chips + per-page table into the visits box.
-function drawVisits(box, windows, rows, cap) {
+function renderVisits(snap) {
+  const v = snap.visits || {};
+  const block = document.getElementById("visits-block"), box = document.getElementById("visits");
+  if (!box || !v.available) return; // no GoatCounter token at collect time → section stays hidden
+  block.hidden = false;
   box.innerHTML = "";
+
+  const w = v.windows || {};
   const chips = el("div", { class: "vchips" });
   for (const [lab, key] of [["7 days", "7d"], ["30 days", "30d"], ["365 days", "365d"], ["all-time", "total"]]) {
     const c = el("div", { class: "vchip" });
-    c.append(el("span", { class: "vchip__n", text: fmtInt(windows[key]) }), el("span", { class: "vchip__l", text: lab }));
+    c.append(el("span", { class: "vchip__n", text: fmtInt(w[key]) }), el("span", { class: "vchip__l", text: lab }));
     chips.appendChild(c);
   }
   box.appendChild(chips);
-  rows = rows.filter((r) => r && r.count > 0).sort((a, b) => b.count - a.count);
-  if (rows.length) {
+
+  const pages = (v.pages || []).filter((p) => p && p.count > 0).sort((a, b) => b.count - a.count);
+  if (pages.length) {
     const table = el("table", { class: "stats visits-table" });
     const thead = el("thead"), hr = el("tr");
     for (const h of ["page", "views"]) hr.appendChild(el("th", { text: h }));
     thead.appendChild(hr); table.appendChild(thead);
     const tbody = el("tbody");
-    for (const r of rows) {
+    for (const p of pages) {
       const row = el("tr");
+      const label = p.title || p.path || "/";
+      const href = /^https?:\/\//.test(p.path || "") ? p.path : `${(v.site || "").replace(/\/$/, "")}${p.path || "/"}`;
       const pageTd = el("th", { class: "s-repo", attrs: { scope: "row" } });
-      pageTd.appendChild(el("a", { text: r.label, attrs: { href: r.href, target: "_blank", rel: "noopener", title: r.label } }));
+      pageTd.appendChild(el("a", { text: label, attrs: { href, target: "_blank", rel: "noopener", title: p.path || label } }));
       row.appendChild(pageTd);
-      row.appendChild(el("td", { class: "num", text: fmtInt(r.count) }));
+      row.appendChild(el("td", { class: "num", text: fmtInt(p.count) }));
       tbody.appendChild(row);
     }
     table.appendChild(tbody);
     box.appendChild(table);
   }
-  box.appendChild(el("p", { class: "vcap", text: cap }));
-}
-
-function renderVisits(snap) {
-  const v = snap.visits || {};
-  const block = document.getElementById("visits-block"), box = document.getElementById("visits");
-  if (!box) return;
-  // Render the daily snapshot first (works offline); the live pass upgrades it.
-  if (v.available) {
-    block.hidden = false;
-    const rows = (v.pages || []).map((p) => ({
-      label: p.title || p.path || "/",
-      href: /^https?:\/\//.test(p.path || "") ? p.path : `${(v.site || "").replace(/\/$/, "")}${p.path || "/"}`,
-      count: p.count,
-    }));
-    drawVisits(box, v.windows || {}, rows, `${v.site || "GoatCounter"} · daily snapshot`);
-  }
-  refreshVisitsLive(snap);
-}
-
-// Progressive upgrade: live public-counter values (all-time per page + site
-// total), refreshed on every page load — no token, no waiting for the daily
-// collect. Needs the "visitor counter" setting enabled in GoatCounter; on any
-// failure it silently keeps the daily-snapshot view.
-async function refreshVisitsLive(snap) {
-  const v = snap.visits || {};
-  const site = v.site;
-  if (!site) return;
-  const block = document.getElementById("visits-block"), box = document.getElementById("visits");
-  if (!box) return;
-  const [total, ...counts] = await Promise.all([
-    gcCounter(site, "TOTAL"),
-    ...GC_PAGES.map(([path]) => gcCounter(site, path)),
-  ]);
-  if (total == null && counts.every((c) => c == null)) return; // counter disabled → keep snapshot
-  const rows = GC_PAGES.map(([path, label, repo], i) => ({
-    label,
-    href: PAGES_URLS[repo] || `${site.replace(/\/$/, "")}${path}`,
-    count: counts[i],
-  }));
-  const windows = { ...(v.windows || {}), total: total != null ? total : (v.windows || {}).total };
-  block.hidden = false;
-  drawVisits(box, windows, rows, `${site} · live visitor counter (all-time per page) · 7/30/365-day windows from the daily snapshot`);
+  box.appendChild(el("p", { class: "vcap", text: `${v.site || "GoatCounter"} · daily snapshot` }));
 }
 
 // ---- errors (public · Sentry) ----------------------------------------------
