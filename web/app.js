@@ -9,6 +9,10 @@
 const REGS = ["readthedocs", "pypi", "crates", "npm", "r-universe", "cran", "github-release", "pages"];
 const REG_LABEL = { readthedocs: "Read the Docs", pypi: "PyPI", crates: "crates.io", npm: "npm", "r-universe": "R-universe", cran: "CRAN", "github-release": "GitHub Releases", pages: "GitHub Pages" };
 const REG_COLOR = { readthedocs: "#8ca1af", pypi: "#0d9488", crates: "#d97706", npm: "#e11d48", "r-universe": "#10b981", cran: "#4f46e5", "github-release": "#64748b" };
+// Registries that actually report download counts. Pure web/docs projects whose
+// only targets are `pages` / `readthedocs` are not packages and are excluded
+// from the downloads dataviz.
+const DOWNLOAD_REGS = new Set(["pypi", "crates", "npm", "r-universe", "cran", "github-release"]);
 const STATE_COLOR = { green: "#10b981", stale: "#e0950c", pending: "#8b5cf6", missing: "#b9c0cb", broken: "#e11d48", unknown: "#06b6d4", excluded: "#cabf9e" };
 const STATES = ["green", "stale", "pending", "missing", "broken", "unknown", "excluded"];
 const RANK = { broken: 6, missing: 5, stale: 4, pending: 3, unknown: 2, green: 1, excluded: 0 };
@@ -219,6 +223,9 @@ function renderDownloads(snap) {
   box.innerHTML = "";
   const rows = [];
   for (const pkg of snap.packages || []) {
+    // Skip web/docs-only projects (e.g. nirs4all-org / -web / -cockpit) — they
+    // publish no package, so they have no place in the downloads dataviz.
+    if (!(pkg.targets || []).some((t) => DOWNLOAD_REGS.has(t.registry))) continue;
     const segs = [];
     let total = 0, lower = false;
     for (const t of pkg.targets || []) {
