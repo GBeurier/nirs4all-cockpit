@@ -383,7 +383,15 @@ def actions_stats(owner: str, repo: str) -> dict[str, Any]:
         completed = success + failure
         if completed:
             out["success_rate"] = round(success / completed * 100, 1)
-        if runs:
-            out["last_conclusion"] = runs[0].get("conclusion")
+        # The newest run on the branch may still be in progress (conclusion
+        # null) — most visibly the cockpit's own ``collect`` run, which reads
+        # this list while it is itself the newest run on ``main``. Report the
+        # newest *concluded* run so the health badge reflects the last finished
+        # CI result instead of a transient null.
+        concluded = next((r for r in runs if r.get("conclusion") is not None), None)
+        if concluded is not None:
+            out["last_conclusion"] = concluded.get("conclusion")
+            out["last_created_at"] = concluded.get("created_at")
+        elif runs:
             out["last_created_at"] = runs[0].get("created_at")
     return out

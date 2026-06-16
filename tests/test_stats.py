@@ -170,3 +170,43 @@ def test_actions_stats_success_rate(monkeypatch) -> None:
     assert out["last_conclusion"] == "success"
     # Runs must be scoped to the default branch, not all branches.
     assert seen_run_urls and all("branch=main" in u for u in seen_run_urls)
+
+
+def test_actions_stats_skips_in_progress_newest_run(monkeypatch) -> None:
+    """The newest run on the branch can still be in progress — most visibly the
+    cockpit's own ``collect`` run reading its run list while it is itself the
+    newest run on ``main``. ``last_conclusion`` must fall back to the newest
+    *concluded* run rather than reporting that transient null.
+    """
+    workflows = (200, {"total_count": 3}, None)
+    runs = (
+        200,
+        {
+            "total_count": 103,
+            "workflow_runs": [
+                {"conclusion": None, "created_at": "2026-06-16T23:20:56Z"},  # newest, in-progress (self)
+                {"conclusion": "success", "created_at": "2026-06-16T23:12:22Z"},
+                {"conclusion": "failure", "created_at": "2026-06-16T23:00:00Z"},
+            ],
+        },
+        None,
+    )
+    repo = (200, {"default_branch": "main"}, None)
+
+    def _fake(url, headers=None, *, accept="application/json"):  # noqa: ARG001
+        if "actions/workflows" in url:
+            return workflows
+        if "actions/runs" in url:
+            return runs
+        return repo
+
+    monkeypatch.setattr(github, "get_json", _fake)
+    out = github.actions_stats("GBeurier", "nirs4all-cockpit")
+
+    # Falls through the in-progress newest run to the last concluded one.
+    assert out["last_conclusion"] == "success"
+    assert out["last_created_at"] == "2026-06-16T23:12:22Z"
+    # The in-progress run is still excluded from the success-rate accounting.
+    assert out["recent_success"] == 1
+    assert out["recent_failure"] == 1
+    assert out["success_rate"] == 50.0
