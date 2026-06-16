@@ -759,7 +759,7 @@ packages:
         state: planned
         workflow:
           file: publish.yml
-          trigger: release
+          trigger: release_published
           danger: publish
           publishes_on_dispatch: true
           inputs: []
