@@ -566,6 +566,30 @@ packages:
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
+  - id: nirs4all-cluster
+    repo: nirs4all-cluster
+    channel: production
+    issues_repo: nirs4all-cluster
+    source_of_truth:
+      strategy: python_attr
+      path: nirs4all_cluster/__init__.py
+      attr: __version__
+    targets:
+      - registry: readthedocs
+        name: nirs4all-cluster
+        state: tracked
+      - registry: pypi
+        name: nirs4all-cluster
+        state: tracked
+        workflow:
+          file: release.yml
+          trigger: release_published
+          danger: dangerous
+          publishes_on_dispatch: true
+          inputs: []
+    version_aliases: {}
+
+  # ------------------------------------------------------------------------- #
   - id: dag-ml
     repo: dag-ml
     channel: production
@@ -633,16 +657,6 @@ packages:
   # ------------------------------------------------------------------------- #
   # Public ecosystem projects without package-registry artifacts — tracked for
   # GitHub stats, code/CI, GitHub Releases, and (where present) GitHub Pages.
-  - id: nirs4all-cluster
-    repo: nirs4all-cluster
-    channel: production
-    issues_repo: nirs4all-cluster
-    source_of_truth:
-      strategy: python_pyproject
-      path: pyproject.toml
-    targets: []
-    version_aliases: {}
-
   - id: nirs4all-org
     repo: nirs4all-org
     channel: production
