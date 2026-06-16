@@ -481,6 +481,28 @@ packages:
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
+  - id: nirs4all-papers
+    repo: nirs4all-papers
+    channel: production
+    issues_repo: nirs4all-papers
+    primary_language: Python
+    source_of_truth:
+      strategy: version_file
+      path: VERSION
+    targets:
+      - registry: github-release
+        name: nirs4all-papers
+        state: tracked
+      - registry: pages
+        name: nirs4all-papers
+        state: tracked
+      - registry: pypi
+        name: nirs4all-papers
+        state: planned
+        reason: "repro-document publisher (prototype); not yet on PyPI"
+    version_aliases: {}
+
+  # ------------------------------------------------------------------------- #
   - id: nirs4all-lite
     repo: nirs4all-lite
     channel: production
