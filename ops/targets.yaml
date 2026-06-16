@@ -496,6 +496,9 @@ packages:
       - registry: pages
         name: nirs4all-papers
         state: tracked
+      - registry: readthedocs
+        name: nirs4all-papers
+        state: planned
       - registry: pypi
         name: nirs4all-papers
         state: tracked
@@ -735,6 +738,9 @@ packages:
       - registry: pages
         name: nirs4all-benchmarks
         state: tracked
+      - registry: readthedocs
+        name: nirs4all-benchmarks
+        state: planned
     version_aliases: {}
 
   - id: nirs4all-repository
@@ -752,9 +758,6 @@ packages:
         name: nirs4all-repository
         state: tracked
       - registry: readthedocs
-        name: nirs4all-repository
-        state: planned
-      - registry: pypi
         name: nirs4all-repository
         state: planned
     version_aliases: {}
