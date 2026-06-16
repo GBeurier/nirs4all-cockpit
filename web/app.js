@@ -27,6 +27,7 @@ const PAGES_URLS = {
   "nirs4all-methods": "https://methods.nirs4all.org/",
   "nirs4all-cockpit": "https://cockpit.nirs4all.org/",
   "nirs4all-web": "https://web.nirs4all.org/",
+  "nirs4all-repository": "https://repository.nirs4all.org/",
 };
 let OWNER = "GBeurier";
 
@@ -381,6 +382,7 @@ const ECO_PAGES = [
   ["/datasets", "datasets.nirs4all.org", "nirs4all-datasets"],
   ["/methods", "methods.nirs4all.org", "nirs4all-methods"],
   ["/cockpit", "cockpit.nirs4all.org", "nirs4all-cockpit"],
+  ["/repository", "repository.nirs4all.org", "nirs4all-repository"],
 ];
 
 function renderVisits(snap) {
