@@ -149,9 +149,7 @@ def test_runiverse_null_version_reconciles_broken(monkeypatch) -> None:
 
 
 def test_readthedocs_latest_is_green_without_semver_comparison(monkeypatch) -> None:
-    project = {"default_version": "latest"}
-    version = {"active": True, "built": True}
-    _patch(monkeypatch, readthedocs, [(200, project, None), (200, version, None)])
+    monkeypatch.setattr(readthedocs, "probe", lambda url: (200, None))
     collected = readthedocs.collect("nirs4all")
 
     assert collected["published_version"] == "latest"
