@@ -354,6 +354,11 @@ def actions_stats(owner: str, repo: str) -> dict[str, Any]:
     ``total_runs`` is the all-time count; the success rate is computed over the
     most recent (up to 100) runs that have a conclusion, so it reflects current
     health rather than ancient history.
+
+    Runs are filtered to the repo's default branch so the figures track the
+    branch that matters (e.g. ``main``) rather than transient pull-request or
+    Dependabot runs — a single failed PR run must not redden a green default
+    branch. The branch is read from the API, never hardcoded.
     """
     out: dict[str, Any] = {
         "workflows": None, "total_runs": None, "recent_total": 0,
@@ -365,7 +370,8 @@ def actions_stats(owner: str, repo: str) -> dict[str, Any]:
     if wstatus == 200 and isinstance(wbody, dict):
         out["workflows"] = wbody.get("total_count")
 
-    rstatus, rbody, _ = _get(f"{API}/repos/{owner}/{repo}/actions/runs?per_page=100")
+    branch = default_branch(owner, repo) or "main"
+    rstatus, rbody, _ = _get(f"{API}/repos/{owner}/{repo}/actions/runs?branch={branch}&per_page=100")
     if rstatus == 200 and isinstance(rbody, dict):
         out["total_runs"] = rbody.get("total_count")
         runs = [r for r in (rbody.get("workflow_runs") or []) if isinstance(r, dict)]
