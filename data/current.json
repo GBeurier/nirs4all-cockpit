@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-16T23:21:46.718168+00:00",
+  "generated_at": "2026-06-16T23:26:37.056557+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -1880,6 +1880,27 @@
           "error": null
         },
         {
+          "registry": "readthedocs",
+          "name": "nirs4all-papers",
+          "published_version": null,
+          "status": "missing",
+          "planned": true,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": null,
+            "downloads_endpoint": null
+          },
+          "error": null
+        },
+        {
           "registry": "pypi",
           "name": "nirs4all-papers",
           "published_version": "0.2.0",
@@ -3255,7 +3276,7 @@
         "size_kb": 358,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-16T23:12:16Z",
+        "pushed_at": "2026-06-16T23:25:28Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -3282,13 +3303,13 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 103,
+        "total_runs": 106,
         "recent_total": 100,
         "recent_success": 92,
         "recent_failure": 4,
         "success_rate": 95.8,
         "last_conclusion": null,
-        "last_created_at": "2026-06-16T23:20:56Z"
+        "last_created_at": "2026-06-16T23:25:41Z"
       }
     },
     {
@@ -3344,6 +3365,27 @@
           },
           "evidence": {
             "version_endpoint": "http://benchmarks.nirs4all.org/",
+            "downloads_endpoint": null
+          },
+          "error": null
+        },
+        {
+          "registry": "readthedocs",
+          "name": "nirs4all-benchmarks",
+          "published_version": null,
+          "status": "missing",
+          "planned": true,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -3458,27 +3500,6 @@
         },
         {
           "registry": "readthedocs",
-          "name": "nirs4all-repository",
-          "published_version": null,
-          "status": "missing",
-          "planned": true,
-          "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
-            "total": null,
-            "source": null,
-            "by_version": [],
-            "windows": {}
-          },
-          "evidence": {
-            "version_endpoint": null,
-            "downloads_endpoint": null
-          },
-          "error": null
-        },
-        {
-          "registry": "pypi",
           "name": "nirs4all-repository",
           "published_version": null,
           "status": "missing",
@@ -3634,7 +3655,7 @@
   "summary": {
     "green": 76,
     "stale": 0,
-    "missing": 2,
+    "missing": 3,
     "broken": 0,
     "unknown": 0,
     "excluded": 0,
@@ -3651,7 +3672,7 @@
     "loc_total": 1383521,
     "tests": 12167,
     "files": 4016,
-    "workflow_runs": 3982,
+    "workflow_runs": 3985,
     "downloads_last_month": 6912
   },
   "visits": {
