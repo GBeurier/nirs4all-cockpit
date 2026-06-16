@@ -237,17 +237,9 @@ def test_visits_drops_legacy_bare_root_path(monkeypatch) -> None:
 # --------------------------------------------------------------------------- #
 
 
-def test_readthedocs_project_default_version_built(monkeypatch) -> None:
-    project = {
-        "default_version": "latest",
-        "urls": {"documentation": "https://nirs4all.readthedocs.io/en/latest/"},
-    }
-    version = {
-        "active": True,
-        "built": True,
-        "urls": {"documentation": "https://nirs4all.readthedocs.io/en/latest/"},
-    }
-    _patch(monkeypatch, readthedocs, [(200, project, None), (200, version, None)])
+def test_readthedocs_served_default_version_is_green(monkeypatch) -> None:
+    # 200 from the public docs host = the default version is built and served.
+    monkeypatch.setattr(readthedocs, "probe", lambda url: (200, None))
 
     out = readthedocs.collect("nirs4all")
 
@@ -257,13 +249,12 @@ def test_readthedocs_project_default_version_built(monkeypatch) -> None:
     assert out["evidence"]["version_endpoint"] == "https://nirs4all.readthedocs.io/en/latest/"
 
 
-def test_readthedocs_default_version_not_built_is_broken(monkeypatch) -> None:
-    project = {"default_version": "latest"}
-    version = {"active": True, "built": False}
-    _patch(monkeypatch, readthedocs, [(200, project, None), (200, version, None)])
+def test_readthedocs_unknown_project_is_not_published(monkeypatch) -> None:
+    # 404 from the public docs host = no built version for that slug -> missing.
+    monkeypatch.setattr(readthedocs, "probe", lambda url: (404, None))
 
     out = readthedocs.collect("nirs4all")
 
-    assert out["published_version"] == "latest"
-    assert out["http_status"] == 200
-    assert out["broken"] is True
+    assert out["published_version"] is None
+    assert out["http_status"] == 404
+    assert out["broken"] is False
