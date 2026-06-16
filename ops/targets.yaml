@@ -757,12 +757,6 @@ packages:
       - registry: pypi
         name: nirs4all-repository
         state: planned
-        workflow:
-          file: publish.yml
-          trigger: release_published
-          danger: publish
-          publishes_on_dispatch: true
-          inputs: []
     version_aliases: {}
 
   - id: nirs4all-ecosystem
