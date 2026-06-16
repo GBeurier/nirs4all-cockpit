@@ -24,6 +24,7 @@ packages:
     repo: nirs4all
     channel: production
     issues_repo: nirs4all
+    tag_prefix: ""        # nirs4all tags are unprefixed (e.g. 0.10.1), not v-prefixed
     source_of_truth:
       strategy: python_attr
       path: nirs4all/__init__.py
@@ -693,5 +694,60 @@ packages:
     targets:
       - registry: pages
         name: nirs4all-cockpit
+        state: tracked
+    version_aliases: {}
+
+  # ------------------------------------------------------------------------- #
+  # Shell / planning repos — carry a minimal VERSION file + git tag + GitHub
+  # Release so every public project has a version. No registry artifacts (yet).
+  - id: nirs4all-benchmarks
+    repo: nirs4all-benchmarks
+    channel: production
+    issues_repo: nirs4all-benchmarks
+    source_of_truth:
+      strategy: version_file
+      path: VERSION
+    targets:
+      - registry: github-release
+        name: nirs4all-benchmarks
+        state: tracked
+    version_aliases: {}
+
+  - id: nirs4all-papers
+    repo: nirs4all-papers
+    channel: production
+    issues_repo: nirs4all-papers
+    source_of_truth:
+      strategy: version_file
+      path: VERSION
+    targets:
+      - registry: github-release
+        name: nirs4all-papers
+        state: tracked
+    version_aliases: {}
+
+  - id: nirs4all-repository
+    repo: nirs4all-repository
+    channel: production
+    issues_repo: nirs4all-repository
+    source_of_truth:
+      strategy: version_file
+      path: VERSION
+    targets:
+      - registry: github-release
+        name: nirs4all-repository
+        state: tracked
+    version_aliases: {}
+
+  - id: nirs4all-ecosystem
+    repo: nirs4all-ecosystem
+    channel: production
+    issues_repo: nirs4all-ecosystem
+    source_of_truth:
+      strategy: version_file
+      path: VERSION
+    targets:
+      - registry: github-release
+        name: nirs4all-ecosystem
         state: tracked
     version_aliases: {}
