@@ -734,19 +734,6 @@ packages:
         state: tracked
     version_aliases: {}
 
-  - id: nirs4all-papers
-    repo: nirs4all-papers
-    channel: production
-    issues_repo: nirs4all-papers
-    source_of_truth:
-      strategy: version_file
-      path: VERSION
-    targets:
-      - registry: github-release
-        name: nirs4all-papers
-        state: tracked
-    version_aliases: {}
-
   - id: nirs4all-repository
     repo: nirs4all-repository
     channel: production
