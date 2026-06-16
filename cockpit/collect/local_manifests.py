@@ -19,6 +19,8 @@ Strategies (``source_of_truth.strategy``):
 * ``cargo_workspace``  — TOML ``[workspace.package].version``.
 * ``cargo_package``    — TOML ``[package].version``.
 * ``r_description``    — ``Version:`` line of a DESCRIPTION file.
+* ``version_file``     — a plain ``VERSION`` file; the stripped file contents
+  (used by shell / planning repos that carry no package manifest).
 """
 
 from __future__ import annotations
@@ -116,6 +118,10 @@ def _extract(strategy: str, text: str, attr: str | None) -> str | None:
             return json.loads(text).get("version")
         except (json.JSONDecodeError, AttributeError):
             return None
+
+    if strategy == "version_file":
+        stripped = text.strip()
+        return stripped or None
 
     if strategy in ("python_pyproject", "cargo_workspace", "cargo_package"):
         try:
