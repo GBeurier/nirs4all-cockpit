@@ -148,8 +148,16 @@ def test_actions_stats_success_rate(monkeypatch) -> None:
         None,
     )
 
+    repo = (200, {"default_branch": "main"}, None)
+    seen_run_urls: list[str] = []
+
     def _fake(url, headers=None, *, accept="application/json"):  # noqa: ARG001
-        return workflows if "actions/workflows" in url else runs
+        if "actions/workflows" in url:
+            return workflows
+        if "actions/runs" in url:
+            seen_run_urls.append(url)
+            return runs
+        return repo  # /repos/{owner}/{repo} → default branch lookup
 
     monkeypatch.setattr(github, "get_json", _fake)
     out = github.actions_stats("GBeurier", "nirs4all")
@@ -160,3 +168,5 @@ def test_actions_stats_success_rate(monkeypatch) -> None:
     assert out["recent_failure"] == 1
     assert out["success_rate"] == 66.7  # 2 / (2+1)
     assert out["last_conclusion"] == "success"
+    # Runs must be scoped to the default branch, not all branches.
+    assert seen_run_urls and all("branch=main" in u for u in seen_run_urls)
