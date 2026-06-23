@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-23T09:37:09.502553+00:00",
+  "generated_at": "2026-06-23T14:22:58.662354+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -360,13 +360,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 454,
+            "last_month": 455,
             "total": null,
             "source": "npm",
             "by_version": [],
             "windows": {
               "7d": null,
-              "30d": 454,
+              "30d": 455,
               "90d": null,
               "total": null
             }
@@ -808,13 +808,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 317,
+            "last_month": 318,
             "total": null,
             "source": "npm",
             "by_version": [],
             "windows": {
               "7d": null,
-              "30d": 317,
+              "30d": 318,
               "90d": null,
               "total": null
             }
@@ -975,7 +975,7 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 117984,
+        "size_kb": 117988,
         "language": "Rust",
         "license": "AGPL-3.0",
         "pushed_at": "2026-06-23T09:31:26Z",
@@ -1454,15 +1454,13 @@
       "repo": "nirs4all-datasets",
       "source": {
         "manifest_version": "0.2.3",
-        "latest_prod_tag": "v0.2.2",
-        "latest_any_tag": "v0.2.2",
-        "expected_prod_version": "v0.2.2",
+        "latest_prod_tag": "v0.2.3",
+        "latest_any_tag": "v0.2.3",
+        "expected_prod_version": "v0.2.3",
         "commit": null
       },
       "rollup": "stale",
-      "flags": [
-        "source_ahead"
-      ],
+      "flags": [],
       "targets": [
         {
           "registry": "readthedocs",
@@ -1488,7 +1486,7 @@
         {
           "registry": "pypi",
           "name": "nirs4all-datasets",
-          "published_version": "0.2.2",
+          "published_version": "0.2.3",
           "status": "green",
           "planned": false,
           "downloads": {
@@ -1514,7 +1512,7 @@
         {
           "registry": "crates",
           "name": "nirs4all-datasets-core",
-          "published_version": "0.2.2",
+          "published_version": "0.2.3",
           "status": "green",
           "planned": false,
           "downloads": {
@@ -1524,6 +1522,10 @@
             "total": 66,
             "source": "crates.io",
             "by_version": [
+              {
+                "version": "0.2.3",
+                "downloads": 0
+              },
               {
                 "version": "0.2.2",
                 "downloads": 24
@@ -1553,7 +1555,7 @@
         {
           "registry": "crates",
           "name": "nirs4all-datasets-capi",
-          "published_version": "0.2.2",
+          "published_version": "0.2.3",
           "status": "green",
           "planned": false,
           "downloads": {
@@ -1563,6 +1565,10 @@
             "total": 42,
             "source": "crates.io",
             "by_version": [
+              {
+                "version": "0.2.3",
+                "downloads": 0
+              },
               {
                 "version": "0.2.2",
                 "downloads": 14
@@ -1592,7 +1598,7 @@
         {
           "registry": "crates",
           "name": "nirs4all-datasets-cli",
-          "published_version": "0.2.2",
+          "published_version": "0.2.3",
           "status": "green",
           "planned": false,
           "downloads": {
@@ -1602,6 +1608,10 @@
             "total": 41,
             "source": "crates.io",
             "by_version": [
+              {
+                "version": "0.2.3",
+                "downloads": 0
+              },
               {
                 "version": "0.2.2",
                 "downloads": 13
@@ -1631,19 +1641,19 @@
         {
           "registry": "npm",
           "name": "@nirs4all/datasets-wasm",
-          "published_version": "0.2.2",
+          "published_version": "0.2.3",
           "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 485,
+            "last_month": 486,
             "total": null,
             "source": "npm",
             "by_version": [],
             "windows": {
               "7d": null,
-              "30d": 485,
+              "30d": 486,
               "90d": null,
               "total": null
             }
@@ -1657,7 +1667,7 @@
         {
           "registry": "r-universe",
           "name": "nirs4alldatasets",
-          "published_version": "0.2.2",
+          "published_version": "0.2.3",
           "status": "green",
           "planned": false,
           "downloads": {
@@ -1704,7 +1714,7 @@
         {
           "registry": "github-release",
           "name": "nirs4all-datasets",
-          "published_version": "0.2.2",
+          "published_version": "0.2.3",
           "status": "green",
           "planned": false,
           "downloads": {
@@ -1750,26 +1760,26 @@
         {
           "file": "release-python.yml",
           "conclusion": "success",
-          "created_at": "2026-06-16T14:39:29Z",
-          "head_sha": "e962415b898cd2686635764b29d1d4bee49a1a62"
+          "created_at": "2026-06-23T13:39:36Z",
+          "head_sha": "7b0729361c950a4787190dedde9ce49f7e0b3793"
         },
         {
           "file": "release-crates.yml",
           "conclusion": "success",
-          "created_at": "2026-06-16T14:39:29Z",
-          "head_sha": "e962415b898cd2686635764b29d1d4bee49a1a62"
+          "created_at": "2026-06-23T13:39:36Z",
+          "head_sha": "7b0729361c950a4787190dedde9ce49f7e0b3793"
         },
         {
           "file": "release-npm.yml",
           "conclusion": "success",
-          "created_at": "2026-06-16T14:39:29Z",
-          "head_sha": "e962415b898cd2686635764b29d1d4bee49a1a62"
+          "created_at": "2026-06-23T13:39:37Z",
+          "head_sha": "7b0729361c950a4787190dedde9ce49f7e0b3793"
         },
         {
           "file": "release-r.yml",
           "conclusion": "success",
-          "created_at": "2026-06-16T14:39:29Z",
-          "head_sha": "e962415b898cd2686635764b29d1d4bee49a1a62"
+          "created_at": "2026-06-23T13:39:36Z",
+          "head_sha": "7b0729361c950a4787190dedde9ce49f7e0b3793"
         }
       ],
       "issues": {
@@ -1786,7 +1796,7 @@
         "size_kb": 252492,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-23T07:27:37Z",
+        "pushed_at": "2026-06-23T13:39:29Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -1817,10 +1827,10 @@
         "workflows": 12,
         "total_runs": 206,
         "recent_total": 100,
-        "recent_success": 97,
-        "recent_failure": 3,
-        "success_rate": 97.0,
-        "last_conclusion": "failure",
+        "recent_success": 98,
+        "recent_failure": 2,
+        "success_rate": 98.0,
+        "last_conclusion": "success",
         "last_created_at": "2026-06-23T07:27:39Z"
       }
     },
@@ -2080,13 +2090,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 316,
+            "last_month": 318,
             "total": null,
             "source": "npm",
             "by_version": [],
             "windows": {
               "7d": null,
-              "30d": 316,
+              "30d": 318,
               "90d": null,
               "total": null
             }
@@ -2501,8 +2511,8 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 70,
-            "total": 70,
+            "last_month": 71,
+            "total": 71,
             "source": "crates.io",
             "by_version": [
               {
@@ -2511,7 +2521,7 @@
               },
               {
                 "version": "0.2.0",
-                "downloads": 29
+                "downloads": 30
               },
               {
                 "version": "0.1.0-alpha.0",
@@ -2521,8 +2531,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 70,
-              "total": 70
+              "90d": 71,
+              "total": 71
             }
           },
           "evidence": {
@@ -2540,8 +2550,8 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 115,
-            "total": 115,
+            "last_month": 116,
+            "total": 116,
             "source": "crates.io",
             "by_version": [
               {
@@ -2550,7 +2560,7 @@
               },
               {
                 "version": "0.2.0",
-                "downloads": 41
+                "downloads": 42
               },
               {
                 "version": "0.1.0-alpha.0",
@@ -2560,8 +2570,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 115,
-              "total": 115
+              "90d": 116,
+              "total": 116
             }
           },
           "evidence": {
@@ -2782,8 +2792,8 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 179,
-            "total": 179,
+            "last_month": 187,
+            "total": 187,
             "source": "crates.io",
             "by_version": [
               {
@@ -2792,18 +2802,18 @@
               },
               {
                 "version": "0.2.0",
-                "downloads": 29
+                "downloads": 30
               },
               {
                 "version": "0.1.0-alpha.0",
-                "downloads": 133
+                "downloads": 140
               }
             ],
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 179,
-              "total": 179
+              "90d": 187,
+              "total": 187
             }
           },
           "evidence": {
@@ -2821,8 +2831,8 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 231,
-            "total": 231,
+            "last_month": 239,
+            "total": 239,
             "source": "crates.io",
             "by_version": [
               {
@@ -2831,18 +2841,18 @@
               },
               {
                 "version": "0.2.0",
-                "downloads": 44
+                "downloads": 45
               },
               {
                 "version": "0.1.0-alpha.0",
-                "downloads": 142
+                "downloads": 149
               }
             ],
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 231,
-              "total": 231
+              "90d": 239,
+              "total": 239
             }
           },
           "evidence": {
@@ -3275,10 +3285,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 382,
+        "size_kb": 386,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-23T09:26:57Z",
+        "pushed_at": "2026-06-23T09:39:23Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -3305,13 +3315,13 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 129,
+        "total_runs": 131,
         "recent_total": 100,
         "recent_success": 91,
         "recent_failure": 4,
         "success_rate": 95.8,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-23T09:27:05Z"
+        "last_created_at": "2026-06-23T09:39:28Z"
       }
     },
     {
@@ -3560,13 +3570,13 @@
       },
       "actions_stats": {
         "workflows": 9,
-        "total_runs": 26,
-        "recent_total": 26,
-        "recent_success": 25,
+        "total_runs": 27,
+        "recent_total": 27,
+        "recent_success": 26,
         "recent_failure": 1,
-        "success_rate": 96.2,
+        "success_rate": 96.3,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-22T05:13:51Z"
+        "last_created_at": "2026-06-23T09:43:22Z"
       }
     },
     {
@@ -3674,8 +3684,8 @@
     "loc_total": 1384020,
     "tests": 12190,
     "files": 4021,
-    "workflow_runs": 4089,
-    "downloads_last_month": 10735
+    "workflow_runs": 4092,
+    "downloads_last_month": 10758
   },
   "visits": {
     "available": true,
