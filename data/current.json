@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-06-23T14:22:58.662354+00:00",
+  "generated_at": "2026-06-24T01:16:17.140945+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -1518,13 +1518,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 66,
-            "total": 66,
+            "last_month": 85,
+            "total": 85,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.3",
-                "downloads": 0
+                "downloads": 19
               },
               {
                 "version": "0.2.2",
@@ -1542,8 +1542,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 66,
-              "total": 66
+              "90d": 85,
+              "total": 85
             }
           },
           "evidence": {
@@ -1561,13 +1561,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 42,
-            "total": 42,
+            "last_month": 53,
+            "total": 53,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.3",
-                "downloads": 0
+                "downloads": 11
               },
               {
                 "version": "0.2.2",
@@ -1585,8 +1585,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 42,
-              "total": 42
+              "90d": 53,
+              "total": 53
             }
           },
           "evidence": {
@@ -1604,13 +1604,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 41,
-            "total": 41,
+            "last_month": 52,
+            "total": 52,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.3",
-                "downloads": 0
+                "downloads": 11
               },
               {
                 "version": "0.2.2",
@@ -1628,8 +1628,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 41,
-              "total": 41
+              "90d": 52,
+              "total": 52
             }
           },
           "evidence": {
@@ -1694,13 +1694,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 39,
+            "last_month": 68,
             "total": null,
             "source": "cranlogs",
             "by_version": [],
             "windows": {
               "7d": null,
-              "30d": 39,
+              "30d": 68,
               "90d": null,
               "total": null
             }
@@ -3285,10 +3285,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 386,
+        "size_kb": 388,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-06-23T09:39:23Z",
+        "pushed_at": "2026-06-23T14:24:38Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -3315,13 +3315,13 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 131,
+        "total_runs": 133,
         "recent_total": 100,
-        "recent_success": 91,
-        "recent_failure": 4,
-        "success_rate": 95.8,
+        "recent_success": 92,
+        "recent_failure": 3,
+        "success_rate": 96.8,
         "last_conclusion": "success",
-        "last_created_at": "2026-06-23T09:39:28Z"
+        "last_created_at": "2026-06-23T14:24:44Z"
       }
     },
     {
@@ -3684,27 +3684,32 @@
     "loc_total": 1384020,
     "tests": 12190,
     "files": 4021,
-    "workflow_runs": 4092,
-    "downloads_last_month": 10758
+    "workflow_runs": 4094,
+    "downloads_last_month": 10828
   },
   "visits": {
     "available": true,
     "site": "https://nirs4all.goatcounter.com",
     "windows": {
-      "7d": 108,
-      "30d": 171,
-      "365d": 171,
-      "total": 171
+      "7d": 77,
+      "30d": 189,
+      "365d": 189,
+      "total": 189
     },
     "pages": [
       {
         "path": "/org",
         "title": "nirs4all | Open-Source NIR Spectroscopy Software for Python and Desktop",
-        "count": 61
+        "count": 64
       },
       {
         "path": "/papers",
         "title": "nirs4all-papers — reproducible deposited pipelines",
+        "count": 21
+      },
+      {
+        "path": "/datasets",
+        "title": "nirs4all-datasets — a citable, reproducible bank of raw NIRS reference datasets",
         "count": 20
       },
       {
@@ -3713,28 +3718,23 @@
         "count": 16
       },
       {
-        "path": "/datasets",
-        "title": "nirs4all-datasets — a citable, reproducible bank of raw NIRS reference datasets",
-        "count": 12
-      },
-      {
         "path": "/cockpit",
         "title": "nirs4all · cockpit — release & health",
-        "count": 11
+        "count": 15
       },
       {
         "path": "/formats",
         "title": "nirs4all-formats · in-browser spectroscopy file reader (WASM demo)",
+        "count": 8
+      },
+      {
+        "path": "/io",
+        "title": "nirs4all-io · WASM dataset builder",
         "count": 7
       },
       {
         "path": "/methods",
         "title": "nirs4all-methods · parity & benchmark explorer",
-        "count": 6
-      },
-      {
-        "path": "/io",
-        "title": "nirs4all-io · WASM dataset builder",
         "count": 6
       },
       {
