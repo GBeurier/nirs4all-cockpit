@@ -210,3 +210,38 @@ def test_actions_stats_skips_in_progress_newest_run(monkeypatch) -> None:
     assert out["recent_success"] == 1
     assert out["recent_failure"] == 1
     assert out["success_rate"] == 50.0
+
+
+def test_workflow_last_run_uses_default_branch(monkeypatch) -> None:
+    seen_urls: list[str] = []
+
+    def _fake_get(url):
+        seen_urls.append(url)
+        if url.endswith("/repos/GBeurier/nirs4all"):
+            return 200, {"default_branch": "main"}, None
+        if "actions/workflows/publish.yml/runs" in url:
+            return (
+                200,
+                {
+                    "workflow_runs": [
+                        {
+                            "conclusion": "success",
+                            "created_at": "2026-06-26T06:37:35Z",
+                            "head_sha": "abc123",
+                        }
+                    ]
+                },
+                None,
+            )
+        raise AssertionError(url)
+
+    monkeypatch.setattr(github, "_get", _fake_get)
+    out = github.workflow_last_run("GBeurier", "nirs4all", "publish.yml")
+
+    assert out == {
+        "file": "publish.yml",
+        "conclusion": "success",
+        "created_at": "2026-06-26T06:37:35Z",
+        "head_sha": "abc123",
+    }
+    assert any("actions/workflows/publish.yml/runs?branch=main&per_page=1" in url for url in seen_urls)
