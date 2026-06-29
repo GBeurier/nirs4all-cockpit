@@ -207,8 +207,59 @@ def test_github_release_asset_downloads_become_all_time_downloads(monkeypatch) -
     assert status.downloads.source == "github-release-assets"
 
 
+def test_source_versions_include_release_commit_and_ahead_dates(monkeypatch) -> None:
+    monkeypatch.setattr(rec.github, "tags", lambda owner, repo: ["v1.2.0", "v1.1.0"])  # noqa: ARG005
+    monkeypatch.setattr(
+        rec.github,
+        "latest_release",
+        lambda owner, repo: {  # noqa: ARG005
+            "tag_name": "v1.2.0",
+            "published_at": "2026-06-29T13:19:56Z",
+            "asset_downloads": 10,
+        },
+    )
+    monkeypatch.setattr(
+        rec.github,
+        "tag_fact",
+        lambda owner, repo, tag: {  # noqa: ARG005
+            "tag": tag,
+            "tagged_at": "2026-06-29T13:10:00Z",
+            "source": "annotated-tag",
+            "target_sha": "abc123",
+        },
+    )
+    monkeypatch.setattr(
+        rec.github,
+        "default_branch_commit",
+        lambda owner, repo: {  # noqa: ARG005
+            "sha": "def456",
+            "committed_at": "2026-06-29T13:30:00Z",
+            "branch": "main",
+        },
+    )
+    monkeypatch.setattr(rec.github, "commits_ahead", lambda owner, repo, base, head=None: 2)  # noqa: ARG005
+    pkg = Package(id="nirs4all-formats", repo="nirs4all-formats", targets=[])
+
+    facts = rec._source_versions("GBeurier", pkg, no_network=False)
+
+    assert facts["latest_prod_tag"] == "v1.2.0"
+    assert facts["latest_version_source"] == "release"
+    assert facts["latest_version_at"] == "2026-06-29T13:19:56Z"
+    assert facts["last_commit_at"] == "2026-06-29T13:30:00Z"
+    assert facts["commit"] == "def456"
+    assert facts["commits_ahead_of_latest_prod_tag"] == 2
+
+
 def test_package_primary_language_overrides_github_language(monkeypatch) -> None:
     monkeypatch.setattr(rec.github, "tags", lambda owner, repo: [])  # noqa: ARG005
+    monkeypatch.setattr(rec.github, "latest_release", lambda owner, repo: None)  # noqa: ARG005
+    monkeypatch.setattr(rec.github, "tag_fact", lambda owner, repo, tag: None)  # noqa: ARG005
+    monkeypatch.setattr(
+        rec.github,
+        "default_branch_commit",
+        lambda owner, repo: {"sha": "abc123", "committed_at": "2026-06-29T00:00:00Z", "branch": "main"},  # noqa: ARG005
+    )
+    monkeypatch.setattr(rec.github, "commits_ahead", lambda owner, repo, base, head=None: 0)  # noqa: ARG005
     monkeypatch.setattr(rec.github, "open_issues", lambda owner, repo: {"open": 0, "bugs": 0})  # noqa: ARG005
     monkeypatch.setattr(
         rec.github,

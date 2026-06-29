@@ -47,6 +47,11 @@ function el(tag, opts = {}, children = []) {
 const fmtInt = (x) => (x == null ? "—" : Number(x).toLocaleString("en-US"));
 function fmtDate(iso) { if (!iso) return "—"; const d = new Date(iso); return isNaN(d) ? iso : d.toISOString().slice(0, 10); }
 function fmtDateTime(iso) { if (!iso) return "—"; const d = new Date(iso); return isNaN(d) ? iso : `${d.toISOString().slice(0, 16).replace("T", " ")} UTC`; }
+function versionDateLabel(src) {
+  if (!src || !src.latest_version_at) return null;
+  const label = src.latest_version_source === "release" ? "release" : "tag";
+  return `${label} ${fmtDate(src.latest_version_at)}`;
+}
 
 function led(state) { return el("span", { class: `led led--${state}`, attrs: { role: "img", "aria-label": state } }); }
 
@@ -186,7 +191,14 @@ function renderMatrix(snap) {
     tr.appendChild(cPkg);
 
     const src = pkg.source || {};
-    tr.appendChild(el("td", { class: "c-ver", text: src.manifest_version ? `v${src.manifest_version}` : "—" }));
+    const verTd = el("td", { class: "c-ver" });
+    verTd.appendChild(el("span", { class: "ver-main", text: src.manifest_version ? `v${src.manifest_version}` : "—" }));
+    const vdate = versionDateLabel(src);
+    if (vdate) verTd.appendChild(el("span", { class: "ver-date", text: vdate }));
+    if (src.commits_ahead_of_latest_prod_tag > 0) {
+      verTd.appendChild(el("span", { class: "ver-ahead", text: `+${src.commits_ahead_of_latest_prod_tag}` }));
+    }
+    tr.appendChild(verTd);
 
     for (const reg of REGS) {
       const td = el("td", { class: "c-led" });
@@ -292,17 +304,36 @@ function licenseCell(rawLicense) {
   return td;
 }
 
+function dateCell(iso, label, href) {
+  const td = el("td", { class: "num datecell" });
+  const wrap = href
+    ? el("a", { class: "datecell-link", attrs: { href, target: "_blank", rel: "noopener" } })
+    : el("span");
+  wrap.appendChild(el("span", { class: "datecell-main", text: iso ? fmtDate(iso) : "—" }));
+  if (label) wrap.appendChild(el("span", { class: "datecell-label", text: label }));
+  td.appendChild(wrap);
+  return td;
+}
+
 function renderRepoStats(snap) {
   const box = document.getElementById("repostats");
   box.innerHTML = "";
   const table = el("table", { class: "stats" });
   const thead = el("thead"), hr = el("tr");
-  for (const h of ["repo", "★ stars", "forks", "watch", "open PR", "merged", "closed", "issues", "license", "pushed"]) hr.appendChild(el("th", { text: h }));
+  for (const h of ["repo", "★ stars", "forks", "watch", "open PR", "merged", "closed", "issues", "license", "version date", "last commit", "ahead", "last push"]) hr.appendChild(el("th", { text: h }));
   thead.appendChild(hr); table.appendChild(thead);
   const tbody = el("tbody");
   for (const pkg of snap.packages || []) {
     const s = pkg.repo_stats; if (!s) continue;
+    const src = pkg.source || {};
     const base = `https://github.com/${OWNER}/${pkg.repo}`;
+    const tagPath = src.latest_prod_tag ? encodeURIComponent(src.latest_prod_tag) : null;
+    const versionHref = tagPath
+      ? (src.latest_version_source === "release" ? `${base}/releases/tag/${tagPath}` : `${base}/tree/${tagPath}`)
+      : null;
+    const commitHref = src.commit ? `${base}/commit/${src.commit}` : null;
+    const branch = s.default_branch || "main";
+    const aheadHref = src.latest_prod_tag ? `${base}/compare/${encodeURIComponent(src.latest_prod_tag)}...${encodeURIComponent(branch)}` : null;
     const tr = el("tr");
     const repoTd = el("th", { class: "s-repo", attrs: { scope: "row" } });
     repoTd.appendChild(el("a", { text: pkg.repo, attrs: { href: base, target: "_blank", rel: "noopener" } }));
@@ -315,7 +346,10 @@ function renderRepoStats(snap) {
     tr.appendChild(numLink(s.closed_prs, `${base}/pulls?q=is%3Apr+is%3Aclosed`));
     tr.appendChild(numLink(pkg.issues ? pkg.issues.open : null, `${base}/issues`));
     tr.appendChild(licenseCell(s.license));
-    tr.appendChild(el("td", { class: "num", text: s.pushed_at ? fmtDate(s.pushed_at) : "—" }));
+    tr.appendChild(dateCell(src.latest_version_at, src.latest_version_source || null, versionHref));
+    tr.appendChild(dateCell(src.last_commit_at, "commit", commitHref));
+    tr.appendChild(numLink(src.commits_ahead_of_latest_prod_tag, aheadHref || `${base}/commits/${branch}`));
+    tr.appendChild(dateCell(s.pushed_at, "push", `${base}/commits/${branch}`));
     tbody.appendChild(tr);
   }
   table.appendChild(tbody); box.appendChild(table);
