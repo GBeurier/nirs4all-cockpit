@@ -100,6 +100,12 @@ class PackageSource(BaseModel):
     latest_any_tag: str | None = None
     expected_prod_version: str | None = None
     commit: str | None = None
+    latest_prod_tag_at: str | None = None
+    latest_release_at: str | None = None
+    latest_version_at: str | None = None
+    latest_version_source: str | None = None
+    last_commit_at: str | None = None
+    commits_ahead_of_latest_prod_tag: int | None = None
 
 
 class Issues(BaseModel):

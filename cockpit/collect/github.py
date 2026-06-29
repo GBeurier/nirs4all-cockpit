@@ -98,6 +98,73 @@ def latest_release(owner: str, repo: str) -> dict[str, Any] | None:
     return None
 
 
+def commit_fact(owner: str, repo: str, ref: str) -> dict[str, Any] | None:
+    """Return one commit's SHA and committer date for a branch, tag, or SHA ref."""
+    ref_path = quote(ref, safe="")
+    status, body, _error = _get(f"{API}/repos/{owner}/{repo}/commits/{ref_path}")
+    if status == 200 and isinstance(body, dict):
+        commit = body.get("commit") if isinstance(body.get("commit"), dict) else {}
+        committer = commit.get("committer") if isinstance(commit.get("committer"), dict) else {}
+        author = commit.get("author") if isinstance(commit.get("author"), dict) else {}
+        return {
+            "sha": body.get("sha"),
+            "committed_at": committer.get("date") or author.get("date"),
+        }
+    return None
+
+
+def default_branch_commit(owner: str, repo: str) -> dict[str, Any] | None:
+    """Return the latest commit fact on the repository default branch."""
+    branch = default_branch(owner, repo) or "main"
+    fact = commit_fact(owner, repo, branch)
+    if fact is not None:
+        fact["branch"] = branch
+    return fact
+
+
+def tag_fact(owner: str, repo: str, tag: str) -> dict[str, Any] | None:
+    """Return tag date metadata, using tagger date for annotated tags when present."""
+    tag_path = quote(tag, safe="")
+    status, body, _error = _get(f"{API}/repos/{owner}/{repo}/git/ref/tags/{tag_path}")
+    if status == 200 and isinstance(body, dict):
+        obj = body.get("object") if isinstance(body.get("object"), dict) else {}
+        if obj.get("type") == "tag" and obj.get("url"):
+            t_status, t_body, _ = _get(obj["url"])
+            if t_status == 200 and isinstance(t_body, dict):
+                tagger = t_body.get("tagger") if isinstance(t_body.get("tagger"), dict) else {}
+                target = t_body.get("object") if isinstance(t_body.get("object"), dict) else {}
+                return {
+                    "tag": tag,
+                    "tagged_at": tagger.get("date"),
+                    "source": "annotated-tag",
+                    "target_sha": target.get("sha"),
+                }
+        commit = commit_fact(owner, repo, tag)
+        if commit is not None:
+            return {
+                "tag": tag,
+                "tagged_at": commit.get("committed_at"),
+                "source": "commit-tag",
+                "target_sha": commit.get("sha"),
+            }
+    return None
+
+
+def commits_ahead(owner: str, repo: str, base: str, head: str | None = None) -> int | None:
+    """Return how many commits ``head`` is ahead of ``base`` using GitHub compare."""
+    if not base:
+        return None
+    head_ref = head or default_branch(owner, repo) or "main"
+    base_path = quote(base, safe="")
+    head_path = quote(head_ref, safe="")
+    url = f"{API}/repos/{owner}/{repo}/compare/{base_path}...{head_path}"
+    status, body, _error = _get(url)
+    if status == 200 and isinstance(body, dict):
+        ahead = body.get("ahead_by")
+        return ahead if isinstance(ahead, int) else None
+    return None
+
+
 def repo_stats(owner: str, repo: str, *, with_traffic: bool = False) -> dict[str, Any]:
     """Collect public repo stats, and (only when ``with_traffic``) 14-day traffic.
 

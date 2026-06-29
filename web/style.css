@@ -217,7 +217,10 @@ section.block { margin: 0 0 34px; }
 .mx .c-pkg a:hover .pkg-name { color: var(--teal-d); }
 .pkg-name { font-family: var(--display); font-weight: 600; }
 .pkg-flag { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--amber); border: 1px solid color-mix(in srgb, var(--amber) 32%, transparent); border-radius: 5px; padding: 0 5px; }
-.mx .c-ver { text-align: left; font-family: var(--mono); font-size: 0.78rem; color: var(--text-2); }
+.mx .c-ver { text-align: left; font-family: var(--mono); font-size: 0.78rem; color: var(--text-2); min-width: 116px; }
+.ver-main { display: block; color: var(--text); font-weight: 700; }
+.ver-date { display: block; margin-top: 1px; color: var(--muted); font-size: 0.64rem; }
+.ver-ahead { display: inline-block; margin-top: 3px; padding: 0 5px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--amber) 30%, transparent); color: var(--amber); font-size: 0.62rem; }
 .mx .c-led a, .mx .c-led span.led { cursor: default; }
 .mx .c-led a { display: inline-block; line-height: 0; }
 .mx .c-led a:hover .led { transform: scale(1.25); transition: transform 0.12s ease; }
@@ -280,6 +283,11 @@ section.block { margin: 0 0 34px; }
 .stats .num { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--text-2); }
 .stats a.num { color: var(--text-2); text-decoration: none; border-bottom: 1px dotted var(--line); }
 .stats a.num:hover { color: var(--teal-d); border-bottom-color: var(--teal); }
+.datecell { vertical-align: top; }
+.datecell-link, .datecell span { color: inherit; text-decoration: none; }
+.datecell-link:hover .datecell-main { color: var(--teal-d); }
+.datecell-main { display: block; color: var(--text-2); }
+.datecell-label { display: block; color: var(--muted); font-size: 0.64rem; line-height: 1.1; }
 .bar { position: relative; height: 7px; border-radius: 999px; background: var(--paper-2); overflow: hidden; min-width: 56px; display: inline-block; vertical-align: middle; }
 .bar > i { position: absolute; inset: 0 auto 0 0; border-radius: 999px; background: linear-gradient(90deg, var(--teal), var(--cyan)); }
 .conclusion { display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; }

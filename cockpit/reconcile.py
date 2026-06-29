@@ -21,6 +21,7 @@ from __future__ import annotations
 import re
 from collections.abc import Iterable
 from pathlib import Path
+from typing import Any
 
 import yaml
 
@@ -193,7 +194,9 @@ def build_snapshot(
 
 
 def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traffic: bool = False) -> PackageStatus:
-    manifest, latest_prod, latest_any, commit = _source_versions(owner, pkg, no_network=no_network)
+    source_facts = _source_versions(owner, pkg, no_network=no_network)
+    manifest = source_facts.get("manifest_version")
+    latest_prod = source_facts.get("latest_prod_tag")
     expected = ver.derive_expected(manifest, latest_prod)
 
     flags: list[str] = []
@@ -241,13 +244,7 @@ def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traff
     return PackageStatus(
         id=pkg.id,
         repo=pkg.repo,
-        source=PackageSource(
-            manifest_version=manifest,
-            latest_prod_tag=latest_prod,
-            latest_any_tag=latest_any,
-            expected_prod_version=expected,
-            commit=commit,
-        ),
+        source=PackageSource.model_validate({**source_facts, "expected_prod_version": expected}),
         rollup=rollup,
         flags=flags,
         targets=target_statuses,
@@ -259,12 +256,22 @@ def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traff
     )
 
 
-def _source_versions(
-    owner: str, pkg: Package, *, no_network: bool
-) -> tuple[str | None, str | None, str | None, str | None]:
-    """Resolve the four version facts: manifest, latest prod tag, latest any tag, commit."""
+def _source_versions(owner: str, pkg: Package, *, no_network: bool) -> dict[str, Any]:
+    """Resolve source-version facts, tag/release dates, latest commit date, and ahead count."""
+    empty = {
+        "manifest_version": None,
+        "latest_prod_tag": None,
+        "latest_any_tag": None,
+        "commit": None,
+        "latest_prod_tag_at": None,
+        "latest_release_at": None,
+        "latest_version_at": None,
+        "latest_version_source": None,
+        "last_commit_at": None,
+        "commits_ahead_of_latest_prod_tag": None,
+    }
     if no_network:
-        return None, None, None, None
+        return empty
 
     sot = pkg.source_of_truth
     manifest = None
@@ -280,7 +287,32 @@ def _source_versions(
     tag_names = github.tags(owner, pkg.repo)
     latest_prod = _latest_prod_tag(tag_names, pkg.tag_prefix)
     latest_any = _latest_any_tag(tag_names, pkg.tag_prefix)
-    return manifest, latest_prod, latest_any, None
+    latest_release = github.latest_release(owner, pkg.repo)
+    latest_release_tag = latest_release.get("tag_name") if latest_release else None
+    latest_release_at = latest_release.get("published_at") if latest_release else None
+    tag_meta = github.tag_fact(owner, pkg.repo, latest_prod) if latest_prod else None
+    latest_prod_tag_at = tag_meta.get("tagged_at") if tag_meta else None
+    head = github.default_branch_commit(owner, pkg.repo)
+    branch = head.get("branch") if head else None
+    latest_version_at = latest_prod_tag_at
+    latest_version_source = "tag" if latest_prod_tag_at else None
+    if latest_release_tag == latest_prod and latest_release_at:
+        latest_version_at = latest_release_at
+        latest_version_source = "release"
+    return {
+        "manifest_version": manifest,
+        "latest_prod_tag": latest_prod,
+        "latest_any_tag": latest_any,
+        "commit": head.get("sha") if head else None,
+        "latest_prod_tag_at": latest_prod_tag_at,
+        "latest_release_at": latest_release_at,
+        "latest_version_at": latest_version_at,
+        "latest_version_source": latest_version_source,
+        "last_commit_at": head.get("committed_at") if head else None,
+        "commits_ahead_of_latest_prod_tag": (
+            github.commits_ahead(owner, pkg.repo, latest_prod, branch) if latest_prod else None
+        ),
+    }
 
 
 def _latest_prod_tag(tag_names: list[str], tag_prefix: str = "v") -> str | None:
