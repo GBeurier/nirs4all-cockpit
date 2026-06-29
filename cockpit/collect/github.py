@@ -20,6 +20,7 @@ from __future__ import annotations
 import os
 import re
 from typing import Any
+from urllib.parse import quote
 
 from ..http import get_json
 
@@ -212,6 +213,10 @@ def release_asset_matches(owner: str, repo: str, pattern: str) -> bool:
 def workflow_last_run(owner: str, repo: str, workflow_file: str) -> dict[str, Any] | None:
     """Return the most recent run of one workflow file (conclusion + sha + time).
 
+    Runs are scoped to the repository's default branch. Release tags and feature
+    branches can run the same workflow file, but the public cockpit should report
+    the health of the production branch only.
+
     Args:
         owner: Repo owner.
         repo: Repo name.
@@ -221,7 +226,11 @@ def workflow_last_run(owner: str, repo: str, workflow_file: str) -> dict[str, An
         ``{"file", "conclusion", "created_at", "head_sha"}`` for the newest run,
         or ``None`` if the workflow has never run / is unreachable.
     """
-    url = f"{API}/repos/{owner}/{repo}/actions/workflows/{workflow_file}/runs?per_page=1"
+    branch = default_branch(owner, repo) or "main"
+    url = (
+        f"{API}/repos/{owner}/{repo}/actions/workflows/{workflow_file}/runs"
+        f"?branch={quote(branch, safe='')}&per_page=1"
+    )
     status, body, _error = _get(url)
     if status == 200 and isinstance(body, dict):
         runs = body.get("workflow_runs") or []

@@ -258,3 +258,15 @@ def test_readthedocs_unknown_project_is_not_published(monkeypatch) -> None:
     assert out["published_version"] is None
     assert out["http_status"] == 404
     assert out["broken"] is False
+
+
+def test_readthedocs_probe_timeout_degrades_to_error(monkeypatch) -> None:
+    def _timeout(*args, **kwargs):  # noqa: ARG001
+        raise TimeoutError("timed out")
+
+    monkeypatch.setattr(readthedocs, "urlopen", _timeout)
+
+    status, error = readthedocs.probe("https://nirs4all.readthedocs.io/en/latest/")
+
+    assert status == 0
+    assert error == "TimeoutError: timed out"

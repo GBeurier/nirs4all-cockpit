@@ -39,6 +39,8 @@ def probe(url: str) -> tuple[int, str | None]:
         return exc.code, None
     except URLError as exc:
         return 0, f"{type(exc).__name__}: {exc}"
+    except TimeoutError as exc:
+        return 0, f"{type(exc).__name__}: {exc}"
 
 
 def collect(name: str) -> dict[str, Any]:
