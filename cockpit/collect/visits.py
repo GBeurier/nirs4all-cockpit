@@ -53,7 +53,7 @@ def collect(
     site = (site or os.environ.get("GOATCOUNTER_SITE", DEFAULT_SITE)).rstrip("/")
     token = token or os.environ.get("GOATCOUNTER_TOKEN")
 
-    out: dict[str, Any] = {"available": False, "site": site, "windows": {}, "pages": [], "error": None}
+    out: dict[str, Any] = {"available": False, "site": site, "windows": {}, "since": None, "pages": [], "error": None}
     if not token:
         out["error"] = "no GOATCOUNTER_TOKEN in env (create one in GoatCounter → Settings → API)"
         return out
@@ -62,17 +62,28 @@ def collect(
     end = today.isoformat()
     headers = {"Authorization": f"Bearer {token}"}
 
-    def _total(start: str) -> int | None:
+    def _total_body(start: str) -> dict[str, Any] | None:
         status, body, _error = get_json(f"{site}/api/v0/stats/total?start={start}&end={end}", headers=headers)
-        if status == 200 and isinstance(body, dict):
-            v = body.get("total")
-            return v if isinstance(v, int) else None
-        return None
+        return body if status == 200 and isinstance(body, dict) else None
+
+    def _total(start: str) -> int | None:
+        body = _total_body(start)
+        v = body.get("total") if body else None
+        return v if isinstance(v, int) else None
 
     windows: dict[str, int | None] = {
         key: _total((today - timedelta(days=days)).isoformat()) for key, days in _WINDOWS.items()
     }
-    windows["total"] = _total(_EPOCH)
+    # The all-time call carries a per-day ``stats`` array (HitListStat); the first
+    # day with traffic is when this GoatCounter site began recording — surfaced as
+    # ``since`` so the dashboard can show "all-time · since <date>".
+    alltime = _total_body(_EPOCH) or {}
+    total = alltime.get("total")
+    windows["total"] = total if isinstance(total, int) else None
+    for s in alltime.get("stats") or []:
+        if isinstance(s, dict) and (s.get("daily") or 0) > 0 and s.get("day"):
+            out["since"] = s["day"]
+            break
     out["windows"] = windows
 
     if include_pages:

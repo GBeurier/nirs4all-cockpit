@@ -227,6 +227,7 @@ class Visits(BaseModel):
     available: bool = False
     site: str | None = None
     windows: dict = Field(default_factory=dict)
+    since: str | None = None
     pages: list[VisitPage] = Field(default_factory=list)
     error: str | None = None
 
