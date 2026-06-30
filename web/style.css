@@ -310,6 +310,9 @@ section.block { margin: 0 0 34px; }
 .sentry-stat__l { font-size: 0.71rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
 .sentry-stat--alert { border-color: color-mix(in srgb, var(--broken) 42%, var(--line)); background: color-mix(in srgb, var(--broken) 7%, var(--surface-2)); }
 .sentry-stat--alert .sentry-stat__n { color: var(--broken); }
+.sentry-stat--link { text-decoration: none; color: inherit; cursor: pointer; transition: border-color 0.12s ease, transform 0.12s ease; }
+.sentry-stat--link:hover { border-color: color-mix(in srgb, var(--broken) 60%, var(--line)); transform: translateY(-1px); }
+.sentry-stat--link .sentry-stat__l::after { content: " ↗"; opacity: 0.6; }
 @media (max-width: 620px) { .sentry-head { grid-template-columns: repeat(2, 1fr); } }
 .vcap { font-size: 0.78rem; color: var(--muted); margin: 18px 0 11px; }
 .visits-table { margin-top: 16px; }

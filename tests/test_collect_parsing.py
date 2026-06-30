@@ -232,6 +232,29 @@ def test_visits_drops_legacy_bare_root_path(monkeypatch) -> None:
     assert [p["path"] for p in out["pages"]] == ["/formats/"]
 
 
+def test_visits_since_is_first_day_with_traffic(monkeypatch) -> None:
+    # The all-time call (start=2020-01-01) carries a per-day stats array; "since"
+    # is the earliest day with daily>0, ignoring leading empty days.
+    def _fake(url, headers=None, *, accept="application/json"):  # noqa: ARG001
+        if "start=2020-01-01" in url:
+            return 200, {
+                "total": 248,
+                "stats": [
+                    {"day": "2026-06-08", "daily": 0},
+                    {"day": "2026-06-09", "daily": 11},
+                    {"day": "2026-06-10", "daily": 4},
+                ],
+            }, None
+        return 200, {"total": 30}, None
+
+    monkeypatch.setattr(visits, "get_json", _fake)
+
+    out = visits.collect(token="tok", ref_date="2026-06-12")
+
+    assert out["windows"]["total"] == 248
+    assert out["since"] == "2026-06-09"
+
+
 # --------------------------------------------------------------------------- #
 # Read the Docs
 # --------------------------------------------------------------------------- #

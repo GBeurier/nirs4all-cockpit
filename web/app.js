@@ -47,6 +47,7 @@ function el(tag, opts = {}, children = []) {
 const fmtInt = (x) => (x == null ? "—" : Number(x).toLocaleString("en-US"));
 function fmtDate(iso) { if (!iso) return "—"; const d = new Date(iso); return isNaN(d) ? iso : d.toISOString().slice(0, 10); }
 function fmtDateTime(iso) { if (!iso) return "—"; const d = new Date(iso); return isNaN(d) ? iso : `${d.toISOString().slice(0, 16).replace("T", " ")} UTC`; }
+function fmtMonthYear(iso) { if (!iso) return ""; const d = new Date(iso); return isNaN(d) ? String(iso).slice(0, 7) : d.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" }); }
 function versionDateLabel(src) {
   if (!src || !src.latest_version_at) return null;
   return fmtDate(src.latest_version_at);
@@ -407,6 +408,8 @@ const ECO_PAGES = [
   ["/methods", "methods.nirs4all.org", "nirs4all-methods"],
   ["/cockpit", "cockpit.nirs4all.org", "nirs4all-cockpit"],
   ["/repository", "repository.nirs4all.org", "nirs4all-repository"],
+  ["/papers", "papers.nirs4all.org", "nirs4all-papers"],
+  ["/benchmarks", "benchmarks.nirs4all.org", "nirs4all-benchmarks"],
 ];
 
 function renderVisits(snap) {
@@ -419,7 +422,8 @@ function renderVisits(snap) {
   const w = v.windows || {};
   const chips = el("div", { class: "vchips" });
   const vacc = ["var(--teal)", "var(--cyan)", "var(--indigo)", "var(--amber)"];
-  [["7 days", "7d"], ["30 days", "30d"], ["365 days", "365d"], ["all-time", "total"]].forEach(([lab, key], i) => {
+  const sinceLabel = v.since ? `all-time · since ${fmtMonthYear(v.since)}` : "all-time";
+  [["7 days", "7d"], ["30 days", "30d"], ["365 days", "365d"], [sinceLabel, "total"]].forEach(([lab, key], i) => {
     const c = el("div", { class: "vchip" });
     c.style.setProperty("--accent", vacc[i % vacc.length]);
     c.append(el("span", { class: "vchip__n", text: fmtInt(w[key]) }), el("span", { class: "vchip__l", text: lab }));
@@ -453,11 +457,18 @@ function renderVisits(snap) {
 
 // ---- errors (public · Sentry) ----------------------------------------------
 
-function sentryStat(n, label, alert, accent) {
-  const c = el("div", { class: `sentry-stat${alert ? " sentry-stat--alert" : ""}` });
+function sentryStat(n, label, alert, accent, href) {
+  const tag = href ? "a" : "div";
+  const attrs = href ? { href, target: "_blank", rel: "noopener" } : undefined;
+  const c = el(tag, { class: `sentry-stat${alert ? " sentry-stat--alert" : ""}${href ? " sentry-stat--link" : ""}`, attrs });
   c.style.setProperty("--accent", accent || "var(--teal)");
   c.append(el("span", { class: "sentry-stat__n", text: fmtInt(n) }), el("span", { class: "sentry-stat__l", text: label }));
   return c;
+}
+
+// Org-scoped Sentry issue stream filtered to unresolved (the org has a single project).
+function sentryUnresolvedUrl(s) {
+  return s && s.org ? `https://${s.org}.sentry.io/issues/?query=is%3Aunresolved&statsPeriod=90d` : null;
 }
 
 function renderSentry(snap) {
@@ -469,7 +480,7 @@ function renderSentry(snap) {
 
   const head = el("div", { class: "sentry-head" });
   head.append(
-    sentryStat(s.unresolved, "unresolved", (s.unresolved || 0) > 0, (s.unresolved || 0) > 0 ? "var(--broken)" : "var(--green)"),
+    sentryStat(s.unresolved, "unresolved", (s.unresolved || 0) > 0, (s.unresolved || 0) > 0 ? "var(--broken)" : "var(--green)", sentryUnresolvedUrl(s)),
     sentryStat(s.resolved, "resolved", false, "var(--green)"),
     sentryStat(s.events, "events", false, "var(--indigo)"),
     sentryStat(s.users_affected, "users affected", false, "var(--amber)"),
