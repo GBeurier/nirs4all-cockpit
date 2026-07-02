@@ -48,6 +48,7 @@ DEFAULT_ACTIONS = Path("ops/manual-actions.yaml")
 _STATE_COLORS = {
     "green": "green",
     "stale": "yellow",
+    "pending": "magenta",
     "missing": "red",
     "broken": "red",
     "unknown": "blue",
@@ -279,7 +280,7 @@ def validate_targets(
 
 def _print_summary(snap: Snapshot) -> None:
     """Print the snapshot summary counts in canonical order."""
-    order = ["green", "stale", "missing", "broken", "unknown", "excluded"]
+    order = ["green", "stale", "pending", "missing", "broken", "unknown", "excluded"]
     parts = [f"{state}={snap.summary.get(state, 0)}" for state in order]
     typer.echo(f"generated_at: {snap.generated_at}")
     typer.echo("summary: " + "  ".join(parts))
@@ -337,11 +338,12 @@ def status(
         for target in package.targets:
             color = _STATE_COLORS.get(target.status, "white")
             dl = target.downloads.last_month
+            status = f"{target.status} (planned)" if target.planned else target.status
             table.add_row(
                 target.registry,
                 target.name,
                 target.published_version or "—",
-                f"[{color}]{target.status}[/{color}]",
+                f"[{color}]{status}[/{color}]",
                 "—" if dl is None else str(dl),
             )
         console.print(table)
@@ -356,9 +358,10 @@ def _status_plain(packages) -> None:
             published = target.published_version or "—"
             dl = target.downloads.last_month
             dl_s = "—" if dl is None else str(dl)
+            status = f"{target.status} (planned)" if target.planned else target.status
             typer.echo(
                 f"  {target.registry:<14} {target.name:<28} {published:<12} "
-                f"{target.status:<8} dl/mo={dl_s}"
+                f"{status:<17} dl/mo={dl_s}"
             )
 
 

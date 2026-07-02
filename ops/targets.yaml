@@ -505,7 +505,9 @@ packages:
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
-  - id: nirs4all-lite
+  # RC V1 aggregate: the logical package is now nirs4all-core, but the current
+  # published production artifacts can still be the legacy nirs4all-lite names.
+  - id: nirs4all-core
     repo: nirs4all-lite
     channel: production
     issues_repo: nirs4all-lite
@@ -688,8 +690,8 @@ packages:
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
-  # Public ecosystem projects without package-registry artifacts — tracked for
-  # GitHub stats, code/CI, GitHub Releases, and (where present) GitHub Pages.
+  # Public ecosystem projects outside the aggregate/package-lock surface —
+  # tracked for GitHub stats, code/CI, and their explicit package/pages targets.
   - id: nirs4all-org
     repo: nirs4all-org
     channel: production
@@ -714,6 +716,20 @@ packages:
       - registry: pages
         name: nirs4all-web
         state: tracked
+    version_aliases: {}
+
+  - id: nirs4all-ui
+    repo: nirs4all-ui
+    channel: rc
+    issues_repo: nirs4all-ui
+    source_of_truth:
+      strategy: npm_package_json
+      path: package.json
+    targets:
+      - registry: npm
+        name: nirs4all-ui
+        state: planned
+        reason: "RC V1 shared React/TS package; npm publish pending; outside nirs4all-core aggregation lock"
     version_aliases: {}
 
   - id: nirs4all-cockpit

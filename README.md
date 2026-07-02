@@ -98,6 +98,22 @@ is present, so the public site never shows them.
 
 ---
 
+## RC topology notes
+
+- **`nirs4all`** remains the Python oracle: its PyPI/docs/release state is tracked
+  independently and is not folded into the aggregate packages.
+- **`nirs4all-core`** is the V1 RC aggregate, issued from the former
+  `nirs4all-lite` line. The cockpit row uses the logical RC name while current
+  production targets may still point at `nirs4all-lite` artifacts until the
+  cutover is published.
+- **`nirs4all-web`** is client-side-only and is tracked as a Pages target, not as
+  a package-registry aggregate.
+- **`nirs4all-ui`** is a shared React/TypeScript package outside the
+  `nirs4all-core` aggregation lock; it is tracked separately and starts as a
+  planned npm target until the first package publish exists.
+
+---
+
 ## Status model
 
 Each target (one exact name on one registry) gets exactly one status. Colour and
@@ -108,6 +124,7 @@ colour perception.
 |------------|:-----:|---------|
 | `green`    |  ●    | Published version matches the expected production version. |
 | `stale`    |  ◐    | Published, but behind the expected version. |
+| `pending`  |  ●    | Built or submitted, but not live on the registry yet (for example a CRAN review queue). |
 | `missing`  |  ○    | Not found (404) where a release is expected; also `planned` targets with nothing published yet. |
 | `broken`   |  ✕    | Present but failed to build/publish (e.g. R-universe `Version: null`, or a failed release run with no published version). |
 | `unknown`  |  ?    | Inconclusive probe — timeout, `429`, or `5xx`. Never a red verdict. |

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from cockpit.cli import _carry_forward_public_signals
+from cockpit.cli import _carry_forward_public_signals, _print_summary
 from cockpit.model import SentryStatus, Snapshot, Visits
 
 
@@ -98,3 +98,20 @@ def test_collect_carries_forward_downloads_for_unchanged_targets() -> None:
     assert target.downloads.last_month == 30
     assert target.downloads.windows["30d"] == 30
     assert snap.totals.downloads_last_month == 30
+
+
+def test_print_summary_includes_pending(capsys) -> None:
+    snap = Snapshot(
+        schema_version=1,
+        generated_at="2026-06-13T00:00:00+00:00",
+        generator={},
+        packages=[],
+        summary={"green": 1, "stale": 0, "pending": 2, "missing": 3, "broken": 0, "unknown": 0, "excluded": 0},
+        visits=Visits(),
+        sentry=SentryStatus(),
+    )
+
+    _print_summary(snap)
+
+    out = capsys.readouterr().out
+    assert "pending=2" in out

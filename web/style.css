@@ -213,9 +213,10 @@ section.block { margin: 0 0 34px; }
 .mx tbody tr:last-child td, .mx tbody tr:last-child th { border-bottom: none; }
 .mx tbody tr:hover td, .mx tbody tr:hover th { background: color-mix(in srgb, var(--teal) 4%, var(--surface)); }
 .mx .c-pkg { text-align: left; padding-left: 12px; }
-.mx .c-pkg a { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; color: var(--text); }
+.mx .c-pkg a { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; text-decoration: none; color: var(--text); }
 .mx .c-pkg a:hover .pkg-name { color: var(--teal-d); }
 .pkg-name { font-family: var(--display); font-weight: 600; }
+.pkg-repo { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); }
 .mx .c-ver { text-align: left; font-family: var(--mono); font-size: 0.76rem; color: var(--text-2); min-width: 168px; white-space: nowrap; }
 .ver-main { color: var(--text); font-weight: 700; }
 .ver-date { color: var(--muted); font-size: 0.7rem; }
