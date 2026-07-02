@@ -6,6 +6,10 @@ which registry, recent downloads, open issues, and the health of release
 workflows — into a single `data/current.json` snapshot and renders it as a
 vanilla (zero-build) dashboard.
 
+Part of the [open-source NIRS tools](https://nirs4all.org/open-source-nirs-tools.html)
+ecosystem: file readers, datasets, methods, browser modelling, reproducible pipelines,
+papers, benchmarks, and release dashboards for near-infrared spectroscopy.
+
 **The cockpit aggregates and orchestrates; it never reimplements any repo's
 logic.** Every verdict is derived from public, read-only registry/CI/issue
 signals declared in `ops/targets.yaml`.
