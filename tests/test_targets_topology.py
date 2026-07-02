@@ -46,3 +46,24 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
     assert [(target.registry, target.name, target.state) for target in ui.targets] == [
         ("npm", "nirs4all-ui", "planned")
     ]
+
+
+def test_python_provider_and_tools_surfaces_are_planned_rc_packages() -> None:
+    providers = _package("nirs4all-providers")
+    tools = _package("nirs4all-tools")
+
+    assert providers.channel == "rc"
+    assert providers.source_of_truth is not None
+    assert providers.source_of_truth.strategy == "python_attr"
+    assert providers.source_of_truth.path == "src/nirs4all_providers/__init__.py"
+    assert [(target.registry, target.name, target.state) for target in providers.targets] == [
+        ("pypi", "nirs4all-providers", "planned")
+    ]
+
+    assert tools.channel == "rc"
+    assert tools.source_of_truth is not None
+    assert tools.source_of_truth.strategy == "python_attr"
+    assert tools.source_of_truth.path == "src/nirs4all_tools/__init__.py"
+    assert [(target.registry, target.name, target.state) for target in tools.targets] == [
+        ("pypi", "nirs4all-tools", "planned")
+    ]

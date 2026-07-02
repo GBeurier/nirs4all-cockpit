@@ -111,6 +111,12 @@ is present, so the public site never shows them.
 - **`nirs4all-ui`** is a shared React/TypeScript package outside the
   `nirs4all-core` aggregation lock; it is tracked separately and starts as a
   planned npm target until the first package publish exists.
+- **`nirs4all-providers`** is an optional Python facade for datasets,
+  repository pipelines, benchmarks and papers plugins. It stays outside core:
+  neutral contracts remain the cross-language source of truth.
+- **`nirs4all-tools`** is the Python migration/converter toolkit for legacy
+  workspaces, pipelines and predictions. It is tracked separately because it is
+  an operational cutover surface, not runtime core.
 
 ---
 
