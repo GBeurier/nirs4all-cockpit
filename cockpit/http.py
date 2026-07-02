@@ -91,21 +91,49 @@ def get_json(
         * On a timeout / transport failure / exhausted retries: ``(0, None,
           "<reason>")`` so the caller can map it to ``unknown``.
     """
+    return _json_request("GET", url, headers=headers, accept=accept, max_retries=max_retries)
+
+
+def post_json(
+    url: str,
+    payload: dict,
+    headers: dict[str, str] | None = None,
+    *,
+    accept: str = "application/json",
+    max_retries: int = MAX_RETRIES,
+) -> tuple[int, Any | None, str | None]:
+    """POST a JSON payload and parse a JSON response, never raising on network error."""
+    return _json_request("POST", url, headers=headers, accept=accept, max_retries=max_retries, payload=payload)
+
+
+def _json_request(
+    method: str,
+    url: str,
+    headers: dict[str, str] | None = None,
+    *,
+    accept: str,
+    max_retries: int,
+    payload: dict | None = None,
+) -> tuple[int, Any | None, str | None]:
     merged = {"User-Agent": USER_AGENT, "Accept": accept}
     if headers:
         merged.update(headers)
 
-    cache_file = _cache_path(url, merged)
-    cached = _cache_read(cache_file)
-    if cached is not None:
-        return cached[0], cached[1], None
+    cache_file = _cache_path(url, merged) if method == "GET" else None
+    if cache_file is not None:
+        cached = _cache_read(cache_file)
+        if cached is not None:
+            return cached[0], cached[1], None
 
     last_error: str | None = None
     last_status = 0
 
     for attempt in range(max_retries + 1):
         try:
-            resp = httpx.get(url, headers=merged, timeout=TIMEOUT_S, follow_redirects=True)
+            if method == "POST":
+                resp = httpx.post(url, headers=merged, json=payload, timeout=TIMEOUT_S, follow_redirects=True)
+            else:
+                resp = httpx.get(url, headers=merged, timeout=TIMEOUT_S, follow_redirects=True)
         except httpx.HTTPError as exc:
             last_error = f"{type(exc).__name__}: {exc}"
             last_status = 0
@@ -120,7 +148,8 @@ def get_json(
                 if resp.is_success:
                     return resp.status_code, None, "invalid json body"
                 return resp.status_code, None, f"http {resp.status_code}"
-            _cache_write(cache_file, resp.status_code, body)
+            if cache_file is not None:
+                _cache_write(cache_file, resp.status_code, body)
             return resp.status_code, body, None
 
         if attempt < max_retries:

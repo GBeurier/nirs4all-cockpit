@@ -39,6 +39,16 @@ shared, rate-limit-aware HTTP client, reconciles the four version facts
 and writes `data/current.json`. In CI an ambient `GITHUB_TOKEN` raises the
 GitHub rate limit.
 
+Optional public analytics are enabled by secrets:
+
+- `GOATCOUNTER_TOKEN` for aggregate Pages visits.
+- `SENTRY_AUTH_TOKEN` for aggregate runtime-error counters.
+- `GOOGLE_SEARCH_CONSOLE_SERVICE_ACCOUNT_JSON` for aggregate Google Search
+  clicks, impressions, CTR, average position, and top pages. The service
+  account must first be added as a user on the Search Console property; the
+  default property is `sc-domain:nirs4all.org` and can be overridden with
+  `GOOGLE_SEARCH_CONSOLE_SITE`.
+
 Validate the inventory itself at any time:
 
 ```bash
@@ -163,8 +173,9 @@ falls back across `../data`, `./`, and `./data`.
   PRs open·merged·closed), **code stats** (effective LOC, comments, tests,
   coverage, per-language — scanned from the local checkout), **GitHub Actions
   stats** (workflow count, total runs, recent success rate), aggregate
-  **GoatCounter visits**, aggregate **Sentry counters**, and an ecosystem-wide
-  **`totals`** aggregate. Built by `collect`.
+  **GoatCounter visits**, aggregate **Google Search Console performance**,
+  aggregate **Sentry counters**, and an ecosystem-wide **`totals`** aggregate.
+  Built by `collect`.
 - **Admin** (`data/admin/snapshot.admin.json`, gitignored, local only): GitHub
   **traffic** (views/clones), **open PRs**, **Dependabot / code-scanning**
   alerts, and **Sentry** aggregate counters. Built by `admin collect`. These are
