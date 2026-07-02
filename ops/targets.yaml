@@ -528,6 +528,14 @@ packages:
             - name: dry_run
               type: string
               default: "true"
+      # RC V1 naming migration: the Python aggregate distribution renames
+      # nirs4all-lite -> nirs4all-core on the RC head. Tracked as planned until
+      # the PyPI project + Trusted Publisher exist and the first release ships;
+      # nirs4all-lite stays tracked (it remains installable as the legacy alias).
+      - registry: pypi
+        name: nirs4all-core
+        state: planned
+        reason: "RC V1 rename of nirs4all-lite; PyPI project/Trusted Publisher + first publish pending"
       - registry: crates
         name: nirs4all
         state: tracked
