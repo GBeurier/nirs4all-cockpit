@@ -101,7 +101,7 @@ def reconcile(
         A fully populated :class:`Snapshot`.
     """
     packages: list[PackageStatus] = []
-    summary = {"green": 0, "stale": 0, "missing": 0, "broken": 0, "unknown": 0, "excluded": 0}
+    summary = {"green": 0, "stale": 0, "pending": 0, "missing": 0, "broken": 0, "unknown": 0, "excluded": 0}
 
     for pkg in targets.packages:
         if only and pkg.id not in only:

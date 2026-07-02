@@ -12,7 +12,7 @@ const REG_COLOR = { readthedocs: "#8ca1af", pypi: "#0d9488", crates: "#d97706", 
 // Registries that actually report download counts. Pure web/docs projects whose
 // only targets are `pages` / `readthedocs` are not packages and are excluded
 // from the downloads dataviz.
-const DOWNLOAD_REGS = new Set(["pypi", "crates", "npm", "r-universe", "cran", "github-release"]);
+const DOWNLOAD_REGS = new Set(["pypi", "crates", "npm", "r-universe", "cran"]);
 const STATE_COLOR = { green: "#10b981", stale: "#e0950c", pending: "#8b5cf6", missing: "#b9c0cb", broken: "#e11d48", unknown: "#06b6d4", excluded: "#cabf9e" };
 const STATES = ["green", "stale", "pending", "missing", "broken", "unknown", "excluded"];
 const RANK = { broken: 6, missing: 5, stale: 4, pending: 3, unknown: 2, green: 1, excluded: 0 };
@@ -113,7 +113,7 @@ function renderScores(snap) {
   const pk = snap.packages || [];
   const greenPk = pk.filter((p) => p.rollup === "green").length;
   const s = snap.summary || {};
-  const tracked = (s.green || 0) + (s.stale || 0) + (s.missing || 0) + (s.broken || 0) + (s.unknown || 0);
+  const tracked = (s.green || 0) + (s.stale || 0) + (s.pending || 0) + (s.missing || 0) + (s.broken || 0) + (s.unknown || 0);
   box.appendChild(dial(pk.length ? (greenPk / pk.length) * 100 : 0, "var(--teal)", `${greenPk}/${pk.length}`, "package roll-ups green"));
   box.appendChild(dial(tracked ? ((s.green || 0) / tracked) * 100 : 0, "var(--green)", `${s.green || 0}/${tracked}`, "registry targets green"));
 }
@@ -186,6 +186,7 @@ function renderMatrix(snap) {
     const cPkg = el("th", { class: "c-pkg", attrs: { scope: "row" } });
     const a = el("a", { attrs: { href: `https://github.com/${OWNER}/${pkg.repo}`, target: "_blank", rel: "noopener" } });
     a.append(el("span", { class: "pkg-name", text: pkg.id }));
+    if (pkg.repo && pkg.repo !== pkg.id) a.append(el("span", { class: "pkg-repo", text: `repo ${pkg.repo}` }));
     cPkg.appendChild(a);
     tr.appendChild(cPkg);
 
@@ -209,7 +210,7 @@ function renderMatrix(snap) {
       const dot = led(st);
       if (targets.length > 1) { const wrap = el("span", { class: "led-multi" }); wrap.append(dot, el("span", { class: "badge-n", text: `×${targets.length}` })); link.appendChild(wrap); }
       else link.appendChild(dot);
-      const rows = targets.map((t) => `<div class="tt-row"><span class="led led--${t.status}"></span> <b>${t.name}</b> · ${t.status}${t.published_version ? " · v" + t.published_version : ""}</div>`).join("");
+      const rows = targets.map((t) => `<div class="tt-row"><span class="led led--${t.status}"></span> <b>${t.name}</b> · ${t.status}${t.planned ? " · planned" : ""}${t.published_version ? " · v" + t.published_version : ""}</div>`).join("");
       attachTip(link, `<b>${REG_LABEL[reg]}</b>${rows}<div class="tt-row" style="margin-top:5px;opacity:.7">click → open registry page</div>`);
       td.appendChild(link);
       tr.appendChild(td);
@@ -273,7 +274,7 @@ function renderDownloads(snap) {
     if (!rows.some((r) => r.segs.some((s) => s.reg === reg))) continue;
     axis.appendChild(el("span", {}, [el("span", { class: "dl-swatch", attrs: { style: `background:${REG_COLOR[reg]}` } }), el("span", { text: REG_LABEL[reg] })]));
   }
-  axis.appendChild(el("span", { class: "admin-note", text: "Sorted by reported downloads · GitHub Releases are all-time asset downloads · > = lower bound" }));
+  axis.appendChild(el("span", { class: "admin-note", text: "Sorted by reported package-registry downloads · > = lower bound" }));
   box.appendChild(axis);
 }
 

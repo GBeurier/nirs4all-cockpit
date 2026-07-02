@@ -2057,7 +2057,7 @@
       }
     },
     {
-      "id": "nirs4all-lite",
+      "id": "nirs4all-core",
       "repo": "nirs4all-lite",
       "source": {
         "manifest_version": "0.2.0",
@@ -2119,6 +2119,27 @@
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-lite/json",
             "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-lite/recent"
+          },
+          "error": null
+        },
+        {
+          "registry": "pypi",
+          "name": "nirs4all-core",
+          "published_version": null,
+          "status": "missing",
+          "planned": true,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": null,
+            "downloads_endpoint": null
           },
           "error": null
         },
@@ -3351,6 +3372,73 @@
       }
     },
     {
+      "id": "nirs4all-ui",
+      "repo": "nirs4all-ui",
+      "source": {
+        "manifest_version": "0.1.0",
+        "latest_prod_tag": null,
+        "latest_any_tag": null,
+        "expected_prod_version": "0.1.0",
+        "commit": null,
+        "latest_prod_tag_at": null,
+        "latest_release_at": null,
+        "latest_version_at": null,
+        "latest_version_source": null,
+        "last_commit_at": null,
+        "commits_ahead_of_latest_prod_tag": null
+      },
+      "rollup": "missing",
+      "flags": [],
+      "targets": [
+        {
+          "registry": "npm",
+          "name": "nirs4all-ui",
+          "published_version": null,
+          "status": "missing",
+          "planned": true,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": null,
+            "downloads_endpoint": null
+          },
+          "error": null
+        }
+      ],
+      "workflows": [],
+      "issues": {
+        "open": 0,
+        "bugs": 0
+      },
+      "repo_stats": {
+        "stars": 0,
+        "forks": 0,
+        "watchers": 0,
+        "open_prs": null,
+        "closed_prs": null,
+        "merged_prs": null,
+        "size_kb": 33,
+        "language": "TypeScript",
+        "license": null,
+        "pushed_at": "2026-07-02T12:49:15Z",
+        "default_branch": "main",
+        "traffic_views_14d": null,
+        "traffic_views_uniques": null,
+        "traffic_clones_14d": null,
+        "traffic_clones_uniques": null,
+        "traffic_available": false
+      },
+      "code_stats": null,
+      "actions_stats": null
+    },
+    {
       "id": "nirs4all-cockpit",
       "repo": "nirs4all-cockpit",
       "source": {
@@ -3803,15 +3891,15 @@
   "summary": {
     "green": 75,
     "stale": 2,
-    "missing": 3,
+    "pending": 5,
+    "missing": 5,
     "broken": 0,
     "unknown": 0,
-    "excluded": 0,
-    "pending": 5
+    "excluded": 0
   },
   "totals": {
-    "packages": 18,
-    "repos": 18,
+    "packages": 19,
+    "repos": 19,
     "stars": 126,
     "forks": 0,
     "watchers": 3,
