@@ -31,7 +31,7 @@ from pydantic import ValidationError
 
 from cockpit import reconcile
 from cockpit import snapshot as snapshot_io
-from cockpit.model import SentryStatus, Snapshot, Targets, Visits
+from cockpit.model import SearchConsoleStats, SentryStatus, Snapshot, Targets, Visits
 
 app = typer.Typer(
     add_completion=False,
@@ -171,6 +171,14 @@ def _carry_forward_public_signals(snap: Snapshot, prior_snapshot: dict | None) -
     if not snap.sentry.available and prior_sentry.get("available") and _missing_public_signal_token(snap.sentry.error):
         snap.sentry = SentryStatus.model_validate(prior_sentry)
 
+    prior_search_console = prior_snapshot.get("search_console") or {}
+    if (
+        not snap.search_console.available
+        and prior_search_console.get("available")
+        and _missing_public_signal_token(snap.search_console.error)
+    ):
+        snap.search_console = SearchConsoleStats.model_validate(prior_search_console)
+
     _carry_forward_target_downloads(snap, prior_snapshot)
     snap.totals.downloads_last_month = sum(
         target.downloads.last_month or 0
@@ -208,7 +216,13 @@ def _has_download_counts(downloads: dict) -> bool:
 
 def _missing_public_signal_token(error: str | None) -> bool:
     """Whether a public aggregate is absent because this collect lacks secrets."""
-    return error is None or "no GOATCOUNTER_TOKEN" in error or "no SENTRY_AUTH_TOKEN" in error
+    return (
+        error is None
+        or "no GOATCOUNTER_TOKEN" in error
+        or "no SENTRY_AUTH_TOKEN" in error
+        or "GOOGLE_SEARCH_CONSOLE" in error
+        or "GOOGLE_APPLICATION_CREDENTIALS" in error
+    )
 
 
 # --------------------------------------------------------------------------- #
