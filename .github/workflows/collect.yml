@@ -55,6 +55,10 @@ jobs:
           # Read-only GoatCounter API token: public aggregate and per-page
           # Pages-visit counts only. The token never enters the snapshot.
           GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
+          # Google Search Console read-only service-account JSON. The service
+          # account must be added as a user on the Search Console property.
+          GOOGLE_SEARCH_CONSOLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SEARCH_CONSOLE_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_SEARCH_CONSOLE_SITE: sc-domain:nirs4all.org
           # Sentry auth token (project:read): aggregate public counters only.
           # Issue titles, permalinks, and user-identifying details stay out.
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}

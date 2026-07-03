@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>nirs4all · cockpit — release & health</title>
     <meta name="description" content="Read-only release & health cockpit for the nirs4all ecosystem: package × registry status, downloads, code & CI stats." />
+    <link rel="canonical" href="https://cockpit.nirs4all.org/" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://cockpit.nirs4all.org/sitemap.xml" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="icon" type="image/x-icon" href="./favicon.ico" />
     <link rel="icon" type="image/svg+xml" href="./icon.svg" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
@@ -18,6 +21,17 @@
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://cockpit.nirs4all.org/og.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "nirs4all cockpit",
+      "url": "https://cockpit.nirs4all.org/",
+      "applicationCategory": "DeveloperApplication",
+      "description": "Release and health dashboard for the nirs4all ecosystem.",
+      "isPartOf": {"@type": "WebSite", "name": "nirs4all", "url": "https://nirs4all.org/"}
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -90,6 +104,11 @@
       <section class="block" id="visits-block" aria-labelledby="visits-h" hidden>
         <h2 id="visits-h" class="section-h">Pages visits <span class="muted">— GoatCounter aggregate pageviews</span></h2>
         <div class="card panel" id="visits"></div>
+      </section>
+
+      <section class="block" id="search-console-block" aria-labelledby="search-console-h" hidden>
+        <h2 id="search-console-h" class="section-h">Google Search <span class="muted">— Search Console clicks · impressions · average position</span></h2>
+        <div class="card panel" id="search-console"></div>
       </section>
 
       <section class="block" id="sentry-block" aria-labelledby="sentry-h" hidden>
