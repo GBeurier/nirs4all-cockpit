@@ -15,23 +15,23 @@ def _package(package_id: str):
     raise AssertionError(f"missing package {package_id}")
 
 
-def test_rc_core_keeps_legacy_lite_prod_targets_visible() -> None:
+def test_rc_core_uses_canonical_repo_and_keeps_legacy_lite_alias_visible() -> None:
     package = _package("nirs4all-core")
 
-    assert package.repo == "nirs4all-lite"
-    assert package.issues_repo == "nirs4all-lite"
+    assert package.repo == "nirs4all-core"
+    assert package.issues_repo == "nirs4all-core"
     assert package.source_of_truth is not None
     assert package.source_of_truth.strategy == "cargo_package"
 
     targets = {(target.registry, target.name): target for target in package.targets}
     assert targets[("pypi", "nirs4all-lite")].state == "tracked"
-    assert targets[("github-release", "nirs4all-lite")].state == "tracked"
+    assert targets[("github-release", "nirs4all-core")].state == "tracked"
     assert targets[("pypi", "nirs4all-core")].state == "planned"
     assert targets[("crates", "nirs4all")].state == "tracked"
     assert targets[("npm", "nirs4all")].state == "tracked"
     assert targets[("r-universe", "nirs4all")].state == "tracked"
     assert targets[("cran", "nirs4all")].state == "tracked"
-    assert "MATLAB/Octave archive" in (targets[("github-release", "nirs4all-lite")].reason or "")
+    assert "MATLAB/Octave archive" in (targets[("github-release", "nirs4all-core")].reason or "")
 
 
 def test_rc_core_targets_account_for_all_v1_language_surfaces() -> None:
@@ -43,7 +43,7 @@ def test_rc_core_targets_account_for_all_v1_language_surfaces() -> None:
         "rust": ("crates", "nirs4all"),
         "javascript_wasm": ("npm", "nirs4all"),
         "r": ("r-universe", "nirs4all"),
-        "matlab_octave": ("github-release", "nirs4all-lite"),
+        "matlab_octave": ("github-release", "nirs4all-core"),
     }
 
     assert set(language_surface_targets) == {"python", "rust", "javascript_wasm", "r", "matlab_octave"}
