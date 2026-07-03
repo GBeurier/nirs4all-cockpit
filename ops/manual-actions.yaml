@@ -109,6 +109,24 @@ actions:
       name: nirs4all-providers
       expect: published
 
+  - id: pypi-publisher-tools
+    status: todo
+    severity: blocker
+    title: "PyPI — create the Trusted Publisher of nirs4all-tools (repo nirs4all-tools, publish.yml, env pypi)"
+    manual_url: "https://pypi.org/manage/account/publishing/"
+    affects:
+      - "nirs4all-tools:publish.yml"
+    after_done:
+      - run_workflow:
+          repo: nirs4all-tools
+          workflow: publish.yml
+          ref: main
+          inputs: { dry_run: "false" }
+    auto_check:
+      registry: pypi
+      name: nirs4all-tools
+      expect: published
+
   - id: crates-verify-email
     status: todo
     severity: important
