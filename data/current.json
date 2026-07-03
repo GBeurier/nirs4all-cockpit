@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-03T23:43:18.742227+00:00",
+  "generated_at": "2026-07-03T23:53:45.745939+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -1482,8 +1482,8 @@
         "forks": null,
         "watchers": null,
         "open_prs": null,
-        "closed_prs": 2,
-        "merged_prs": 2,
+        "closed_prs": null,
+        "merged_prs": null,
         "size_kb": null,
         "language": null,
         "license": null,
@@ -2051,15 +2051,15 @@
           "status": "green",
           "planned": false,
           "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
+            "last_day": 1,
+            "last_week": 13,
+            "last_month": 170,
             "total": null,
             "source": "pypistats",
             "by_version": [],
             "windows": {
-              "7d": null,
-              "30d": null,
+              "7d": 13,
+              "30d": 170,
               "90d": null,
               "total": null
             }
@@ -2243,24 +2243,36 @@
           "name": "nirs4all-tools",
           "published_version": null,
           "status": "missing",
-          "planned": true,
+          "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null,
+            "source": "pypistats",
             "by_version": [],
-            "windows": {}
+            "windows": {
+              "7d": null,
+              "30d": null,
+              "90d": null,
+              "total": null
+            }
           },
           "evidence": {
-            "version_endpoint": null,
-            "downloads_endpoint": null
+            "version_endpoint": "https://pypi.org/pypi/nirs4all-tools/json",
+            "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-tools/recent"
           },
           "error": null
         }
       ],
-      "workflows": [],
+      "workflows": [
+        {
+          "file": "publish.yml",
+          "conclusion": null,
+          "created_at": null,
+          "head_sha": null
+        }
+      ],
       "issues": {
         "open": 0,
         "bugs": 0
@@ -2271,7 +2283,7 @@
         "watchers": null,
         "open_prs": null,
         "closed_prs": 0,
-        "merged_prs": null,
+        "merged_prs": 0,
         "size_kb": null,
         "language": null,
         "license": null,
@@ -2574,8 +2586,8 @@
         "forks": null,
         "watchers": null,
         "open_prs": null,
-        "closed_prs": null,
-        "merged_prs": null,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": null,
         "language": null,
         "license": null,
@@ -2680,8 +2692,8 @@
         "forks": null,
         "watchers": null,
         "open_prs": null,
-        "closed_prs": 0,
-        "merged_prs": 0,
+        "closed_prs": null,
+        "merged_prs": null,
         "size_kb": null,
         "language": null,
         "license": null,
@@ -2803,7 +2815,7 @@
         "forks": null,
         "watchers": null,
         "open_prs": null,
-        "closed_prs": 2,
+        "closed_prs": null,
         "merged_prs": 2,
         "size_kb": null,
         "language": null,
@@ -3767,8 +3779,8 @@
         "forks": null,
         "watchers": null,
         "open_prs": null,
-        "closed_prs": null,
-        "merged_prs": null,
+        "closed_prs": 3,
+        "merged_prs": 3,
         "size_kb": null,
         "language": null,
         "license": null,
@@ -3898,7 +3910,14 @@
           "error": null
         }
       ],
-      "workflows": [],
+      "workflows": [
+        {
+          "file": "release-npm.yml",
+          "conclusion": null,
+          "created_at": null,
+          "head_sha": null
+        }
+      ],
       "issues": {
         "open": 0,
         "bugs": 0
@@ -3908,7 +3927,7 @@
         "forks": null,
         "watchers": null,
         "open_prs": null,
-        "closed_prs": null,
+        "closed_prs": 0,
         "merged_prs": null,
         "size_kb": null,
         "language": null,
@@ -4134,8 +4153,8 @@
         "forks": null,
         "watchers": null,
         "open_prs": null,
-        "closed_prs": 5,
-        "merged_prs": 5,
+        "closed_prs": null,
+        "merged_prs": null,
         "size_kb": null,
         "language": null,
         "license": null,
@@ -4269,8 +4288,8 @@
         "forks": null,
         "watchers": null,
         "open_prs": null,
-        "closed_prs": 0,
-        "merged_prs": 0,
+        "closed_prs": null,
+        "merged_prs": null,
         "size_kb": null,
         "language": null,
         "license": null,
@@ -4419,7 +4438,7 @@
     "tests": 16164,
     "files": 7435,
     "workflow_runs": 0,
-    "downloads_last_month": 8665
+    "downloads_last_month": 8835
   },
   "visits": {
     "available": true,
