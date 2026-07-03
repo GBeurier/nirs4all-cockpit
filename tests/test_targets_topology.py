@@ -89,5 +89,5 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     assert tools.source_of_truth.strategy == "python_attr"
     assert tools.source_of_truth.path == "src/nirs4all_tools/__init__.py"
     assert [(target.registry, target.name, target.state) for target in tools.targets] == [
-        ("pypi", "nirs4all-tools", "planned")
+        ("pypi", "nirs4all-tools", "tracked")
     ]
