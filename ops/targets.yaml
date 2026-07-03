@@ -802,6 +802,15 @@ packages:
         name: nirs4all-ui
         state: tracked
         reason: "RC V1 shared React/TS package; outside nirs4all-core aggregation lock"
+        workflow:
+          file: release-npm.yml
+          trigger: tag
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
       - registry: pages
         name: nirs4all-ui
         state: tracked
