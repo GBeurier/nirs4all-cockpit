@@ -232,6 +232,44 @@ class Visits(BaseModel):
     error: str | None = None
 
 
+class SearchConsoleMetric(BaseModel):
+    """One Search Console metric aggregate."""
+
+    clicks: int = 0
+    impressions: int = 0
+    ctr: float | None = None
+    position: float | None = None
+
+
+class SearchConsolePage(SearchConsoleMetric):
+    """Search Console metrics for one canonical page URL."""
+
+    url: str
+
+
+class SearchConsoleQuery(SearchConsoleMetric):
+    """Search Console metrics for one aggregated search query."""
+
+    query: str
+
+
+class SearchConsoleStats(BaseModel):
+    """Google Search Console search-performance aggregate.
+
+    Only aggregate counts enter the public snapshot. Authentication stays in the
+    collector environment and is never serialized here.
+    """
+
+    available: bool = False
+    site_url: str | None = None
+    start_date: str | None = None
+    end_date: str | None = None
+    windows: dict[str, SearchConsoleMetric] = Field(default_factory=dict)
+    pages: list[SearchConsolePage] = Field(default_factory=list)
+    queries: list[SearchConsoleQuery] = Field(default_factory=list)
+    error: str | None = None
+
+
 class SentryStatus(BaseModel):
     """Runtime-error health for the studio project.
 
@@ -261,6 +299,7 @@ class Snapshot(BaseModel):
     summary: dict[str, int]
     totals: Totals = Field(default_factory=Totals)
     visits: Visits = Field(default_factory=Visits)
+    search_console: SearchConsoleStats = Field(default_factory=SearchConsoleStats)
     sentry: SentryStatus = Field(default_factory=SentryStatus)
 
 

@@ -1,9 +1,10 @@
 """Shared test fixtures and helpers (offline only — no network).
 
 Every test in this suite runs without touching the network. The collectors in
-``cockpit.collect.*`` reach the network solely through ``cockpit.http.get_json``;
-the tests monkeypatch that single seam in each collector module to replay the
-captured JSON bodies under ``tests/fixtures/``. The version engine
+``cockpit.collect.*`` reach the network solely through ``cockpit.http.get_json``
+or ``cockpit.http.post_json``; the tests monkeypatch those seams in each
+collector module to replay the captured JSON bodies under ``tests/fixtures/``.
+The version engine
 (``cockpit.version``) and the pydantic contracts (``cockpit.model``) are pure and
 are exercised directly.
 """

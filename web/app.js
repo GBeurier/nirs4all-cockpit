@@ -45,6 +45,8 @@ function el(tag, opts = {}, children = []) {
   return n;
 }
 const fmtInt = (x) => (x == null ? "—" : Number(x).toLocaleString("en-US"));
+const fmtPct = (x) => (x == null ? "—" : `${(Number(x) * 100).toFixed(Number(x) < 0.01 ? 2 : 1)}%`);
+const fmtPos = (x) => (x == null ? "—" : Number(x).toFixed(1));
 function fmtDate(iso) { if (!iso) return "—"; const d = new Date(iso); return isNaN(d) ? iso : d.toISOString().slice(0, 10); }
 function fmtDateTime(iso) { if (!iso) return "—"; const d = new Date(iso); return isNaN(d) ? iso : `${d.toISOString().slice(0, 16).replace("T", " ")} UTC`; }
 function fmtMonthYear(iso) { if (!iso) return ""; const d = new Date(iso); return isNaN(d) ? String(iso).slice(0, 7) : d.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" }); }
@@ -456,6 +458,84 @@ function renderVisits(snap) {
   box.appendChild(el("p", { class: "vcap", text: `${v.site || "GoatCounter"} · daily snapshot · all ecosystem pages` }));
 }
 
+// ---- Google Search Console (public aggregate) ------------------------------
+
+function pageLabel(url) {
+  try {
+    const u = new URL(url);
+    return `${u.hostname}${u.pathname === "/" ? "" : u.pathname}`.replace(/\/$/, "");
+  } catch {
+    return url;
+  }
+}
+
+function metricChip(value, label, accent) {
+  const c = el("div", { class: "vchip" });
+  c.style.setProperty("--accent", accent);
+  c.append(el("span", { class: "vchip__n", text: value }), el("span", { class: "vchip__l", text: label }));
+  return c;
+}
+
+function renderMetricTable(rows, kind) {
+  const table = el("table", { class: "stats visits-table" });
+  const thead = el("thead"), hr = el("tr");
+  const first = kind === "query" ? "query" : "page";
+  for (const h of [first, "clicks", "impr.", "CTR", "pos."]) hr.appendChild(el("th", { text: h }));
+  thead.appendChild(hr); table.appendChild(thead);
+  const tbody = el("tbody");
+  for (const r of rows) {
+    const row = el("tr");
+    const name = kind === "query" ? r.query : pageLabel(r.url);
+    const head = el("th", { class: "s-repo", attrs: { scope: "row" } });
+    if (kind === "page") {
+      head.appendChild(el("a", { text: name, attrs: { href: r.url, target: "_blank", rel: "noopener" } }));
+    } else {
+      head.textContent = name;
+    }
+    row.appendChild(head);
+    row.appendChild(el("td", { class: "num", text: fmtInt(r.clicks) }));
+    row.appendChild(el("td", { class: "num", text: fmtInt(r.impressions) }));
+    row.appendChild(el("td", { class: "num", text: fmtPct(r.ctr) }));
+    row.appendChild(el("td", { class: "num", text: fmtPos(r.position) }));
+    tbody.appendChild(row);
+  }
+  table.appendChild(tbody);
+  return table;
+}
+
+function renderSearchConsole(snap) {
+  const g = snap.search_console || {};
+  const block = document.getElementById("search-console-block"), box = document.getElementById("search-console");
+  if (!box || !g.available) return;
+  block.hidden = false;
+  box.innerHTML = "";
+
+  const w = g.windows || {};
+  const [windowLabel, m] = w["28d"] ? ["28 d", w["28d"]] : w["7d"] ? ["7 d", w["7d"]] : ["90 d", w["90d"] || {}];
+  const chips = el("div", { class: "vchips" });
+  chips.append(
+    metricChip(fmtInt(m.clicks), `clicks · ${windowLabel}`, "var(--teal)"),
+    metricChip(fmtInt(m.impressions), `impressions · ${windowLabel}`, "var(--cyan)"),
+    metricChip(fmtPct(m.ctr), `CTR · ${windowLabel}`, "var(--indigo)"),
+    metricChip(fmtPos(m.position), "avg. position", "var(--amber)"),
+  );
+  box.appendChild(chips);
+
+  const pages = (g.pages || []).slice(0, 12);
+  if (pages.length) {
+    box.appendChild(el("p", { class: "vcap", text: "Top pages · 90 d" }));
+    box.appendChild(renderMetricTable(pages, "page"));
+  }
+
+  const queries = (g.queries || []).slice(0, 10);
+  if (queries.length) {
+    box.appendChild(el("p", { class: "vcap", text: "Top queries · 90 d" }));
+    box.appendChild(renderMetricTable(queries, "query"));
+  }
+
+  box.appendChild(el("p", { class: "vcap", text: `${g.site_url || "Search Console"} · ${g.start_date || "?"} → ${g.end_date || "?"} · finalized Google Search data` }));
+}
+
 // ---- errors (public · Sentry) ----------------------------------------------
 
 function sentryStat(n, label, alert, accent, href) {
@@ -613,6 +693,7 @@ async function main() {
     renderMatrix(snap);
     renderDownloads(snap);
     renderVisits(snap);
+    renderSearchConsole(snap);
     renderSentry(snap);
     renderRepoStats(snap);
     renderCodeStats(snap);

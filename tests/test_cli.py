@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from cockpit.cli import _carry_forward_public_signals, _print_summary
-from cockpit.model import SentryStatus, Snapshot, Visits
+from cockpit.model import SearchConsoleStats, SentryStatus, Snapshot, Visits
 
 
 def test_collect_carries_forward_token_backed_public_signals() -> None:
@@ -12,6 +12,7 @@ def test_collect_carries_forward_token_backed_public_signals() -> None:
         packages=[],
         summary={},
         visits=Visits(error="no GOATCOUNTER_TOKEN in env"),
+        search_console=SearchConsoleStats(error="no GOOGLE_SEARCH_CONSOLE_SERVICE_ACCOUNT_JSON in env"),
         sentry=SentryStatus(error="no SENTRY_AUTH_TOKEN in env"),
     )
     prior = {
@@ -34,6 +35,16 @@ def test_collect_carries_forward_token_backed_public_signals() -> None:
             "resolved_issues": [],
             "error": None,
         },
+        "search_console": {
+            "available": True,
+            "site_url": "sc-domain:nirs4all.org",
+            "start_date": "2026-04-01",
+            "end_date": "2026-06-29",
+            "windows": {"28d": {"clicks": 12, "impressions": 120, "ctr": 0.1, "position": 7.1}},
+            "pages": [],
+            "queries": [],
+            "error": None,
+        },
     }
 
     _carry_forward_public_signals(snap, prior)
@@ -42,6 +53,8 @@ def test_collect_carries_forward_token_backed_public_signals() -> None:
     assert snap.visits.windows["30d"] == 23
     assert snap.sentry.available is True
     assert snap.sentry.unresolved == 9
+    assert snap.search_console.available is True
+    assert snap.search_console.windows["28d"].clicks == 12
 
 
 def test_collect_carries_forward_downloads_for_unchanged_targets() -> None:

@@ -36,6 +36,7 @@ from .collect import (
     pypi,
     readthedocs,
     runiverse,
+    search_console,
     sentry,
     visits,
 )
@@ -50,6 +51,7 @@ from .model import (
     PackageSource,
     PackageStatus,
     RepoStats,
+    SearchConsoleStats,
     SentryStatus,
     Snapshot,
     Target,
@@ -113,9 +115,10 @@ def reconcile(
 
     stamp = generated_at or now_iso()
     if no_network:
-        visits_status, sentry_status = Visits(), SentryStatus()
+        visits_status, search_console_status, sentry_status = Visits(), SearchConsoleStats(), SentryStatus()
     else:
         visits_status = Visits.model_validate(visits.collect(ref_date=stamp[:10], include_pages=True))
+        search_console_status = SearchConsoleStats.model_validate(search_console.collect(ref_date=stamp[:10]))
         sentry_status = SentryStatus.model_validate(sentry.collect(include_issues=False))
 
     return Snapshot(
@@ -130,6 +133,7 @@ def reconcile(
         summary=summary,
         totals=_compute_totals(packages),
         visits=visits_status,
+        search_console=search_console_status,
         sentry=sentry_status,
     )
 

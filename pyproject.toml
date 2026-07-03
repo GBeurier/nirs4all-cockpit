@@ -11,6 +11,7 @@ requires-python = ">=3.11"
 license = { text = "CeCILL-2.1 OR AGPL-3.0-or-later" }
 authors = [{ name = "Gregory Beurier", email = "beurier@cirad.fr" }]
 dependencies = [
+    "google-auth>=2",
     "httpx",
     "pydantic>=2",
     "pyyaml",
