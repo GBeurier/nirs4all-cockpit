@@ -66,6 +66,7 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
     assert ui.source_of_truth is not None
     assert ui.source_of_truth.strategy == "npm_package_json"
     assert [(target.registry, target.name, target.state) for target in ui.targets] == [
+        ("github-release", "nirs4all-ui", "tracked"),
         ("npm", "nirs4all-ui", "planned")
     ]
 
