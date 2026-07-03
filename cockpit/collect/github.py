@@ -17,8 +17,10 @@ Design choices required by the review:
 
 from __future__ import annotations
 
+import json
 import os
 import re
+import subprocess
 from typing import Any
 from urllib.parse import quote
 
@@ -36,7 +38,52 @@ def _headers() -> dict[str, str]:
 
 
 def _get(url: str) -> tuple[int, Any | None, str | None]:
-    return get_json(url, headers=_headers(), accept="application/vnd.github+json")
+    headers = _headers()
+    status, body, error = get_json(url, headers=headers, accept="application/vnd.github+json")
+    if status in (401, 403) and "Authorization" in headers:
+        # A stale local token must not turn public GitHub endpoints into false
+        # missing releases/tags. Retry anonymously; truly private endpoints will
+        # still fail and be classified by the caller.
+        anonymous = dict(headers)
+        anonymous.pop("Authorization", None)
+        retry_status, retry_body, retry_error = get_json(
+            url,
+            headers=anonymous,
+            accept="application/vnd.github+json",
+        )
+        if retry_status not in (401, 403):
+            return retry_status, retry_body, retry_error
+    return status, body, error
+
+
+def _gh_api_json(endpoint: str) -> Any | None:
+    """Return ``gh api`` JSON for endpoints that require GitHub auth.
+
+    GitHub Pages status returns 404 anonymously even for public repos. The
+    cockpit's admin machine already uses ``gh`` for guarded release actions, so
+    use it as a read-only fallback when direct HTTP lacks a valid token.
+    """
+    env = dict(os.environ)
+    env.pop("GITHUB_TOKEN", None)
+    env.pop("GH_TOKEN", None)
+    try:
+        proc = subprocess.run(
+            ["gh", "api", endpoint],
+            capture_output=True,
+            text=True,
+            timeout=20,
+            check=False,
+            env=env,
+        )
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return None
+    if proc.returncode != 0:
+        return None
+    try:
+        body = json.loads(proc.stdout)
+    except json.JSONDecodeError:
+        return None
+    return body
 
 
 def default_branch(owner: str, repo: str) -> str | None:
@@ -226,6 +273,10 @@ def latest_release_fact(owner: str, repo: str) -> dict[str, Any]:
         ``{"published_version", "http_status", "error", "asset_downloads"}``.
     """
     status, body, error = _get(f"{API}/repos/{owner}/{repo}/releases/latest")
+    if status != 200:
+        gh_body = _gh_api_json(f"repos/{owner}/{repo}/releases/latest")
+        if isinstance(gh_body, dict):
+            status, body, error = 200, gh_body, None
     if status == 200 and isinstance(body, dict):
         all_release_downloads = sum(rel.get("asset_downloads", 0) for rel in releases(owner, repo))
         if all_release_downloads <= 0:
@@ -248,6 +299,10 @@ def pages_status(owner: str, repo: str) -> dict[str, Any]:
     Pages site. Needs a token for private repos; public repos answer anonymously.
     """
     status, body, _error = _get(f"{API}/repos/{owner}/{repo}/pages")
+    if status != 200:
+        body = _gh_api_json(f"repos/{owner}/{repo}/pages")
+        if isinstance(body, dict):
+            status = 200
     if status == 200 and isinstance(body, dict):
         return {
             "available": True,

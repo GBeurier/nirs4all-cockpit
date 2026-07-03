@@ -132,6 +132,92 @@ def test_latest_release_fact_sums_all_release_asset_downloads(monkeypatch) -> No
     assert out["asset_downloads"] == 36
 
 
+def test_latest_release_fact_falls_back_to_gh_api_when_http_is_rate_limited(monkeypatch) -> None:
+    monkeypatch.setattr(github, "_get", lambda url: (403, {"message": "rate limit"}, None))  # noqa: ARG005
+    monkeypatch.setattr(
+        github,
+        "_gh_api_json",
+        lambda endpoint: {"tag_name": "v0.1.1", "assets": [{"download_count": 3}]},
+    )
+
+    out = github.latest_release_fact("GBeurier", "nirs4all-ui")
+
+    assert out == {
+        "published_version": "v0.1.1",
+        "http_status": 200,
+        "error": None,
+        "asset_downloads": 3,
+    }
+
+
+def test_github_get_retries_anonymously_when_env_token_is_rejected(monkeypatch) -> None:
+    calls: list[dict] = []
+
+    def _fake(url, headers=None, *, accept="application/json"):  # noqa: ARG001
+        calls.append(dict(headers or {}))
+        if len(calls) == 1:
+            assert "Authorization" in calls[-1]
+            return 401, {"message": "Bad credentials"}, None
+        assert "Authorization" not in calls[-1]
+        return 200, {"tag_name": "v0.1.0"}, None
+
+    monkeypatch.setenv("GITHUB_TOKEN", "stale-token")
+    monkeypatch.setattr(github, "get_json", _fake)
+
+    status, body, error = github._get("https://api.github.com/repos/GBeurier/nirs4all-ui/releases/latest")
+
+    assert status == 200
+    assert body == {"tag_name": "v0.1.0"}
+    assert error is None
+    assert len(calls) == 2
+
+
+def test_pages_status_falls_back_to_gh_api_when_public_endpoint_is_hidden(monkeypatch) -> None:
+    monkeypatch.setattr(github, "_get", lambda url: (404, {"message": "Not Found"}, None))  # noqa: ARG005
+    monkeypatch.setattr(
+        github,
+        "_gh_api_json",
+        lambda endpoint: {
+            "html_url": "https://gbeurier.github.io/nirs4all-ui/",
+            "status": None,
+            "cname": None,
+        },
+    )
+
+    out = github.pages_status("GBeurier", "nirs4all-ui")
+
+    assert out == {
+        "available": True,
+        "html_url": "https://gbeurier.github.io/nirs4all-ui/",
+        "build_status": None,
+        "cname": None,
+    }
+
+
+def test_gh_api_json_ignores_invalid_token_env(monkeypatch) -> None:
+    seen_env: dict | None = None
+
+    class _Proc:
+        returncode = 0
+        stdout = '{"html_url":"https://gbeurier.github.io/nirs4all-ui/"}'
+
+    def _fake_run(*args, **kwargs):  # noqa: ARG001
+        nonlocal seen_env
+        seen_env = kwargs["env"]
+        return _Proc()
+
+    monkeypatch.setenv("GITHUB_TOKEN", "stale-token")
+    monkeypatch.setenv("GH_TOKEN", "stale-token")
+    monkeypatch.setattr(github.subprocess, "run", _fake_run)
+
+    out = github._gh_api_json("repos/GBeurier/nirs4all-ui/pages")
+
+    assert out == {"html_url": "https://gbeurier.github.io/nirs4all-ui/"}
+    assert seen_env is not None
+    assert "GITHUB_TOKEN" not in seen_env
+    assert "GH_TOKEN" not in seen_env
+
+
 def test_actions_stats_success_rate(monkeypatch) -> None:
     workflows = (200, {"total_count": 5}, None)
     runs = (
