@@ -30,6 +30,7 @@ const PAGES_URLS = {
   "nirs4all-repository": "https://repository.nirs4all.org/",
   "nirs4all-papers": "https://papers.nirs4all.org/",
   "nirs4all-benchmarks": "https://benchmarks.nirs4all.org/",
+  "nirs4all-ui": "https://gbeurier.github.io/nirs4all-ui/",
 };
 let OWNER = "GBeurier";
 
