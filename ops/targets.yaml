@@ -778,10 +778,13 @@ packages:
       strategy: npm_package_json
       path: package.json
     targets:
+      - registry: github-release
+        name: nirs4all-ui
+        state: tracked
       - registry: npm
         name: nirs4all-ui
         state: planned
-        reason: "RC V1 shared React/TS package; npm publish pending; outside nirs4all-core aggregation lock"
+        reason: "RC V1 shared React/TS package; npm publish pending npm credentials; outside nirs4all-core aggregation lock"
     version_aliases: {}
 
   - id: nirs4all-cockpit

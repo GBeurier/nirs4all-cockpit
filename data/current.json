@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-03T16:58:41.844440+00:00",
+  "generated_at": "2026-07-03T17:17:53.733120+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -3641,20 +3641,41 @@
       "repo": "nirs4all-ui",
       "source": {
         "manifest_version": "0.1.0",
-        "latest_prod_tag": null,
-        "latest_any_tag": "n4a-v1-2026.07-refactor",
-        "expected_prod_version": "0.1.0",
+        "latest_prod_tag": "v0.1.0",
+        "latest_any_tag": "v0.1.0",
+        "expected_prod_version": "v0.1.0",
         "commit": "69501bdd7154df4a9335277eab24b279682032af",
-        "latest_prod_tag_at": null,
-        "latest_release_at": null,
-        "latest_version_at": "2026-07-02T23:11:17Z",
-        "latest_version_source": "tag",
+        "latest_prod_tag_at": "2026-07-02T23:11:17Z",
+        "latest_release_at": "2026-07-03T17:11:44Z",
+        "latest_version_at": "2026-07-03T17:11:44Z",
+        "latest_version_source": "release",
         "last_commit_at": "2026-07-02T23:11:17Z",
-        "commits_ahead_of_latest_prod_tag": null
+        "commits_ahead_of_latest_prod_tag": 0
       },
       "rollup": "missing",
       "flags": [],
       "targets": [
+        {
+          "registry": "github-release",
+          "name": "nirs4all-ui",
+          "published_version": "0.1.0",
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": 0,
+            "source": "github-release-assets",
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-ui/releases/latest",
+            "downloads_endpoint": null
+          },
+          "error": null
+        },
         {
           "registry": "npm",
           "name": "nirs4all-ui",
@@ -3674,7 +3695,7 @@
             "version_endpoint": null,
             "downloads_endpoint": null
           },
-          "error": null
+          "error": "npm publish blocked locally: ENEEDAUTH (no npm credentials)"
         }
       ],
       "workflows": [],
