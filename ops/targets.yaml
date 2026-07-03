@@ -608,6 +608,7 @@ packages:
       - registry: github-release
         name: nirs4all-lite
         state: tracked
+        reason: "repo release carries source/SBOM and MATLAB/Octave archive artifacts; asset topology is audited in nirs4all-core"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
