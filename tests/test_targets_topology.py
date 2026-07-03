@@ -30,6 +30,28 @@ def test_rc_core_keeps_legacy_lite_prod_targets_visible() -> None:
     assert targets[("crates", "nirs4all")].state == "tracked"
     assert targets[("npm", "nirs4all")].state == "tracked"
     assert targets[("r-universe", "nirs4all")].state == "tracked"
+    assert targets[("cran", "nirs4all")].state == "tracked"
+    assert "MATLAB/Octave archive" in (targets[("github-release", "nirs4all-lite")].reason or "")
+
+
+def test_rc_core_targets_account_for_all_v1_language_surfaces() -> None:
+    package = _package("nirs4all-core")
+
+    targets = {(target.registry, target.name): target for target in package.targets}
+    language_surface_targets = {
+        "python": ("pypi", "nirs4all-core"),
+        "rust": ("crates", "nirs4all"),
+        "javascript_wasm": ("npm", "nirs4all"),
+        "r": ("r-universe", "nirs4all"),
+        "matlab_octave": ("github-release", "nirs4all-lite"),
+    }
+
+    assert set(language_surface_targets) == {"python", "rust", "javascript_wasm", "r", "matlab_octave"}
+    for key in language_surface_targets.values():
+        assert key in targets
+    assert targets[language_surface_targets["python"]].state == "planned"
+    for language in ("rust", "javascript_wasm", "r", "matlab_octave"):
+        assert targets[language_surface_targets[language]].state == "tracked"
 
 
 def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
