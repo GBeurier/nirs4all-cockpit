@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
+from cockpit.manual_actions import load_actions
 from cockpit.reconcile import load_targets
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -98,6 +100,8 @@ def test_rc_python_facade_publish_blockers_are_explicit() -> None:
     core = _package("nirs4all-core")
     providers = _package("nirs4all-providers")
     tools = _package("nirs4all-tools")
+    benchmarks = _package("nirs4all-benchmarks")
+    repository = _package("nirs4all-repository")
 
     blockers = {
         "core": next(
@@ -111,8 +115,67 @@ def test_rc_python_facade_publish_blockers_are_explicit() -> None:
             if target.registry == "pypi" and target.name == "nirs4all-providers"
         ),
         "tools": tools.targets[0].reason or "",
+        "benchmarks": next(
+            target.reason or ""
+            for target in benchmarks.targets
+            if target.registry == "pypi" and target.name == "nirs4all-benchmarks"
+        ),
+        "repository": next(
+            target.reason or ""
+            for target in repository.targets
+            if target.registry == "pypi" and target.name == "nirs4all-repository"
+        ),
     }
 
-    assert "invalid-publisher on v0.2.3 release" in blockers["core"]
-    assert "invalid-publisher on v0.2.1 release" in blockers["providers"]
-    assert "invalid-publisher on v0.0.1 release" in blockers["tools"]
+    assert "invalid-publisher on v0.2.4 release" in blockers["core"]
+    assert "invalid-publisher on v0.2.3 release" in blockers["providers"]
+    assert "invalid-publisher on v0.0.2 release" in blockers["tools"]
+    assert "invalid-publisher on v0.1.3 release" in blockers["benchmarks"]
+    assert "invalid-publisher on v0.1.3 release" in blockers["repository"]
+
+
+def test_current_pypi_manual_actions_cover_invalid_publisher_failures() -> None:
+    actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
+    expected = {
+        "pypi-publisher-core": ("nirs4all-core", "v0.2.4"),
+        "pypi-publisher-providers": ("nirs4all-providers", "v0.2.3"),
+        "pypi-publisher-tools": ("nirs4all-tools", "v0.0.2"),
+        "pypi-publisher-benchmarks": ("nirs4all-benchmarks", "v0.1.3"),
+        "pypi-publisher-repository": ("nirs4all-repository", "v0.1.3"),
+    }
+
+    for action_id, (project, failed_version) in expected.items():
+        action = actions[action_id]
+        assert action.severity == "blocker"
+        assert project in action.title
+        assert failed_version in action.title
+        assert action.auto_check == {"registry": "pypi", "name": project, "expect": "published"}
+
+
+def test_current_pypi_manual_actions_match_targets_reasons_and_workflow_inputs() -> None:
+    actions = {
+        action.id: action
+        for action in load_actions(ROOT / "ops" / "manual-actions.yaml")
+        if action.id.startswith("pypi-publisher-")
+    }
+    packages = load_targets(ROOT / "ops" / "targets.yaml").packages
+    targets = {
+        (target.registry, target.name): target
+        for package in packages
+        for target in package.targets
+    }
+
+    for action in actions.values():
+        if not action.auto_check:
+            continue
+        key = (action.auto_check["registry"], action.auto_check["name"])
+        target = targets[key]
+        version = re.search(r"v\d+\.\d+\.\d+", action.title)
+        if version:
+            assert version.group(0) in (target.reason or "")
+
+        for step in action.after_done:
+            run_workflow = step["run_workflow"]
+            assert run_workflow["workflow"] == target.workflow.file
+            declared_inputs = {item["name"] for item in target.workflow.inputs}
+            assert set(run_workflow.get("inputs", {})) <= declared_inputs
