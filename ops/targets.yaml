@@ -513,6 +513,10 @@ packages:
       path: src/nirs4all_providers/__init__.py
       attr: __version__
     targets:
+      - registry: github-release
+        name: nirs4all-providers
+        state: tracked
+        reason: "RC V1 provider source release is published; PyPI distribution remains blocked by Trusted Publisher setup"
       - registry: pypi
         name: nirs4all-providers
         state: tracked

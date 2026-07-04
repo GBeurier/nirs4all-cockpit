@@ -81,7 +81,8 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     assert providers.source_of_truth.strategy == "python_attr"
     assert providers.source_of_truth.path == "src/nirs4all_providers/__init__.py"
     assert [(target.registry, target.name, target.state) for target in providers.targets] == [
-        ("pypi", "nirs4all-providers", "tracked")
+        ("github-release", "nirs4all-providers", "tracked"),
+        ("pypi", "nirs4all-providers", "tracked"),
     ]
 
     assert tools.channel == "rc"
@@ -104,7 +105,11 @@ def test_rc_python_facade_publish_blockers_are_explicit() -> None:
             for target in core.targets
             if target.registry == "pypi" and target.name == "nirs4all-core"
         ),
-        "providers": providers.targets[0].reason or "",
+        "providers": next(
+            target.reason or ""
+            for target in providers.targets
+            if target.registry == "pypi" and target.name == "nirs4all-providers"
+        ),
         "tools": tools.targets[0].reason or "",
     }
 
