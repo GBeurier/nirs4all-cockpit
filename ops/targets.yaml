@@ -907,7 +907,8 @@ packages:
         state: tracked
       - registry: readthedocs
         name: nirs4all-repository
-        state: planned
+        state: tracked
+        reason: "Read the Docs project is not published yet, but repo docs are configured via .readthedocs.yaml"
     version_aliases: {}
 
   - id: nirs4all-ecosystem

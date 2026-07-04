@@ -177,6 +177,18 @@ actions:
       name: nirs4all-repository
       expect: published
 
+  - id: rtd-activate-repository
+    status: todo
+    severity: important
+    title: "Read the Docs — import/activate nirs4all-repository; repo docs are configured via .readthedocs.yaml"
+    manual_url: "https://readthedocs.org/dashboard/import/"
+    affects:
+      - "nirs4all-repository:readthedocs"
+    auto_check:
+      registry: readthedocs
+      name: nirs4all-repository
+      expect: published
+
   - id: crates-verify-email
     status: todo
     severity: important
