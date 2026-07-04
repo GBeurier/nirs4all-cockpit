@@ -116,10 +116,10 @@ is present, so the public site never shows them.
 
 - **`nirs4all`** remains the Python oracle: its PyPI/docs/release state is tracked
   independently and is not folded into the aggregate packages.
-- **`nirs4all-core`** is the V1 RC aggregate, issued from the former
-  `nirs4all-lite` line. The cockpit row uses the logical RC name while current
-  production targets may still point at `nirs4all-lite` artifacts until the
-  cutover is published.
+- **`nirs4all-core`** is the canonical V1 RC aggregate, renamed from the former
+  `nirs4all-lite` line. `ops/targets.yaml` and the cockpit row treat
+  `nirs4all-core` as the source-of-truth release surface; `nirs4all-lite`
+  remains tracked only as a legacy PyPI alias during the cutover audit.
 - **`nirs4all-web`** is client-side-only and is tracked as a Pages target, not as
   a package-registry aggregate.
 - **`nirs4all-ui`** is a shared React/TypeScript package outside the
