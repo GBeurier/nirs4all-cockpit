@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-04T12:29:36.403552+00:00",
+  "generated_at": "2026-07-04T12:44:48.202639+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -2352,7 +2352,7 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 273,
+        "size_kb": 275,
         "language": "Python",
         "license": "NOASSERTION",
         "pushed_at": "2026-07-04T11:46:20Z",
@@ -4216,13 +4216,13 @@
         "latest_prod_tag": "v0.1.5",
         "latest_any_tag": "v0.1.5",
         "expected_prod_version": "v0.1.5",
-        "commit": "73f4af5da9e5c87761ff2abdcab99947855fa8d2",
+        "commit": "73c1c411d78dd515a8c0859e2843e594f7d059a1",
         "latest_prod_tag_at": "2026-07-04T10:19:15Z",
         "latest_release_at": "2026-07-04T10:19:28Z",
         "latest_version_at": "2026-07-04T10:19:28Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-04T12:28:19Z",
-        "commits_ahead_of_latest_prod_tag": 9
+        "last_commit_at": "2026-07-04T12:32:49Z",
+        "commits_ahead_of_latest_prod_tag": 10
       },
       "rollup": "green",
       "flags": [],
@@ -4266,7 +4266,7 @@
         "size_kb": 559,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-04T12:28:24Z",
+        "pushed_at": "2026-07-04T12:32:50Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4293,13 +4293,13 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 238,
+        "total_runs": 240,
         "recent_total": 100,
         "recent_success": 94,
         "recent_failure": 5,
         "success_rate": 94.9,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-04T12:28:27Z"
+        "last_created_at": "2026-07-04T12:32:56Z"
       }
     },
     {
@@ -4578,8 +4578,8 @@
           "name": "nirs4all-repository",
           "channel": "production",
           "reason": "Read the Docs project is not published yet, but repo docs are configured via .readthedocs.yaml",
-          "published_version": null,
-          "status": "missing",
+          "published_version": "latest",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -4594,7 +4594,7 @@
             "version_endpoint": "https://nirs4all-repository.readthedocs.io/en/latest/",
             "downloads_endpoint": null
           },
-          "error": "http 404"
+          "error": null
         }
       ],
       "workflows": [
@@ -4659,13 +4659,13 @@
         "latest_prod_tag": "v0.1.0",
         "latest_any_tag": "v0.1.0",
         "expected_prod_version": "v0.1.0",
-        "commit": "ac16bfc61b8373dd650afec64c62579bc05cfbe9",
+        "commit": "77bd0111b74153efb5a8a64532e9ddfe924af0aa",
         "latest_prod_tag_at": "2026-06-16T12:45:18Z",
         "latest_release_at": "2026-06-16T15:02:30Z",
         "latest_version_at": "2026-06-16T15:02:30Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-04T12:29:14Z",
-        "commits_ahead_of_latest_prod_tag": 330
+        "last_commit_at": "2026-07-04T12:34:10Z",
+        "commits_ahead_of_latest_prod_tag": 331
       },
       "rollup": "green",
       "flags": [],
@@ -4711,7 +4711,7 @@
         "size_kb": 3770,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-04T12:29:32Z",
+        "pushed_at": "2026-07-04T12:34:11Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4735,21 +4735,21 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 147,
+        "total_runs": 149,
         "recent_total": 100,
         "recent_success": 92,
         "recent_failure": 8,
         "success_rate": 92.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-04T12:29:34Z"
+        "last_created_at": "2026-07-04T12:34:13Z"
       }
     }
   ],
   "summary": {
-    "green": 78,
+    "green": 79,
     "stale": 3,
     "pending": 5,
-    "missing": 13,
+    "missing": 12,
     "broken": 0,
     "unknown": 0,
     "excluded": 0
@@ -4765,7 +4765,7 @@
     "loc_total": 1617214,
     "tests": 15706,
     "files": 5566,
-    "workflow_runs": 5187,
+    "workflow_runs": 5191,
     "downloads_last_month": 15212
   },
   "visits": {
