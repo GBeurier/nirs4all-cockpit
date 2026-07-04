@@ -48,6 +48,7 @@ function el(tag, opts = {}, children = []) {
 const fmtInt = (x) => (x == null ? "—" : Number(x).toLocaleString("en-US"));
 const fmtPct = (x) => (x == null ? "—" : `${(Number(x) * 100).toFixed(Number(x) < 0.01 ? 2 : 1)}%`);
 const fmtPos = (x) => (x == null ? "—" : Number(x).toFixed(1));
+const esc = (x) => String(x ?? "").replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[ch]));
 function fmtDate(iso) { if (!iso) return "—"; const d = new Date(iso); return isNaN(d) ? iso : d.toISOString().slice(0, 10); }
 function fmtDateTime(iso) { if (!iso) return "—"; const d = new Date(iso); return isNaN(d) ? iso : `${d.toISOString().slice(0, 16).replace("T", " ")} UTC`; }
 function fmtMonthYear(iso) { if (!iso) return ""; const d = new Date(iso); return isNaN(d) ? String(iso).slice(0, 7) : d.toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" }); }
@@ -213,7 +214,11 @@ function renderMatrix(snap) {
       const dot = led(st);
       if (targets.length > 1) { const wrap = el("span", { class: "led-multi" }); wrap.append(dot, el("span", { class: "badge-n", text: `×${targets.length}` })); link.appendChild(wrap); }
       else link.appendChild(dot);
-      const rows = targets.map((t) => `<div class="tt-row"><span class="led led--${t.status}"></span> <b>${t.name}</b> · ${t.status}${t.planned ? " · planned" : ""}${t.published_version ? " · v" + t.published_version : ""}</div>`).join("");
+      const rows = targets.map((t) => {
+        const meta = [t.status, t.channel && t.channel !== "production" ? t.channel : null, t.planned ? "planned" : null, t.published_version ? "v" + t.published_version : null].filter(Boolean).join(" · ");
+        const reason = t.reason ? `<div class="tt-row tt-reason">${esc(t.reason)}</div>` : "";
+        return `<div class="tt-row"><span class="led led--${esc(t.status)}"></span> <b>${esc(t.name)}</b> · ${esc(meta)}</div>${reason}`;
+      }).join("");
       attachTip(link, `<b>${REG_LABEL[reg]}</b>${rows}<div class="tt-row" style="margin-top:5px;opacity:.7">click → open registry page</div>`);
       td.appendChild(link);
       tr.appendChild(td);

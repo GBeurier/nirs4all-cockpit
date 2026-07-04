@@ -23,7 +23,7 @@ from conftest import load_fixture
 from cockpit import reconcile as rec
 from cockpit import version as v
 from cockpit.collect import cran, crates, npm, readthedocs, runiverse
-from cockpit.model import Package, Target
+from cockpit.model import Package, Target, Targets
 from cockpit.reconcile import _latest_any_tag, _latest_prod_tag, _reconcile_github_release, _reconcile_package
 
 
@@ -88,6 +88,33 @@ def test_dagml_crate_planned_is_missing(monkeypatch) -> None:
     # separately on the target (TargetStatus.planned), not as a different status.
     state = _reconcile_target(collected, expected=None, planned=True)
     assert state == "missing"
+
+
+def test_snapshot_carries_target_channel_and_reason() -> None:
+    targets = Targets(
+        owner="GBeurier",
+        packages=[
+            Package(
+                id="demo-rc",
+                repo="demo-rc",
+                channel="rc",
+                targets=[
+                    Target(
+                        registry="pypi",
+                        name="demo-rc",
+                        reason="RC package awaiting Trusted Publisher",
+                    )
+                ],
+            )
+        ],
+    )
+
+    snapshot = rec.reconcile(targets, no_network=True)
+    target = snapshot.packages[0].targets[0]
+
+    assert target.channel == "rc"
+    assert target.reason == "RC package awaiting Trusted Publisher"
+    assert target.status == "unknown"
 
 
 # --------------------------------------------------------------------------- #
