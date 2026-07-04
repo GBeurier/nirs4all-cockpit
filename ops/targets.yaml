@@ -531,6 +531,10 @@ packages:
             - name: dry_run
               type: string
               default: "true"
+      - registry: pages
+        name: nirs4all-providers
+        state: tracked
+        reason: "providers brand/site page is deployed through GitHub Pages"
     version_aliases: {}
 
   - id: nirs4all-tools
