@@ -169,11 +169,26 @@ def test_current_runiverse_manual_action_tracks_core_stale_rebuild() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     action = actions["runiverse-core-rebuild"]
 
+    assert action.status == "done"
     assert action.severity == "important"
     assert "nirs4all-core" in action.title
     assert "nirs4all-lite" in action.title
     assert "nirs4all-core:r-universe" in action.affects
     assert action.auto_check == {"registry": "r-universe", "name": "nirs4all", "expect": "green"}
+
+
+def test_resolved_manual_actions_are_marked_done() -> None:
+    actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
+    done_actions = {
+        "npm-automation-token",
+        "pypi-publisher-pls4all",
+        "pypi-publisher-io",
+        "runiverse-core-rebuild",
+        "crates-verify-email",
+    }
+
+    for action_id in done_actions:
+        assert actions[action_id].status == "done"
 
 
 def test_manual_action_expect_green_requires_current_target() -> None:

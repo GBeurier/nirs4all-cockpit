@@ -18,7 +18,7 @@
 
 actions:
   - id: npm-automation-token
-    status: todo
+    status: done
     severity: important
     title: "npm — regenerate the publish token as an Automation token (bypasses 2FA)"
     manual_url: "https://www.npmjs.com/settings/~/tokens"
@@ -45,7 +45,7 @@ actions:
       expect: published
 
   - id: pypi-publisher-pls4all
-    status: todo
+    status: done
     severity: important
     title: "PyPI — fix the Trusted Publisher of pls4all (repo nirs4all-methods, release-python.yml, env pypi)"
     manual_url: "https://pypi.org/manage/account/publishing/"
@@ -63,7 +63,7 @@ actions:
       expect: published
 
   - id: pypi-publisher-io
-    status: todo
+    status: done
     severity: important
     title: "PyPI — create the pending Trusted Publisher of nirs4all-io (repo nirs4all-io, release.yml, env pypi)"
     manual_url: "https://pypi.org/manage/account/publishing/"
@@ -93,7 +93,7 @@ actions:
       expect: published
 
   - id: runiverse-core-rebuild
-    status: todo
+    status: done
     severity: important
     title: "R-universe — rebuild nirs4all from nirs4all-core after replacing the stale nirs4all-lite source mapping"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
@@ -178,7 +178,7 @@ actions:
       expect: published
 
   - id: crates-verify-email
-    status: todo
+    status: done
     severity: important
     title: "crates.io — verify the account email (publish failed: 400 verified email required)"
     manual_url: "https://crates.io/settings/profile"
