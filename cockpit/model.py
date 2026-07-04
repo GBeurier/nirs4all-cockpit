@@ -64,6 +64,8 @@ class TargetStatus(BaseModel):
 
     registry: str
     name: str
+    channel: str = "production"
+    reason: str | None = None
     published_version: str | None = None
     status: State
     planned: bool = False

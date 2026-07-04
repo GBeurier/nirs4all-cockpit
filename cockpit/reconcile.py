@@ -361,6 +361,8 @@ def _reconcile_target(
         return TargetStatus(
             registry=tgt.registry,
             name=tgt.name,
+            channel=pkg.channel,
+            reason=tgt.reason,
             published_version=None,
             status="excluded",
             planned=False,
@@ -380,6 +382,8 @@ def _reconcile_target(
         return TargetStatus(
             registry=tgt.registry,
             name=tgt.name,
+            channel=pkg.channel,
+            reason=tgt.reason,
             published_version=None,
             status="missing",
             planned=True,
@@ -395,6 +399,8 @@ def _reconcile_target(
         return TargetStatus(
             registry=tgt.registry,
             name=tgt.name,
+            channel=pkg.channel,
+            reason=tgt.reason,
             published_version=None,
             status="unknown",
             planned=False,
@@ -440,6 +446,8 @@ def _reconcile_target(
     return TargetStatus(
         registry=tgt.registry,
         name=tgt.name,
+        channel=pkg.channel,
+        reason=tgt.reason,
         published_version=published,
         status=state,
         planned=False,
@@ -462,6 +470,7 @@ def _reconcile_github_release(
     if no_network:
         return TargetStatus(
             registry=tgt.registry, name=tgt.name, published_version=None,
+            channel=pkg.channel, reason=tgt.reason,
             status="unknown", planned=False, downloads=Downloads(),
             evidence=evidence, error="no-network",
         )
@@ -486,6 +495,7 @@ def _reconcile_github_release(
 
     return TargetStatus(
         registry=tgt.registry, name=tgt.name, published_version=published,
+        channel=pkg.channel, reason=tgt.reason,
         status=state, planned=False, downloads=downloads, evidence=evidence, error=error,
     )
 
@@ -496,6 +506,7 @@ def _reconcile_pages(owner: str, pkg: Package, tgt: Target, *, no_network: bool)
     if no_network:
         return TargetStatus(
             registry="pages", name=tgt.name, published_version=None, status="unknown",
+            channel=pkg.channel, reason=tgt.reason,
             planned=False, downloads=Downloads(), evidence=Evidence(version_endpoint=endpoint), error="no-network",
         )
     info = github.pages_status(owner, pkg.repo)
@@ -509,6 +520,7 @@ def _reconcile_pages(owner: str, pkg: Package, tgt: Target, *, no_network: bool)
         state = "green"
     return TargetStatus(
         registry="pages", name=tgt.name, published_version=None, status=state, planned=False,
+        channel=pkg.channel, reason=tgt.reason,
         downloads=Downloads(), evidence=Evidence(version_endpoint=info.get("html_url")), error=None,
     )
 

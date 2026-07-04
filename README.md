@@ -123,8 +123,8 @@ is present, so the public site never shows them.
 - **`nirs4all-web`** is client-side-only and is tracked as a Pages target, not as
   a package-registry aggregate.
 - **`nirs4all-ui`** is a shared React/TypeScript package outside the
-  `nirs4all-core` aggregation lock; it is tracked separately and starts as a
-  planned npm target until the first package publish exists.
+  `nirs4all-core` aggregation lock; it is tracked separately with npm,
+  GitHub Release and GitHub Pages showcase targets.
 - **`nirs4all-providers`** is an optional Python facade for datasets,
   repository pipelines, benchmarks and papers plugins. It stays outside core:
   neutral contracts remain the cross-language source of truth.
