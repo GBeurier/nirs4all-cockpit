@@ -853,6 +853,18 @@ packages:
       - registry: github-release
         name: nirs4all-benchmarks
         state: tracked
+      - registry: pypi
+        name: nirs4all-benchmarks
+        state: tracked
+        workflow:
+          file: publish.yml
+          trigger: release_published
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
       - registry: pages
         name: nirs4all-benchmarks
         state: tracked
@@ -872,6 +884,15 @@ packages:
       - registry: github-release
         name: nirs4all-repository
         state: tracked
+      - registry: pypi
+        name: nirs4all-repository
+        state: tracked
+        workflow:
+          file: publish.yml
+          trigger: release_published
+          danger: dangerous
+          publishes_on_dispatch: true
+          inputs: []
       - registry: pages
         name: nirs4all-repository
         state: tracked
