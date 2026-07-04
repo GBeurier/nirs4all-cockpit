@@ -20,7 +20,7 @@ OWNER="${N4A_OWNER:-GBeurier}"
 OUTDIR="${1:-${N4A_CRAN_OUT:-dist/cran}}"
 
 # The repos whose Releases carry a CRAN R source tarball.
-REPOS=(nirs4all-methods nirs4all-formats nirs4all-io nirs4all-datasets nirs4all-lite)
+REPOS=(nirs4all-methods nirs4all-formats nirs4all-io nirs4all-datasets nirs4all-core)
 
 # A CRAN R source tarball is `<Rpkg>_<version>.tar.gz` for these exact package
 # names. The anchored `_[0-9]` after the name (and "no hyphen before the version")
@@ -207,9 +207,9 @@ Source tarball ~9.3 MB (under 10 MB). Imports only jsonlite. Maintainer: Grégor
 Beurier (CIRAD), gregory.beurier@cirad.fr.
 ```
 
-## nirs4all_<ver>.tar.gz  (lite aggregate)
+## nirs4all_<ver>.tar.gz  (core aggregate)
 ```
-New submission. nirs4all (the R binding of nirs4all-lite) is a PURE-R aggregate
+New submission. nirs4all (the R binding of nirs4all-core) is a PURE-R aggregate
 (NeedsCompilation: no): no compiled code, nothing to build beyond byte-compiling
 the R sources, so none of the Rust / ~.cargo / Makevars considerations of the
 compiled siblings apply. It is an umbrella that exposes the ecosystem (NIRS file
