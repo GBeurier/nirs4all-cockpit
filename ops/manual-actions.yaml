@@ -13,7 +13,8 @@
 #   affects         [repo:workflow] release workflows unblocked by this action
 #   secret_updates  [{repo, name}] secrets the admin re-sets after (gh secret set, never echoed)
 #   after_done      [{run_workflow: {repo, workflow, ref, inputs}}] re-runs to trigger once done
-#   auto_check      {registry, name, expect} verification probe against current.json
+#   auto_check      {registry, name, expect} verification probe against current.json.
+#                   expect: published -> green/stale with a version; green -> current only.
 
 actions:
   - id: npm-automation-token
@@ -90,6 +91,19 @@ actions:
       registry: pypi
       name: nirs4all-core
       expect: published
+
+  - id: runiverse-core-rebuild
+    status: todo
+    severity: important
+    title: "R-universe — rebuild nirs4all from nirs4all-core after replacing the stale nirs4all-lite source mapping"
+    manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
+    affects:
+      - "nirs4all-core:r-universe"
+      - "GBeurier.r-universe.dev:packages.json"
+    auto_check:
+      registry: r-universe
+      name: nirs4all
+      expect: green
 
   - id: pypi-publisher-providers
     status: todo

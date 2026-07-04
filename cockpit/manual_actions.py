@@ -9,7 +9,8 @@ perform. For each action this module:
 * if an ``auto_check`` is present, reads ``data/current.json`` and decides whether
   the action is *resolved* — the named target on the named registry is published
   at the expected level (``expect: published`` means a non-empty published
-  version with status ``green`` or ``stale``);
+  version with status ``green`` or ``stale``; ``expect: green`` additionally
+  requires the target to be current);
 * renders a checklist as plain text or Markdown.
 
 This module owns no state machine and no network: resolution is a pure read of
@@ -98,6 +99,7 @@ def evaluate(action: ManualAction, snapshot: Snapshot | None) -> None:
     With no ``auto_check`` or no snapshot, resolution stays ``None`` (unknown).
     For ``expect: published`` the action is resolved when the named target is on
     its registry at a ``green``/``stale`` status with a non-empty version.
+    For ``expect: green`` the target must be current, not stale.
 
     Args:
         action: The action to annotate.
@@ -128,6 +130,15 @@ def evaluate(action: ManualAction, snapshot: Snapshot | None) -> None:
         action.resolved = ok
         if ok:
             action.check_note = f"{registry}:{name} published {published} (status={status})"
+        else:
+            action.check_note = f"{registry}:{name} status={status} version={published or '—'}"
+        return
+
+    if expect == "green":
+        ok = status == "green" and bool(published)
+        action.resolved = ok
+        if ok:
+            action.check_note = f"{registry}:{name} current {published} (status=green)"
         else:
             action.check_note = f"{registry}:{name} status={status} version={published or '—'}"
         return

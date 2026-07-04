@@ -3,7 +3,8 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from cockpit.manual_actions import load_actions
+from cockpit.manual_actions import ManualAction, evaluate, load_actions
+from cockpit.model import PackageSource, PackageStatus, Snapshot, TargetStatus
 from cockpit.reconcile import load_targets
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -150,6 +151,57 @@ def test_current_pypi_manual_actions_cover_invalid_publisher_failures() -> None:
         assert project in action.title
         assert failed_version in action.title
         assert action.auto_check == {"registry": "pypi", "name": project, "expect": "published"}
+
+
+def test_current_runiverse_manual_action_tracks_core_stale_rebuild() -> None:
+    actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
+    action = actions["runiverse-core-rebuild"]
+
+    assert action.severity == "important"
+    assert "nirs4all-core" in action.title
+    assert "nirs4all-lite" in action.title
+    assert "nirs4all-core:r-universe" in action.affects
+    assert action.auto_check == {"registry": "r-universe", "name": "nirs4all", "expect": "green"}
+
+
+def test_manual_action_expect_green_requires_current_target() -> None:
+    action = ManualAction(
+        id="runiverse-core-rebuild",
+        status="todo",
+        severity="important",
+        title="R-universe rebuild",
+        auto_check={"registry": "r-universe", "name": "nirs4all", "expect": "green"},
+    )
+    snapshot = Snapshot(
+        generated_at="2026-07-04T00:00:00+00:00",
+        generator={},
+        summary={},
+        packages=[
+            PackageStatus(
+                id="nirs4all-core",
+                repo="nirs4all-core",
+                source=PackageSource(expected_prod_version="0.2.4"),
+                rollup="stale",
+                targets=[
+                    TargetStatus(
+                        registry="r-universe",
+                        name="nirs4all",
+                        status="stale",
+                        published_version="0.2.0",
+                    )
+                ],
+            )
+        ],
+    )
+
+    evaluate(action, snapshot)
+    assert action.resolved is False
+    assert "status=stale" in (action.check_note or "")
+
+    snapshot.packages[0].targets[0].status = "green"
+    snapshot.packages[0].targets[0].published_version = "0.2.4"
+    evaluate(action, snapshot)
+    assert action.resolved is True
 
 
 def test_current_pypi_manual_actions_match_targets_reasons_and_workflow_inputs() -> None:
