@@ -86,6 +86,7 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     assert [(target.registry, target.name, target.state) for target in providers.targets] == [
         ("github-release", "nirs4all-providers", "tracked"),
         ("pypi", "nirs4all-providers", "tracked"),
+        ("pages", "nirs4all-providers", "tracked"),
     ]
 
     assert tools.channel == "rc"
