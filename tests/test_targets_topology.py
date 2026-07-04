@@ -231,3 +231,7 @@ def test_current_pypi_manual_actions_match_targets_reasons_and_workflow_inputs()
             assert run_workflow["workflow"] == target.workflow.file
             declared_inputs = {item["name"] for item in target.workflow.inputs}
             assert set(run_workflow.get("inputs", {})) <= declared_inputs
+
+            if action.id == "pypi-publisher-repository":
+                assert target.workflow.danger == "publish"
+                assert run_workflow.get("inputs") == {"dry_run": "false"}

@@ -171,7 +171,7 @@ actions:
           repo: nirs4all-repository
           workflow: publish.yml
           ref: main
-          inputs: {}
+          inputs: { dry_run: "false" }
     auto_check:
       registry: pypi
       name: nirs4all-repository
