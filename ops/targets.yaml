@@ -896,9 +896,12 @@ packages:
         workflow:
           file: publish.yml
           trigger: release_published
-          danger: dangerous
+          danger: publish
           publishes_on_dispatch: true
-          inputs: []
+          inputs:
+            - name: dry_run
+              type: string
+              default: "true"
       - registry: pages
         name: nirs4all-repository
         state: tracked
