@@ -153,14 +153,15 @@ def test_current_pypi_manual_actions_cover_invalid_publisher_failures() -> None:
         assert action.auto_check == {"registry": "pypi", "name": project, "expect": "published"}
 
 
-def test_repository_readthedocs_is_tracked_without_manual_activation_action() -> None:
-    repository = _package("nirs4all-repository")
-    readthedocs = next(target for target in repository.targets if target.registry == "readthedocs")
+def test_active_readthedocs_targets_are_tracked_without_manual_activation_actions() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
 
-    assert readthedocs.state == "tracked"
-    assert "active" in (readthedocs.reason or "")
-    assert "rtd-activate-repository" not in actions
+    for package_id in ("nirs4all-benchmarks", "nirs4all-papers", "nirs4all-repository"):
+        package = _package(package_id)
+        readthedocs = next(target for target in package.targets if target.registry == "readthedocs")
+        assert readthedocs.state == "tracked"
+        assert "active" in (readthedocs.reason or "")
+    assert not any(action_id.startswith("rtd-activate-") for action_id in actions)
 
 
 def test_current_runiverse_manual_action_tracks_core_stale_rebuild() -> None:
