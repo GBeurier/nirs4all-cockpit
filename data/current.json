@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-04T13:13:14.820010+00:00",
+  "generated_at": "2026-07-04T13:27:42.923115+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -2102,13 +2102,13 @@
         "latest_prod_tag": "v0.2.2",
         "latest_any_tag": "v0.2.2",
         "expected_prod_version": "v0.2.2",
-        "commit": "9130b2de2129cba74eec820a0c8aa47ec76ac33c",
+        "commit": "878e597eaf1583edea322b3ef65d5bd9a959554b",
         "latest_prod_tag_at": "2026-07-04T09:09:10Z",
         "latest_release_at": "2026-07-04T09:09:34Z",
         "latest_version_at": "2026-07-04T09:09:34Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-04T09:09:10Z",
-        "commits_ahead_of_latest_prod_tag": 0
+        "last_commit_at": "2026-07-04T13:21:42Z",
+        "commits_ahead_of_latest_prod_tag": 1
       },
       "rollup": "green",
       "flags": [],
@@ -2165,10 +2165,10 @@
           "registry": "readthedocs",
           "name": "nirs4all-papers",
           "channel": "production",
-          "reason": null,
-          "published_version": null,
-          "status": "missing",
-          "planned": true,
+          "reason": "Read the Docs project is active and builds from .readthedocs.yaml",
+          "published_version": "latest",
+          "status": "green",
+          "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
@@ -2179,7 +2179,7 @@
             "windows": {}
           },
           "evidence": {
-            "version_endpoint": null,
+            "version_endpoint": "https://nirs4all-papers.readthedocs.io/en/latest/",
             "downloads_endpoint": null
           },
           "error": null
@@ -2228,7 +2228,7 @@
         "size_kb": 1113,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-04T09:09:11Z",
+        "pushed_at": "2026-07-04T13:21:43Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2237,27 +2237,27 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 3135,
+        "loc_code": 3160,
         "loc_comment": 593,
-        "loc_blank": 647,
-        "loc_total": 4375,
-        "files": 27,
+        "loc_blank": 653,
+        "loc_total": 4406,
+        "files": 28,
         "tests": 46,
         "by_language": {
-          "Python": 3135
+          "Python": 3160
         },
         "coverage_pct": 86.2,
         "source": "local-scan"
       },
       "actions_stats": {
         "workflows": 5,
-        "total_runs": 91,
-        "recent_total": 91,
-        "recent_success": 83,
+        "total_runs": 95,
+        "recent_total": 95,
+        "recent_success": 87,
         "recent_failure": 8,
-        "success_rate": 91.2,
+        "success_rate": 91.6,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-04T09:09:13Z"
+        "last_created_at": "2026-07-04T13:21:45Z"
       }
     },
     {
@@ -3927,7 +3927,7 @@
         "open_prs": 1,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 19646,
+        "size_kb": 19647,
         "language": "HTML",
         "license": "AGPL-3.0",
         "pushed_at": "2026-07-04T12:24:06Z",
@@ -4171,7 +4171,7 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 197,
+        "size_kb": 198,
         "language": "TypeScript",
         "license": null,
         "pushed_at": "2026-07-04T12:24:06Z",
@@ -4216,13 +4216,13 @@
         "latest_prod_tag": "v0.1.5",
         "latest_any_tag": "v0.1.5",
         "expected_prod_version": "v0.1.5",
-        "commit": "cf1dfadccf7d004d3bc10abdf5863288a5f62a33",
+        "commit": "c1bcb16441b3974fd14fee9a0d4ddd546a092786",
         "latest_prod_tag_at": "2026-07-04T10:19:15Z",
         "latest_release_at": "2026-07-04T10:19:28Z",
         "latest_version_at": "2026-07-04T10:19:28Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-04T12:52:38Z",
-        "commits_ahead_of_latest_prod_tag": 13
+        "last_commit_at": "2026-07-04T13:26:26Z",
+        "commits_ahead_of_latest_prod_tag": 15
       },
       "rollup": "green",
       "flags": [],
@@ -4266,7 +4266,7 @@
         "size_kb": 559,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-04T12:52:39Z",
+        "pushed_at": "2026-07-04T13:26:27Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4275,14 +4275,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 5387,
+        "loc_code": 5388,
         "loc_comment": 1174,
         "loc_blank": 1344,
-        "loc_total": 7905,
+        "loc_total": 7906,
         "files": 42,
         "tests": 88,
         "by_language": {
-          "Python": 4081,
+          "Python": 4082,
           "JavaScript": 646,
           "CSS": 306,
           "Shell": 236,
@@ -4293,13 +4293,13 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 245,
+        "total_runs": 248,
         "recent_total": 100,
         "recent_success": 94,
         "recent_failure": 5,
         "success_rate": 94.9,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-04T12:52:43Z"
+        "last_created_at": "2026-07-04T13:26:29Z"
       }
     },
     {
@@ -4310,13 +4310,13 @@
         "latest_prod_tag": "v0.1.3",
         "latest_any_tag": "v0.1.3",
         "expected_prod_version": "v0.1.3",
-        "commit": "d8d2d4a3f22314a5972082147160a00f9c2992df",
+        "commit": "27b3abdb83a6c3c746393ed7561a62125adbaeb2",
         "latest_prod_tag_at": "2026-07-04T09:09:08Z",
         "latest_release_at": "2026-07-04T09:09:33Z",
         "latest_version_at": "2026-07-04T09:09:33Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-04T09:09:08Z",
-        "commits_ahead_of_latest_prod_tag": 0
+        "last_commit_at": "2026-07-04T13:21:36Z",
+        "commits_ahead_of_latest_prod_tag": 1
       },
       "rollup": "green",
       "flags": [],
@@ -4401,10 +4401,10 @@
           "registry": "readthedocs",
           "name": "nirs4all-benchmarks",
           "channel": "production",
-          "reason": null,
-          "published_version": null,
-          "status": "missing",
-          "planned": true,
+          "reason": "Read the Docs project is active and builds from .readthedocs.yaml",
+          "published_version": "latest",
+          "status": "green",
+          "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
@@ -4415,7 +4415,7 @@
             "windows": {}
           },
           "evidence": {
-            "version_endpoint": null,
+            "version_endpoint": "https://nirs4all-benchmarks.readthedocs.io/en/latest/",
             "downloads_endpoint": null
           },
           "error": null
@@ -4443,7 +4443,7 @@
         "size_kb": 2451,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-04T09:09:09Z",
+        "pushed_at": "2026-07-04T13:21:37Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4452,14 +4452,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 8435,
+        "loc_code": 8460,
         "loc_comment": 1534,
-        "loc_blank": 1511,
-        "loc_total": 11480,
-        "files": 80,
+        "loc_blank": 1517,
+        "loc_total": 11511,
+        "files": 81,
         "tests": 89,
         "by_language": {
-          "Python": 5539,
+          "Python": 5564,
           "JavaScript": 2565,
           "CSS": 265,
           "HTML": 66
@@ -4469,13 +4469,13 @@
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 39,
-        "recent_total": 39,
-        "recent_success": 34,
+        "total_runs": 42,
+        "recent_total": 42,
+        "recent_success": 37,
         "recent_failure": 5,
-        "success_rate": 87.2,
-        "last_conclusion": "failure",
-        "last_created_at": "2026-07-04T12:06:50Z"
+        "success_rate": 88.1,
+        "last_conclusion": "success",
+        "last_created_at": "2026-07-04T13:21:39Z"
       }
     },
     {
@@ -4746,10 +4746,10 @@
     }
   ],
   "summary": {
-    "green": 79,
+    "green": 81,
     "stale": 3,
     "pending": 5,
-    "missing": 12,
+    "missing": 10,
     "broken": 0,
     "unknown": 0,
     "excluded": 0
@@ -4761,11 +4761,11 @@
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 1232499,
-    "loc_total": 1617354,
+    "loc_code": 1232550,
+    "loc_total": 1617417,
     "tests": 15710,
-    "files": 5567,
-    "workflow_runs": 5208,
+    "files": 5569,
+    "workflow_runs": 5218,
     "downloads_last_month": 15212
   },
   "visits": {
