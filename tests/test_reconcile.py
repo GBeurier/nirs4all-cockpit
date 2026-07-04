@@ -23,8 +23,14 @@ from conftest import load_fixture
 from cockpit import reconcile as rec
 from cockpit import version as v
 from cockpit.collect import cran, crates, npm, readthedocs, runiverse
-from cockpit.model import Package, Target, Targets
-from cockpit.reconcile import _latest_any_tag, _latest_prod_tag, _reconcile_github_release, _reconcile_package
+from cockpit.model import Package, Target, Targets, TargetStatus
+from cockpit.reconcile import (
+    _latest_any_tag,
+    _latest_prod_tag,
+    _reconcile_github_release,
+    _reconcile_package,
+    _rollup,
+)
 
 
 def _patch(monkeypatch, module, replies):
@@ -74,6 +80,10 @@ def _reconcile_target(collected, *, expected, excluded=False, planned=False):
     return state
 
 
+def _target_status(status: str) -> TargetStatus:
+    return TargetStatus(registry="pypi", name=f"demo-{status}", status=status)
+
+
 # --------------------------------------------------------------------------- #
 # Scenario 1 — dag-ml crates: planned, nothing published => missing + planned
 # --------------------------------------------------------------------------- #
@@ -115,6 +125,18 @@ def test_snapshot_carries_target_channel_and_reason() -> None:
     assert target.channel == "rc"
     assert target.reason == "RC package awaiting Trusted Publisher"
     assert target.status == "unknown"
+
+
+def test_package_rollup_uses_worst_tracked_target() -> None:
+    assert _rollup([_target_status("green"), _target_status("missing")]) == "missing"
+    assert _rollup([_target_status("green"), _target_status("pending")]) == "pending"
+    assert _rollup([_target_status("unknown"), _target_status("stale")]) == "stale"
+    assert _rollup([_target_status("green"), _target_status("broken")]) == "broken"
+
+
+def test_package_rollup_ignores_excluded_targets() -> None:
+    assert _rollup([_target_status("excluded"), _target_status("green")]) == "green"
+    assert _rollup([_target_status("excluded")]) == "green"
 
 
 # --------------------------------------------------------------------------- #
