@@ -419,6 +419,7 @@ const ECO_PAGES = [
   ["/repository", "repository.nirs4all.org", "nirs4all-repository"],
   ["/papers", "papers.nirs4all.org", "nirs4all-papers"],
   ["/benchmarks", "benchmarks.nirs4all.org", "nirs4all-benchmarks"],
+  ["/ui", "gbeurier.github.io/nirs4all-ui", "nirs4all-ui"],
 ];
 
 function renderVisits(snap) {
