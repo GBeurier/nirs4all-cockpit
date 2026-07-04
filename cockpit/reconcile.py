@@ -533,13 +533,12 @@ def _is_transient(http_status: int | None, error: str | None) -> bool:
 def _rollup(targets: list[TargetStatus]) -> str:
     """Package roll-up. ``excluded`` cells are ignored, all-excluded → green.
 
-    A real *problem* dominates (``broken`` then ``stale``); otherwise being current
-    *somewhere* wins, so ``green`` outranks ``pending``/``unknown``/``missing`` — a
-    package published & current on its live registries is not reddened just because
-    another registry (e.g. a pending CRAN submission) is not live yet.
+    The package roll-up is the worst tracked target, matching the dashboard rank.
+    This keeps blockers such as a missing PyPI project visible even when the same
+    package is already green on GitHub Pages or another registry.
     """
     states = {ts.status for ts in targets if ts.status != "excluded"}
-    for s in ("broken", "stale", "green", "pending", "unknown", "missing"):
+    for s in ("broken", "missing", "stale", "pending", "unknown", "green"):
         if s in states:
             return s
     return "green"
