@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-04T12:44:48.202639+00:00",
+  "generated_at": "2026-07-04T12:50:28.476078+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -4216,13 +4216,13 @@
         "latest_prod_tag": "v0.1.5",
         "latest_any_tag": "v0.1.5",
         "expected_prod_version": "v0.1.5",
-        "commit": "73c1c411d78dd515a8c0859e2843e594f7d059a1",
+        "commit": "c5ec1fbfb0f9a28759ac407b69ce514f3122646a",
         "latest_prod_tag_at": "2026-07-04T10:19:15Z",
         "latest_release_at": "2026-07-04T10:19:28Z",
         "latest_version_at": "2026-07-04T10:19:28Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-04T12:32:49Z",
-        "commits_ahead_of_latest_prod_tag": 10
+        "last_commit_at": "2026-07-04T12:49:31Z",
+        "commits_ahead_of_latest_prod_tag": 12
       },
       "rollup": "green",
       "flags": [],
@@ -4266,7 +4266,7 @@
         "size_kb": 559,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-04T12:32:50Z",
+        "pushed_at": "2026-07-04T12:49:32Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4275,14 +4275,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 5394,
+        "loc_code": 5387,
         "loc_comment": 1174,
         "loc_blank": 1344,
-        "loc_total": 7912,
+        "loc_total": 7905,
         "files": 42,
         "tests": 88,
         "by_language": {
-          "Python": 4088,
+          "Python": 4081,
           "JavaScript": 646,
           "CSS": 306,
           "Shell": 236,
@@ -4293,13 +4293,13 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 240,
+        "total_runs": 243,
         "recent_total": 100,
         "recent_success": 94,
         "recent_failure": 5,
         "success_rate": 94.9,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-04T12:32:56Z"
+        "last_created_at": "2026-07-04T12:49:34Z"
       }
     },
     {
@@ -4577,7 +4577,7 @@
           "registry": "readthedocs",
           "name": "nirs4all-repository",
           "channel": "production",
-          "reason": "Read the Docs project is not published yet, but repo docs are configured via .readthedocs.yaml",
+          "reason": "Read the Docs project is active and builds from .readthedocs.yaml",
           "published_version": "latest",
           "status": "green",
           "planned": false,
@@ -4761,11 +4761,11 @@
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 1232379,
-    "loc_total": 1617214,
+    "loc_code": 1232372,
+    "loc_total": 1617207,
     "tests": 15706,
     "files": 5566,
-    "workflow_runs": 5191,
+    "workflow_runs": 5194,
     "downloads_last_month": 15212
   },
   "visits": {
