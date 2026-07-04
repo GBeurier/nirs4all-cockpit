@@ -94,7 +94,7 @@ actions:
   - id: pypi-publisher-providers
     status: todo
     severity: blocker
-    title: "PyPI — create the Trusted Publisher of nirs4all-providers (repo nirs4all-providers, publish.yml, env pypi)"
+    title: "PyPI — create the Trusted Publisher of nirs4all-providers (repo nirs4all-providers, publish.yml, env pypi); fixes invalid-publisher on v0.2.1"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-providers:publish.yml"
@@ -112,7 +112,7 @@ actions:
   - id: pypi-publisher-tools
     status: todo
     severity: blocker
-    title: "PyPI — create the Trusted Publisher of nirs4all-tools (repo nirs4all-tools, publish.yml, env pypi)"
+    title: "PyPI — create the Trusted Publisher of nirs4all-tools (repo nirs4all-tools, publish.yml, env pypi); fixes invalid-publisher on v0.0.1"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-tools:publish.yml"

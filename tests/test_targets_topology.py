@@ -91,3 +91,23 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     assert [(target.registry, target.name, target.state) for target in tools.targets] == [
         ("pypi", "nirs4all-tools", "tracked")
     ]
+
+
+def test_rc_python_facade_publish_blockers_are_explicit() -> None:
+    core = _package("nirs4all-core")
+    providers = _package("nirs4all-providers")
+    tools = _package("nirs4all-tools")
+
+    blockers = {
+        "core": next(
+            target.reason or ""
+            for target in core.targets
+            if target.registry == "pypi" and target.name == "nirs4all-core"
+        ),
+        "providers": providers.targets[0].reason or "",
+        "tools": tools.targets[0].reason or "",
+    }
+
+    assert "invalid-publisher on v0.2.3 release" in blockers["core"]
+    assert "invalid-publisher on v0.2.1 release" in blockers["providers"]
+    assert "invalid-publisher on v0.0.1 release" in blockers["tools"]
