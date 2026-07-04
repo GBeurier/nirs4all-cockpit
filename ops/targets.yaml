@@ -498,7 +498,8 @@ packages:
         state: tracked
       - registry: readthedocs
         name: nirs4all-papers
-        state: planned
+        state: tracked
+        reason: "Read the Docs project is active and builds from .readthedocs.yaml"
       - registry: pypi
         name: nirs4all-papers
         state: tracked
@@ -875,7 +876,8 @@ packages:
         state: tracked
       - registry: readthedocs
         name: nirs4all-benchmarks
-        state: planned
+        state: tracked
+        reason: "Read the Docs project is active and builds from .readthedocs.yaml"
     version_aliases: {}
 
   - id: nirs4all-repository
