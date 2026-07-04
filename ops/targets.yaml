@@ -856,6 +856,7 @@ packages:
       - registry: pypi
         name: nirs4all-benchmarks
         state: tracked
+        reason: PyPI Trusted Publisher missing (invalid-publisher on publish.yml@main); package build is green
         workflow:
           file: publish.yml
           trigger: release_published
@@ -887,6 +888,7 @@ packages:
       - registry: pypi
         name: nirs4all-repository
         state: tracked
+        reason: PyPI Trusted Publisher missing (invalid-publisher on v0.1.2 release); GitHub Release is published
         workflow:
           file: publish.yml
           trigger: release_published
