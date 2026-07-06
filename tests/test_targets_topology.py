@@ -177,6 +177,18 @@ def test_current_runiverse_manual_action_tracks_core_stale_rebuild() -> None:
     assert action.auto_check == {"registry": "r-universe", "name": "nirs4all", "expect": "green"}
 
 
+def test_formats_cran_target_is_explicitly_excluded_to_match_manual_policy() -> None:
+    package = _package("nirs4all-formats")
+    targets = {(target.registry, target.name): target for target in package.targets}
+    cran = targets[("cran", "nirs4allformats")]
+    actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
+
+    assert cran.state == "excluded"
+    assert "do NOT submit nirs4allformats to CRAN" in (cran.reason or "")
+    assert "R-universe only" in (cran.reason or "")
+    assert "do NOT submit nirs4allformats" in actions["cran-resubmit-n4m-pls4all"].title
+
+
 def test_resolved_manual_actions_are_marked_done() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     done_actions = {

@@ -272,8 +272,8 @@ packages:
           inputs: []
       - registry: cran
         name: nirs4allformats
-        state: tracked
-        reason: "manual web submission; no admin button"
+        state: excluded
+        reason: "manual release policy says do NOT submit nirs4allformats to CRAN; keep the R surface on R-universe only"
       - registry: github-release
         name: nirs4all-formats
         state: tracked
