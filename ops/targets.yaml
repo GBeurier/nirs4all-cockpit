@@ -33,7 +33,7 @@ packages:
       - registry: readthedocs
         name: nirs4all
         state: tracked
-        reason: "existing Python production documentation is maintained but held outside the final V1 RC; portable aggregate release is nirs4all-core 0.2.6"
+        reason: "existing Python production documentation is maintained but held outside the final V1 RC; portable aggregate release is nirs4all-core 0.2.7"
       - registry: pypi
         name: nirs4all
         state: tracked
@@ -47,7 +47,7 @@ packages:
       - registry: github-release
         name: nirs4all
         state: tracked
-        reason: "production release line kept for compatibility; RC5 coordination/final release tracking is carried by nirs4all-core"
+        reason: "production release line kept for compatibility; RC8 coordination/final release tracking is carried by nirs4all-core"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -67,7 +67,7 @@ packages:
       - registry: github-release
         name: nirs4all-studio
         state: tracked
-        reason: "production app release remains held outside the final V1 RC; Windows installer RC is prepared under coordination tag n4a-v1-rc5-2026.07-refactor"
+        reason: "production app release remains held outside the final V1 RC; Windows installer RC remains held while RC8 coordination is tracked under tag n4a-v1-rc8-2026.07-refactor"
         workflow:
           file: release-unified.yml
           trigger: workflow_dispatch
@@ -584,7 +584,7 @@ packages:
       - registry: pypi
         name: nirs4all-lite
         state: tracked
-        reason: "legacy alias remains published at 0.2.0; RC5 aggregate target is nirs4all-core 0.2.6"
+        reason: "legacy alias remains published at 0.2.0; RC8 aggregate target is nirs4all-core 0.2.7"
         workflow:
           file: release-python.yml
           trigger: tag
@@ -600,7 +600,7 @@ packages:
       - registry: pypi
         name: nirs4all-core
         state: tracked
-        reason: "RC V1 rename of nirs4all-lite; PyPI project remains unpublished at v0.2.6; original blocker was invalid-publisher on v0.2.5 release"
+        reason: "RC V1 rename of nirs4all-lite; PyPI project remains unpublished at v0.2.7; original blocker was invalid-publisher on v0.2.5 release"
         workflow:
           file: release-python.yml
           trigger: tag
@@ -613,7 +613,7 @@ packages:
       - registry: crates
         name: nirs4all
         state: tracked
-        reason: "RC5 aggregate crate is published at 0.2.6; coordination tag n4a-v1-rc5-2026.07-refactor is available"
+        reason: "RC8 aggregate crate is published at 0.2.7; coordination tag n4a-v1-rc8-2026.07-refactor is available"
         workflow:
           file: release-crates.yml
           trigger: tag
@@ -626,7 +626,7 @@ packages:
       - registry: npm
         name: nirs4all
         state: tracked
-        reason: "RC5 aggregate npm package is published at 0.2.6; coordination tag n4a-v1-rc5-2026.07-refactor is available"
+        reason: "RC8 aggregate npm package is published at 0.2.7; coordination tag n4a-v1-rc8-2026.07-refactor is available"
         workflow:
           file: release-npm.yml
           trigger: tag
@@ -639,7 +639,7 @@ packages:
       - registry: r-universe
         name: nirs4all
         state: tracked
-        reason: "R-universe surface has not caught up to the 0.2.6 RC5 aggregate"
+        reason: "R-universe surface has not caught up to the 0.2.7 RC8 aggregate; R tarball is built locally only"
         workflow:
           file: release-r.yml
           trigger: tag
@@ -649,11 +649,11 @@ packages:
       - registry: cran
         name: nirs4all
         state: tracked
-        reason: "manual web submission; CRAN remains unpublished for the 0.2.6 RC5 aggregate"
+        reason: "manual web submission; CRAN remains unpublished for the 0.2.7 RC8 aggregate"
       - registry: github-release
         name: nirs4all-core
         state: tracked
-        reason: "v0.2.6 release carries source/SBOM and MATLAB/Octave archive artifacts; coordination tag n4a-v1-rc5-2026.07-refactor is available"
+        reason: "v0.2.7 release carries source/SBOM, MATLAB/Octave archive, R tarball, and SHA256SUMS; coordination tag n4a-v1-rc8-2026.07-refactor is available"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -812,6 +812,7 @@ packages:
       - registry: pages
         name: nirs4all-web
         state: tracked
+        reason: "client-side web app head 4346fd7b1c24c38bd1ff5950ddac0b4f42bef4a0; ecosystem lock 33a933b tagged n4a-v1-rc8-2026.07-refactor"
     version_aliases: {}
 
   - id: nirs4all-ui
