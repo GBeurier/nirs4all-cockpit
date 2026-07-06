@@ -29,6 +29,7 @@ from cockpit.reconcile import (
     _latest_prod_tag,
     _reconcile_github_release,
     _reconcile_package,
+    _reconcile_pages,
     _rollup,
 )
 
@@ -376,3 +377,23 @@ def test_package_primary_language_overrides_github_language(monkeypatch) -> None
 
     assert status.repo_stats is not None
     assert status.repo_stats.language == "C++"
+
+
+def test_pages_reconcile_uses_canonical_https_dashboard_url(monkeypatch) -> None:
+    monkeypatch.setattr(
+        rec.github,
+        "pages_status",
+        lambda owner, repo: {  # noqa: ARG005
+            "available": True,
+            "html_url": "http://cockpit.nirs4all.org/",
+            "build_status": "built",
+            "cname": "cockpit.nirs4all.org",
+        },
+    )
+    pkg = Package(id="nirs4all-cockpit", repo="nirs4all-cockpit", targets=[])
+    target = Target(registry="pages", name="nirs4all-cockpit")
+
+    status = _reconcile_pages("GBeurier", pkg, target, no_network=False)
+
+    assert status.status == "green"
+    assert status.evidence.version_endpoint == "https://cockpit.nirs4all.org/"

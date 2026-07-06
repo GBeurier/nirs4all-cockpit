@@ -81,7 +81,7 @@
           "registry": "github-release",
           "name": "nirs4all",
           "channel": "production-held",
-          "reason": "production release line kept for compatibility; RC10 coordination/final release tracking is carried by nirs4all-core",
+          "reason": "production release line kept for compatibility; RC11 coordination/final release tracking is carried by nirs4all-core",
           "published_version": "0.10.3",
           "status": "green",
           "planned": false,
@@ -4107,13 +4107,13 @@
       "source": {
         "manifest_version": "0.1.3",
         "latest_prod_tag": "v0.1.3",
-        "latest_any_tag": "n4a-v1-rc10-2026.07-refactor",
+        "latest_any_tag": "v0.1.3",
         "expected_prod_version": "v0.1.3",
         "commit": "c390e740b7e72abc7ba087bd54ef0042e6f668ec",
         "latest_prod_tag_at": "2026-07-06T08:20:29Z",
         "latest_release_at": "2026-07-06T08:20:31Z",
-        "latest_version_at": "2026-07-06T16:19:58Z",
-        "latest_version_source": "coordination-tag",
+        "latest_version_at": "2026-07-06T08:20:31Z",
+        "latest_version_source": "release",
         "last_commit_at": "2026-07-06T16:19:58Z",
         "commits_ahead_of_latest_prod_tag": 17
       },
@@ -4124,7 +4124,7 @@
           "registry": "pages",
           "name": "nirs4all-web",
           "channel": "production",
-          "reason": "client-side web app head c390e740b7e72abc7ba087bd54ef0042e6f668ec; ecosystem lock c404e0ad tracks RC10 coordination via n4a-v1-rc10-2026.07-refactor",
+          "reason": "client-side web app is tracked from its own production version; no RC11 coordination tag is present on this repo",
           "published_version": null,
           "status": "green",
           "planned": false,
@@ -4385,7 +4385,7 @@
             "windows": {}
           },
           "evidence": {
-            "version_endpoint": "http://cockpit.nirs4all.org/",
+            "version_endpoint": "https://cockpit.nirs4all.org/",
             "downloads_endpoint": null
           },
           "error": null
@@ -4532,7 +4532,7 @@
             "windows": {}
           },
           "evidence": {
-            "version_endpoint": "http://benchmarks.nirs4all.org/",
+            "version_endpoint": "https://benchmarks.nirs4all.org/",
             "downloads_endpoint": null
           },
           "error": null
