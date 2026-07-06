@@ -106,7 +106,7 @@ def test_dashboard_pages_urls_cover_current_rc_pages_roster() -> None:
         "nirs4all-papers": "https://papers.nirs4all.org/",
         "nirs4all-repository": "https://repository.nirs4all.org/",
         "nirs4all-benchmarks": "https://benchmarks.nirs4all.org/",
-        "nirs4all-providers": "https://providers.nirs4all.org/",
+        "nirs4all-providers": "https://gbeurier.github.io/nirs4all-providers/",
         "nirs4all-ui": "https://gbeurier.github.io/nirs4all-ui/",
     }
     pages_roster = [
@@ -114,7 +114,7 @@ def test_dashboard_pages_urls_cover_current_rc_pages_roster() -> None:
         ("/papers", "papers.nirs4all.org", "nirs4all-papers"),
         ("/repository", "repository.nirs4all.org", "nirs4all-repository"),
         ("/benchmarks", "benchmarks.nirs4all.org", "nirs4all-benchmarks"),
-        ("/providers", "providers.nirs4all.org", "nirs4all-providers"),
+        ("/providers", "gbeurier.github.io/nirs4all-providers", "nirs4all-providers"),
         ("/ui", "gbeurier.github.io/nirs4all-ui", "nirs4all-ui"),
     ]
 
@@ -122,7 +122,10 @@ def test_dashboard_pages_urls_cover_current_rc_pages_roster() -> None:
         assert f'"{repo}": "{url}"' in app_js
     for path, host, repo in pages_roster:
         assert f'["{path}", "{host}", "{repo}"]' in app_js
-    assert 'const href = reg === "readthedocs" && rep.evidence && rep.evidence.version_endpoint' in app_js
+    assert (
+        'const href = (reg === "readthedocs" || reg === "pages") && rep.evidence && rep.evidence.version_endpoint'
+        in app_js
+    )
 
 
 def test_rc_python_facade_publish_blockers_are_explicit() -> None:
