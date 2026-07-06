@@ -291,6 +291,13 @@ def _source_versions(owner: str, pkg: Package, *, no_network: bool) -> dict[str,
     tag_names = github.tags(owner, pkg.repo)
     latest_prod = _latest_prod_tag(tag_names, pkg.tag_prefix)
     latest_any = _latest_any_tag(tag_names, pkg.tag_prefix)
+    coordination_commit = None
+    coordination_tag_at = None
+    if pkg.coordination_tag and pkg.coordination_tag in tag_names:
+        latest_any = pkg.coordination_tag
+        coordination_meta = github.tag_fact(owner, pkg.repo, pkg.coordination_tag)
+        coordination_tag_at = coordination_meta.get("tagged_at") if coordination_meta else None
+        coordination_commit = github.commit_fact(owner, pkg.repo, pkg.coordination_tag)
     latest_release = github.latest_release(owner, pkg.repo)
     latest_release_tag = latest_release.get("tag_name") if latest_release else None
     latest_release_at = latest_release.get("published_at") if latest_release else None
@@ -303,16 +310,21 @@ def _source_versions(owner: str, pkg: Package, *, no_network: bool) -> dict[str,
     if latest_release_tag == latest_prod and latest_release_at:
         latest_version_at = latest_release_at
         latest_version_source = "release"
+    source_commit = coordination_commit or head
+    if coordination_commit is not None:
+        latest_version_at = coordination_tag_at or coordination_commit.get("committed_at")
+        latest_version_source = "coordination-tag"
+        branch = pkg.coordination_tag
     return {
         "manifest_version": manifest,
         "latest_prod_tag": latest_prod,
         "latest_any_tag": latest_any,
-        "commit": head.get("sha") if head else None,
+        "commit": source_commit.get("sha") if source_commit else None,
         "latest_prod_tag_at": latest_prod_tag_at,
         "latest_release_at": latest_release_at,
         "latest_version_at": latest_version_at,
         "latest_version_source": latest_version_source,
-        "last_commit_at": head.get("committed_at") if head else None,
+        "last_commit_at": source_commit.get("committed_at") if source_commit else None,
         "commits_ahead_of_latest_prod_tag": (
             github.commits_ahead(owner, pkg.repo, latest_prod, branch) if latest_prod else None
         ),

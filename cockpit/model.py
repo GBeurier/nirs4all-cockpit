@@ -410,6 +410,7 @@ class Package(BaseModel):
     source_of_truth: SourceOfTruth | None = None
     primary_language: str | None = None
     tag_prefix: str = "v"
+    coordination_tag: str | None = None
     targets: list[Target]
     version_aliases: dict = Field(default_factory=dict)
 

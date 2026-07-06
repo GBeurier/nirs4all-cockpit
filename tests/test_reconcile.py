@@ -299,6 +299,48 @@ def test_source_versions_include_release_commit_and_ahead_dates(monkeypatch) -> 
     assert facts["commits_ahead_of_latest_prod_tag"] == 2
 
 
+def test_source_versions_prefer_declared_coordination_tag_for_latest_any(monkeypatch) -> None:
+    monkeypatch.setattr(
+        rec.github,
+        "tags",
+        lambda owner, repo: [  # noqa: ARG005
+            "v1.2.0",
+            "n4a-v1-rc9-2026.07-refactor",
+            "n4a-v1-rc10-2026.07-refactor",
+        ],
+    )
+    monkeypatch.setattr(rec.github, "latest_release", lambda owner, repo: None)  # noqa: ARG005
+    monkeypatch.setattr(
+        rec.github,
+        "tag_fact",
+        lambda owner, repo, tag: {"tag": tag, "tagged_at": "2026-07-06T00:00:00Z"},  # noqa: ARG005
+    )
+    monkeypatch.setattr(
+        rec.github,
+        "commit_fact",
+        lambda owner, repo, ref: {"sha": "coord123", "committed_at": "2026-07-06T00:00:00Z"},  # noqa: ARG005
+    )
+    monkeypatch.setattr(
+        rec.github,
+        "default_branch_commit",
+        lambda owner, repo: {"sha": "def456", "committed_at": "2026-07-06T00:00:00Z", "branch": "main"},  # noqa: ARG005
+    )
+    monkeypatch.setattr(rec.github, "commits_ahead", lambda owner, repo, base, head=None: 0)  # noqa: ARG005
+    pkg = Package(
+        id="nirs4all-core",
+        repo="nirs4all-core",
+        coordination_tag="n4a-v1-rc10-2026.07-refactor",
+        targets=[],
+    )
+
+    facts = rec._source_versions("GBeurier", pkg, no_network=False)
+
+    assert facts["latest_prod_tag"] == "v1.2.0"
+    assert facts["latest_any_tag"] == "n4a-v1-rc10-2026.07-refactor"
+    assert facts["commit"] == "coord123"
+    assert facts["latest_version_source"] == "coordination-tag"
+
+
 def test_package_primary_language_overrides_github_language(monkeypatch) -> None:
     monkeypatch.setattr(rec.github, "tags", lambda owner, repo: [])  # noqa: ARG005
     monkeypatch.setattr(rec.github, "latest_release", lambda owner, repo: None)  # noqa: ARG005
