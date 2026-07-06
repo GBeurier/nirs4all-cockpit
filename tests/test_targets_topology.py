@@ -74,6 +74,11 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
         ("npm", "nirs4all-ui", "tracked"),
         ("pages", "nirs4all-ui", "tracked"),
     ]
+    npm_reason = next(target.reason or "" for target in ui.targets if target.registry == "npm")
+    pages_reason = next(target.reason or "" for target in ui.targets if target.registry == "pages")
+    assert "reusable components" in npm_reason
+    assert "brand assets" in npm_reason
+    assert "components/assets showcase" in pages_reason
 
 
 def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
@@ -89,6 +94,13 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
         ("pypi", "nirs4all-providers", "tracked"),
         ("pages", "nirs4all-providers", "tracked"),
     ]
+    github_reason = next(target.reason or "" for target in providers.targets if target.registry == "github-release")
+    pypi_reason = next(target.reason or "" for target in providers.targets if target.registry == "pypi")
+    pages_reason = next(target.reason or "" for target in providers.targets if target.registry == "pages")
+    assert "provider-client source release" in github_reason
+    assert "provider clients/read facade" in pypi_reason
+    assert "neutral contracts remain canonical" in pypi_reason
+    assert "docs/site page" in pages_reason
 
     assert tools.channel == "rc"
     assert tools.source_of_truth is not None

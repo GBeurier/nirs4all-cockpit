@@ -522,11 +522,11 @@ packages:
       - registry: github-release
         name: nirs4all-providers
         state: tracked
-        reason: "RC V1 provider source release is published; PyPI distribution remains blocked by Trusted Publisher setup"
+        reason: "RC V1 provider-client source release is tagged; PyPI distribution remains blocked by Trusted Publisher setup"
       - registry: pypi
         name: nirs4all-providers
         state: tracked
-        reason: "RC V1 optional Python provider facade; PyPI Trusted Publisher missing (invalid-publisher on v0.2.5 release); neutral contracts remain canonical"
+        reason: "RC V1 optional Python provider clients/read facade; PyPI Trusted Publisher missing (invalid-publisher on v0.2.5 release); neutral contracts remain canonical"
         workflow:
           file: publish.yml
           trigger: release_published
@@ -539,7 +539,7 @@ packages:
       - registry: pages
         name: nirs4all-providers
         state: tracked
-        reason: "providers brand/site page is deployed through GitHub Pages at https://gbeurier.github.io/nirs4all-providers/"
+        reason: "providers docs/site page is deployed through GitHub Pages at https://gbeurier.github.io/nirs4all-providers/"
     version_aliases: {}
 
   - id: nirs4all-tools
@@ -829,7 +829,7 @@ packages:
       - registry: npm
         name: nirs4all-ui
         state: tracked
-        reason: "RC V1 shared React/TS package; outside nirs4all-core aggregation lock"
+        reason: "RC V1 shared React/TS package of reusable components, status helpers, and brand assets; outside nirs4all-core aggregation lock"
         workflow:
           file: release-npm.yml
           trigger: tag
@@ -842,7 +842,7 @@ packages:
       - registry: pages
         name: nirs4all-ui
         state: tracked
-        reason: "GitHub Pages workflow showcase at https://gbeurier.github.io/nirs4all-ui/"
+        reason: "GitHub Pages components/assets showcase at https://gbeurier.github.io/nirs4all-ui/"
     version_aliases: {}
 
   - id: nirs4all-cockpit

@@ -122,12 +122,13 @@ is present, so the public site never shows them.
   remains tracked only as a legacy PyPI alias during the cutover audit.
 - **`nirs4all-web`** is client-side-only and is tracked as a Pages target, not as
   a package-registry aggregate.
-- **`nirs4all-ui`** is a shared React/TypeScript package outside the
+- **`nirs4all-ui`** is a shared React/TypeScript package of reusable
+  components, status helpers, and brand assets outside the
   `nirs4all-core` aggregation lock; it is tracked separately with npm,
   GitHub Release and GitHub Pages showcase targets.
-- **`nirs4all-providers`** is an optional Python facade for datasets,
-  repository pipelines, benchmarks and papers plugins. It stays outside core:
-  neutral contracts remain the cross-language source of truth.
+- **`nirs4all-providers`** is an optional Python provider-client layer for
+  datasets, repository, benchmarks, and papers metadata/contracts. It stays
+  outside core: neutral contracts remain the cross-language source of truth.
 - **`nirs4all-tools`** is the Python migration/converter toolkit for legacy
   workspaces, pipelines and predictions. It is tracked separately because it is
   an operational cutover surface, not runtime core.
