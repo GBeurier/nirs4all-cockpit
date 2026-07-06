@@ -58,6 +58,32 @@ def test_rc_core_targets_account_for_all_v1_language_surfaces() -> None:
         assert targets[language_surface_targets[language]].state == "tracked"
 
 
+def test_dag_python_binding_surfaces_have_publish_workflows() -> None:
+    expected = {
+        "dag-ml": "dag-ml",
+        "dag-ml-data": "dag-ml-data",
+    }
+
+    for package_id, pypi_name in expected.items():
+        package = _package(package_id)
+        target = next(
+            target
+            for target in package.targets
+            if target.registry == "pypi" and target.name == pypi_name
+        )
+
+        assert target.state == "tracked"
+        assert "Python binding" in (target.reason or "")
+        assert target.workflow is not None
+        assert target.workflow.file == "release-python.yml"
+        assert target.workflow.trigger == "workflow_dispatch"
+        assert target.workflow.danger == "publish"
+        assert target.workflow.publishes_on_dispatch is True
+        assert [(item["name"], item["type"], item["default"]) for item in target.workflow.inputs] == [
+            ("publish", "boolean", False)
+        ]
+
+
 def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
     oracle = _package("nirs4all")
     web = _package("nirs4all-web")
