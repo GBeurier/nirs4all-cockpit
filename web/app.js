@@ -30,6 +30,7 @@ const PAGES_URLS = {
   "nirs4all-repository": "https://repository.nirs4all.org/",
   "nirs4all-papers": "https://papers.nirs4all.org/",
   "nirs4all-benchmarks": "https://benchmarks.nirs4all.org/",
+  "nirs4all-providers": "https://providers.nirs4all.org/",
   "nirs4all-ui": "https://gbeurier.github.io/nirs4all-ui/",
 };
 let OWNER = "GBeurier";
@@ -207,7 +208,7 @@ function renderMatrix(snap) {
       if (!targets || !targets.length) { td.appendChild(el("span", { class: "led led--none", attrs: { "aria-label": "no target" } })); tr.appendChild(td); continue; }
       const st = worstState(targets);
       const rep = facade(targets);
-      const href = (reg === "pages" || reg === "readthedocs") && rep.evidence && rep.evidence.version_endpoint
+      const href = reg === "readthedocs" && rep.evidence && rep.evidence.version_endpoint
         ? rep.evidence.version_endpoint
         : registryUrl(reg, rep.name, pkg.repo);
       const link = el("a", { attrs: { href, target: "_blank", rel: "noopener" } });
@@ -419,6 +420,7 @@ const ECO_PAGES = [
   ["/repository", "repository.nirs4all.org", "nirs4all-repository"],
   ["/papers", "papers.nirs4all.org", "nirs4all-papers"],
   ["/benchmarks", "benchmarks.nirs4all.org", "nirs4all-benchmarks"],
+  ["/providers", "providers.nirs4all.org", "nirs4all-providers"],
   ["/ui", "gbeurier.github.io/nirs4all-ui", "nirs4all-ui"],
 ];
 
