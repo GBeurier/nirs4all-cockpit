@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-06T21:58:56.319912+00:00",
+  "generated_at": "2026-07-06T22:37:03.368209+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -3144,22 +3144,27 @@
           "registry": "pypi",
           "name": "dag-ml",
           "channel": "rc",
-          "reason": "RC10 Python binding from crates/dag-ml-py; PyPI publish workflow/token setup remains pending while crates are at 0.2.3",
+          "reason": "RC11 Python binding from crates/dag-ml-py; publish via release-python.yml using PyPI Trusted Publishing environment pypi",
           "published_version": null,
           "status": "missing",
-          "planned": true,
+          "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null,
+            "source": "pypistats",
             "by_version": [],
-            "windows": {}
+            "windows": {
+              "7d": null,
+              "30d": null,
+              "90d": null,
+              "total": null
+            }
           },
           "evidence": {
-            "version_endpoint": null,
-            "downloads_endpoint": null
+            "version_endpoint": "https://pypi.org/pypi/dag-ml/json",
+            "downloads_endpoint": "https://pypistats.org/api/packages/dag-ml/recent"
           },
           "error": null
         },
@@ -3167,7 +3172,7 @@
           "registry": "npm",
           "name": "dag-ml-wasm",
           "channel": "rc",
-          "reason": "RC10 WASM binding from crates/dag-ml-wasm; npm package is published at 0.2.3",
+          "reason": "RC11 WASM binding from crates/dag-ml-wasm; npm package is published at 0.2.3",
           "published_version": "0.2.3",
           "status": "green",
           "planned": false,
@@ -3439,6 +3444,12 @@
       ],
       "workflows": [
         {
+          "file": "release-python.yml",
+          "conclusion": null,
+          "created_at": null,
+          "head_sha": null
+        },
+        {
           "file": "release-npm.yml",
           "conclusion": null,
           "created_at": null,
@@ -3456,10 +3467,10 @@
         "open_prs": 2,
         "closed_prs": 14,
         "merged_prs": 6,
-        "size_kb": 36726,
+        "size_kb": 37896,
         "language": "Rust",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-06T21:53:16Z",
+        "pushed_at": "2026-07-06T22:21:48Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -3511,7 +3522,7 @@
         "last_commit_at": "2026-07-06T21:36:04Z",
         "commits_ahead_of_latest_prod_tag": 3
       },
-      "rollup": "broken",
+      "rollup": "missing",
       "flags": [],
       "targets": [
         {
@@ -3541,22 +3552,27 @@
           "registry": "pypi",
           "name": "dag-ml-data",
           "channel": "rc",
-          "reason": "RC10 Python binding from crates/dag-ml-data-py; PyPI publish workflow/token setup remains pending while crates are at 0.2.4",
+          "reason": "RC11 Python binding from crates/dag-ml-data-py; publish via release-python.yml using PyPI Trusted Publishing environment pypi",
           "published_version": null,
           "status": "missing",
-          "planned": true,
+          "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
             "last_month": null,
             "total": null,
-            "source": null,
+            "source": "pypistats",
             "by_version": [],
-            "windows": {}
+            "windows": {
+              "7d": null,
+              "30d": null,
+              "90d": null,
+              "total": null
+            }
           },
           "evidence": {
-            "version_endpoint": null,
-            "downloads_endpoint": null
+            "version_endpoint": "https://pypi.org/pypi/dag-ml-data/json",
+            "downloads_endpoint": "https://pypistats.org/api/packages/dag-ml-data/recent"
           },
           "error": null
         },
@@ -3564,7 +3580,7 @@
           "registry": "npm",
           "name": "dag-ml-data-wasm",
           "channel": "rc",
-          "reason": "RC10 WASM binding from crates/dag-ml-data-wasm; npm package is published at 0.2.4",
+          "reason": "RC11 WASM binding from crates/dag-ml-data-wasm; npm package is published at 0.2.4",
           "published_version": "0.2.4",
           "status": "green",
           "planned": false,
@@ -3592,9 +3608,9 @@
           "registry": "r-universe",
           "name": "dagmldata",
           "channel": "rc",
-          "reason": "RC10 R binding from crates/dag-ml-data-r; main now uses crates.io Rust deps for R-universe subdir builds",
-          "published_version": null,
-          "status": "broken",
+          "reason": "RC11 R binding from crates/dag-ml-data-r; main now uses crates.io Rust deps for R-universe subdir builds",
+          "published_version": "0.2.4",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -3932,6 +3948,12 @@
       ],
       "workflows": [
         {
+          "file": "release-python.yml",
+          "conclusion": null,
+          "created_at": null,
+          "head_sha": null
+        },
+        {
           "file": "release-npm.yml",
           "conclusion": null,
           "created_at": null,
@@ -3949,10 +3971,10 @@
         "open_prs": 2,
         "closed_prs": 11,
         "merged_prs": 5,
-        "size_kb": 9932,
+        "size_kb": 9946,
         "language": "Rust",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-06T21:53:17Z",
+        "pushed_at": "2026-07-06T22:21:48Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4042,8 +4064,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 1,
-        "closed_prs": null,
-        "merged_prs": null,
+        "closed_prs": 0,
+        "merged_prs": 0,
         "size_kb": 18980,
         "language": "HTML",
         "license": "AGPL-3.0",
@@ -4334,13 +4356,13 @@
         "latest_prod_tag": "v0.1.6",
         "latest_any_tag": "v0.1.6",
         "expected_prod_version": "v0.1.6",
-        "commit": "187ed8af57f5b061b0de3d1ba61ce14457bbff7a",
+        "commit": "9581dbefaaba9f5730a3dcbe1efc1fc619744d79",
         "latest_prod_tag_at": "2026-07-06T08:05:17Z",
         "latest_release_at": "2026-07-06T08:06:50Z",
         "latest_version_at": "2026-07-06T08:06:50Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-06T21:50:46Z",
-        "commits_ahead_of_latest_prod_tag": 18
+        "last_commit_at": "2026-07-06T22:21:38Z",
+        "commits_ahead_of_latest_prod_tag": 20
       },
       "rollup": "green",
       "flags": [],
@@ -4384,7 +4406,7 @@
         "size_kb": 677,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-06T21:50:47Z",
+        "pushed_at": "2026-07-06T22:21:46Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4393,14 +4415,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 5926,
+        "loc_code": 5948,
         "loc_comment": 1174,
-        "loc_blank": 1418,
-        "loc_total": 8518,
+        "loc_blank": 1422,
+        "loc_total": 8544,
         "files": 42,
-        "tests": 97,
+        "tests": 98,
         "by_language": {
-          "Python": 4618,
+          "Python": 4640,
           "JavaScript": 648,
           "CSS": 306,
           "Shell": 236,
@@ -4556,8 +4578,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 2,
-        "closed_prs": 5,
-        "merged_prs": 5,
+        "closed_prs": null,
+        "merged_prs": null,
         "size_kb": 2439,
         "language": "Python",
         "license": "AGPL-3.0",
@@ -4732,8 +4754,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 7,
-        "closed_prs": 0,
-        "merged_prs": 0,
+        "closed_prs": null,
+        "merged_prs": null,
         "size_kb": 326,
         "language": "Python",
         "license": "AGPL-3.0",
@@ -4777,13 +4799,13 @@
         "latest_prod_tag": "v0.1.0",
         "latest_any_tag": "v0.1.0",
         "expected_prod_version": "v0.1.0",
-        "commit": "fe754ba26ef8f88c7a01a8c05ba407231ffc6c56",
+        "commit": "9d89a25b10f2358447cc03a47d0c2265c3c0add4",
         "latest_prod_tag_at": "2026-06-16T12:45:18Z",
         "latest_release_at": "2026-06-16T15:02:30Z",
         "latest_version_at": "2026-06-16T15:02:30Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-06T21:50:46Z",
-        "commits_ahead_of_latest_prod_tag": 395
+        "last_commit_at": "2026-07-06T22:04:41Z",
+        "commits_ahead_of_latest_prod_tag": 396
       },
       "rollup": "green",
       "flags": [],
@@ -4829,7 +4851,7 @@
         "size_kb": 4289,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-06T21:50:47Z",
+        "pushed_at": "2026-07-06T22:04:57Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4875,11 +4897,11 @@
     }
   ],
   "summary": {
-    "green": 85,
+    "green": 86,
     "stale": 2,
     "pending": 4,
     "missing": 7,
-    "broken": 1,
+    "broken": 0,
     "unknown": 0,
     "excluded": 1
   },
@@ -4890,9 +4912,9 @@
     "forks": 0,
     "watchers": 3,
     "open_issues": 0,
-    "loc_code": 2840122,
-    "loc_total": 3698611,
-    "tests": 32183,
+    "loc_code": 2840144,
+    "loc_total": 3698637,
+    "tests": 32184,
     "files": 12373,
     "workflow_runs": 5389,
     "downloads_last_month": 20049
