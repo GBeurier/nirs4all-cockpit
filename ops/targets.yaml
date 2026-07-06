@@ -709,8 +709,7 @@ packages:
     source_of_truth:
       strategy: cargo_workspace
       path: Cargo.toml
-    # RC V1 also exposes Python and WASM binding surfaces from this repo. They
-    # are tracked as planned until the registry publishing workflows ship them.
+    # RC V1 also exposes Python and WASM binding surfaces from this repo.
     targets:
       - registry: readthedocs
         name: dag-ml
@@ -721,8 +720,17 @@ packages:
         reason: "RC5 Python binding from crates/dag-ml-py; PyPI publish pending while crates are at 0.2.3"
       - registry: npm
         name: dag-ml-wasm
-        state: planned
-        reason: "RC5 WASM binding from crates/dag-ml-wasm; npm publish pending while crates are at 0.2.3"
+        state: tracked
+        reason: "RC10 WASM binding from crates/dag-ml-wasm; npm package is published at 0.2.3"
+        workflow:
+          file: release-npm.yml
+          trigger: workflow_dispatch
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: publish
+              type: boolean
+              default: false
       - registry: crates
         name: dag-ml
         state: tracked
@@ -749,7 +757,6 @@ packages:
       strategy: cargo_workspace
       path: Cargo.toml
     # RC V1 also exposes Python, WASM, and R binding surfaces from this repo.
-    # They are tracked as planned until registry publishing workflows ship them.
     targets:
       - registry: readthedocs
         name: dag-ml-data
@@ -760,8 +767,17 @@ packages:
         reason: "RC5 Python binding from crates/dag-ml-data-py; PyPI publish pending while crates are at 0.2.4"
       - registry: npm
         name: dag-ml-data-wasm
-        state: planned
-        reason: "RC5 WASM binding from crates/dag-ml-data-wasm; npm publish pending while crates are at 0.2.4"
+        state: tracked
+        reason: "RC10 WASM binding from crates/dag-ml-data-wasm; npm package is published at 0.2.4"
+        workflow:
+          file: release-npm.yml
+          trigger: workflow_dispatch
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: publish
+              type: boolean
+              default: false
       - registry: r-universe
         name: dagmldata
         state: planned
