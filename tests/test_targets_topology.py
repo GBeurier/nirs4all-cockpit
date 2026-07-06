@@ -21,6 +21,7 @@ def _package(package_id: str):
 def test_rc_core_uses_canonical_repo_and_keeps_legacy_lite_alias_visible() -> None:
     package = _package("nirs4all-core")
 
+    assert package.channel == "rc"
     assert package.repo == "nirs4all-core"
     assert package.issues_repo == "nirs4all-core"
     assert package.source_of_truth is not None
