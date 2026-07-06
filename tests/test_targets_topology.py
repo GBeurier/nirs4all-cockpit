@@ -99,6 +99,32 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     ]
 
 
+def test_dashboard_pages_urls_cover_current_rc_pages_roster() -> None:
+    app_js = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
+    pages_urls = {
+        "nirs4all-methods": "https://methods.nirs4all.org/",
+        "nirs4all-papers": "https://papers.nirs4all.org/",
+        "nirs4all-repository": "https://repository.nirs4all.org/",
+        "nirs4all-benchmarks": "https://benchmarks.nirs4all.org/",
+        "nirs4all-providers": "https://providers.nirs4all.org/",
+        "nirs4all-ui": "https://gbeurier.github.io/nirs4all-ui/",
+    }
+    pages_roster = [
+        ("/methods", "methods.nirs4all.org", "nirs4all-methods"),
+        ("/papers", "papers.nirs4all.org", "nirs4all-papers"),
+        ("/repository", "repository.nirs4all.org", "nirs4all-repository"),
+        ("/benchmarks", "benchmarks.nirs4all.org", "nirs4all-benchmarks"),
+        ("/providers", "providers.nirs4all.org", "nirs4all-providers"),
+        ("/ui", "gbeurier.github.io/nirs4all-ui", "nirs4all-ui"),
+    ]
+
+    for repo, url in pages_urls.items():
+        assert f'"{repo}": "{url}"' in app_js
+    for path, host, repo in pages_roster:
+        assert f'["{path}", "{host}", "{repo}"]' in app_js
+    assert 'const href = reg === "readthedocs" && rep.evidence && rep.evidence.version_endpoint' in app_js
+
+
 def test_rc_python_facade_publish_blockers_are_explicit() -> None:
     core = _package("nirs4all-core")
     providers = _package("nirs4all-providers")
