@@ -717,12 +717,21 @@ packages:
         state: tracked
       - registry: pypi
         name: dag-ml
-        state: planned
-        reason: "RC10 Python binding from crates/dag-ml-py; PyPI publish workflow/token setup remains pending while crates are at 0.2.3"
+        state: tracked
+        reason: "RC11 Python binding from crates/dag-ml-py; publish via release-python.yml using PyPI Trusted Publishing environment pypi"
+        workflow:
+          file: release-python.yml
+          trigger: workflow_dispatch
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: publish
+              type: boolean
+              default: false
       - registry: npm
         name: dag-ml-wasm
         state: tracked
-        reason: "RC10 WASM binding from crates/dag-ml-wasm; npm package is published at 0.2.3"
+        reason: "RC11 WASM binding from crates/dag-ml-wasm; npm package is published at 0.2.3"
         workflow:
           file: release-npm.yml
           trigger: workflow_dispatch
@@ -765,12 +774,21 @@ packages:
         state: tracked
       - registry: pypi
         name: dag-ml-data
-        state: planned
-        reason: "RC10 Python binding from crates/dag-ml-data-py; PyPI publish workflow/token setup remains pending while crates are at 0.2.4"
+        state: tracked
+        reason: "RC11 Python binding from crates/dag-ml-data-py; publish via release-python.yml using PyPI Trusted Publishing environment pypi"
+        workflow:
+          file: release-python.yml
+          trigger: workflow_dispatch
+          danger: publish
+          publishes_on_dispatch: true
+          inputs:
+            - name: publish
+              type: boolean
+              default: false
       - registry: npm
         name: dag-ml-data-wasm
         state: tracked
-        reason: "RC10 WASM binding from crates/dag-ml-data-wasm; npm package is published at 0.2.4"
+        reason: "RC11 WASM binding from crates/dag-ml-data-wasm; npm package is published at 0.2.4"
         workflow:
           file: release-npm.yml
           trigger: workflow_dispatch
@@ -783,7 +801,7 @@ packages:
       - registry: r-universe
         name: dagmldata
         state: tracked
-        reason: "RC10 R binding from crates/dag-ml-data-r; main now uses crates.io Rust deps for R-universe subdir builds"
+        reason: "RC11 R binding from crates/dag-ml-data-r; main now uses crates.io Rust deps for R-universe subdir builds"
       - registry: crates
         name: dag-ml-data
         state: tracked

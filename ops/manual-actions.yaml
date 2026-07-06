@@ -177,6 +177,42 @@ actions:
       name: nirs4all-repository
       expect: published
 
+  - id: pypi-publisher-dag-ml
+    status: todo
+    severity: blocker
+    title: "PyPI — create the Trusted Publisher of dag-ml (repo dag-ml, release-python.yml, env pypi); then rerun release-python.yml with publish=true"
+    manual_url: "https://pypi.org/manage/account/publishing/"
+    affects:
+      - "dag-ml:release-python.yml"
+    after_done:
+      - run_workflow:
+          repo: dag-ml
+          workflow: release-python.yml
+          ref: main
+          inputs: { publish: "true" }
+    auto_check:
+      registry: pypi
+      name: dag-ml
+      expect: published
+
+  - id: pypi-publisher-dag-ml-data
+    status: todo
+    severity: blocker
+    title: "PyPI — create the Trusted Publisher of dag-ml-data (repo dag-ml-data, release-python.yml, env pypi); then rerun release-python.yml with publish=true"
+    manual_url: "https://pypi.org/manage/account/publishing/"
+    affects:
+      - "dag-ml-data:release-python.yml"
+    after_done:
+      - run_workflow:
+          repo: dag-ml-data
+          workflow: release-python.yml
+          ref: main
+          inputs: { publish: "true" }
+    auto_check:
+      registry: pypi
+      name: dag-ml-data
+      expect: published
+
   - id: crates-verify-email
     status: done
     severity: important
