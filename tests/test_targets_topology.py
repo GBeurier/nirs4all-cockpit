@@ -256,6 +256,24 @@ def test_formats_cran_target_is_explicitly_excluded_to_match_manual_policy() -> 
     assert "do NOT submit nirs4allformats to CRAN" in (cran.reason or "")
     assert "R-universe only" in (cran.reason or "")
     assert "do NOT submit nirs4allformats" in actions["cran-resubmit-n4m-pls4all"].title
+    assert "do NOT submit nirs4allformats" in actions["cran-resubmit-pls4all"].title
+
+
+def test_cran_manual_actions_cover_n4m_and_pls4all_separately() -> None:
+    actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
+
+    assert actions["cran-resubmit-n4m-pls4all"].auto_check == {
+        "registry": "cran",
+        "name": "n4m",
+        "expect": "published",
+    }
+    assert actions["cran-resubmit-pls4all"].auto_check == {
+        "registry": "cran",
+        "name": "pls4all",
+        "expect": "published",
+    }
+    assert "n4m only" in actions["cran-resubmit-n4m-pls4all"].title
+    assert "pls4all only" in actions["cran-resubmit-pls4all"].title
 
 
 def test_resolved_manual_actions_are_marked_done() -> None:
@@ -343,3 +361,7 @@ def test_current_pypi_manual_actions_match_targets_reasons_and_workflow_inputs()
             if action.id == "pypi-publisher-repository":
                 assert target.workflow.danger == "publish"
                 assert run_workflow.get("inputs") == {"dry_run": "false"}
+
+    core = actions["pypi-publisher-core"]
+    assert core.after_done == []
+    assert "tag-triggered workflow must be rerun manually" in core.title

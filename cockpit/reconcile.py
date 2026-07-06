@@ -72,6 +72,23 @@ _COLLECTORS = {
     "readthedocs": readthedocs.collect,
 }
 
+
+_CANONICAL_PAGES_URLS = {
+    "nirs4all-org": "https://nirs4all.org/",
+    "nirs4all-datasets": "https://datasets.nirs4all.org/",
+    "nirs4all-formats": "https://formats.nirs4all.org/",
+    "nirs4all-io": "https://io.nirs4all.org/",
+    "nirs4all-methods": "https://methods.nirs4all.org/",
+    "nirs4all-cockpit": "https://cockpit.nirs4all.org/",
+    "nirs4all-web": "https://web.nirs4all.org/",
+    "nirs4all-repository": "https://repository.nirs4all.org/",
+    "nirs4all-papers": "https://papers.nirs4all.org/",
+    "nirs4all-benchmarks": "https://benchmarks.nirs4all.org/",
+    "nirs4all-providers": "https://gbeurier.github.io/nirs4all-providers/",
+    "nirs4all-ui": "https://gbeurier.github.io/nirs4all-ui/",
+}
+
+
 def load_targets(path: str | Path) -> Targets:
     """Parse ``ops/targets.yaml`` into the :class:`Targets` inventory model."""
     data = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
@@ -533,8 +550,13 @@ def _reconcile_pages(owner: str, pkg: Package, tgt: Target, *, no_network: bool)
     return TargetStatus(
         registry="pages", name=tgt.name, published_version=None, status=state, planned=False,
         channel=pkg.channel, reason=tgt.reason,
-        downloads=Downloads(), evidence=Evidence(version_endpoint=info.get("html_url")), error=None,
+        downloads=Downloads(), evidence=Evidence(version_endpoint=_pages_url(pkg.repo, info)), error=None,
     )
+
+
+def _pages_url(repo: str, info: dict[str, Any]) -> str | None:
+    """Return the public Pages URL used by the dashboard for this repo."""
+    return _CANONICAL_PAGES_URLS.get(repo) or info.get("html_url")
 
 
 def _is_transient(http_status: int | None, error: str | None) -> bool:

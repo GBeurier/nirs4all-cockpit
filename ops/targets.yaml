@@ -47,7 +47,7 @@ packages:
       - registry: github-release
         name: nirs4all
         state: tracked
-        reason: "production release line kept for compatibility; RC10 coordination/final release tracking is carried by nirs4all-core"
+        reason: "production release line kept for compatibility; RC11 coordination/final release tracking is carried by nirs4all-core"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -842,7 +842,6 @@ packages:
     repo: nirs4all-web
     channel: production
     issues_repo: nirs4all-web
-    coordination_tag: n4a-v1-rc10-2026.07-refactor
     source_of_truth:
       strategy: npm_package_json
       path: studio-lite/package.json
@@ -850,7 +849,7 @@ packages:
       - registry: pages
         name: nirs4all-web
         state: tracked
-        reason: "client-side web app head c390e740b7e72abc7ba087bd54ef0042e6f668ec; ecosystem lock c404e0ad tracks RC10 coordination via n4a-v1-rc10-2026.07-refactor"
+        reason: "client-side web app is tracked from its own production version; no RC11 coordination tag is present on this repo"
     version_aliases: {}
 
   - id: nirs4all-ui

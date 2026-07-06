@@ -83,7 +83,7 @@ actions:
   - id: pypi-publisher-core
     status: todo
     severity: blocker
-    title: "PyPI — create the Trusted Publisher of nirs4all-core (repo nirs4all-core, release-python.yml, env pypi); fixes invalid-publisher on v0.2.7, then rerun v0.2.7"
+    title: "PyPI — create the Trusted Publisher of nirs4all-core (repo nirs4all-core, release-python.yml, env pypi); fixes invalid-publisher on v0.2.7; tag-triggered workflow must be rerun manually"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-core:release-python.yml"
@@ -235,10 +235,21 @@ actions:
   - id: cran-resubmit-n4m-pls4all
     status: todo
     severity: important
-    title: "CRAN — re-submit n4m + pls4all (fixed tarballs on Release v0.99.0); do NOT submit nirs4allformats"
+    title: "CRAN — submit n4m only (fixed tarball on Release v0.99.0); do NOT submit nirs4allformats"
     manual_url: "https://cran.r-project.org/submit.html"
     affects: []
     auto_check:
       registry: cran
       name: n4m
+      expect: published
+
+  - id: cran-resubmit-pls4all
+    status: todo
+    severity: important
+    title: "CRAN — submit pls4all only (fixed tarball on Release v0.99.0); do NOT submit nirs4allformats"
+    manual_url: "https://cran.r-project.org/submit.html"
+    affects: []
+    auto_check:
+      registry: cran
+      name: pls4all
       expect: published
