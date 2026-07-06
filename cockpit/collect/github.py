@@ -86,9 +86,20 @@ def _gh_api_json(endpoint: str) -> Any | None:
     return body
 
 
+def _gh_endpoint(url_or_endpoint: str) -> str:
+    prefix = f"{API}/"
+    if url_or_endpoint.startswith(prefix):
+        return url_or_endpoint[len(prefix):]
+    return url_or_endpoint
+
+
 def default_branch(owner: str, repo: str) -> str | None:
     """Return the repo's default branch, or ``None`` if the repo is unreachable."""
     status, body, _error = _get(f"{API}/repos/{owner}/{repo}")
+    if status != 200:
+        body = _gh_api_json(f"repos/{owner}/{repo}")
+        if isinstance(body, dict):
+            status = 200
     if status == 200 and isinstance(body, dict):
         return body.get("default_branch")
     return None
@@ -101,6 +112,10 @@ def tags(owner: str, repo: str) -> list[str]:
     while True:
         url = f"{API}/repos/{owner}/{repo}/tags?per_page=100&page={page}"
         status, body, _error = _get(url)
+        if status != 200:
+            body = _gh_api_json(f"repos/{owner}/{repo}/tags?per_page=100&page={page}")
+            if isinstance(body, list):
+                status = 200
         if status != 200 or not isinstance(body, list) or not body:
             break
         names.extend(t.get("name") for t in body if isinstance(t, dict) and t.get("name"))
@@ -114,6 +129,10 @@ def releases(owner: str, repo: str) -> list[dict[str, Any]]:
     """Return release objects with tag, draft/prerelease flags, and asset downloads."""
     out: list[dict[str, Any]] = []
     status, body, _error = _get(f"{API}/repos/{owner}/{repo}/releases?per_page=100")
+    if status != 200:
+        body = _gh_api_json(f"repos/{owner}/{repo}/releases?per_page=100")
+        if isinstance(body, list):
+            status = 200
     if status == 200 and isinstance(body, list):
         for rel in body:
             if not isinstance(rel, dict):
@@ -135,6 +154,10 @@ def releases(owner: str, repo: str) -> list[dict[str, Any]]:
 def latest_release(owner: str, repo: str) -> dict[str, Any] | None:
     """Return the repo's ``latest`` (non-draft, non-prerelease) release, if any."""
     status, body, _error = _get(f"{API}/repos/{owner}/{repo}/releases/latest")
+    if status != 200:
+        body = _gh_api_json(f"repos/{owner}/{repo}/releases/latest")
+        if isinstance(body, dict):
+            status = 200
     if status == 200 and isinstance(body, dict):
         assets = body.get("assets") or []
         return {
@@ -149,6 +172,10 @@ def commit_fact(owner: str, repo: str, ref: str) -> dict[str, Any] | None:
     """Return one commit's SHA and committer date for a branch, tag, or SHA ref."""
     ref_path = quote(ref, safe="")
     status, body, _error = _get(f"{API}/repos/{owner}/{repo}/commits/{ref_path}")
+    if status != 200:
+        body = _gh_api_json(f"repos/{owner}/{repo}/commits/{ref_path}")
+        if isinstance(body, dict):
+            status = 200
     if status == 200 and isinstance(body, dict):
         commit = body.get("commit") if isinstance(body.get("commit"), dict) else {}
         committer = commit.get("committer") if isinstance(commit.get("committer"), dict) else {}
@@ -173,10 +200,18 @@ def tag_fact(owner: str, repo: str, tag: str) -> dict[str, Any] | None:
     """Return tag date metadata, using tagger date for annotated tags when present."""
     tag_path = quote(tag, safe="")
     status, body, _error = _get(f"{API}/repos/{owner}/{repo}/git/ref/tags/{tag_path}")
+    if status != 200:
+        body = _gh_api_json(f"repos/{owner}/{repo}/git/ref/tags/{tag_path}")
+        if isinstance(body, dict):
+            status = 200
     if status == 200 and isinstance(body, dict):
         obj = body.get("object") if isinstance(body.get("object"), dict) else {}
         if obj.get("type") == "tag" and obj.get("url"):
             t_status, t_body, _ = _get(obj["url"])
+            if t_status != 200:
+                t_body = _gh_api_json(_gh_endpoint(obj["url"]))
+                if isinstance(t_body, dict):
+                    t_status = 200
             if t_status == 200 and isinstance(t_body, dict):
                 tagger = t_body.get("tagger") if isinstance(t_body.get("tagger"), dict) else {}
                 target = t_body.get("object") if isinstance(t_body.get("object"), dict) else {}
@@ -206,6 +241,10 @@ def commits_ahead(owner: str, repo: str, base: str, head: str | None = None) -> 
     head_path = quote(head_ref, safe="")
     url = f"{API}/repos/{owner}/{repo}/compare/{base_path}...{head_path}"
     status, body, _error = _get(url)
+    if status != 200:
+        body = _gh_api_json(f"repos/{owner}/{repo}/compare/{base_path}...{head_path}")
+        if isinstance(body, dict):
+            status = 200
     if status == 200 and isinstance(body, dict):
         ahead = body.get("ahead_by")
         return ahead if isinstance(ahead, int) else None
@@ -233,6 +272,10 @@ def repo_stats(owner: str, repo: str, *, with_traffic: bool = False) -> dict[str
         "traffic_available": False,
     }
     status, body, _error = _get(f"{API}/repos/{owner}/{repo}")
+    if status != 200:
+        body = _gh_api_json(f"repos/{owner}/{repo}")
+        if isinstance(body, dict):
+            status = 200
     if status == 200 and isinstance(body, dict):
         lic = body.get("license")
         out.update(
@@ -322,6 +365,10 @@ def release_asset_matches(owner: str, repo: str, pattern: str) -> bool:
     """
     rx = re.compile(pattern)
     status, body, _error = _get(f"{API}/repos/{owner}/{repo}/releases?per_page=20")
+    if status != 200:
+        body = _gh_api_json(f"repos/{owner}/{repo}/releases?per_page=20")
+        if isinstance(body, list):
+            status = 200
     if status == 200 and isinstance(body, list):
         for rel in body:
             if not isinstance(rel, dict):
