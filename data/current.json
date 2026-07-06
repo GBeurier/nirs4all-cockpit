@@ -663,7 +663,7 @@
         "last_commit_at": "2026-07-04T09:07:56Z",
         "commits_ahead_of_latest_prod_tag": 0
       },
-      "rollup": "pending",
+      "rollup": "green",
       "flags": [],
       "targets": [
         {
@@ -975,29 +975,24 @@
           "registry": "cran",
           "name": "nirs4allformats",
           "channel": "production",
-          "reason": "manual web submission; no admin button",
+          "reason": "manual release policy says do NOT submit nirs4allformats to CRAN; keep the R surface on R-universe only",
           "published_version": null,
-          "status": "pending",
+          "status": "excluded",
           "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 0,
+            "last_month": null,
             "total": null,
-            "source": "cranlogs",
+            "source": null,
             "by_version": [],
-            "windows": {
-              "7d": null,
-              "30d": 0,
-              "90d": null,
-              "total": null
-            }
+            "windows": {}
           },
           "evidence": {
-            "version_endpoint": "https://crandb.r-pkg.org/nirs4allformats",
-            "downloads_endpoint": "https://cranlogs.r-pkg.org/downloads/total/last-month/nirs4allformats"
+            "version_endpoint": null,
+            "downloads_endpoint": null
           },
-          "error": null
+          "error": "manual release policy says do NOT submit nirs4allformats to CRAN; keep the R surface on R-universe only"
         },
         {
           "registry": "github-release",
@@ -4785,11 +4780,11 @@
   "summary": {
     "green": 81,
     "stale": 3,
-    "pending": 5,
+    "pending": 4,
     "missing": 10,
     "broken": 0,
     "unknown": 1,
-    "excluded": 0
+    "excluded": 1
   },
   "totals": {
     "packages": 21,
