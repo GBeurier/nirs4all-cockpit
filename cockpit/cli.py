@@ -21,6 +21,7 @@ and passed into the pure collection/reconcile layer.
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -31,7 +32,19 @@ from pydantic import ValidationError
 
 from cockpit import reconcile
 from cockpit import snapshot as snapshot_io
-from cockpit.model import SearchConsoleStats, SentryStatus, Snapshot, Targets, Visits
+from cockpit import version as ver
+from cockpit.model import (
+    ActionsStats,
+    Issues,
+    RepoStats,
+    SearchConsoleStats,
+    SentryStatus,
+    Snapshot,
+    Targets,
+    Totals,
+    Visits,
+    WorkflowHealth,
+)
 
 app = typer.Typer(
     add_completion=False,
@@ -54,6 +67,18 @@ _STATE_COLORS = {
     "unknown": "blue",
     "excluded": "dim",
 }
+
+_GITHUB_SOURCE_FIELDS = (
+    "latest_prod_tag",
+    "latest_any_tag",
+    "commit",
+    "latest_prod_tag_at",
+    "latest_release_at",
+    "latest_version_at",
+    "latest_version_source",
+    "last_commit_at",
+    "commits_ahead_of_latest_prod_tag",
+)
 
 
 # --------------------------------------------------------------------------- #
@@ -180,12 +205,185 @@ def _carry_forward_public_signals(snap: Snapshot, prior_snapshot: dict | None) -
     ):
         snap.search_console = SearchConsoleStats.model_validate(prior_search_console)
 
+    _carry_forward_github_public_signals(snap, prior_snapshot)
     _carry_forward_target_downloads(snap, prior_snapshot)
-    snap.totals.downloads_last_month = sum(
-        target.downloads.last_month or 0
-        for package in snap.packages
-        for target in package.targets
+    snap.totals = _compute_totals(snap)
+
+
+def _carry_forward_github_public_signals(snap: Snapshot, prior_snapshot: dict) -> None:
+    """Keep prior GitHub facts when a local collect loses them transiently."""
+    prior_packages = {
+        package.get("id"): package
+        for package in prior_snapshot.get("packages", [])
+        if isinstance(package, dict) and package.get("id")
+    }
+
+    for package in snap.packages:
+        prior = prior_packages.get(package.id)
+        if not prior:
+            continue
+
+        prior_source = prior.get("source") or {}
+        source = package.source.model_dump()
+        if (
+            _source_missing_github_facts(source)
+            and source.get("manifest_version") == prior_source.get("manifest_version")
+        ):
+            for field in _GITHUB_SOURCE_FIELDS:
+                if source.get(field) is None and prior_source.get(field) is not None:
+                    source[field] = prior_source[field]
+            package.source = type(package.source).model_validate(source)
+        elif _source_missing_github_facts(source):
+            local_source = _local_git_source_facts(package.repo, source.get("manifest_version"))
+            if local_source:
+                source.update(local_source)
+                package.source = type(package.source).model_validate(source)
+
+        repo_stats_missing = _repo_stats_missing_public_facts((package.repo_stats or RepoStats()).model_dump())
+        prior_repo_stats = prior.get("repo_stats") or {}
+        if package.repo_stats and prior_repo_stats and repo_stats_missing:
+            package.repo_stats = RepoStats.model_validate(prior_repo_stats)
+
+        prior_actions_stats = prior.get("actions_stats") or {}
+        if (
+            package.actions_stats
+            and prior_actions_stats
+            and _actions_stats_missing_public_facts(package.actions_stats.model_dump())
+        ):
+            package.actions_stats = ActionsStats.model_validate(prior_actions_stats)
+
+        prior_workflows = prior.get("workflows") or []
+        _carry_forward_workflows(package, prior_workflows)
+
+        prior_issues = prior.get("issues") or {}
+        if prior_issues and repo_stats_missing:
+            package.issues = Issues.model_validate(prior_issues)
+
+
+def _source_missing_github_facts(source: dict) -> bool:
+    return all(source.get(field) is None for field in _GITHUB_SOURCE_FIELDS)
+
+
+def _repo_stats_missing_public_facts(repo_stats: dict) -> bool:
+    return all(
+        repo_stats.get(field) is None
+        for field in ("stars", "forks", "watchers", "size_kb", "pushed_at", "default_branch")
     )
+
+
+def _actions_stats_missing_public_facts(actions_stats: dict) -> bool:
+    return (
+        actions_stats.get("workflows") is None
+        and actions_stats.get("total_runs") is None
+        and actions_stats.get("success_rate") is None
+        and not actions_stats.get("recent_total")
+    )
+
+
+def _carry_forward_workflows(package, prior_workflows: list[dict]) -> None:
+    if not prior_workflows:
+        return
+
+    if not package.workflows:
+        package.workflows = [WorkflowHealth.model_validate(workflow) for workflow in prior_workflows]
+        return
+
+    prior_by_file = {workflow.get("file"): workflow for workflow in prior_workflows if isinstance(workflow, dict)}
+    merged = []
+    for workflow in package.workflows:
+        current = workflow.model_dump()
+        prior = prior_by_file.get(current.get("file"))
+        if prior and _workflow_missing_public_facts(current):
+            current = {**current, **prior}
+        merged.append(WorkflowHealth.model_validate(current))
+    package.workflows = merged
+
+
+def _workflow_missing_public_facts(workflow: dict) -> bool:
+    return (
+        workflow.get("conclusion") is None
+        and workflow.get("created_at") is None
+        and workflow.get("head_sha") is None
+    )
+
+
+def _local_git_source_facts(repo: str, manifest_version: str | None) -> dict | None:
+    if manifest_version is None:
+        return None
+
+    repo_path = _local_repo_path(repo)
+    if repo_path is None:
+        return None
+
+    tags = _git(repo_path, "tag", "--list", "--sort=-creatordate")
+    if tags is None:
+        return None
+
+    candidates = [tag for tag in tags.splitlines() if ver.normalize(tag) == ver.normalize(manifest_version)]
+    if not candidates:
+        return None
+
+    preferred = [f"v{manifest_version}", manifest_version]
+    latest_prod_tag = next((tag for tag in preferred if tag in candidates), candidates[0])
+    commit = _git(repo_path, "rev-parse", "HEAD")
+    last_commit_at = _git(repo_path, "log", "-1", "--format=%cI", "HEAD")
+    tagged_at = _git(repo_path, "log", "-1", "--format=%cI", latest_prod_tag)
+    ahead_raw = _git(repo_path, "rev-list", f"{latest_prod_tag}..HEAD", "--count")
+    try:
+        ahead = int(ahead_raw) if ahead_raw is not None else None
+    except ValueError:
+        ahead = None
+
+    return {
+        "latest_prod_tag": latest_prod_tag,
+        "latest_any_tag": latest_prod_tag,
+        "expected_prod_version": latest_prod_tag,
+        "commit": commit,
+        "latest_prod_tag_at": tagged_at,
+        "latest_version_at": tagged_at,
+        "latest_version_source": "tag" if tagged_at else None,
+        "last_commit_at": last_commit_at,
+        "commits_ahead_of_latest_prod_tag": ahead,
+    }
+
+
+def _local_repo_path(repo: str) -> Path | None:
+    for candidate in (Path.cwd().parent / repo, Path.cwd() / repo):
+        if (candidate / ".git").exists():
+            return candidate
+    return None
+
+
+def _git(repo_path: Path, *args: str) -> str | None:
+    try:
+        out = subprocess.check_output(
+            ["git", "-C", str(repo_path), *args],
+            stderr=subprocess.DEVNULL,
+            text=True,
+        )
+    except (subprocess.CalledProcessError, OSError):
+        return None
+    return out.strip()
+
+
+def _compute_totals(snap: Snapshot) -> Totals:
+    totals = Totals(packages=len(snap.packages), repos=len({p.repo for p in snap.packages}))
+    for package in snap.packages:
+        totals.open_issues += package.issues.open
+        if package.repo_stats:
+            totals.stars += package.repo_stats.stars or 0
+            totals.forks += package.repo_stats.forks or 0
+            totals.watchers += package.repo_stats.watchers or 0
+        if package.code_stats:
+            totals.loc_code += package.code_stats.loc_code
+            totals.loc_total += package.code_stats.loc_total
+            totals.tests += package.code_stats.tests
+            totals.files += package.code_stats.files
+        if package.actions_stats and package.actions_stats.total_runs:
+            totals.workflow_runs += package.actions_stats.total_runs
+        for target in package.targets:
+            totals.downloads_last_month += target.downloads.last_month or 0
+    return totals
 
 
 def _carry_forward_target_downloads(snap: Snapshot, prior_snapshot: dict) -> None:

@@ -10,7 +10,7 @@ is ``unknown``).
 Cross-cutting concerns handled here, once, for every registry:
 
 * a descriptive ``User-Agent`` (crates.io returns 403 without one);
-* a 20 s timeout;
+* a 20 s timeout, overridable through ``COCKPIT_HTTP_TIMEOUT``;
 * bounded retry with exponential backoff on 429 and 5xx (and transport errors);
 * an optional light on-disk cache under ``.cache/`` keyed by URL+headers.
 """
@@ -27,9 +27,25 @@ from typing import Any
 import httpx
 
 USER_AGENT = "nirs4all-cockpit (gregory.beurier@cirad.fr)"
-TIMEOUT_S = 20.0
-MAX_RETRIES = 3
-BACKOFF_BASE_S = 1.0
+
+
+def _env_float(name: str, default: float) -> float:
+    try:
+        return float(os.environ.get(name, default))
+    except (TypeError, ValueError):
+        return default
+
+
+def _env_int(name: str, default: int) -> int:
+    try:
+        return int(os.environ.get(name, default))
+    except (TypeError, ValueError):
+        return default
+
+
+TIMEOUT_S = _env_float("COCKPIT_HTTP_TIMEOUT", 20.0)
+MAX_RETRIES = _env_int("COCKPIT_HTTP_MAX_RETRIES", 3)
+BACKOFF_BASE_S = _env_float("COCKPIT_HTTP_BACKOFF_BASE", 1.0)
 RETRY_STATUSES = frozenset({429, 500, 502, 503, 504})
 
 _CACHE_DIR = Path(os.environ.get("COCKPIT_CACHE_DIR", ".cache"))
