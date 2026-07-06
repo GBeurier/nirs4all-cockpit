@@ -171,7 +171,7 @@ def test_rc_python_facade_publish_blockers_are_explicit() -> None:
         ),
     }
 
-    assert "invalid-publisher on v0.2.5 release" in blockers["core"]
+    assert "invalid-publisher on the v0.2.7 release" in blockers["core"]
     assert "invalid-publisher on v0.2.5 release" in blockers["providers"]
     assert "invalid-publisher on v0.0.2 release" in blockers["tools"]
     assert "invalid-publisher on v0.1.4 release" in blockers["benchmarks"]
@@ -182,7 +182,7 @@ def test_rc_python_facade_publish_blockers_are_explicit() -> None:
 def test_current_pypi_manual_actions_cover_invalid_publisher_failures() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
-        "pypi-publisher-core": ("nirs4all-core", "v0.2.5"),
+        "pypi-publisher-core": ("nirs4all-core", "v0.2.7"),
         "pypi-publisher-providers": ("nirs4all-providers", "v0.2.5"),
         "pypi-publisher-tools": ("nirs4all-tools", "v0.0.2"),
         "pypi-publisher-benchmarks": ("nirs4all-benchmarks", "v0.1.4"),
