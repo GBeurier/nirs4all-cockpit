@@ -717,7 +717,7 @@ packages:
       - registry: pypi
         name: dag-ml
         state: planned
-        reason: "RC5 Python binding from crates/dag-ml-py; PyPI publish pending while crates are at 0.2.3"
+        reason: "RC10 Python binding from crates/dag-ml-py; PyPI publish workflow/token setup remains pending while crates are at 0.2.3"
       - registry: npm
         name: dag-ml-wasm
         state: tracked
@@ -764,7 +764,7 @@ packages:
       - registry: pypi
         name: dag-ml-data
         state: planned
-        reason: "RC5 Python binding from crates/dag-ml-data-py; PyPI publish pending while crates are at 0.2.4"
+        reason: "RC10 Python binding from crates/dag-ml-data-py; PyPI publish workflow/token setup remains pending while crates are at 0.2.4"
       - registry: npm
         name: dag-ml-data-wasm
         state: tracked
@@ -780,8 +780,8 @@ packages:
               default: false
       - registry: r-universe
         name: dagmldata
-        state: planned
-        reason: "RC5 R binding from crates/dag-ml-data-r; R-universe publication pending while crates are at 0.2.4"
+        state: tracked
+        reason: "RC10 R binding from crates/dag-ml-data-r; main now uses crates.io Rust deps for R-universe subdir builds"
       - registry: crates
         name: dag-ml-data
         state: tracked
