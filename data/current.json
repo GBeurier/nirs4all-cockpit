@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-07T10:51:29.181178+00:00",
+  "generated_at": "2026-07-07T11:06:42.872635+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -663,7 +663,7 @@
         "last_commit_at": "2026-07-07T08:18:21Z",
         "commits_ahead_of_latest_prod_tag": 1
       },
-      "rollup": "stale",
+      "rollup": "green",
       "flags": [],
       "targets": [
         {
@@ -962,8 +962,8 @@
           "name": "nirs4allformats",
           "channel": "production",
           "reason": null,
-          "published_version": "0.2.2",
-          "status": "stale",
+          "published_version": "0.2.4",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -985,8 +985,8 @@
           "name": "nirs4allformats.lite",
           "channel": "production",
           "reason": null,
-          "published_version": "0.2.2",
-          "status": "stale",
+          "published_version": "0.2.4",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -1106,13 +1106,13 @@
         "bugs": 0
       },
       "repo_stats": {
-        "stars": 20,
+        "stars": 21,
         "forks": 0,
         "watchers": 1,
         "open_prs": 6,
-        "closed_prs": 0,
+        "closed_prs": 1,
         "merged_prs": 0,
-        "size_kb": 118261,
+        "size_kb": 118265,
         "language": "Rust",
         "license": "AGPL-3.0",
         "pushed_at": "2026-07-07T08:18:33Z",
@@ -3762,13 +3762,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": null,
+            "last_month": 0,
             "total": null,
             "source": "npm",
             "by_version": [],
             "windows": {
               "7d": null,
-              "30d": null,
+              "30d": 0,
               "90d": null,
               "total": null
             }
@@ -4168,9 +4168,9 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 2,
-        "closed_prs": 0,
-        "merged_prs": 0,
-        "size_kb": 9962,
+        "closed_prs": 11,
+        "merged_prs": 5,
+        "size_kb": 9977,
         "language": "Rust",
         "license": "AGPL-3.0",
         "pushed_at": "2026-07-07T08:18:33Z",
@@ -4998,13 +4998,13 @@
         "latest_prod_tag": "v0.1.0",
         "latest_any_tag": "v0.1.0",
         "expected_prod_version": "v0.1.0",
-        "commit": "2d37c7f26648765a8059182b5d062fb5b0f73c66",
+        "commit": "58d6ee2da37060feaef197389cf1e3c3f6c63d5e",
         "latest_prod_tag_at": "2026-06-16T12:45:18Z",
         "latest_release_at": "2026-06-16T15:02:30Z",
         "latest_version_at": "2026-06-16T15:02:30Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-07T08:31:26Z",
-        "commits_ahead_of_latest_prod_tag": 433
+        "last_commit_at": "2026-07-07T11:05:02Z",
+        "commits_ahead_of_latest_prod_tag": 444
       },
       "rollup": "green",
       "flags": [],
@@ -5047,10 +5047,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 4284,
+        "size_kb": 4537,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-07T08:31:27Z",
+        "pushed_at": "2026-07-07T11:05:03Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -5074,19 +5074,19 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 354,
+        "total_runs": 451,
         "recent_total": 100,
-        "recent_success": 98,
-        "recent_failure": 2,
-        "success_rate": 98.0,
+        "recent_success": 97,
+        "recent_failure": 3,
+        "success_rate": 97.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-07T08:31:30Z"
+        "last_created_at": "2026-07-07T11:05:05Z"
       }
     }
   ],
   "summary": {
-    "green": 84,
-    "stale": 5,
+    "green": 86,
+    "stale": 3,
     "pending": 4,
     "missing": 7,
     "broken": 0,
@@ -5096,15 +5096,15 @@
   "totals": {
     "packages": 21,
     "repos": 21,
-    "stars": 125,
+    "stars": 126,
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 1254064,
-    "loc_total": 1641123,
-    "tests": 15875,
-    "files": 5734,
-    "workflow_runs": 6116,
+    "loc_code": 1253429,
+    "loc_total": 1640112,
+    "tests": 15864,
+    "files": 5721,
+    "workflow_runs": 6220,
     "downloads_last_month": 21637
   },
   "visits": {
