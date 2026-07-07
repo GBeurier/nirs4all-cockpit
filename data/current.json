@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-07T01:40:44Z",
+  "generated_at": "2026-07-07T02:02:33Z",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -30,7 +30,7 @@
           "registry": "readthedocs",
           "name": "nirs4all",
           "channel": "production-held",
-          "reason": "existing Python production documentation is maintained but held outside the final V1 RC; portable aggregate release is nirs4all-core 0.2.9",
+          "reason": "existing Python production documentation is maintained but held outside the final V1 RC; portable aggregate release is nirs4all-core 0.2.11",
           "published_version": "latest",
           "status": "green",
           "planned": false,
@@ -2524,16 +2524,16 @@
       "id": "nirs4all-core",
       "repo": "nirs4all-core",
       "source": {
-        "manifest_version": "0.2.9",
-        "latest_prod_tag": "v0.2.9",
-        "latest_any_tag": "v0.2.9",
-        "expected_prod_version": "v0.2.9",
-        "commit": "f0f9869ab5c71c253944e97c6b55cd5b5ef0b208",
-        "latest_prod_tag_at": "2026-07-07T01:26:55Z",
-        "latest_release_at": "2026-07-07T01:27:33Z",
-        "latest_version_at": "2026-07-07T01:27:33Z",
+        "manifest_version": "0.2.11",
+        "latest_prod_tag": "v0.2.11",
+        "latest_any_tag": "v0.2.11",
+        "expected_prod_version": "v0.2.11",
+        "commit": "615a154f8870186cd2e66c348762dbc5be135ea2",
+        "latest_prod_tag_at": "2026-07-07T01:58:29Z",
+        "latest_release_at": "2026-07-07T01:59:00Z",
+        "latest_version_at": "2026-07-07T01:59:00Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-07T01:26:55Z",
+        "last_commit_at": "2026-07-07T01:58:29Z",
         "commits_ahead_of_latest_prod_tag": 0
       },
       "rollup": "missing",
@@ -2566,7 +2566,7 @@
           "registry": "pypi",
           "name": "nirs4all-lite",
           "channel": "rc",
-          "reason": "legacy alias remains published at 0.2.0; RC13 aggregate target is nirs4all-core 0.2.9",
+          "reason": "legacy alias remains published at 0.2.0; RC15 aggregate target is nirs4all-core 0.2.11",
           "published_version": "0.2.0",
           "status": "stale",
           "planned": false,
@@ -2594,7 +2594,7 @@
           "registry": "pypi",
           "name": "nirs4all-core",
           "channel": "rc",
-          "reason": "RC V1 rename of nirs4all-lite; PyPI project remains unpublished at v0.2.9; current blocker is invalid-publisher on the v0.2.9 release",
+          "reason": "RC V1 rename of nirs4all-lite; PyPI project remains unpublished at v0.2.11; current blocker is invalid-publisher on the v0.2.11 release",
           "published_version": null,
           "status": "missing",
           "planned": false,
@@ -2622,8 +2622,8 @@
           "registry": "crates",
           "name": "nirs4all",
           "channel": "rc",
-          "reason": "RC13 aggregate crate is published as product version 0.2.9; release tag v0.2.9 is available",
-          "published_version": "0.2.9",
+          "reason": "RC15 aggregate crate is published as product version 0.2.11; release tag v0.2.11 is available",
+          "published_version": "0.2.11",
           "status": "green",
           "planned": false,
           "downloads": {
@@ -2633,6 +2633,14 @@
             "total": 134,
             "source": "crates.io",
             "by_version": [
+              {
+                "version": "0.2.11",
+                "downloads": 0
+              },
+              {
+                "version": "0.2.10",
+                "downloads": 0
+              },
               {
                 "version": "0.2.9",
                 "downloads": 0
@@ -2691,8 +2699,8 @@
           "registry": "npm",
           "name": "nirs4all",
           "channel": "rc",
-          "reason": "RC13 aggregate npm package is published as product version 0.2.9; release tag v0.2.9 is available",
-          "published_version": "0.2.9",
+          "reason": "RC15 aggregate npm package is published as product version 0.2.11; release tag v0.2.11 is available",
+          "published_version": "0.2.11",
           "status": "green",
           "planned": false,
           "downloads": {
@@ -2719,7 +2727,7 @@
           "registry": "r-universe",
           "name": "nirs4all",
           "channel": "rc",
-          "reason": "R-universe remains at 0.2.8 while the 0.2.9 RC13 R source tarball is attached to the GitHub Release; manual rebuild is tracked separately",
+          "reason": "R-universe remains at 0.2.8 while the 0.2.11 RC15 R source tarball is attached to the GitHub Release; manual rebuild is tracked separately",
           "published_version": "0.2.8",
           "status": "stale",
           "planned": false,
@@ -2742,7 +2750,7 @@
           "registry": "cran",
           "name": "nirs4all",
           "channel": "rc",
-          "reason": "manual web submission; CRAN remains unpublished for the 0.2.9 RC13 aggregate",
+          "reason": "manual web submission; CRAN remains unpublished for the 0.2.11 RC15 aggregate",
           "published_version": null,
           "status": "pending",
           "planned": false,
@@ -2770,8 +2778,8 @@
           "registry": "github-release",
           "name": "nirs4all-core",
           "channel": "rc",
-          "reason": "v0.2.9 release carries source/SBOM, MATLAB/Octave archive, R tarball, and SHA256SUMS; release tag v0.2.9 is available",
-          "published_version": "0.2.9",
+          "reason": "v0.2.11 release carries source/SBOM, MATLAB/Octave archive, R tarball, and SHA256SUMS; release tag v0.2.11 is available",
+          "published_version": "0.2.11",
           "status": "green",
           "planned": false,
           "downloads": {

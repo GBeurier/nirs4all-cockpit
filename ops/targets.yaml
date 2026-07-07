@@ -33,7 +33,7 @@ packages:
       - registry: readthedocs
         name: nirs4all
         state: tracked
-        reason: "existing Python production documentation is maintained but held outside the final V1 RC; portable aggregate release is nirs4all-core 0.2.9"
+        reason: "existing Python production documentation is maintained but held outside the final V1 RC; portable aggregate release is nirs4all-core 0.2.11"
       - registry: pypi
         name: nirs4all
         state: tracked
@@ -585,7 +585,7 @@ packages:
       - registry: pypi
         name: nirs4all-lite
         state: tracked
-        reason: "legacy alias remains published at 0.2.0; RC13 aggregate target is nirs4all-core 0.2.9"
+        reason: "legacy alias remains published at 0.2.0; RC15 aggregate target is nirs4all-core 0.2.11"
         workflow:
           file: release-python.yml
           trigger: tag
@@ -601,7 +601,7 @@ packages:
       - registry: pypi
         name: nirs4all-core
         state: tracked
-        reason: "RC V1 rename of nirs4all-lite; PyPI project remains unpublished at v0.2.9; current blocker is invalid-publisher on the v0.2.9 release"
+        reason: "RC V1 rename of nirs4all-lite; PyPI project remains unpublished at v0.2.11; current blocker is invalid-publisher on the v0.2.11 release"
         workflow:
           file: release-python.yml
           trigger: tag
@@ -614,7 +614,7 @@ packages:
       - registry: crates
         name: nirs4all
         state: tracked
-        reason: "RC13 aggregate crate is published as product version 0.2.9; release tag v0.2.9 is available"
+        reason: "RC15 aggregate crate is published as product version 0.2.11; release tag v0.2.11 is available"
         workflow:
           file: release-crates.yml
           trigger: tag
@@ -627,7 +627,7 @@ packages:
       - registry: npm
         name: nirs4all
         state: tracked
-        reason: "RC13 aggregate npm package is published as product version 0.2.9; release tag v0.2.9 is available"
+        reason: "RC15 aggregate npm package is published as product version 0.2.11; release tag v0.2.11 is available"
         workflow:
           file: release-npm.yml
           trigger: tag
@@ -640,7 +640,7 @@ packages:
       - registry: r-universe
         name: nirs4all
         state: tracked
-        reason: "R-universe target is the 0.2.9 RC13 aggregate from the v0.2.9 R source tarball; live R-universe can remain stale until the manual rebuild completes"
+        reason: "R-universe target is the 0.2.11 RC15 aggregate from the v0.2.11 R source tarball; live R-universe remains stale until the manual rebuild completes"
         workflow:
           file: release-r.yml
           trigger: tag
@@ -650,11 +650,11 @@ packages:
       - registry: cran
         name: nirs4all
         state: tracked
-        reason: "manual web submission; CRAN remains unpublished for the 0.2.9 RC13 aggregate"
+        reason: "manual web submission; CRAN remains unpublished for the 0.2.11 RC15 aggregate"
       - registry: github-release
         name: nirs4all-core
         state: tracked
-        reason: "v0.2.9 release carries source/SBOM, MATLAB/Octave archive, R tarball, and SHA256SUMS; release tag v0.2.9 is available"
+        reason: "v0.2.11 release carries source/SBOM, MATLAB/Octave archive, R tarball, and SHA256SUMS; release tag v0.2.11 is available"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #

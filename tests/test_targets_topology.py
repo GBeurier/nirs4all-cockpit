@@ -197,7 +197,7 @@ def test_rc_python_facade_publish_blockers_are_explicit() -> None:
         ),
     }
 
-    assert "invalid-publisher on the v0.2.9 release" in blockers["core"]
+    assert "invalid-publisher on the v0.2.11 release" in blockers["core"]
     assert "invalid-publisher on v0.2.6 release" in blockers["providers"]
     assert "invalid-publisher on v0.0.2 release" in blockers["tools"]
     assert "invalid-publisher on v0.1.4 release" in blockers["benchmarks"]
@@ -208,7 +208,7 @@ def test_rc_python_facade_publish_blockers_are_explicit() -> None:
 def test_current_pypi_manual_actions_cover_invalid_publisher_failures() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
-        "pypi-publisher-core": ("nirs4all-core", "v0.2.9"),
+        "pypi-publisher-core": ("nirs4all-core", "v0.2.11"),
         "pypi-publisher-providers": ("nirs4all-providers", "v0.2.6"),
         "pypi-publisher-tools": ("nirs4all-tools", "v0.0.2"),
         "pypi-publisher-benchmarks": ("nirs4all-benchmarks", "v0.1.4"),
@@ -238,7 +238,7 @@ def test_current_runiverse_manual_action_tracks_core_stale_rebuild() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     action = actions["runiverse-core-rebuild"]
 
-    assert action.status == "done"
+    assert action.status == "todo"
     assert action.severity == "important"
     assert "nirs4all-core" in action.title
     assert "nirs4all-lite" in action.title
@@ -303,7 +303,6 @@ def test_resolved_manual_actions_are_marked_done() -> None:
         "npm-automation-token",
         "pypi-publisher-pls4all",
         "pypi-publisher-io",
-        "runiverse-core-rebuild",
         "crates-verify-email",
     }
 
