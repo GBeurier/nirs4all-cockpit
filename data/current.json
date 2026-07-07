@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-07T09:37:02.279520+00:00",
+  "generated_at": "2026-07-07T10:05:58.673777+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -4308,13 +4308,13 @@
         "latest_prod_tag": "v0.1.4",
         "latest_any_tag": "v0.1.4",
         "expected_prod_version": "v0.1.4",
-        "commit": "da8a3dee4da44639cd36cd321344142069df80a2",
+        "commit": "82c9b581fa5117f153c83d920172f66d12a66f9a",
         "latest_prod_tag_at": "2026-07-07T03:05:48Z",
         "latest_release_at": "2026-07-07T03:05:56Z",
         "latest_version_at": "2026-07-07T03:05:56Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-07T09:25:47Z",
-        "commits_ahead_of_latest_prod_tag": 3
+        "last_commit_at": "2026-07-07T10:03:33Z",
+        "commits_ahead_of_latest_prod_tag": 5
       },
       "rollup": "green",
       "flags": [],
@@ -4358,7 +4358,7 @@
         "size_kb": 13826,
         "language": "TypeScript",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-07T09:25:48Z",
+        "pushed_at": "2026-07-07T10:03:34Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4367,16 +4367,16 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 37108,
+        "loc_code": 37199,
         "loc_comment": 2974,
-        "loc_blank": 2475,
-        "loc_total": 42557,
-        "files": 225,
+        "loc_blank": 2486,
+        "loc_total": 42659,
+        "files": 226,
         "tests": 268,
         "by_language": {
           "TypeScript": 19507,
           "HTML": 9510,
-          "JavaScript": 7782,
+          "JavaScript": 7873,
           "CSS": 259,
           "Shell": 50
         },
@@ -4385,13 +4385,13 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 247,
+        "total_runs": 253,
         "recent_total": 100,
         "recent_success": 80,
         "recent_failure": 17,
         "success_rate": 82.5,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-07T09:25:59Z"
+        "last_created_at": "2026-07-07T10:03:36Z"
       }
     },
     {
@@ -4399,16 +4399,16 @@
       "repo": "nirs4all-ui",
       "source": {
         "manifest_version": "0.1.4",
-        "latest_prod_tag": "v0.1.4",
-        "latest_any_tag": "v0.1.4",
-        "expected_prod_version": "v0.1.4",
-        "commit": "5ce32e14b9a1913f746f6fdc7f90d2947cbeebd7",
-        "latest_prod_tag_at": "2026-07-06T10:14:22Z",
-        "latest_release_at": "2026-07-06T10:14:38Z",
-        "latest_version_at": "2026-07-06T10:14:38Z",
+        "latest_prod_tag": "v0.1.5",
+        "latest_any_tag": "v0.1.5",
+        "expected_prod_version": "v0.1.5",
+        "commit": "7ee1faa685bf850bf9746d2783b5f7eaed6fc959",
+        "latest_prod_tag_at": "2026-07-07T09:52:14Z",
+        "latest_release_at": "2026-07-07T09:57:05Z",
+        "latest_version_at": "2026-07-07T09:57:05Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-07T08:56:36Z",
-        "commits_ahead_of_latest_prod_tag": 3
+        "last_commit_at": "2026-07-07T09:52:14Z",
+        "commits_ahead_of_latest_prod_tag": 0
       },
       "rollup": "green",
       "flags": [],
@@ -4418,7 +4418,7 @@
           "name": "nirs4all-ui",
           "channel": "rc",
           "reason": null,
-          "published_version": "0.1.4",
+          "published_version": "0.1.5",
           "status": "green",
           "planned": false,
           "downloads": {
@@ -4443,7 +4443,7 @@
           "name": "nirs4all-ui",
           "channel": "rc",
           "reason": "RC V1 shared React/TS package of reusable components, status helpers, and brand assets; outside nirs4all-core aggregation lock",
-          "published_version": "0.1.4",
+          "published_version": "0.1.5",
           "status": "green",
           "planned": false,
           "downloads": {
@@ -4509,10 +4509,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 328,
+        "size_kb": 325,
         "language": "TypeScript",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-07T08:56:46Z",
+        "pushed_at": "2026-07-07T09:52:17Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4538,13 +4538,13 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 36,
-        "recent_total": 36,
-        "recent_success": 34,
+        "total_runs": 38,
+        "recent_total": 38,
+        "recent_success": 36,
         "recent_failure": 2,
-        "success_rate": 94.4,
+        "success_rate": 94.7,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-07T08:56:49Z"
+        "last_created_at": "2026-07-07T09:52:18Z"
       }
     },
     {
@@ -5100,11 +5100,11 @@
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 1242590,
-    "loc_total": 1629104,
-    "tests": 15855,
-    "files": 5706,
-    "workflow_runs": 6097,
+    "loc_code": 1254064,
+    "loc_total": 1641123,
+    "tests": 15875,
+    "files": 5734,
+    "workflow_runs": 6116,
     "downloads_last_month": 21637
   },
   "visits": {
