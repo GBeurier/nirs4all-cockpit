@@ -297,6 +297,38 @@ section.block { margin: 0 0 34px; }
 .admin .card + .card { margin-top: 16px; }
 .admin-note { font-size: 0.78rem; color: var(--muted); }
 
+.manual-summary { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+.manual-count {
+  display: inline-flex; align-items: baseline; gap: 7px;
+  padding: 6px 11px; border-radius: var(--radius-xs);
+  border: 1px solid var(--line); background: var(--surface-2);
+}
+.manual-count b { font-family: var(--mono); font-size: 1rem; }
+.manual-count span { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.manual-count--blocker b { color: var(--broken); }
+.manual-count--important b { color: var(--pending); }
+.manual-count--resolved b { color: var(--green); }
+.manual-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.manual-item {
+  min-width: 0; padding: 12px 13px; border: 1px solid var(--line);
+  border-radius: var(--radius-sm); background: var(--surface-2);
+}
+.manual-item--blocker { border-color: color-mix(in srgb, var(--broken) 32%, var(--line)); }
+.manual-item--important { border-color: color-mix(in srgb, var(--pending) 30%, var(--line)); }
+.manual-item__head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.manual-sev {
+  font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--text); background: var(--paper-2); border-radius: 999px; padding: 2px 7px;
+}
+.manual-id { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.manual-title { display: block; color: var(--text); font-size: 0.82rem; font-weight: 600; text-decoration: none; line-height: 1.35; }
+.manual-title:hover { color: var(--teal-d); }
+.manual-note, .manual-affects {
+  margin-top: 7px; color: var(--muted); font-family: var(--mono); font-size: 0.68rem;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 780px) { .manual-list { grid-template-columns: 1fr; } }
+
 /* pages visits (public · GoatCounter) */
 .vchips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 .vchip { display: flex; flex-direction: column; gap: 2px; padding: 13px 16px; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); position: relative; overflow: hidden; }

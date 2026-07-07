@@ -67,6 +67,7 @@ jobs:
           N4A_SIBLINGS_ROOT: ${{ github.workspace }}/_siblings
         run: |
           n4a-cockpit collect --targets ops/targets.yaml --out data/current.json
+          n4a-cockpit admin actions --current data/current.json --json-out data/manual-actions.json
 
       - name: Commit snapshot
         run: |

@@ -90,6 +90,7 @@ async function loadJSON(cands) {
   throw err || new Error("not found");
 }
 const loadSnapshot = () => loadJSON(["../data/current.json", "./current.json", "./data/current.json"]);
+async function loadManualActions() { try { return await loadJSON(["../data/manual-actions.json", "./data/manual-actions.json", "./manual-actions.json"]); } catch { return null; } }
 async function loadAdmin() { try { return await loadJSON(["../data/admin/snapshot.admin.json", "./data/admin/snapshot.admin.json"]); } catch { return null; } }
 
 // ---- hero: meta, scores, summary -------------------------------------------
@@ -147,6 +148,67 @@ function renderLegend(snap) {
     item.append(led(st), el("b", { class: "leg-n", text: String(s[st] || 0) }), el("span", { class: "leg-l", text: st }));
     box.appendChild(item);
   }
+}
+
+function isManualActionPending(action) {
+  return action && action.status !== "done" && action.resolved !== true;
+}
+
+function manualActionUrl(action) {
+  if (action.manual_url) return action.manual_url;
+  const check = action.auto_check || {};
+  if (check.registry && check.name) return registryUrl(check.registry, check.name, "");
+  return null;
+}
+
+function renderManualActions(data) {
+  const section = document.getElementById("manual-actions-block");
+  const box = document.getElementById("manual-actions");
+  if (!section || !box || !data || !Array.isArray(data.actions)) return;
+  const pending = data.actions.filter(isManualActionPending);
+  if (!pending.length) return;
+
+  const severityRank = { blocker: 0, important: 1, info: 2 };
+  pending.sort((a, b) => (severityRank[a.severity] ?? 9) - (severityRank[b.severity] ?? 9) || a.id.localeCompare(b.id));
+  const counts = data.counts || {};
+  box.innerHTML = "";
+  section.hidden = false;
+
+  const summary = el("div", { class: "manual-summary" });
+  for (const [label, value, cls] of [
+    ["blockers", counts.blockers || 0, "manual-count--blocker"],
+    ["important", counts.important || 0, "manual-count--important"],
+    ["resolved", counts.resolved || 0, "manual-count--resolved"],
+  ]) {
+    summary.appendChild(el("span", { class: `manual-count ${cls}` }, [
+      el("b", { text: fmtInt(value) }),
+      el("span", { text: label }),
+    ]));
+  }
+  box.appendChild(summary);
+
+  const list = el("div", { class: "manual-list" });
+  for (const action of pending) {
+    const row = el("article", { class: `manual-item manual-item--${action.severity || "info"}` });
+    const head = el("div", { class: "manual-item__head" });
+    head.append(
+      el("span", { class: "manual-sev", text: action.severity || "info" }),
+      el("span", { class: "manual-id", text: action.id }),
+    );
+    const href = manualActionUrl(action);
+    const title = el(href ? "a" : "span", {
+      class: "manual-title",
+      text: action.title,
+      attrs: href ? { href, target: "_blank", rel: "noopener" } : {},
+    });
+    row.append(head, title);
+    if (action.check_note) row.appendChild(el("div", { class: "manual-note", text: action.check_note }));
+    if (Array.isArray(action.affects) && action.affects.length) {
+      row.appendChild(el("div", { class: "manual-affects", text: action.affects.join(" · ") }));
+    }
+    list.appendChild(row);
+  }
+  box.appendChild(list);
 }
 
 // ---- matrix ----------------------------------------------------------------
@@ -699,6 +761,7 @@ async function main() {
     renderScores(snap);
     renderSummary(snap);
     renderLegend(snap);
+    renderManualActions(await loadManualActions());
     renderMatrix(snap);
     renderDownloads(snap);
     renderVisits(snap);
