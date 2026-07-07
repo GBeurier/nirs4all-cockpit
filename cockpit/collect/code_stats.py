@@ -137,7 +137,12 @@ def _iter_source_files(root: Path) -> Iterator[Path]:
                 continue
             if entry.is_dir():
                 name = entry.name
-                if name.startswith(".") or name in _SKIP_DIRS or name.endswith(".egg-info"):
+                if (
+                    name.startswith(".")
+                    or name in _SKIP_DIRS
+                    or name.endswith(".egg-info")
+                    or (entry / ".git").exists()
+                ):
                     continue
                 stack.append(entry)
             elif entry.is_file():

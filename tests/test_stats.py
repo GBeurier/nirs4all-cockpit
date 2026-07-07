@@ -44,6 +44,23 @@ def test_code_stats_counts_and_skips_vendored(monkeypatch, tmp_path) -> None:
     assert out["by_language"]["Python"] == 4
 
 
+def test_code_stats_skips_nested_git_checkouts(monkeypatch, tmp_path) -> None:
+    repo = tmp_path / "myrepo"
+    repo.mkdir()
+    (repo / "mod.py").write_text("x = 1\n", encoding="utf-8")
+    nested = repo / "nested-checkout"
+    nested.mkdir()
+    (nested / ".git").write_text("gitdir: ../.git/modules/nested-checkout\n", encoding="utf-8")
+    (nested / "inflated.py").write_text("x = 1\n" * 100, encoding="utf-8")
+
+    monkeypatch.setattr(code_stats, "SIBLINGS_ROOT", tmp_path)
+    out = code_stats.scan("myrepo")
+
+    assert out is not None
+    assert out["files"] == 1
+    assert out["loc_code"] == 1
+
+
 def test_code_stats_missing_repo_returns_none(monkeypatch, tmp_path) -> None:
     monkeypatch.setattr(code_stats, "SIBLINGS_ROOT", tmp_path)
     assert code_stats.scan("does-not-exist") is None
