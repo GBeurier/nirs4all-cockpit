@@ -310,7 +310,10 @@ def _source_versions(owner: str, pkg: Package, *, no_network: bool) -> dict[str,
     latest_any = _latest_any_tag(tag_names, pkg.tag_prefix)
     coordination_commit = None
     coordination_tag_at = None
-    if pkg.coordination_tag and pkg.coordination_tag in tag_names:
+    release_tag_covers_manifest = bool(
+        manifest is not None and latest_prod is not None and ver.compare(latest_prod, manifest) >= 0
+    )
+    if pkg.coordination_tag and pkg.coordination_tag in tag_names and not release_tag_covers_manifest:
         latest_any = pkg.coordination_tag
         coordination_meta = github.tag_fact(owner, pkg.repo, pkg.coordination_tag)
         coordination_tag_at = coordination_meta.get("tagged_at") if coordination_meta else None

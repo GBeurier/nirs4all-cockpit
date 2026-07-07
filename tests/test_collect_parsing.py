@@ -113,7 +113,7 @@ def test_npm_error_body_at_200_does_not_become_a_version(monkeypatch) -> None:
     error_body = load_fixture("npm_scoped_error_200.json")
     # Both the version and downloads probes answer 200 with an error body.
     _patch(monkeypatch, npm, (200, error_body, None))
-    out = npm.collect("@nirs4all/methods-wasm")
+    out = npm.collect("@nirs4all/methods")
     assert out["published_version"] is None
     assert out["downloads"]["last_month"] is None
 

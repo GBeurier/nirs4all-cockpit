@@ -127,8 +127,9 @@ is present, so the public site never shows them.
   `nirs4all-core` aggregation lock; it is tracked separately with npm,
   GitHub Release and GitHub Pages showcase targets.
 - **`nirs4all-providers`** is an optional Python provider-client layer for
-  datasets, repository, benchmarks, and papers metadata/contracts. It stays
-  outside core: neutral contracts remain the cross-language source of truth.
+  datasets and repository metadata/contracts. Benchmarks and papers keep their
+  public APIs in their owning repositories. It stays outside core: neutral
+  contracts remain the cross-language source of truth.
 - **`nirs4all-tools`** is the Python migration/converter toolkit for legacy
   workspaces, pipelines and predictions. It is tracked separately because it is
   an operational cutover surface, not runtime core.

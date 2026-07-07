@@ -23,7 +23,7 @@ from conftest import load_fixture
 from cockpit import reconcile as rec
 from cockpit import version as v
 from cockpit.collect import cran, crates, npm, readthedocs, runiverse
-from cockpit.model import Package, Target, Targets, TargetStatus
+from cockpit.model import Package, SourceOfTruth, Target, Targets, TargetStatus
 from cockpit.reconcile import (
     _latest_any_tag,
     _latest_prod_tag,
@@ -340,6 +340,58 @@ def test_source_versions_prefer_declared_coordination_tag_for_latest_any(monkeyp
     assert facts["latest_any_tag"] == "n4a-v1-rc10-2026.07-refactor"
     assert facts["commit"] == "coord123"
     assert facts["latest_version_source"] == "coordination-tag"
+
+
+def test_source_versions_release_tag_supersedes_stale_coordination_tag(monkeypatch) -> None:
+    monkeypatch.setattr(
+        rec.local_manifests,
+        "read_manifest_version",
+        lambda **kwargs: "1.2.0",  # noqa: ARG005
+    )
+    monkeypatch.setattr(
+        rec.github,
+        "tags",
+        lambda owner, repo: [  # noqa: ARG005
+            "v1.2.0",
+            "n4a-v1-rc10-2026.07-refactor",
+        ],
+    )
+    monkeypatch.setattr(
+        rec.github,
+        "latest_release",
+        lambda owner, repo: {"tag_name": "v1.2.0", "published_at": "2026-07-07T00:00:00Z"},  # noqa: ARG005
+    )
+    monkeypatch.setattr(
+        rec.github,
+        "tag_fact",
+        lambda owner, repo, tag: {"tag": tag, "tagged_at": "2026-07-06T00:00:00Z"},  # noqa: ARG005
+    )
+    monkeypatch.setattr(
+        rec.github,
+        "commit_fact",
+        lambda owner, repo, ref: {"sha": "coord123", "committed_at": "2026-07-06T00:00:00Z"},  # noqa: ARG005
+    )
+    monkeypatch.setattr(
+        rec.github,
+        "default_branch_commit",
+        lambda owner, repo: {"sha": "head456", "committed_at": "2026-07-07T00:00:00Z", "branch": "main"},  # noqa: ARG005
+    )
+    monkeypatch.setattr(rec.github, "commits_ahead", lambda owner, repo, base, head=None: 0)  # noqa: ARG005
+    pkg = Package(
+        id="nirs4all-core",
+        repo="nirs4all-core",
+        coordination_tag="n4a-v1-rc10-2026.07-refactor",
+        source_of_truth=SourceOfTruth(strategy="cargo_package", path="Cargo.toml"),
+        targets=[],
+    )
+
+    facts = rec._source_versions("GBeurier", pkg, no_network=False)
+
+    assert facts["latest_prod_tag"] == "v1.2.0"
+    assert facts["latest_any_tag"] == "v1.2.0"
+    assert facts["commit"] == "head456"
+    assert facts["latest_version_source"] == "release"
+    assert facts["latest_version_at"] == "2026-07-07T00:00:00Z"
 
 
 def test_package_primary_language_overrides_github_language(monkeypatch) -> None:
