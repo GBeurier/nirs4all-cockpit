@@ -226,7 +226,8 @@ def public_payload(actions: list[ManualAction], snapshot: Snapshot | None) -> di
         "actions": [
             {
                 "id": action.id,
-                "status": action.status,
+                "status": "done" if action.resolved is True else action.status,
+                "declared_status": action.status,
                 "severity": action.severity,
                 "title": action.title,
                 "manual_url": action.manual_url,

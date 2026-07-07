@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-07T18:59:11.294930+00:00",
+  "snapshot_generated_at": "2026-07-07T19:11:15.004299+00:00",
   "counts": {
     "total": 20,
     "pending": 5,
@@ -13,6 +13,7 @@
     {
       "id": "npm-automation-token",
       "status": "done",
+      "declared_status": "done",
       "severity": "important",
       "title": "npm — regenerate the publish token as an Automation token (bypasses 2FA)",
       "manual_url": "https://www.npmjs.com/settings/~/tokens",
@@ -53,6 +54,7 @@
     {
       "id": "pypi-publisher-pls4all",
       "status": "done",
+      "declared_status": "done",
       "severity": "important",
       "title": "PyPI — fix the Trusted Publisher of pls4all (repo nirs4all-methods, release-python.yml, env pypi)",
       "manual_url": "https://pypi.org/manage/account/publishing/",
@@ -80,6 +82,7 @@
     {
       "id": "pypi-publisher-io",
       "status": "done",
+      "declared_status": "done",
       "severity": "important",
       "title": "PyPI — create the pending Trusted Publisher of nirs4all-io (repo nirs4all-io, release.yml, env pypi)",
       "manual_url": "https://pypi.org/manage/account/publishing/",
@@ -109,6 +112,7 @@
     {
       "id": "pypi-publisher-core",
       "status": "done",
+      "declared_status": "done",
       "severity": "blocker",
       "title": "PyPI — Trusted Publisher configured and nirs4all-core v0.3.0 published from release-python.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
@@ -126,7 +130,8 @@
     },
     {
       "id": "runiverse-core-rebuild",
-      "status": "todo",
+      "status": "done",
+      "declared_status": "todo",
       "severity": "important",
       "title": "R-universe — rebuild nirs4all from nirs4all-core v0.3.0",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
@@ -146,6 +151,7 @@
     {
       "id": "runiverse-formats-rebuild",
       "status": "done",
+      "declared_status": "done",
       "severity": "important",
       "title": "R-universe — rebuild nirs4allformats and nirs4allformats.lite from nirs4all-formats v0.2.4",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
@@ -165,6 +171,7 @@
     {
       "id": "runiverse-io-rebuild",
       "status": "done",
+      "declared_status": "done",
       "severity": "important",
       "title": "R-universe — rebuild nirs4allio from nirs4all-io v0.1.9",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
@@ -183,7 +190,8 @@
     },
     {
       "id": "runiverse-dagml-data-rebuild",
-      "status": "todo",
+      "status": "done",
+      "declared_status": "todo",
       "severity": "important",
       "title": "R-universe — rebuild dagmldata from dag-ml-data v0.2.5",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
@@ -203,6 +211,7 @@
     {
       "id": "pypi-publisher-providers",
       "status": "done",
+      "declared_status": "done",
       "severity": "blocker",
       "title": "PyPI — Trusted Publisher configured and nirs4all-providers v0.2.7 published from publish.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
@@ -232,6 +241,7 @@
     {
       "id": "pypi-publisher-tools",
       "status": "done",
+      "declared_status": "done",
       "severity": "blocker",
       "title": "PyPI — Trusted Publisher configured and nirs4all-tools v0.0.4 published from publish.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
@@ -261,6 +271,7 @@
     {
       "id": "pypi-publisher-benchmarks",
       "status": "done",
+      "declared_status": "done",
       "severity": "blocker",
       "title": "PyPI — Trusted Publisher configured and nirs4all-benchmarks v0.1.5 published from publish.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
@@ -290,6 +301,7 @@
     {
       "id": "pypi-publisher-repository",
       "status": "done",
+      "declared_status": "done",
       "severity": "blocker",
       "title": "PyPI — Trusted Publisher configured and nirs4all-repository v0.1.6 published from publish.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
@@ -319,6 +331,7 @@
     {
       "id": "pypi-publisher-dag-ml",
       "status": "done",
+      "declared_status": "done",
       "severity": "blocker",
       "title": "PyPI — Trusted Publisher configured and dag-ml v0.2.5 published from release-python.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
@@ -348,6 +361,7 @@
     {
       "id": "pypi-publisher-dag-ml-data",
       "status": "done",
+      "declared_status": "done",
       "severity": "blocker",
       "title": "PyPI — Trusted Publisher configured and dag-ml-data v0.2.5 published from release-python.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
@@ -377,6 +391,7 @@
     {
       "id": "crates-verify-email",
       "status": "done",
+      "declared_status": "done",
       "severity": "important",
       "title": "crates.io — verify the account email (publish failed: 400 verified email required)",
       "manual_url": "https://crates.io/settings/profile",
@@ -407,6 +422,7 @@
     {
       "id": "cran-resubmit-n4m-pls4all",
       "status": "todo",
+      "declared_status": "todo",
       "severity": "important",
       "title": "CRAN — submit n4m only at 1.0.6 from the current release tarball; do NOT submit nirs4allformats",
       "manual_url": "https://cran.r-project.org/submit.html",
@@ -423,6 +439,7 @@
     {
       "id": "cran-resubmit-pls4all",
       "status": "todo",
+      "declared_status": "todo",
       "severity": "important",
       "title": "CRAN — submit pls4all only at 1.0.6 from the current release tarball; do NOT submit nirs4allformats",
       "manual_url": "https://cran.r-project.org/submit.html",
@@ -439,6 +456,7 @@
     {
       "id": "cran-submit-nirs4allio",
       "status": "todo",
+      "declared_status": "todo",
       "severity": "important",
       "title": "CRAN — submit nirs4allio when the IO R surface is ready for CRAN review",
       "manual_url": "https://cran.r-project.org/submit.html",
@@ -455,6 +473,7 @@
     {
       "id": "cran-submit-nirs4alldatasets",
       "status": "todo",
+      "declared_status": "todo",
       "severity": "important",
       "title": "CRAN — resubmit nirs4alldatasets 0.3.5 to replace the archived/stale CRAN 0.2.0 package",
       "manual_url": "https://cran.r-project.org/submit.html",
@@ -471,6 +490,7 @@
     {
       "id": "cran-submit-nirs4all-core-aggregate",
       "status": "todo",
+      "declared_status": "todo",
       "severity": "important",
       "title": "CRAN — submit the nirs4all aggregate R package from nirs4all-core after RC source validation",
       "manual_url": "https://cran.r-project.org/submit.html",

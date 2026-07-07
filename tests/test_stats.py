@@ -315,22 +315,30 @@ def test_actions_stats_skips_in_progress_newest_run(monkeypatch) -> None:
     assert out["success_rate"] == 50.0
 
 
-def test_workflow_last_run_uses_default_branch(monkeypatch) -> None:
+def test_workflow_last_run_uses_latest_concluded_run_across_refs(monkeypatch) -> None:
     seen_urls: list[str] = []
 
     def _fake_get(url):
         seen_urls.append(url)
-        if url.endswith("/repos/GBeurier/nirs4all"):
-            return 200, {"default_branch": "main"}, None
         if "actions/workflows/publish.yml/runs" in url:
             return (
                 200,
                 {
                     "workflow_runs": [
                         {
+                            "conclusion": None,
+                            "created_at": "2026-06-26T06:40:00Z",
+                            "head_sha": "running",
+                        },
+                        {
                             "conclusion": "success",
                             "created_at": "2026-06-26T06:37:35Z",
                             "head_sha": "abc123",
+                        },
+                        {
+                            "conclusion": "failure",
+                            "created_at": "2026-06-25T06:37:35Z",
+                            "head_sha": "old456",
                         }
                     ]
                 },
@@ -347,4 +355,5 @@ def test_workflow_last_run_uses_default_branch(monkeypatch) -> None:
         "created_at": "2026-06-26T06:37:35Z",
         "head_sha": "abc123",
     }
-    assert any("actions/workflows/publish.yml/runs?branch=main&per_page=1" in url for url in seen_urls)
+    assert any("actions/workflows/publish.yml/runs?per_page=20" in url for url in seen_urls)
+    assert not any("branch=" in url for url in seen_urls)
