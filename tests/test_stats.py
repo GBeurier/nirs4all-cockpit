@@ -84,6 +84,25 @@ def test_code_stats_can_skip_artifact_coverage(monkeypatch, tmp_path) -> None:
     assert out["coverage_pct"] is None
 
 
+def test_code_stats_env_can_skip_artifact_coverage(monkeypatch, tmp_path) -> None:
+    repo = tmp_path / "myrepo"
+    repo.mkdir()
+    (repo / "mod.py").write_text("x = 1\n", encoding="utf-8")
+
+    monkeypatch.setenv("COCKPIT_SKIP_COVERAGE_ARTIFACTS", "1")
+    monkeypatch.setattr(code_stats, "SIBLINGS_ROOT", tmp_path)
+    monkeypatch.setattr(
+        code_stats,
+        "_coverage_from_github_artifact",
+        lambda repo: (_ for _ in ()).throw(AssertionError("network fallback should be skipped")),  # noqa: ARG005
+    )
+
+    out = code_stats.scan("myrepo", allow_artifact_coverage=True)
+
+    assert out is not None
+    assert out["coverage_pct"] is None
+
+
 def test_coverage_from_github_artifact_zip(monkeypatch) -> None:
     artifact = {"archive_download_url": "https://api.github.test/artifact.zip"}
     buf = BytesIO()
@@ -216,16 +235,18 @@ def test_gh_api_json_ignores_invalid_token_env(monkeypatch) -> None:
 
     class _Proc:
         returncode = 0
-        stdout = '{"html_url":"https://gbeurier.github.io/nirs4all-ui/"}'
 
-    def _fake_run(*args, **kwargs):  # noqa: ARG001
+        def communicate(self, timeout=None):  # noqa: ARG002
+            return '{"html_url":"https://gbeurier.github.io/nirs4all-ui/"}', ""
+
+    def _fake_popen(*args, **kwargs):  # noqa: ARG001
         nonlocal seen_env
         seen_env = kwargs["env"]
         return _Proc()
 
     monkeypatch.setenv("GITHUB_TOKEN", "stale-token")
     monkeypatch.setenv("GH_TOKEN", "stale-token")
-    monkeypatch.setattr(github.subprocess, "run", _fake_run)
+    monkeypatch.setattr(github.subprocess, "Popen", _fake_popen)
 
     out = github._gh_api_json("repos/GBeurier/nirs4all-ui/pages")
 
@@ -233,6 +254,54 @@ def test_gh_api_json_ignores_invalid_token_env(monkeypatch) -> None:
     assert seen_env is not None
     assert "GITHUB_TOKEN" not in seen_env
     assert "GH_TOKEN" not in seen_env
+
+
+def test_gh_api_json_can_disable_cli_fallback(monkeypatch) -> None:
+    called = False
+
+    def _fake_popen(*args, **kwargs):  # noqa: ARG001
+        nonlocal called
+        called = True
+        raise AssertionError("gh fallback must not run")
+
+    monkeypatch.setenv("COCKPIT_DISABLE_GH_FALLBACK", "1")
+    monkeypatch.setattr(github.subprocess, "Popen", _fake_popen)
+
+    assert github._gh_api_json("repos/GBeurier/nirs4all-ui/pages") is None
+    assert called is False
+
+
+def test_gh_api_json_kills_process_group_on_timeout(monkeypatch) -> None:
+    killed: list[int] = []
+    communicated_after_kill = False
+
+    class _Proc:
+        pid = 4242
+        returncode = None
+
+        def communicate(self, timeout=None):
+            nonlocal communicated_after_kill
+            if killed:
+                communicated_after_kill = True
+                return "", ""
+            raise github.subprocess.TimeoutExpired(["gh"], timeout)
+
+        def kill(self):
+            killed.append(self.pid)
+
+    monkeypatch.setattr(github.subprocess, "Popen", lambda *args, **kwargs: _Proc())  # noqa: ARG005
+    monkeypatch.setattr(github.os, "killpg", lambda pid, sig: killed.append(pid))  # noqa: ARG005
+
+    assert github._gh_api_json("repos/GBeurier/nirs4all-ui/pages") is None
+    assert killed == [4242]
+    assert communicated_after_kill is True
+
+
+def test_workflow_last_run_can_skip_network_probe(monkeypatch) -> None:
+    monkeypatch.setenv("COCKPIT_SKIP_WORKFLOW_PROBES", "1")
+    monkeypatch.setattr(github, "_get", lambda url: (_ for _ in ()).throw(AssertionError("network must not run")))  # noqa: ARG005
+
+    assert github.workflow_last_run("GBeurier", "nirs4all-ui", "pages.yml") is None
 
 
 def test_actions_stats_success_rate(monkeypatch) -> None:
