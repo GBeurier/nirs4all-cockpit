@@ -276,6 +276,27 @@ def test_cran_manual_actions_cover_n4m_and_pls4all_separately() -> None:
     assert "pls4all only" in actions["cran-resubmit-pls4all"].title
 
 
+def test_cran_manual_actions_cover_tracked_rc_r_surfaces() -> None:
+    actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
+    expected = {
+        "cran-submit-nirs4allio": "nirs4allio",
+        "cran-submit-nirs4alldatasets": "nirs4alldatasets",
+        "cran-submit-nirs4all-core-aggregate": "nirs4all",
+    }
+
+    for action_id, package_name in expected.items():
+        action = actions[action_id]
+        assert action.status == "todo"
+        assert action.severity == "important"
+        assert "CRAN" in action.title
+        assert package_name in action.title
+        assert action.auto_check == {
+            "registry": "cran",
+            "name": package_name,
+            "expect": "published",
+        }
+
+
 def test_resolved_manual_actions_are_marked_done() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     done_actions = {
