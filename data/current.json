@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-07T15:10:59.403295+00:00",
+  "generated_at": "2026-07-07T15:22:43.239859+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -2653,7 +2653,7 @@
         "last_commit_at": "2026-07-07T14:13:41Z",
         "commits_ahead_of_latest_prod_tag": 3
       },
-      "rollup": "stale",
+      "rollup": "pending",
       "flags": [],
       "targets": [
         {
@@ -2681,37 +2681,9 @@
         },
         {
           "registry": "pypi",
-          "name": "nirs4all-lite",
-          "channel": "rc",
-          "reason": "legacy alias remains published at 0.2.0; RC aggregate target is nirs4all-core 0.2.13",
-          "published_version": "0.2.0",
-          "status": "stale",
-          "planned": false,
-          "downloads": {
-            "last_day": 0,
-            "last_week": 7,
-            "last_month": 268,
-            "total": null,
-            "source": "pypistats",
-            "by_version": [],
-            "windows": {
-              "7d": 7,
-              "30d": 268,
-              "90d": null,
-              "total": null
-            }
-          },
-          "evidence": {
-            "version_endpoint": "https://pypi.org/pypi/nirs4all-lite/json",
-            "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-lite/recent"
-          },
-          "error": null
-        },
-        {
-          "registry": "pypi",
           "name": "nirs4all-core",
           "channel": "rc",
-          "reason": "RC V1 rename of nirs4all-lite; PyPI package is published at v0.2.13; GitHub Release v0.2.13 also carries Python wheel/sdist assets",
+          "reason": "PyPI package is published at v0.2.13; GitHub Release v0.2.13 also carries Python wheel/sdist assets",
           "published_version": "0.2.13",
           "status": "green",
           "planned": false,
@@ -4218,13 +4190,13 @@
         "latest_prod_tag": "v1.0.4",
         "latest_any_tag": "v1.0.4",
         "expected_prod_version": "v1.0.4",
-        "commit": "9dc6119d9fc23b1147af10dbeefa83fedef6c380",
+        "commit": "02572154ca1b6687f6b502fb1ab050787c5fd563",
         "latest_prod_tag_at": "2026-07-07T13:32:53Z",
         "latest_release_at": "2026-07-07T13:33:04Z",
         "latest_version_at": "2026-07-07T13:33:04Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-07T13:32:53Z",
-        "commits_ahead_of_latest_prod_tag": 0
+        "last_commit_at": "2026-07-07T15:20:43Z",
+        "commits_ahead_of_latest_prod_tag": 1
       },
       "rollup": "green",
       "flags": [],
@@ -4268,7 +4240,7 @@
         "size_kb": 19424,
         "language": "HTML",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-07T13:32:55Z",
+        "pushed_at": "2026-07-07T15:20:50Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4277,27 +4249,27 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 3767,
+        "loc_code": 3768,
         "loc_comment": 0,
         "loc_blank": 163,
-        "loc_total": 3930,
+        "loc_total": 3931,
         "files": 2,
         "tests": 0,
         "by_language": {
-          "HTML": 3767
+          "HTML": 3768
         },
         "coverage_pct": null,
         "source": "local-scan"
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 179,
+        "total_runs": 181,
         "recent_total": 100,
         "recent_success": 99,
         "recent_failure": 1,
         "success_rate": 99.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-07T13:32:56Z"
+        "last_created_at": "2026-07-07T15:20:54Z"
       }
     },
     {
@@ -4580,13 +4552,13 @@
         "latest_prod_tag": "v0.1.7",
         "latest_any_tag": "v0.1.7",
         "expected_prod_version": "v0.1.7",
-        "commit": "c0f81a8a6c0f871e1b24fc51131d3ccfa95fa1d4",
+        "commit": "38323ef8aebe8ef88b680932b32645819262e40e",
         "latest_prod_tag_at": "2026-07-07T13:26:02Z",
         "latest_release_at": "2026-07-07T13:26:15Z",
         "latest_version_at": "2026-07-07T13:26:15Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-07T15:09:06Z",
-        "commits_ahead_of_latest_prod_tag": 5
+        "last_commit_at": "2026-07-07T15:20:43Z",
+        "commits_ahead_of_latest_prod_tag": 7
       },
       "rollup": "green",
       "flags": [],
@@ -4630,7 +4602,7 @@
         "size_kb": 661,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-07T15:09:18Z",
+        "pushed_at": "2026-07-07T15:20:50Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4639,14 +4611,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 6511,
+        "loc_code": 6510,
         "loc_comment": 1183,
         "loc_blank": 1531,
-        "loc_total": 9225,
+        "loc_total": 9224,
         "files": 44,
         "tests": 113,
         "by_language": {
-          "Python": 5111,
+          "Python": 5110,
           "JavaScript": 705,
           "CSS": 337,
           "Shell": 236,
@@ -4657,13 +4629,13 @@
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 391,
+        "total_runs": 395,
         "recent_total": 100,
         "recent_success": 99,
         "recent_failure": 0,
         "success_rate": 100.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-07T15:09:23Z"
+        "last_created_at": "2026-07-07T15:20:54Z"
       }
     },
     {
@@ -5111,7 +5083,7 @@
   ],
   "summary": {
     "green": 94,
-    "stale": 3,
+    "stale": 2,
     "pending": 4,
     "missing": 0,
     "broken": 0,
@@ -5129,8 +5101,8 @@
     "loc_total": 1631510,
     "tests": 15879,
     "files": 5723,
-    "workflow_runs": 6235,
-    "downloads_last_month": 22245
+    "workflow_runs": 6241,
+    "downloads_last_month": 21977
   },
   "visits": {
     "available": true,
