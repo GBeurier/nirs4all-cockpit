@@ -176,7 +176,7 @@ returns `0` for a package nobody has downloaded — that is not "missing").
 
 Two workflows drive the live site:
 
-- **`.github/workflows/collect.yml`** — cron `17 */6 * * *` + manual dispatch;
+- **`.github/workflows/collect.yml`** — cron `17 0 * * *` + manual dispatch;
   installs the package, runs `n4a-cockpit collect`, and commits the refreshed
   `data/*.json` via `git-auto-commit-action`.
 - **`.github/workflows/pages.yml`** — on push to `main` (and manual dispatch),

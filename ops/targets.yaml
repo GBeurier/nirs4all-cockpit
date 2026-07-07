@@ -522,7 +522,7 @@ packages:
       - registry: github-release
         name: nirs4all-providers
         state: tracked
-        reason: "RC V1 provider-client source release v0.2.7 is tagged and carries wheel/sdist fallback assets; PyPI distribution remains blocked by Trusted Publisher setup"
+        reason: "RC V1 provider-client release v0.2.7 is tagged; the GitHub Release currently has no wheel/sdist fallback assets because PyPI publication is blocked by Trusted Publisher setup"
       - registry: pypi
         name: nirs4all-providers
         state: tracked
@@ -554,7 +554,7 @@ packages:
       - registry: pypi
         name: nirs4all-tools
         state: tracked
-        reason: "RC V1 migration/converter toolkit; PyPI Trusted Publisher missing (invalid-publisher on v0.0.4 release); GitHub Release carries wheel/sdist fallback assets"
+        reason: "RC V1 migration/converter toolkit; PyPI Trusted Publisher missing (invalid-publisher on v0.0.4 release); GitHub Release currently has no wheel/sdist fallback assets until publish succeeds"
         workflow:
           file: publish.yml
           trigger: release_published
@@ -567,7 +567,7 @@ packages:
       - registry: github-release
         name: nirs4all-tools
         state: tracked
-        reason: "v0.0.4 release is tagged and carries wheel/sdist fallback assets while PyPI Trusted Publisher setup is pending"
+        reason: "v0.0.4 release is tagged; the GitHub Release currently has no wheel/sdist fallback assets while PyPI Trusted Publisher setup is pending"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -658,7 +658,7 @@ packages:
       - registry: github-release
         name: nirs4all-core
         state: tracked
-        reason: "v0.2.13 release carries source/SBOM, Python wheel/sdist, MATLAB/Octave archive, R tarball, and SHA256SUMS when tag workflows complete"
+        reason: "v0.2.13 release carries source/SBOM, MATLAB/Octave archive, R tarball, and SHA256SUMS; Python wheel/sdist are absent until the PyPI Trusted Publisher blocker is fixed"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
