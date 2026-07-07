@@ -522,7 +522,7 @@ packages:
       - registry: github-release
         name: nirs4all-providers
         state: tracked
-        reason: "RC V1 provider-client source release is tagged; PyPI distribution remains blocked by Trusted Publisher setup"
+        reason: "RC V1 provider-client source release v0.2.6 is tagged and carries wheel/sdist fallback assets; PyPI distribution remains blocked by Trusted Publisher setup"
       - registry: pypi
         name: nirs4all-providers
         state: tracked
@@ -554,7 +554,7 @@ packages:
       - registry: pypi
         name: nirs4all-tools
         state: tracked
-        reason: "RC V1 migration/converter toolkit; PyPI Trusted Publisher missing (invalid-publisher on v0.0.2 release)"
+        reason: "RC V1 migration/converter toolkit; PyPI Trusted Publisher missing (invalid-publisher on v0.0.3 release); GitHub Release carries wheel/sdist fallback assets"
         workflow:
           file: publish.yml
           trigger: release_published
@@ -564,6 +564,10 @@ packages:
             - name: dry_run
               type: string
               default: "true"
+      - registry: github-release
+        name: nirs4all-tools
+        state: tracked
+        reason: "v0.0.3 release is tagged and carries wheel/sdist fallback assets while PyPI Trusted Publisher setup is pending"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -601,7 +605,7 @@ packages:
       - registry: pypi
         name: nirs4all-core
         state: tracked
-        reason: "RC V1 rename of nirs4all-lite; PyPI project remains unpublished at v0.2.12; current blocker is invalid-publisher on the v0.2.12 release"
+        reason: "RC V1 rename of nirs4all-lite; PyPI project remains unpublished at v0.2.12 because the Trusted Publisher is missing (invalid-publisher on the v0.2.12 release); GitHub Release carries wheel/sdist fallback assets"
         workflow:
           file: release-python.yml
           trigger: tag
@@ -654,7 +658,7 @@ packages:
       - registry: github-release
         name: nirs4all-core
         state: tracked
-        reason: "v0.2.12 release carries source/SBOM, MATLAB/Octave archive, R tarball, and SHA256SUMS; release tag v0.2.12 is available"
+        reason: "v0.2.12 release carries source/SBOM, Python wheel/sdist, MATLAB/Octave archive, R tarball, and SHA256SUMS"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -912,7 +916,7 @@ packages:
       - registry: pypi
         name: nirs4all-benchmarks
         state: tracked
-        reason: "PyPI Trusted Publisher missing (invalid-publisher on v0.1.4 release); GitHub Release tag exists but PyPI remains unpublished"
+        reason: "PyPI Trusted Publisher missing (invalid-publisher on v0.1.5 release); GitHub Release carries wheel/sdist fallback assets"
         workflow:
           file: publish.yml
           trigger: release_published
