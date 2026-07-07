@@ -35,7 +35,11 @@ def test_rc_core_uses_canonical_repo_and_keeps_legacy_lite_alias_visible() -> No
     assert targets[("npm", "nirs4all")].state == "tracked"
     assert targets[("r-universe", "nirs4all")].state == "tracked"
     assert targets[("cran", "nirs4all")].state == "tracked"
-    assert "MATLAB/Octave archive" in (targets[("github-release", "nirs4all-core")].reason or "")
+    core_release_reason = targets[("github-release", "nirs4all-core")].reason or ""
+    core_pypi_reason = targets[("pypi", "nirs4all-core")].reason or ""
+    assert "MATLAB/Octave archive" in core_release_reason
+    assert "Python wheel/sdist fallback assets" in core_release_reason
+    assert "GitHub Release v0.2.13 carries Python wheel/sdist fallback assets" in core_pypi_reason
 
 
 def test_rc_core_targets_account_for_all_v1_language_surfaces() -> None:
