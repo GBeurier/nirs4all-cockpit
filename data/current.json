@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-07T17:58:03.645738+00:00",
+  "generated_at": "2026-07-07T18:03:36.822638+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -4400,18 +4400,18 @@
       "repo": "nirs4all-quality",
       "source": {
         "manifest_version": "0.0.1",
-        "latest_prod_tag": null,
-        "latest_any_tag": null,
-        "expected_prod_version": "0.0.1",
+        "latest_prod_tag": "v0.0.1",
+        "latest_any_tag": "v0.0.1",
+        "expected_prod_version": "v0.0.1",
         "commit": "1597b784104a6d1da20f77be46d33ed25a1cd326",
-        "latest_prod_tag_at": null,
-        "latest_release_at": null,
-        "latest_version_at": null,
-        "latest_version_source": null,
+        "latest_prod_tag_at": "2026-07-07T17:51:47Z",
+        "latest_release_at": "2026-07-07T18:03:30Z",
+        "latest_version_at": "2026-07-07T18:03:30Z",
+        "latest_version_source": "release",
         "last_commit_at": "2026-07-07T17:51:47Z",
-        "commits_ahead_of_latest_prod_tag": null
+        "commits_ahead_of_latest_prod_tag": 0
       },
-      "rollup": "missing",
+      "rollup": "green",
       "flags": [],
       "targets": [
         {
@@ -4442,17 +4442,19 @@
           "name": "nirs4all-quality",
           "channel": "rc",
           "reason": "in-browser app has no versioned release workflow yet; the deployed GitHub Pages runtime is the app surface (like nirs4all-web)",
-          "published_version": null,
-          "status": "missing",
+          "published_version": "0.0.1",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": null,
+            "total": 0,
             "source": "github-release-assets",
             "by_version": [],
-            "windows": {}
+            "windows": {
+              "total": 0
+            }
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-quality/releases/latest",
@@ -4476,7 +4478,7 @@
         "size_kb": 6260,
         "language": "TypeScript",
         "license": null,
-        "pushed_at": "2026-07-07T17:53:42Z",
+        "pushed_at": "2026-07-07T18:03:30Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -5203,10 +5205,10 @@
     }
   ],
   "summary": {
-    "green": 95,
+    "green": 96,
     "stale": 2,
     "pending": 4,
-    "missing": 1,
+    "missing": 0,
     "broken": 0,
     "unknown": 0,
     "excluded": 1
