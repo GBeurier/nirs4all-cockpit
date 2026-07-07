@@ -124,7 +124,7 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     pypi_reason = next(target.reason or "" for target in providers.targets if target.registry == "pypi")
     pages_reason = next(target.reason or "" for target in providers.targets if target.registry == "pages")
     assert "provider-client release" in github_reason
-    assert "no wheel/sdist fallback assets" in github_reason
+    assert "carries wheel/sdist fallback assets" in github_reason
     assert "provider clients/read facade" in pypi_reason
     assert "neutral contracts remain canonical" in pypi_reason
     assert "docs/site page" in pages_reason

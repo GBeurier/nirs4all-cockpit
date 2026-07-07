@@ -522,7 +522,7 @@ packages:
       - registry: github-release
         name: nirs4all-providers
         state: tracked
-        reason: "RC V1 provider-client release v0.2.7 is tagged; the GitHub Release currently has no wheel/sdist fallback assets because PyPI publication is blocked by Trusted Publisher setup"
+        reason: "RC V1 provider-client release v0.2.7 is tagged and carries wheel/sdist fallback assets; PyPI distribution remains blocked by Trusted Publisher setup"
       - registry: pypi
         name: nirs4all-providers
         state: tracked
