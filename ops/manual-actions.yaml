@@ -106,7 +106,7 @@ actions:
       expect: green
 
   - id: runiverse-formats-rebuild
-    status: todo
+    status: done
     severity: important
     title: "R-universe — rebuild nirs4allformats and nirs4allformats.lite from nirs4all-formats v0.2.4"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
@@ -173,7 +173,7 @@ actions:
       - run_workflow:
           repo: nirs4all-tools
           workflow: publish.yml
-          ref: main
+          ref: v0.0.4
           inputs: { dry_run: "false" }
     auto_check:
       registry: pypi

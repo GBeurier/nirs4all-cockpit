@@ -554,7 +554,7 @@ packages:
       - registry: pypi
         name: nirs4all-tools
         state: tracked
-        reason: "RC V1 migration/converter toolkit; PyPI Trusted Publisher missing (invalid-publisher on v0.0.4 release); GitHub Release currently has no wheel/sdist fallback assets until publish succeeds"
+        reason: "RC V1 migration/converter toolkit; PyPI Trusted Publisher missing (invalid-publisher on v0.0.4 release); GitHub Release v0.0.4 carries wheel/sdist fallback assets"
         workflow:
           file: publish.yml
           trigger: release_published
@@ -567,7 +567,7 @@ packages:
       - registry: github-release
         name: nirs4all-tools
         state: tracked
-        reason: "v0.0.4 release is tagged; the GitHub Release currently has no wheel/sdist fallback assets while PyPI Trusted Publisher setup is pending"
+        reason: "v0.0.4 release is tagged and carries wheel/sdist fallback assets while PyPI Trusted Publisher setup is pending"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -949,7 +949,7 @@ packages:
       - registry: pypi
         name: nirs4all-repository
         state: tracked
-        reason: "PyPI Trusted Publisher missing (invalid-publisher on v0.1.6 release); latest GitHub Release currently has no wheel/sdist fallback until publish succeeds"
+        reason: "PyPI Trusted Publisher missing (invalid-publisher on v0.1.6 release); GitHub Release v0.1.6 carries wheel/sdist fallback assets"
         workflow:
           file: publish.yml
           trigger: release_published

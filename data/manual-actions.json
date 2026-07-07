@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-07T11:42:11.231466+00:00",
+  "snapshot_generated_at": "2026-07-07T11:52:47.842963+00:00",
   "counts": {
     "total": 20,
     "pending": 13,
@@ -145,7 +145,7 @@
     },
     {
       "id": "runiverse-formats-rebuild",
-      "status": "todo",
+      "status": "done",
       "severity": "important",
       "title": "R-universe — rebuild nirs4allformats and nirs4allformats.lite from nirs4all-formats v0.2.4",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
@@ -243,7 +243,7 @@
           "run_workflow": {
             "repo": "nirs4all-tools",
             "workflow": "publish.yml",
-            "ref": "main",
+            "ref": "v0.0.4",
             "inputs": {
               "dry_run": "false"
             }
