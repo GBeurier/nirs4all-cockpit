@@ -346,6 +346,7 @@ def test_current_runiverse_manual_actions_cover_stale_rc_rebuilds() -> None:
 def test_formats_cran_target_is_explicitly_excluded_to_match_manual_policy() -> None:
     package = _package("nirs4all-formats")
     targets = {(target.registry, target.name): target for target in package.targets}
+    assert ("r-universe", "nirs4allformats.lite") not in targets
     cran = targets[("cran", "nirs4allformats")]
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
 

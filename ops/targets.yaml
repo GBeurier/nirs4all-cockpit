@@ -279,15 +279,6 @@ packages:
           danger: safe
           publishes_on_dispatch: false
           inputs: []
-      - registry: r-universe
-        name: nirs4allformats.lite
-        state: tracked
-        workflow:
-          file: release-r.yml
-          trigger: tag
-          danger: safe
-          publishes_on_dispatch: false
-          inputs: []
       - registry: cran
         name: nirs4allformats
         state: excluded
