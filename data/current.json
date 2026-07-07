@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-07T18:59:11.294930+00:00",
+  "generated_at": "2026-07-07T19:11:15.004299+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -2119,26 +2119,26 @@
         {
           "file": "release-python.yml",
           "conclusion": "success",
-          "created_at": "2026-06-15T23:46:28Z",
-          "head_sha": "daa86760806c2d4d69663a9ce5439f826f6a3cfe"
+          "created_at": "2026-07-07T03:24:24Z",
+          "head_sha": "ed16875162263207b350ec099ba718e8c30cf5c0"
         },
         {
           "file": "release-crates.yml",
-          "conclusion": null,
-          "created_at": null,
-          "head_sha": null
+          "conclusion": "success",
+          "created_at": "2026-07-07T03:24:24Z",
+          "head_sha": "ed16875162263207b350ec099ba718e8c30cf5c0"
         },
         {
           "file": "release-npm.yml",
           "conclusion": "success",
-          "created_at": "2026-06-15T23:46:27Z",
-          "head_sha": "daa86760806c2d4d69663a9ce5439f826f6a3cfe"
+          "created_at": "2026-07-07T03:24:24Z",
+          "head_sha": "ed16875162263207b350ec099ba718e8c30cf5c0"
         },
         {
           "file": "release-r.yml",
           "conclusion": "success",
-          "created_at": "2026-06-12T13:34:30Z",
-          "head_sha": "9441ea5e7a167b3a0e320e7d74a48165147f4dc7"
+          "created_at": "2026-07-07T03:24:24Z",
+          "head_sha": "ed16875162263207b350ec099ba718e8c30cf5c0"
         }
       ],
       "issues": {
@@ -2722,17 +2722,17 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 230,
-            "total": 230,
+            "last_month": 240,
+            "total": 240,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.3.0",
-                "downloads": 0
+                "downloads": 9
               },
               {
                 "version": "0.2.13",
-                "downloads": 14
+                "downloads": 15
               },
               {
                 "version": "0.2.12",
@@ -2790,8 +2790,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 230,
-              "total": 230
+              "90d": 240,
+              "total": 240
             }
           },
           "evidence": {
@@ -2909,26 +2909,26 @@
         {
           "file": "release-python.yml",
           "conclusion": "success",
-          "created_at": "2026-07-07T06:35:07Z",
-          "head_sha": "38f536350b2f40cdc1ca52fa28e431af2cb3e4e9"
+          "created_at": "2026-07-07T15:55:24Z",
+          "head_sha": "d8308793081457aa073b88e4376171e0c08bb535"
         },
         {
           "file": "release-crates.yml",
-          "conclusion": null,
-          "created_at": null,
-          "head_sha": null
+          "conclusion": "success",
+          "created_at": "2026-07-07T15:55:24Z",
+          "head_sha": "d8308793081457aa073b88e4376171e0c08bb535"
         },
         {
           "file": "release-npm.yml",
-          "conclusion": null,
-          "created_at": null,
-          "head_sha": null
+          "conclusion": "success",
+          "created_at": "2026-07-07T15:55:24Z",
+          "head_sha": "d8308793081457aa073b88e4376171e0c08bb535"
         },
         {
           "file": "release-r.yml",
-          "conclusion": null,
-          "created_at": null,
-          "head_sha": null
+          "conclusion": "success",
+          "created_at": "2026-07-07T15:55:24Z",
+          "head_sha": "d8308793081457aa073b88e4376171e0c08bb535"
         }
       ],
       "issues": {
@@ -4617,9 +4617,9 @@
       "workflows": [
         {
           "file": "release-npm.yml",
-          "conclusion": null,
-          "created_at": null,
-          "head_sha": null
+          "conclusion": "success",
+          "created_at": "2026-07-07T12:21:53Z",
+          "head_sha": "4ab3eabb36604ffbede2b8f9bb6d2721164e3190"
         }
       ],
       "issues": {
@@ -4633,7 +4633,7 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 346,
+        "size_kb": 350,
         "language": "TypeScript",
         "license": "AGPL-3.0",
         "pushed_at": "2026-07-07T17:32:12Z",
@@ -5229,7 +5229,7 @@
     "tests": 16179,
     "files": 6511,
     "workflow_runs": 6340,
-    "downloads_last_month": 21977
+    "downloads_last_month": 21987
   },
   "visits": {
     "available": true,

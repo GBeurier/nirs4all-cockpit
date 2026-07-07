@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from cockpit.manual_actions import ManualAction, evaluate, load_actions
+from cockpit.manual_actions import ManualAction, evaluate, load_actions, public_payload
 from cockpit.model import PackageSource, PackageStatus, Snapshot, TargetStatus
 from cockpit.reconcile import load_targets
 
@@ -476,6 +476,47 @@ def test_manual_action_expect_green_requires_current_target() -> None:
     snapshot.packages[0].targets[0].published_version = "0.2.4"
     evaluate(action, snapshot)
     assert action.resolved is True
+
+
+def test_public_manual_action_payload_marks_auto_resolved_todo_as_done() -> None:
+    action = ManualAction(
+        id="runiverse-core-rebuild",
+        status="todo",
+        severity="important",
+        title="R-universe rebuild",
+        auto_check={"registry": "r-universe", "name": "nirs4all", "expect": "green"},
+    )
+    snapshot = Snapshot(
+        generated_at="2026-07-07T00:00:00+00:00",
+        generator={},
+        summary={},
+        packages=[
+            PackageStatus(
+                id="nirs4all-core",
+                repo="nirs4all-core",
+                source=PackageSource(expected_prod_version="0.3.0"),
+                rollup="green",
+                targets=[
+                    TargetStatus(
+                        registry="r-universe",
+                        name="nirs4all",
+                        status="green",
+                        published_version="0.3.0",
+                    )
+                ],
+            )
+        ],
+    )
+
+    evaluate(action, snapshot)
+    payload = public_payload([action], snapshot)
+    exported = payload["actions"][0]
+
+    assert exported["status"] == "done"
+    assert exported["declared_status"] == "todo"
+    assert exported["resolved"] is True
+    assert payload["counts"]["pending"] == 0
+    assert payload["counts"]["resolved"] == 1
 
 
 def test_current_pypi_manual_actions_match_targets_reasons_and_workflow_inputs() -> None:
