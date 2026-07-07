@@ -605,7 +605,7 @@ packages:
       - registry: pypi
         name: nirs4all-core
         state: tracked
-        reason: "RC V1 rename of nirs4all-lite; PyPI project remains blocked at v0.2.13 until Trusted Publisher is configured (invalid-publisher expected on release-python.yml, env pypi); GitHub Release carries fallback assets when the release workflow completes"
+        reason: "RC V1 rename of nirs4all-lite; PyPI project remains blocked at v0.2.13 until Trusted Publisher is configured (invalid-publisher expected on release-python.yml, env pypi); GitHub Release v0.2.13 carries Python wheel/sdist fallback assets"
         workflow:
           file: release-python.yml
           trigger: tag
@@ -658,7 +658,7 @@ packages:
       - registry: github-release
         name: nirs4all-core
         state: tracked
-        reason: "v0.2.13 release carries source/SBOM, MATLAB/Octave archive, R tarball, and SHA256SUMS; Python wheel/sdist are absent until the PyPI Trusted Publisher blocker is fixed"
+        reason: "v0.2.13 release carries source/SBOM, MATLAB/Octave archive, R tarball, Python wheel/sdist fallback assets, and SHA256SUMS while PyPI Trusted Publisher setup is pending"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
