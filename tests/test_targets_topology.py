@@ -43,7 +43,7 @@ def test_rc_core_uses_canonical_repo_and_keeps_legacy_lite_alias_visible() -> No
     core_pypi_reason = targets[("pypi", "nirs4all-core")].reason or ""
     assert "MATLAB/Octave archive" in core_release_reason
     assert "Python wheel/sdist fallback assets" in core_release_reason
-    assert "GitHub Release v0.2.13 carries Python wheel/sdist fallback assets" in core_pypi_reason
+    assert "GitHub Release v0.2.13 also carries Python wheel/sdist assets" in core_pypi_reason
 
 
 def test_rc_core_targets_account_for_all_v1_language_surfaces() -> None:
@@ -235,7 +235,7 @@ def test_dashboard_manual_blockers_are_bottom_section() -> None:
     assert blockers_at < index.index('<footer class="foot">')
 
 
-def test_rc_python_facade_publish_blockers_are_explicit() -> None:
+def test_rc_python_facade_publish_state_is_explicit() -> None:
     core = _package("nirs4all-core")
     providers = _package("nirs4all-providers")
     tools = _package("nirs4all-tools")
@@ -266,16 +266,16 @@ def test_rc_python_facade_publish_blockers_are_explicit() -> None:
         ),
     }
 
-    assert "invalid-publisher expected on release-python.yml" in blockers["core"]
-    assert "invalid-publisher on v0.2.7 release" in blockers["providers"]
-    assert "invalid-publisher on v0.0.4 release" in blockers["tools"]
-    assert "GitHub Release v0.0.4 carries wheel/sdist fallback assets" in blockers["tools"]
-    assert "invalid-publisher on v0.1.5 release" in blockers["benchmarks"]
-    assert "invalid-publisher on v0.1.6 release" in blockers["repository"]
-    assert "GitHub Release v0.1.6 carries wheel/sdist fallback assets" in blockers["repository"]
+    assert "PyPI package is published at v0.2.13" in blockers["core"]
+    assert "PyPI package is published at v0.2.7" in blockers["providers"]
+    assert "PyPI package is published at v0.0.4" in blockers["tools"]
+    assert "GitHub Release v0.0.4 also carries wheel/sdist assets" in blockers["tools"]
+    assert "PyPI package is published at v0.1.5" in blockers["benchmarks"]
+    assert "PyPI package is published at v0.1.6" in blockers["repository"]
+    assert "GitHub Release v0.1.6 also carries wheel/sdist assets" in blockers["repository"]
 
 
-def test_current_pypi_manual_actions_cover_invalid_publisher_failures() -> None:
+def test_current_pypi_manual_actions_track_resolved_publishers() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
         "pypi-publisher-core": ("nirs4all-core", "v0.2.13"),
@@ -283,13 +283,17 @@ def test_current_pypi_manual_actions_cover_invalid_publisher_failures() -> None:
         "pypi-publisher-tools": ("nirs4all-tools", "v0.0.4"),
         "pypi-publisher-benchmarks": ("nirs4all-benchmarks", "v0.1.5"),
         "pypi-publisher-repository": ("nirs4all-repository", "v0.1.6"),
+        "pypi-publisher-dag-ml": ("dag-ml", "v0.2.5"),
+        "pypi-publisher-dag-ml-data": ("dag-ml-data", "v0.2.5"),
     }
 
-    for action_id, (project, failed_version) in expected.items():
+    for action_id, (project, published_version) in expected.items():
         action = actions[action_id]
+        assert action.status == "done"
         assert action.severity == "blocker"
         assert project in action.title
-        assert failed_version in action.title
+        assert published_version in action.title
+        assert "published" in action.title
         assert action.auto_check == {"registry": "pypi", "name": project, "expect": "published"}
 
 
@@ -509,4 +513,4 @@ def test_current_pypi_manual_actions_match_targets_reasons_and_workflow_inputs()
 
     core = actions["pypi-publisher-core"]
     assert core.after_done == []
-    assert "tag-triggered workflow must be rerun manually" in core.title
+    assert "published from release-python.yml" in core.title

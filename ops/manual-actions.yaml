@@ -81,9 +81,9 @@ actions:
       expect: published
 
   - id: pypi-publisher-core
-    status: todo
+    status: done
     severity: blocker
-    title: "PyPI — create the Trusted Publisher of nirs4all-core (repo nirs4all-core, release-python.yml, env pypi); fixes invalid-publisher on v0.2.13; tag-triggered workflow must be rerun manually"
+    title: "PyPI — Trusted Publisher configured and nirs4all-core v0.2.13 published from release-python.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-core:release-python.yml"
@@ -145,9 +145,9 @@ actions:
       expect: green
 
   - id: pypi-publisher-providers
-    status: todo
+    status: done
     severity: blocker
-    title: "PyPI — create the Trusted Publisher of nirs4all-providers (repo nirs4all-providers, publish.yml, env pypi); fixes invalid-publisher on v0.2.7"
+    title: "PyPI — Trusted Publisher configured and nirs4all-providers v0.2.7 published from publish.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-providers:publish.yml"
@@ -163,9 +163,9 @@ actions:
       expect: published
 
   - id: pypi-publisher-tools
-    status: todo
+    status: done
     severity: blocker
-    title: "PyPI — create the Trusted Publisher of nirs4all-tools (repo nirs4all-tools, publish.yml, env pypi); fixes invalid-publisher on v0.0.4"
+    title: "PyPI — Trusted Publisher configured and nirs4all-tools v0.0.4 published from publish.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-tools:publish.yml"
@@ -181,9 +181,9 @@ actions:
       expect: published
 
   - id: pypi-publisher-benchmarks
-    status: todo
+    status: done
     severity: blocker
-    title: "PyPI — create the Trusted Publisher of nirs4all-benchmarks (repo nirs4all-benchmarks, publish.yml, env pypi); fixes invalid-publisher on v0.1.5"
+    title: "PyPI — Trusted Publisher configured and nirs4all-benchmarks v0.1.5 published from publish.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-benchmarks:publish.yml"
@@ -199,9 +199,9 @@ actions:
       expect: published
 
   - id: pypi-publisher-repository
-    status: todo
+    status: done
     severity: blocker
-    title: "PyPI — create the Trusted Publisher of nirs4all-repository (repo nirs4all-repository, publish.yml, env pypi); fixes invalid-publisher on v0.1.6"
+    title: "PyPI — Trusted Publisher configured and nirs4all-repository v0.1.6 published from publish.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-repository:publish.yml"
@@ -217,9 +217,9 @@ actions:
       expect: published
 
   - id: pypi-publisher-dag-ml
-    status: todo
+    status: done
     severity: blocker
-    title: "PyPI — create the Trusted Publisher of dag-ml (repo dag-ml, release-python.yml, env pypi); then rerun release-python.yml with publish=true"
+    title: "PyPI — Trusted Publisher configured and dag-ml v0.2.5 published from release-python.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "dag-ml:release-python.yml"
@@ -235,9 +235,9 @@ actions:
       expect: published
 
   - id: pypi-publisher-dag-ml-data
-    status: todo
+    status: done
     severity: blocker
-    title: "PyPI — create the Trusted Publisher of dag-ml-data (repo dag-ml-data, release-python.yml, env pypi); then rerun release-python.yml with publish=true"
+    title: "PyPI — Trusted Publisher configured and dag-ml-data v0.2.5 published from release-python.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "dag-ml-data:release-python.yml"
