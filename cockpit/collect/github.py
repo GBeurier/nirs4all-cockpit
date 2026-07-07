@@ -20,6 +20,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import signal
 import subprocess
 from typing import Any
 from urllib.parse import quote
@@ -37,6 +38,10 @@ def _env_float(name: str, default: float) -> float:
 
 
 GH_TIMEOUT_S = _env_float("COCKPIT_GH_TIMEOUT", 8.0)
+
+
+def _env_truthy(name: str) -> bool:
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
 
 
 def _headers() -> dict[str, str]:
@@ -73,24 +78,39 @@ def _gh_api_json(endpoint: str) -> Any | None:
     cockpit's admin machine already uses ``gh`` for guarded release actions, so
     use it as a read-only fallback when direct HTTP lacks a valid token.
     """
+    if _env_truthy("COCKPIT_DISABLE_GH_FALLBACK"):
+        return None
     env = dict(os.environ)
     env.pop("GITHUB_TOKEN", None)
     env.pop("GH_TOKEN", None)
     try:
-        proc = subprocess.run(
+        proc = subprocess.Popen(
             ["gh", "api", endpoint],
-            capture_output=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
             text=True,
-            timeout=GH_TIMEOUT_S,
-            check=False,
             env=env,
+            start_new_session=True,
         )
-    except (FileNotFoundError, subprocess.TimeoutExpired):
+        stdout, _stderr = proc.communicate(timeout=GH_TIMEOUT_S)
+    except FileNotFoundError:
+        return None
+    except subprocess.TimeoutExpired:
+        try:
+            os.killpg(proc.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        except OSError:
+            proc.kill()
+        try:
+            proc.communicate(timeout=1.0)
+        except subprocess.TimeoutExpired:
+            pass
         return None
     if proc.returncode != 0:
         return None
     try:
-        body = json.loads(proc.stdout)
+        body = json.loads(stdout)
     except json.JSONDecodeError:
         return None
     return body
@@ -406,6 +426,8 @@ def workflow_last_run(owner: str, repo: str, workflow_file: str) -> dict[str, An
         ``{"file", "conclusion", "created_at", "head_sha"}`` for the newest run,
         or ``None`` if the workflow has never run / is unreachable.
     """
+    if _env_truthy("COCKPIT_SKIP_WORKFLOW_PROBES"):
+        return None
     url = f"{API}/repos/{owner}/{repo}/actions/workflows/{workflow_file}/runs?per_page=20"
     status, body, _error = _get(url)
     if status != 200:

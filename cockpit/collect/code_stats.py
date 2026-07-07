@@ -17,6 +17,7 @@ omitted from the snapshot.
 
 from __future__ import annotations
 
+import os
 import re
 import xml.etree.ElementTree as ET
 import zipfile
@@ -81,6 +82,10 @@ _TEST_RE: dict[str, re.Pattern[str]] = {
 _JS_TEST_RE = re.compile(r"\b(?:it|test)\s*\(")
 
 
+def _env_truthy(name: str) -> bool:
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
+
+
 def scan(repo: str, *, allow_artifact_coverage: bool = True) -> dict | None:
     """Scan ``SIBLINGS_ROOT/<repo>`` for code stats, or ``None`` if absent."""
     root = SIBLINGS_ROOT / repo
@@ -107,7 +112,7 @@ def scan(repo: str, *, allow_artifact_coverage: bool = True) -> dict | None:
         by_language[lang[0]] = by_language.get(lang[0], 0) + code
 
     coverage = _coverage(root)
-    if coverage is None and allow_artifact_coverage:
+    if coverage is None and allow_artifact_coverage and not _env_truthy("COCKPIT_SKIP_COVERAGE_ARTIFACTS"):
         coverage = _coverage_from_github_artifact(repo)
 
     return {
