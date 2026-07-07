@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-07T11:42:11.231466+00:00",
+  "generated_at": "2026-07-07T11:52:47.842963+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -2533,7 +2533,7 @@
           "registry": "pypi",
           "name": "nirs4all-tools",
           "channel": "rc",
-          "reason": "RC V1 migration/converter toolkit; PyPI Trusted Publisher missing (invalid-publisher on v0.0.4 release); GitHub Release currently has no wheel/sdist fallback assets until publish succeeds",
+          "reason": "RC V1 migration/converter toolkit; PyPI Trusted Publisher missing (invalid-publisher on v0.0.4 release); GitHub Release v0.0.4 carries wheel/sdist fallback assets",
           "published_version": null,
           "status": "missing",
           "planned": false,
@@ -2561,7 +2561,7 @@
           "registry": "github-release",
           "name": "nirs4all-tools",
           "channel": "rc",
-          "reason": "v0.0.4 release is tagged; the GitHub Release currently has no wheel/sdist fallback assets while PyPI Trusted Publisher setup is pending",
+          "reason": "v0.0.4 release is tagged and carries wheel/sdist fallback assets while PyPI Trusted Publisher setup is pending",
           "published_version": "0.0.4",
           "status": "green",
           "planned": false,
@@ -2602,7 +2602,7 @@
         "open_prs": 1,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 142,
+        "size_kb": 143,
         "language": "Python",
         "license": "NOASSERTION",
         "pushed_at": "2026-07-07T07:52:37Z",
@@ -4777,8 +4777,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 2,
-        "closed_prs": 0,
-        "merged_prs": 0,
+        "closed_prs": 5,
+        "merged_prs": 5,
         "size_kb": 2445,
         "language": "Python",
         "license": "AGPL-3.0",
@@ -4865,7 +4865,7 @@
           "registry": "pypi",
           "name": "nirs4all-repository",
           "channel": "production",
-          "reason": "PyPI Trusted Publisher missing (invalid-publisher on v0.1.6 release); latest GitHub Release currently has no wheel/sdist fallback until publish succeeds",
+          "reason": "PyPI Trusted Publisher missing (invalid-publisher on v0.1.6 release); GitHub Release v0.1.6 carries wheel/sdist fallback assets",
           "published_version": null,
           "status": "missing",
           "planned": false,
@@ -4976,18 +4976,18 @@
         "by_language": {
           "Python": 3097
         },
-        "coverage_pct": 77.4,
+        "coverage_pct": 76.7,
         "source": "local-scan"
       },
       "actions_stats": {
         "workflows": 9,
-        "total_runs": 121,
+        "total_runs": 122,
         "recent_total": 100,
         "recent_success": 95,
         "recent_failure": 5,
         "success_rate": 95.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-06T13:05:38Z"
+        "last_created_at": "2026-07-07T09:43:38Z"
       }
     },
     {
@@ -5104,7 +5104,7 @@
     "loc_total": 1640381,
     "tests": 15866,
     "files": 5722,
-    "workflow_runs": 6168,
+    "workflow_runs": 6169,
     "downloads_last_month": 21637
   },
   "visits": {

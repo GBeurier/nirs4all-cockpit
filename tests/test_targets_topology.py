@@ -139,7 +139,7 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     ]
     tools_release_reason = next(target.reason or "" for target in tools.targets if target.registry == "github-release")
     assert "v0.0.4 release" in tools_release_reason
-    assert "no wheel/sdist fallback assets" in tools_release_reason
+    assert "carries wheel/sdist fallback assets" in tools_release_reason
 
 
 def test_dashboard_pages_urls_cover_current_rc_pages_roster() -> None:
@@ -214,9 +214,10 @@ def test_rc_python_facade_publish_blockers_are_explicit() -> None:
     assert "invalid-publisher expected on release-python.yml" in blockers["core"]
     assert "invalid-publisher on v0.2.7 release" in blockers["providers"]
     assert "invalid-publisher on v0.0.4 release" in blockers["tools"]
+    assert "GitHub Release v0.0.4 carries wheel/sdist fallback assets" in blockers["tools"]
     assert "invalid-publisher on v0.1.5 release" in blockers["benchmarks"]
     assert "invalid-publisher on v0.1.6 release" in blockers["repository"]
-    assert "until publish succeeds" in blockers["repository"]
+    assert "GitHub Release v0.1.6 carries wheel/sdist fallback assets" in blockers["repository"]
 
 
 def test_current_pypi_manual_actions_cover_invalid_publisher_failures() -> None:
@@ -264,7 +265,7 @@ def test_current_runiverse_manual_actions_cover_stale_rc_rebuilds() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
         "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.2.13", "done"),
-        "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.4", "todo"),
+        "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.4", "done"),
         "runiverse-io-rebuild": ("nirs4all-io", "nirs4allio", "v0.1.9", "done"),
         "runiverse-dagml-data-rebuild": ("dag-ml-data", "dagmldata", "v0.2.5", "todo"),
     }
