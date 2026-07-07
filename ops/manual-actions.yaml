@@ -105,6 +105,45 @@ actions:
       name: nirs4all
       expect: green
 
+  - id: runiverse-formats-rebuild
+    status: todo
+    severity: important
+    title: "R-universe — rebuild nirs4allformats and nirs4allformats.lite from nirs4all-formats v0.2.4"
+    manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
+    affects:
+      - "nirs4all-formats:r-universe"
+      - "GBeurier.r-universe.dev:packages.json"
+    auto_check:
+      registry: r-universe
+      name: nirs4allformats
+      expect: green
+
+  - id: runiverse-io-rebuild
+    status: todo
+    severity: important
+    title: "R-universe — rebuild nirs4allio from nirs4all-io v0.1.9"
+    manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
+    affects:
+      - "nirs4all-io:r-universe"
+      - "GBeurier.r-universe.dev:packages.json"
+    auto_check:
+      registry: r-universe
+      name: nirs4allio
+      expect: green
+
+  - id: runiverse-dagml-data-rebuild
+    status: todo
+    severity: important
+    title: "R-universe — rebuild dagmldata from dag-ml-data v0.2.5"
+    manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
+    affects:
+      - "dag-ml-data:r-universe"
+      - "GBeurier.r-universe.dev:packages.json"
+    auto_check:
+      registry: r-universe
+      name: dagmldata
+      expect: green
+
   - id: pypi-publisher-providers
     status: todo
     severity: blocker

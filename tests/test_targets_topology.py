@@ -123,7 +123,8 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     github_reason = next(target.reason or "" for target in providers.targets if target.registry == "github-release")
     pypi_reason = next(target.reason or "" for target in providers.targets if target.registry == "pypi")
     pages_reason = next(target.reason or "" for target in providers.targets if target.registry == "pages")
-    assert "provider-client source release" in github_reason
+    assert "provider-client release" in github_reason
+    assert "no wheel/sdist fallback assets" in github_reason
     assert "provider clients/read facade" in pypi_reason
     assert "neutral contracts remain canonical" in pypi_reason
     assert "docs/site page" in pages_reason
@@ -138,7 +139,7 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     ]
     tools_release_reason = next(target.reason or "" for target in tools.targets if target.registry == "github-release")
     assert "v0.0.4 release" in tools_release_reason
-    assert "wheel/sdist fallback assets" in tools_release_reason
+    assert "no wheel/sdist fallback assets" in tools_release_reason
 
 
 def test_dashboard_pages_urls_cover_current_rc_pages_roster() -> None:
@@ -248,6 +249,30 @@ def test_current_runiverse_manual_action_tracks_core_stale_rebuild() -> None:
     assert "nirs4all-lite" in action.title
     assert "nirs4all-core:r-universe" in action.affects
     assert action.auto_check == {"registry": "r-universe", "name": "nirs4all", "expect": "green"}
+
+
+def test_current_runiverse_manual_actions_cover_stale_rc_rebuilds() -> None:
+    actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
+    expected = {
+        "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.2.13"),
+        "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.4"),
+        "runiverse-io-rebuild": ("nirs4all-io", "nirs4allio", "v0.1.9"),
+        "runiverse-dagml-data-rebuild": ("dag-ml-data", "dagmldata", "v0.2.5"),
+    }
+
+    for action_id, (repo, package_name, version) in expected.items():
+        action = actions[action_id]
+        assert action.status == "todo"
+        assert action.severity == "important"
+        assert "R-universe" in action.title
+        assert any(repo in item for item in action.affects)
+        assert package_name in action.title
+        assert version in action.title
+        assert action.auto_check == {
+            "registry": "r-universe",
+            "name": package_name,
+            "expect": "green",
+        }
 
 
 def test_formats_cran_target_is_explicitly_excluded_to_match_manual_policy() -> None:
