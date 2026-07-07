@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-07T12:05:58.937713+00:00",
+  "snapshot_generated_at": "2026-07-07T14:27:22.429398Z",
   "counts": {
     "total": 20,
-    "pending": 13,
-    "resolved": 7,
-    "blockers": 7,
+    "pending": 6,
+    "resolved": 14,
+    "blockers": 0,
     "important": 6,
     "info": 0
   },
@@ -108,9 +108,9 @@
     },
     {
       "id": "pypi-publisher-core",
-      "status": "todo",
+      "status": "done",
       "severity": "blocker",
-      "title": "PyPI — create the Trusted Publisher of nirs4all-core (repo nirs4all-core, release-python.yml, env pypi); fixes invalid-publisher on v0.2.13; tag-triggered workflow must be rerun manually",
+      "title": "PyPI — Trusted Publisher configured and nirs4all-core v0.2.13 published from release-python.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
       "affects": [
         "nirs4all-core:release-python.yml"
@@ -121,8 +121,8 @@
         "name": "nirs4all-core",
         "expect": "published"
       },
-      "resolved": false,
-      "check_note": "pypi:nirs4all-core status=missing version=—"
+      "resolved": true,
+      "check_note": "pypi:nirs4all-core published 0.2.13 (status=green)"
     },
     {
       "id": "runiverse-core-rebuild",
@@ -202,9 +202,9 @@
     },
     {
       "id": "pypi-publisher-providers",
-      "status": "todo",
+      "status": "done",
       "severity": "blocker",
-      "title": "PyPI — create the Trusted Publisher of nirs4all-providers (repo nirs4all-providers, publish.yml, env pypi); fixes invalid-publisher on v0.2.7",
+      "title": "PyPI — Trusted Publisher configured and nirs4all-providers v0.2.7 published from publish.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
       "affects": [
         "nirs4all-providers:publish.yml"
@@ -226,14 +226,14 @@
         "name": "nirs4all-providers",
         "expect": "published"
       },
-      "resolved": false,
-      "check_note": "pypi:nirs4all-providers status=missing version=—"
+      "resolved": true,
+      "check_note": "pypi:nirs4all-providers published 0.2.7 (status=green)"
     },
     {
       "id": "pypi-publisher-tools",
-      "status": "todo",
+      "status": "done",
       "severity": "blocker",
-      "title": "PyPI — create the Trusted Publisher of nirs4all-tools (repo nirs4all-tools, publish.yml, env pypi); fixes invalid-publisher on v0.0.4",
+      "title": "PyPI — Trusted Publisher configured and nirs4all-tools v0.0.4 published from publish.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
       "affects": [
         "nirs4all-tools:publish.yml"
@@ -255,14 +255,14 @@
         "name": "nirs4all-tools",
         "expect": "published"
       },
-      "resolved": false,
-      "check_note": "pypi:nirs4all-tools status=missing version=—"
+      "resolved": true,
+      "check_note": "pypi:nirs4all-tools published 0.0.4 (status=green)"
     },
     {
       "id": "pypi-publisher-benchmarks",
-      "status": "todo",
+      "status": "done",
       "severity": "blocker",
-      "title": "PyPI — create the Trusted Publisher of nirs4all-benchmarks (repo nirs4all-benchmarks, publish.yml, env pypi); fixes invalid-publisher on v0.1.5",
+      "title": "PyPI — Trusted Publisher configured and nirs4all-benchmarks v0.1.5 published from publish.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
       "affects": [
         "nirs4all-benchmarks:publish.yml"
@@ -284,14 +284,14 @@
         "name": "nirs4all-benchmarks",
         "expect": "published"
       },
-      "resolved": false,
-      "check_note": "pypi:nirs4all-benchmarks status=missing version=—"
+      "resolved": true,
+      "check_note": "pypi:nirs4all-benchmarks published 0.1.5 (status=green)"
     },
     {
       "id": "pypi-publisher-repository",
-      "status": "todo",
+      "status": "done",
       "severity": "blocker",
-      "title": "PyPI — create the Trusted Publisher of nirs4all-repository (repo nirs4all-repository, publish.yml, env pypi); fixes invalid-publisher on v0.1.6",
+      "title": "PyPI — Trusted Publisher configured and nirs4all-repository v0.1.6 published from publish.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
       "affects": [
         "nirs4all-repository:publish.yml"
@@ -313,14 +313,14 @@
         "name": "nirs4all-repository",
         "expect": "published"
       },
-      "resolved": false,
-      "check_note": "pypi:nirs4all-repository status=missing version=—"
+      "resolved": true,
+      "check_note": "pypi:nirs4all-repository published 0.1.6 (status=green)"
     },
     {
       "id": "pypi-publisher-dag-ml",
-      "status": "todo",
+      "status": "done",
       "severity": "blocker",
-      "title": "PyPI — create the Trusted Publisher of dag-ml (repo dag-ml, release-python.yml, env pypi); then rerun release-python.yml with publish=true",
+      "title": "PyPI — Trusted Publisher configured and dag-ml v0.2.5 published from release-python.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
       "affects": [
         "dag-ml:release-python.yml"
@@ -342,14 +342,14 @@
         "name": "dag-ml",
         "expect": "published"
       },
-      "resolved": false,
-      "check_note": "pypi:dag-ml status=missing version=—"
+      "resolved": true,
+      "check_note": "pypi:dag-ml published 0.2.5 (status=green)"
     },
     {
       "id": "pypi-publisher-dag-ml-data",
-      "status": "todo",
+      "status": "done",
       "severity": "blocker",
-      "title": "PyPI — create the Trusted Publisher of dag-ml-data (repo dag-ml-data, release-python.yml, env pypi); then rerun release-python.yml with publish=true",
+      "title": "PyPI — Trusted Publisher configured and dag-ml-data v0.2.5 published from release-python.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
       "affects": [
         "dag-ml-data:release-python.yml"
@@ -371,8 +371,8 @@
         "name": "dag-ml-data",
         "expect": "published"
       },
-      "resolved": false,
-      "check_note": "pypi:dag-ml-data status=missing version=—"
+      "resolved": true,
+      "check_note": "pypi:dag-ml-data published 0.2.5 (status=green)"
     },
     {
       "id": "crates-verify-email",

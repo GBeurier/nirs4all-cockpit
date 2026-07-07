@@ -79,7 +79,7 @@ def main() -> int:
     required = [
         "nirs4all<b>·</b>cockpit",
         "Manual blockers",
-        "pypi-publisher-core",
+        "runiverse-dagml-data-rebuild",
         "nirs4all-formats",
         "nirs4all-ecosystem",
         "schema v1",

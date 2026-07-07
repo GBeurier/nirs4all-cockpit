@@ -535,11 +535,11 @@ packages:
       - registry: github-release
         name: nirs4all-providers
         state: tracked
-        reason: "RC V1 provider-client release v0.2.7 is tagged and carries wheel/sdist fallback assets; PyPI distribution remains blocked by Trusted Publisher setup"
+        reason: "RC V1 provider-client release v0.2.7 is tagged and carries wheel/sdist fallback assets; PyPI distribution is published"
       - registry: pypi
         name: nirs4all-providers
         state: tracked
-        reason: "RC V1 optional Python provider clients/read facade; PyPI Trusted Publisher missing (invalid-publisher on v0.2.7 release); neutral contracts remain canonical"
+        reason: "RC V1 optional Python provider clients/read facade; PyPI package is published at v0.2.7; neutral contracts remain canonical"
         workflow:
           file: publish.yml
           trigger: release_published
@@ -567,7 +567,7 @@ packages:
       - registry: pypi
         name: nirs4all-tools
         state: tracked
-        reason: "RC V1 migration/converter toolkit; PyPI Trusted Publisher missing (invalid-publisher on v0.0.4 release); GitHub Release v0.0.4 carries wheel/sdist fallback assets"
+        reason: "RC V1 migration/converter toolkit; PyPI package is published at v0.0.4; GitHub Release v0.0.4 also carries wheel/sdist assets"
         workflow:
           file: publish.yml
           trigger: release_published
@@ -580,7 +580,7 @@ packages:
       - registry: github-release
         name: nirs4all-tools
         state: tracked
-        reason: "v0.0.4 release is tagged and carries wheel/sdist fallback assets while PyPI Trusted Publisher setup is pending"
+        reason: "v0.0.4 release is tagged and carries wheel/sdist fallback assets; PyPI distribution is published"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -618,7 +618,7 @@ packages:
       - registry: pypi
         name: nirs4all-core
         state: tracked
-        reason: "RC V1 rename of nirs4all-lite; PyPI project remains blocked at v0.2.13 until Trusted Publisher is configured (invalid-publisher expected on release-python.yml, env pypi); GitHub Release v0.2.13 carries Python wheel/sdist fallback assets"
+        reason: "RC V1 rename of nirs4all-lite; PyPI package is published at v0.2.13; GitHub Release v0.2.13 also carries Python wheel/sdist assets"
         workflow:
           file: release-python.yml
           trigger: tag
@@ -671,7 +671,7 @@ packages:
       - registry: github-release
         name: nirs4all-core
         state: tracked
-        reason: "v0.2.13 release carries source/SBOM, MATLAB/Octave archive, R tarball, Python wheel/sdist fallback assets, and SHA256SUMS while PyPI Trusted Publisher setup is pending"
+        reason: "v0.2.13 release carries source/SBOM, MATLAB/Octave archive, R tarball, Python wheel/sdist fallback assets, and SHA256SUMS; PyPI distribution is published"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -735,7 +735,7 @@ packages:
       - registry: pypi
         name: dag-ml
         state: tracked
-        reason: "RC Python binding from crates/dag-ml-py 0.2.5; PyPI Trusted Publisher missing (invalid-publisher on release-python.yml, env pypi)"
+        reason: "RC Python binding from crates/dag-ml-py 0.2.5; PyPI package is published at v0.2.5"
         workflow:
           file: release-python.yml
           trigger: workflow_dispatch
@@ -792,7 +792,7 @@ packages:
       - registry: pypi
         name: dag-ml-data
         state: tracked
-        reason: "RC Python binding from crates/dag-ml-data-py 0.2.5; PyPI Trusted Publisher missing (invalid-publisher on release-python.yml, env pypi)"
+        reason: "RC Python binding from crates/dag-ml-data-py 0.2.5; PyPI package is published at v0.2.5"
         workflow:
           file: release-python.yml
           trigger: workflow_dispatch
@@ -933,7 +933,7 @@ packages:
       - registry: pypi
         name: nirs4all-benchmarks
         state: tracked
-        reason: "PyPI Trusted Publisher missing (invalid-publisher on v0.1.5 release); GitHub Release carries wheel/sdist fallback assets"
+        reason: "PyPI package is published at v0.1.5; GitHub Release also carries wheel/sdist assets"
         workflow:
           file: publish.yml
           trigger: release_published
@@ -966,7 +966,7 @@ packages:
       - registry: pypi
         name: nirs4all-repository
         state: tracked
-        reason: "PyPI Trusted Publisher missing (invalid-publisher on v0.1.6 release); GitHub Release v0.1.6 carries wheel/sdist fallback assets"
+        reason: "PyPI package is published at v0.1.6; GitHub Release v0.1.6 also carries wheel/sdist assets"
         workflow:
           file: publish.yml
           trigger: release_published
