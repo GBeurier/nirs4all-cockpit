@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-07T18:03:36.822638+00:00",
+  "snapshot_generated_at": "2026-07-07T18:11:19.420873+00:00",
   "counts": {
     "total": 20,
-    "pending": 6,
-    "resolved": 14,
+    "pending": 5,
+    "resolved": 15,
     "blockers": 0,
-    "important": 6,
+    "important": 5,
     "info": 0
   },
   "actions": [
@@ -197,8 +197,8 @@
         "name": "dagmldata",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:dagmldata status=stale version=0.2.4"
+      "resolved": true,
+      "check_note": "r-universe:dagmldata current 0.2.5 (status=green)"
     },
     {
       "id": "pypi-publisher-providers",
