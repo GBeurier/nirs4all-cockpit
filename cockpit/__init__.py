@@ -3,4 +3,4 @@
 The cockpit aggregates and orchestrates; it never reimplements any repo logic.
 """
 
-__version__ = "0.1.6"
+__version__ = "0.1.7"
