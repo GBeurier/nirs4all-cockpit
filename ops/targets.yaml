@@ -584,9 +584,8 @@ packages:
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
-  # RC V1 aggregate: the logical package and canonical repository are now
-  # nirs4all-core; the legacy nirs4all-lite PyPI name remains tracked as an
-  # installable alias until the cutover is complete.
+  # RC V1 aggregate: the logical package and canonical repository are
+  # nirs4all-core. Do not track legacy aggregate aliases as release targets.
   - id: nirs4all-core
     repo: nirs4all-core
     channel: rc
@@ -599,26 +598,11 @@ packages:
       - registry: readthedocs
         name: nirs4all-core
         state: tracked
-      - registry: pypi
-        name: nirs4all-lite
-        state: tracked
-        reason: "legacy alias remains published at 0.2.0; RC aggregate target is nirs4all-core 0.2.13"
-        workflow:
-          file: release-python.yml
-          trigger: tag
-          danger: publish
-          publishes_on_dispatch: false
-          inputs:
-            - name: dry_run
-              type: string
-              default: "true"
-      # RC V1 naming migration: the Python aggregate distribution renames
-      # nirs4all-lite -> nirs4all-core on the RC head. This is an expected
-      # publication target now; nirs4all-lite stays tracked as the legacy alias.
+      # RC V1 Python aggregate distribution.
       - registry: pypi
         name: nirs4all-core
         state: tracked
-        reason: "RC V1 rename of nirs4all-lite; PyPI package is published at v0.2.13; GitHub Release v0.2.13 also carries Python wheel/sdist assets"
+        reason: "PyPI package is published at v0.2.13; GitHub Release v0.2.13 also carries Python wheel/sdist assets"
         workflow:
           file: release-python.yml
           trigger: tag

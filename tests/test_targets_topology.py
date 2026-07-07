@@ -22,7 +22,7 @@ def _package(package_id: str):
     raise AssertionError(f"missing package {package_id}")
 
 
-def test_rc_core_uses_canonical_repo_and_keeps_legacy_lite_alias_visible() -> None:
+def test_rc_core_uses_canonical_repo_without_legacy_lite_alias() -> None:
     package = _package("nirs4all-core")
 
     assert package.channel == "rc"
@@ -32,7 +32,7 @@ def test_rc_core_uses_canonical_repo_and_keeps_legacy_lite_alias_visible() -> No
     assert package.source_of_truth.strategy == "cargo_package"
 
     targets = {(target.registry, target.name): target for target in package.targets}
-    assert targets[("pypi", "nirs4all-lite")].state == "tracked"
+    assert ("pypi", "nirs4all-lite") not in targets
     assert targets[("github-release", "nirs4all-core")].state == "tracked"
     assert targets[("pypi", "nirs4all-core")].state == "tracked"
     assert targets[("crates", "nirs4all")].state == "tracked"
@@ -315,7 +315,6 @@ def test_current_runiverse_manual_action_tracks_core_rebuild_resolution() -> Non
     assert action.status == "done"
     assert action.severity == "important"
     assert "nirs4all-core" in action.title
-    assert "nirs4all-lite" in action.title
     assert "nirs4all-core:r-universe" in action.affects
     assert action.auto_check == {"registry": "r-universe", "name": "nirs4all", "expect": "green"}
 
