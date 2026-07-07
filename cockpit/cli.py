@@ -720,12 +720,21 @@ def admin_actions(
     actions: Path = typer.Option(DEFAULT_ACTIONS, "--actions", help="Manual-actions YAML."),
     current: Path = typer.Option(DEFAULT_CURRENT, "--current", help="Snapshot for auto-checks."),
     md: bool = typer.Option(False, "--md", help="Render Markdown instead of plain text."),
+    json_out: Path | None = typer.Option(None, "--json-out", help="Write public evaluated actions JSON."),
 ) -> None:
     """Render the manual-action checklist with auto-checks against the snapshot."""
     from cockpit import manual_actions
 
     snap = _load_snapshot(current) if current.is_file() else None
-    typer.echo(manual_actions.checklist(actions, snap, markdown=md))
+    evaluated = manual_actions.evaluate_all(manual_actions.load_actions(actions), snap)
+    if json_out is not None:
+        json_out.parent.mkdir(parents=True, exist_ok=True)
+        payload = manual_actions.public_payload(evaluated, snap)
+        json_out.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        typer.secho(f"wrote {json_out}", fg="green")
+        if not md:
+            return
+    typer.echo(manual_actions.render_markdown(evaluated) if md else manual_actions.render_text(evaluated))
 
 
 if __name__ == "__main__":

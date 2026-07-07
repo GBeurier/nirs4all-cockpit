@@ -21,6 +21,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Any
 
 import yaml
 
@@ -204,6 +205,40 @@ def render_markdown(actions: list[ManualAction]) -> str:
         elif action.check_note:
             lines.append(f"  - auto-check: ❔ unknown — {action.check_note}")
     return "\n".join(lines)
+
+
+def public_payload(actions: list[ManualAction], snapshot: Snapshot | None) -> dict[str, Any]:
+    """Return the public, non-secret manual-action payload for the dashboard."""
+    pending = [action for action in actions if action.status != "done" and action.resolved is not True]
+    resolved = [action for action in actions if action.status == "done" or action.resolved is True]
+    counts = {
+        "total": len(actions),
+        "pending": len(pending),
+        "resolved": len(resolved),
+        "blockers": sum(1 for action in pending if action.severity == "blocker"),
+        "important": sum(1 for action in pending if action.severity == "important"),
+        "info": sum(1 for action in pending if action.severity == "info"),
+    }
+    return {
+        "schema_version": 1,
+        "snapshot_generated_at": snapshot.generated_at if snapshot is not None else None,
+        "counts": counts,
+        "actions": [
+            {
+                "id": action.id,
+                "status": action.status,
+                "severity": action.severity,
+                "title": action.title,
+                "manual_url": action.manual_url,
+                "affects": action.affects,
+                "after_done": action.after_done,
+                "auto_check": action.auto_check,
+                "resolved": action.resolved,
+                "check_note": action.check_note,
+            }
+            for action in actions
+        ],
+    }
 
 
 def checklist(

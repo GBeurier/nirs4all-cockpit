@@ -50,6 +50,20 @@ def test_collect_only_allows_explicit_scratch_output(monkeypatch, tmp_path) -> N
     assert "wrote" in result.stdout
 
 
+def test_admin_actions_can_write_public_json(tmp_path) -> None:
+    runner = CliRunner()
+    out = tmp_path / "manual-actions.json"
+
+    result = runner.invoke(cli.app, ["admin", "actions", "--json-out", str(out)])
+
+    assert result.exit_code == 0
+    assert out.is_file()
+    text = out.read_text(encoding="utf-8")
+    assert '"schema_version": 1' in text
+    assert '"secret_updates"' not in text
+    assert "pypi-publisher-core" in text
+
+
 def test_collect_carries_forward_token_backed_public_signals() -> None:
     snap = Snapshot(
         schema_version=1,

@@ -1,0 +1,488 @@
+{
+  "schema_version": 1,
+  "snapshot_generated_at": "2026-07-07T10:05:58.673777+00:00",
+  "counts": {
+    "total": 20,
+    "pending": 14,
+    "resolved": 6,
+    "blockers": 7,
+    "important": 7,
+    "info": 0
+  },
+  "actions": [
+    {
+      "id": "npm-automation-token",
+      "status": "done",
+      "severity": "important",
+      "title": "npm — regenerate the publish token as an Automation token (bypasses 2FA)",
+      "manual_url": "https://www.npmjs.com/settings/~/tokens",
+      "affects": [
+        "nirs4all-methods:release-npm.yml",
+        "nirs4all-formats:release-npm.yml"
+      ],
+      "after_done": [
+        {
+          "run_workflow": {
+            "repo": "nirs4all-methods",
+            "workflow": "release-npm.yml",
+            "ref": "main",
+            "inputs": {
+              "publish": "true"
+            }
+          }
+        },
+        {
+          "run_workflow": {
+            "repo": "nirs4all-formats",
+            "workflow": "release-npm.yml",
+            "ref": "main",
+            "inputs": {
+              "publish": "true"
+            }
+          }
+        }
+      ],
+      "auto_check": {
+        "registry": "npm",
+        "name": "@nirs4all/methods",
+        "expect": "published"
+      },
+      "resolved": true,
+      "check_note": "npm:@nirs4all/methods published 1.0.6 (status=green)"
+    },
+    {
+      "id": "pypi-publisher-pls4all",
+      "status": "done",
+      "severity": "important",
+      "title": "PyPI — fix the Trusted Publisher of pls4all (repo nirs4all-methods, release-python.yml, env pypi)",
+      "manual_url": "https://pypi.org/manage/account/publishing/",
+      "affects": [
+        "nirs4all-methods:release-python.yml"
+      ],
+      "after_done": [
+        {
+          "run_workflow": {
+            "repo": "nirs4all-methods",
+            "workflow": "release-python.yml",
+            "ref": "main",
+            "inputs": {}
+          }
+        }
+      ],
+      "auto_check": {
+        "registry": "pypi",
+        "name": "pls4all",
+        "expect": "published"
+      },
+      "resolved": true,
+      "check_note": "pypi:pls4all published 1.0.6 (status=green)"
+    },
+    {
+      "id": "pypi-publisher-io",
+      "status": "done",
+      "severity": "important",
+      "title": "PyPI — create the pending Trusted Publisher of nirs4all-io (repo nirs4all-io, release.yml, env pypi)",
+      "manual_url": "https://pypi.org/manage/account/publishing/",
+      "affects": [
+        "nirs4all-io:release.yml"
+      ],
+      "after_done": [
+        {
+          "run_workflow": {
+            "repo": "nirs4all-io",
+            "workflow": "release.yml",
+            "ref": "main",
+            "inputs": {
+              "dry_run": "false"
+            }
+          }
+        }
+      ],
+      "auto_check": {
+        "registry": "pypi",
+        "name": "nirs4all-io",
+        "expect": "published"
+      },
+      "resolved": true,
+      "check_note": "pypi:nirs4all-io published 0.1.9 (status=green)"
+    },
+    {
+      "id": "pypi-publisher-core",
+      "status": "todo",
+      "severity": "blocker",
+      "title": "PyPI — create the Trusted Publisher of nirs4all-core (repo nirs4all-core, release-python.yml, env pypi); fixes invalid-publisher on v0.2.13; tag-triggered workflow must be rerun manually",
+      "manual_url": "https://pypi.org/manage/account/publishing/",
+      "affects": [
+        "nirs4all-core:release-python.yml"
+      ],
+      "after_done": [],
+      "auto_check": {
+        "registry": "pypi",
+        "name": "nirs4all-core",
+        "expect": "published"
+      },
+      "resolved": false,
+      "check_note": "pypi:nirs4all-core status=missing version=—"
+    },
+    {
+      "id": "runiverse-core-rebuild",
+      "status": "done",
+      "severity": "important",
+      "title": "R-universe — rebuild nirs4all from nirs4all-core v0.2.13 after replacing the legacy nirs4all-lite alias source mapping",
+      "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
+      "affects": [
+        "nirs4all-core:r-universe",
+        "GBeurier.r-universe.dev:packages.json"
+      ],
+      "after_done": [],
+      "auto_check": {
+        "registry": "r-universe",
+        "name": "nirs4all",
+        "expect": "green"
+      },
+      "resolved": true,
+      "check_note": "r-universe:nirs4all current 0.2.13 (status=green)"
+    },
+    {
+      "id": "runiverse-formats-rebuild",
+      "status": "todo",
+      "severity": "important",
+      "title": "R-universe — rebuild nirs4allformats and nirs4allformats.lite from nirs4all-formats v0.2.4",
+      "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
+      "affects": [
+        "nirs4all-formats:r-universe",
+        "GBeurier.r-universe.dev:packages.json"
+      ],
+      "after_done": [],
+      "auto_check": {
+        "registry": "r-universe",
+        "name": "nirs4allformats",
+        "expect": "green"
+      },
+      "resolved": false,
+      "check_note": "r-universe:nirs4allformats status=stale version=0.2.2"
+    },
+    {
+      "id": "runiverse-io-rebuild",
+      "status": "done",
+      "severity": "important",
+      "title": "R-universe — rebuild nirs4allio from nirs4all-io v0.1.9",
+      "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
+      "affects": [
+        "nirs4all-io:r-universe",
+        "GBeurier.r-universe.dev:packages.json"
+      ],
+      "after_done": [],
+      "auto_check": {
+        "registry": "r-universe",
+        "name": "nirs4allio",
+        "expect": "green"
+      },
+      "resolved": true,
+      "check_note": "r-universe:nirs4allio current 0.1.9 (status=green)"
+    },
+    {
+      "id": "runiverse-dagml-data-rebuild",
+      "status": "todo",
+      "severity": "important",
+      "title": "R-universe — rebuild dagmldata from dag-ml-data v0.2.5",
+      "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
+      "affects": [
+        "dag-ml-data:r-universe",
+        "GBeurier.r-universe.dev:packages.json"
+      ],
+      "after_done": [],
+      "auto_check": {
+        "registry": "r-universe",
+        "name": "dagmldata",
+        "expect": "green"
+      },
+      "resolved": false,
+      "check_note": "r-universe:dagmldata status=stale version=0.2.4"
+    },
+    {
+      "id": "pypi-publisher-providers",
+      "status": "todo",
+      "severity": "blocker",
+      "title": "PyPI — create the Trusted Publisher of nirs4all-providers (repo nirs4all-providers, publish.yml, env pypi); fixes invalid-publisher on v0.2.7",
+      "manual_url": "https://pypi.org/manage/account/publishing/",
+      "affects": [
+        "nirs4all-providers:publish.yml"
+      ],
+      "after_done": [
+        {
+          "run_workflow": {
+            "repo": "nirs4all-providers",
+            "workflow": "publish.yml",
+            "ref": "main",
+            "inputs": {
+              "dry_run": "false"
+            }
+          }
+        }
+      ],
+      "auto_check": {
+        "registry": "pypi",
+        "name": "nirs4all-providers",
+        "expect": "published"
+      },
+      "resolved": false,
+      "check_note": "pypi:nirs4all-providers status=missing version=—"
+    },
+    {
+      "id": "pypi-publisher-tools",
+      "status": "todo",
+      "severity": "blocker",
+      "title": "PyPI — create the Trusted Publisher of nirs4all-tools (repo nirs4all-tools, publish.yml, env pypi); fixes invalid-publisher on v0.0.4",
+      "manual_url": "https://pypi.org/manage/account/publishing/",
+      "affects": [
+        "nirs4all-tools:publish.yml"
+      ],
+      "after_done": [
+        {
+          "run_workflow": {
+            "repo": "nirs4all-tools",
+            "workflow": "publish.yml",
+            "ref": "main",
+            "inputs": {
+              "dry_run": "false"
+            }
+          }
+        }
+      ],
+      "auto_check": {
+        "registry": "pypi",
+        "name": "nirs4all-tools",
+        "expect": "published"
+      },
+      "resolved": false,
+      "check_note": "pypi:nirs4all-tools status=missing version=—"
+    },
+    {
+      "id": "pypi-publisher-benchmarks",
+      "status": "todo",
+      "severity": "blocker",
+      "title": "PyPI — create the Trusted Publisher of nirs4all-benchmarks (repo nirs4all-benchmarks, publish.yml, env pypi); fixes invalid-publisher on v0.1.5",
+      "manual_url": "https://pypi.org/manage/account/publishing/",
+      "affects": [
+        "nirs4all-benchmarks:publish.yml"
+      ],
+      "after_done": [
+        {
+          "run_workflow": {
+            "repo": "nirs4all-benchmarks",
+            "workflow": "publish.yml",
+            "ref": "main",
+            "inputs": {
+              "dry_run": "false"
+            }
+          }
+        }
+      ],
+      "auto_check": {
+        "registry": "pypi",
+        "name": "nirs4all-benchmarks",
+        "expect": "published"
+      },
+      "resolved": false,
+      "check_note": "pypi:nirs4all-benchmarks status=missing version=—"
+    },
+    {
+      "id": "pypi-publisher-repository",
+      "status": "todo",
+      "severity": "blocker",
+      "title": "PyPI — create the Trusted Publisher of nirs4all-repository (repo nirs4all-repository, publish.yml, env pypi); fixes invalid-publisher on v0.1.6",
+      "manual_url": "https://pypi.org/manage/account/publishing/",
+      "affects": [
+        "nirs4all-repository:publish.yml"
+      ],
+      "after_done": [
+        {
+          "run_workflow": {
+            "repo": "nirs4all-repository",
+            "workflow": "publish.yml",
+            "ref": "main",
+            "inputs": {
+              "dry_run": "false"
+            }
+          }
+        }
+      ],
+      "auto_check": {
+        "registry": "pypi",
+        "name": "nirs4all-repository",
+        "expect": "published"
+      },
+      "resolved": false,
+      "check_note": "pypi:nirs4all-repository status=missing version=—"
+    },
+    {
+      "id": "pypi-publisher-dag-ml",
+      "status": "todo",
+      "severity": "blocker",
+      "title": "PyPI — create the Trusted Publisher of dag-ml (repo dag-ml, release-python.yml, env pypi); then rerun release-python.yml with publish=true",
+      "manual_url": "https://pypi.org/manage/account/publishing/",
+      "affects": [
+        "dag-ml:release-python.yml"
+      ],
+      "after_done": [
+        {
+          "run_workflow": {
+            "repo": "dag-ml",
+            "workflow": "release-python.yml",
+            "ref": "main",
+            "inputs": {
+              "publish": "true"
+            }
+          }
+        }
+      ],
+      "auto_check": {
+        "registry": "pypi",
+        "name": "dag-ml",
+        "expect": "published"
+      },
+      "resolved": false,
+      "check_note": "pypi:dag-ml status=missing version=—"
+    },
+    {
+      "id": "pypi-publisher-dag-ml-data",
+      "status": "todo",
+      "severity": "blocker",
+      "title": "PyPI — create the Trusted Publisher of dag-ml-data (repo dag-ml-data, release-python.yml, env pypi); then rerun release-python.yml with publish=true",
+      "manual_url": "https://pypi.org/manage/account/publishing/",
+      "affects": [
+        "dag-ml-data:release-python.yml"
+      ],
+      "after_done": [
+        {
+          "run_workflow": {
+            "repo": "dag-ml-data",
+            "workflow": "release-python.yml",
+            "ref": "main",
+            "inputs": {
+              "publish": "true"
+            }
+          }
+        }
+      ],
+      "auto_check": {
+        "registry": "pypi",
+        "name": "dag-ml-data",
+        "expect": "published"
+      },
+      "resolved": false,
+      "check_note": "pypi:dag-ml-data status=missing version=—"
+    },
+    {
+      "id": "crates-verify-email",
+      "status": "done",
+      "severity": "important",
+      "title": "crates.io — verify the account email (publish failed: 400 verified email required)",
+      "manual_url": "https://crates.io/settings/profile",
+      "affects": [
+        "nirs4all-formats:release-crates.yml",
+        "nirs4all-io:release-crates.yml"
+      ],
+      "after_done": [
+        {
+          "run_workflow": {
+            "repo": "nirs4all-formats",
+            "workflow": "release-crates.yml",
+            "ref": "main",
+            "inputs": {
+              "dry_run": "false"
+            }
+          }
+        }
+      ],
+      "auto_check": {
+        "registry": "crates",
+        "name": "nirs4all-formats",
+        "expect": "published"
+      },
+      "resolved": true,
+      "check_note": "crates:nirs4all-formats published 0.2.4 (status=green)"
+    },
+    {
+      "id": "cran-resubmit-n4m-pls4all",
+      "status": "todo",
+      "severity": "important",
+      "title": "CRAN — submit n4m only at 1.0.6 from the current release tarball; do NOT submit nirs4allformats",
+      "manual_url": "https://cran.r-project.org/submit.html",
+      "affects": [],
+      "after_done": [],
+      "auto_check": {
+        "registry": "cran",
+        "name": "n4m",
+        "expect": "published"
+      },
+      "resolved": false,
+      "check_note": "cran:n4m status=pending version=—"
+    },
+    {
+      "id": "cran-resubmit-pls4all",
+      "status": "todo",
+      "severity": "important",
+      "title": "CRAN — submit pls4all only at 1.0.6 from the current release tarball; do NOT submit nirs4allformats",
+      "manual_url": "https://cran.r-project.org/submit.html",
+      "affects": [],
+      "after_done": [],
+      "auto_check": {
+        "registry": "cran",
+        "name": "pls4all",
+        "expect": "published"
+      },
+      "resolved": false,
+      "check_note": "cran:pls4all status=pending version=—"
+    },
+    {
+      "id": "cran-submit-nirs4allio",
+      "status": "todo",
+      "severity": "important",
+      "title": "CRAN — submit nirs4allio when the IO R surface is ready for CRAN review",
+      "manual_url": "https://cran.r-project.org/submit.html",
+      "affects": [],
+      "after_done": [],
+      "auto_check": {
+        "registry": "cran",
+        "name": "nirs4allio",
+        "expect": "green"
+      },
+      "resolved": false,
+      "check_note": "cran:nirs4allio status=pending version=—"
+    },
+    {
+      "id": "cran-submit-nirs4alldatasets",
+      "status": "todo",
+      "severity": "important",
+      "title": "CRAN — resubmit nirs4alldatasets 0.3.5 to replace the archived/stale CRAN 0.2.0 package",
+      "manual_url": "https://cran.r-project.org/submit.html",
+      "affects": [],
+      "after_done": [],
+      "auto_check": {
+        "registry": "cran",
+        "name": "nirs4alldatasets",
+        "expect": "green"
+      },
+      "resolved": false,
+      "check_note": "cran:nirs4alldatasets status=stale version=0.2.0"
+    },
+    {
+      "id": "cran-submit-nirs4all-core-aggregate",
+      "status": "todo",
+      "severity": "important",
+      "title": "CRAN — submit the nirs4all aggregate R package from nirs4all-core after RC source validation",
+      "manual_url": "https://cran.r-project.org/submit.html",
+      "affects": [],
+      "after_done": [],
+      "auto_check": {
+        "registry": "cran",
+        "name": "nirs4all",
+        "expect": "green"
+      },
+      "resolved": false,
+      "check_note": "cran:nirs4all status=pending version=—"
+    }
+  ]
+}

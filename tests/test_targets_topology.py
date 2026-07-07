@@ -171,6 +171,15 @@ def test_dashboard_pages_urls_cover_current_rc_pages_roster() -> None:
     )
 
 
+def test_dashboard_surfaces_public_manual_blockers() -> None:
+    app_js = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
+    index = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+
+    assert "manual-actions.json" in app_js
+    assert "renderManualActions" in app_js
+    assert "manual-actions-block" in index
+
+
 def test_rc_python_facade_publish_blockers_are_explicit() -> None:
     core = _package("nirs4all-core")
     providers = _package("nirs4all-providers")
@@ -239,11 +248,11 @@ def test_active_readthedocs_targets_are_tracked_without_manual_activation_action
     assert not any(action_id.startswith("rtd-activate-") for action_id in actions)
 
 
-def test_current_runiverse_manual_action_tracks_core_stale_rebuild() -> None:
+def test_current_runiverse_manual_action_tracks_core_rebuild_resolution() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     action = actions["runiverse-core-rebuild"]
 
-    assert action.status == "todo"
+    assert action.status == "done"
     assert action.severity == "important"
     assert "nirs4all-core" in action.title
     assert "nirs4all-lite" in action.title
@@ -254,15 +263,15 @@ def test_current_runiverse_manual_action_tracks_core_stale_rebuild() -> None:
 def test_current_runiverse_manual_actions_cover_stale_rc_rebuilds() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
-        "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.2.13"),
-        "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.4"),
-        "runiverse-io-rebuild": ("nirs4all-io", "nirs4allio", "v0.1.9"),
-        "runiverse-dagml-data-rebuild": ("dag-ml-data", "dagmldata", "v0.2.5"),
+        "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.2.13", "done"),
+        "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.4", "todo"),
+        "runiverse-io-rebuild": ("nirs4all-io", "nirs4allio", "v0.1.9", "done"),
+        "runiverse-dagml-data-rebuild": ("dag-ml-data", "dagmldata", "v0.2.5", "todo"),
     }
 
-    for action_id, (repo, package_name, version) in expected.items():
+    for action_id, (repo, package_name, version, status) in expected.items():
         action = actions[action_id]
-        assert action.status == "todo"
+        assert action.status == status
         assert action.severity == "important"
         assert "R-universe" in action.title
         assert any(repo in item for item in action.affects)

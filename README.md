@@ -63,7 +63,8 @@ n4a-cockpit status                 # coloured table read from the snapshot
 ### 3. Open the dashboard
 
 The front-end is plain HTML/CSS/JS — no build step, no dependencies. It reads
-`data/current.json`. Because browsers block `fetch` over `file://`, serve the
+`data/current.json` and, when present, `data/manual-actions.json` for the public
+manual-blocker panel. Because browsers block `fetch` over `file://`, serve the
 **repo root** over HTTP so `web/index.html` can reach `../data/current.json`:
 
 ```bash
@@ -83,6 +84,7 @@ against the latest snapshot:
 ```bash
 n4a-cockpit admin actions            # checklist + auto-checks vs current.json
 n4a-cockpit admin actions --md       # Markdown rendering
+n4a-cockpit admin actions --json-out data/manual-actions.json
 ```
 
 The admin layer wraps `gh` only; it never publishes directly and never reads or

@@ -93,7 +93,7 @@ actions:
       expect: published
 
   - id: runiverse-core-rebuild
-    status: todo
+    status: done
     severity: important
     title: "R-universe — rebuild nirs4all from nirs4all-core v0.2.13 after replacing the legacy nirs4all-lite alias source mapping"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
@@ -119,7 +119,7 @@ actions:
       expect: green
 
   - id: runiverse-io-rebuild
-    status: todo
+    status: done
     severity: important
     title: "R-universe — rebuild nirs4allio from nirs4all-io v0.1.9"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
@@ -274,7 +274,7 @@ actions:
   - id: cran-resubmit-n4m-pls4all
     status: todo
     severity: important
-    title: "CRAN — submit n4m only (fixed tarball on Release v0.99.0); do NOT submit nirs4allformats"
+    title: "CRAN — submit n4m only at 1.0.6 from the current release tarball; do NOT submit nirs4allformats"
     manual_url: "https://cran.r-project.org/submit.html"
     affects: []
     auto_check:
@@ -285,7 +285,7 @@ actions:
   - id: cran-resubmit-pls4all
     status: todo
     severity: important
-    title: "CRAN — submit pls4all only (fixed tarball on Release v0.99.0); do NOT submit nirs4allformats"
+    title: "CRAN — submit pls4all only at 1.0.6 from the current release tarball; do NOT submit nirs4allformats"
     manual_url: "https://cran.r-project.org/submit.html"
     affects: []
     auto_check:
@@ -307,7 +307,7 @@ actions:
   - id: cran-submit-nirs4alldatasets
     status: todo
     severity: important
-    title: "CRAN — submit nirs4alldatasets when the datasets R surface is ready for CRAN review"
+    title: "CRAN — resubmit nirs4alldatasets 0.3.5 to replace the archived/stale CRAN 0.2.0 package"
     manual_url: "https://cran.r-project.org/submit.html"
     affects: []
     auto_check:
