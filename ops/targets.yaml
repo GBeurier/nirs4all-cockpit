@@ -47,7 +47,7 @@ packages:
       - registry: github-release
         name: nirs4all
         state: tracked
-        reason: "production release line kept for compatibility; RC11 coordination/final release tracking is carried by nirs4all-core"
+        reason: "production release line kept for compatibility; RC16 coordination/final release tracking is carried by nirs4all-core"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -574,7 +574,7 @@ packages:
     repo: nirs4all-core
     channel: rc
     issues_repo: nirs4all-core
-    coordination_tag: n4a-v1-rc11-2026.07-refactor
+    coordination_tag: n4a-v1-rc16-2026.07-refactor
     source_of_truth:
       strategy: cargo_package
       path: bindings/rust/nirs4all/Cargo.toml
