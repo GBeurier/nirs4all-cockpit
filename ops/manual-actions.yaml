@@ -83,7 +83,7 @@ actions:
   - id: pypi-publisher-core
     status: done
     severity: blocker
-    title: "PyPI — Trusted Publisher configured and nirs4all-core v0.2.13 published from release-python.yml"
+    title: "PyPI — Trusted Publisher configured and nirs4all-core v0.3.0 published from release-python.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-core:release-python.yml"
@@ -93,9 +93,9 @@ actions:
       expect: published
 
   - id: runiverse-core-rebuild
-    status: done
+    status: todo
     severity: important
-    title: "R-universe — rebuild nirs4all from nirs4all-core v0.2.13"
+    title: "R-universe — rebuild nirs4all from nirs4all-core v0.3.0"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
     affects:
       - "nirs4all-core:r-universe"
