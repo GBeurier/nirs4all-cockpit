@@ -29,6 +29,16 @@ from ..http import get_json
 API = "https://api.github.com"
 
 
+def _env_float(name: str, default: float) -> float:
+    try:
+        return float(os.environ.get(name, default))
+    except (TypeError, ValueError):
+        return default
+
+
+GH_TIMEOUT_S = _env_float("COCKPIT_GH_TIMEOUT", 8.0)
+
+
 def _headers() -> dict[str, str]:
     headers = {"X-GitHub-Api-Version": "2022-11-28"}
     token = os.environ.get("GITHUB_TOKEN")
@@ -71,7 +81,7 @@ def _gh_api_json(endpoint: str) -> Any | None:
             ["gh", "api", endpoint],
             capture_output=True,
             text=True,
-            timeout=20,
+            timeout=GH_TIMEOUT_S,
             check=False,
             env=env,
         )
