@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-07T18:03:36.822638+00:00",
+  "generated_at": "2026-07-07T18:11:19.420873+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -2150,8 +2150,8 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 3,
-        "closed_prs": 0,
-        "merged_prs": 0,
+        "closed_prs": 1,
+        "merged_prs": 1,
         "size_kb": 253453,
         "language": "Python",
         "license": "AGPL-3.0",
@@ -2164,20 +2164,24 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 16669,
-        "loc_comment": 2895,
-        "loc_blank": 3077,
-        "loc_total": 22641,
-        "files": 103,
-        "tests": 260,
+        "loc_code": 194559,
+        "loc_comment": 9429,
+        "loc_blank": 20263,
+        "loc_total": 224251,
+        "files": 815,
+        "tests": 510,
         "by_language": {
-          "Python": 11979,
-          "Rust": 4019,
+          "HTML": 99627,
+          "Rust": 54183,
+          "Python": 30901,
+          "CSS": 3759,
+          "JavaScript": 2878,
+          "R": 2531,
           "Shell": 271,
           "C": 155,
-          "R": 129,
+          "C/C++ header": 144,
           "MATLAB/Octave": 68,
-          "C/C++ header": 48
+          "TypeScript": 42
         },
         "coverage_pct": 63.4,
         "source": "local-scan"
@@ -3673,7 +3677,7 @@
         "last_commit_at": "2026-07-07T16:57:10Z",
         "commits_ahead_of_latest_prod_tag": 3
       },
-      "rollup": "stale",
+      "rollup": "green",
       "flags": [],
       "targets": [
         {
@@ -3760,8 +3764,8 @@
           "name": "dagmldata",
           "channel": "rc",
           "reason": "RC R binding from crates/dag-ml-data-r 0.2.5; main now uses crates.io Rust deps for R-universe subdir builds",
-          "published_version": "0.2.4",
-          "status": "stale",
+          "published_version": "0.2.5",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -3790,16 +3794,16 @@
             "last_day": null,
             "last_week": null,
             "last_month": 795,
-            "total": 795,
+            "total": 805,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.5",
-                "downloads": 18
+                "downloads": 20
               },
               {
                 "version": "0.2.4",
-                "downloads": 162
+                "downloads": 173
               },
               {
                 "version": "0.2.3",
@@ -3826,7 +3830,7 @@
               "7d": null,
               "30d": null,
               "90d": 795,
-              "total": 795
+              "total": 805
             }
           },
           "evidence": {
@@ -3847,7 +3851,7 @@
             "last_day": null,
             "last_week": null,
             "last_month": 970,
-            "total": 970,
+            "total": 978,
             "source": "crates.io",
             "by_version": [
               {
@@ -3856,7 +3860,7 @@
               },
               {
                 "version": "0.2.4",
-                "downloads": 217
+                "downloads": 228
               },
               {
                 "version": "0.2.3",
@@ -3883,7 +3887,7 @@
               "7d": null,
               "30d": null,
               "90d": 970,
-              "total": 970
+              "total": 978
             }
           },
           "evidence": {
@@ -3961,12 +3965,12 @@
             "last_day": null,
             "last_week": null,
             "last_month": 99,
-            "total": 99,
+            "total": 100,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.5",
-                "downloads": 11
+                "downloads": 12
               },
               {
                 "version": "0.2.4",
@@ -3997,7 +4001,7 @@
               "7d": null,
               "30d": null,
               "90d": 99,
-              "total": 99
+              "total": 100
             }
           },
           "evidence": {
@@ -4018,12 +4022,12 @@
             "last_day": null,
             "last_week": null,
             "last_month": 109,
-            "total": 109,
+            "total": 110,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.5",
-                "downloads": 11
+                "downloads": 12
               },
               {
                 "version": "0.2.4",
@@ -4054,7 +4058,7 @@
               "7d": null,
               "30d": null,
               "90d": 109,
-              "total": 109
+              "total": 110
             }
           },
           "evidence": {
@@ -4075,12 +4079,12 @@
             "last_day": null,
             "last_week": null,
             "last_month": 193,
-            "total": 193,
+            "total": 205,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.5",
-                "downloads": 20
+                "downloads": 32
               },
               {
                 "version": "0.2.4",
@@ -4111,7 +4115,7 @@
               "7d": null,
               "30d": null,
               "90d": 193,
-              "total": 193
+              "total": 205
             }
           },
           "evidence": {
@@ -4146,7 +4150,7 @@
         "open_prs": 2,
         "closed_prs": 11,
         "merged_prs": 5,
-        "size_kb": 9977,
+        "size_kb": 9989,
         "language": "Rust",
         "license": "AGPL-3.0",
         "pushed_at": "2026-07-07T16:57:12Z",
@@ -5205,8 +5209,8 @@
     }
   ],
   "summary": {
-    "green": 96,
-    "stale": 2,
+    "green": 97,
+    "stale": 1,
     "pending": 4,
     "missing": 0,
     "broken": 0,
@@ -5220,10 +5224,10 @@
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 1251591,
-    "loc_total": 1639663,
-    "tests": 15925,
-    "files": 5789,
+    "loc_code": 1429481,
+    "loc_total": 1841273,
+    "tests": 16175,
+    "files": 6501,
     "workflow_runs": 6294,
     "downloads_last_month": 21977
   },

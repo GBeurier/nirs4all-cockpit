@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import http.server
+import json
 import shutil
 import socketserver
 import subprocess
@@ -76,16 +77,21 @@ def main() -> int:
         thread.start()
         dom = _dump_dom(chrome, f"http://127.0.0.1:{port}/web/index.html")
 
+    manual_actions = json.loads((ROOT / "data" / "manual-actions.json").read_text(encoding="utf-8"))
+    unresolved_action_ids = [
+        action["id"] for action in manual_actions.get("actions", []) if not action.get("resolved")
+    ]
+
     required = [
         "nirs4all<b>·</b>cockpit",
         "Manual blockers",
-        "runiverse-dagml-data-rebuild",
         "nirs4all-formats",
         "nirs4all-ecosystem",
         "schema v1",
         "Release matrix",
         "Downloads",
         "Code &amp; Actions",
+        *unresolved_action_ids,
     ]
     missing = [fragment for fragment in required if fragment not in dom]
     if missing:
