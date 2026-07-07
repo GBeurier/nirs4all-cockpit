@@ -857,6 +857,24 @@ packages:
         reason: "client-side web app is tracked from its own production version; no RC11 coordination tag is present on this repo"
     version_aliases: {}
 
+  - id: nirs4all-quality
+    repo: nirs4all-quality
+    channel: rc
+    issues_repo: nirs4all-quality
+    source_of_truth:
+      strategy: npm_package_json
+      path: app/package.json
+    targets:
+      - registry: pages
+        name: nirs4all-quality
+        state: tracked
+        reason: "WASM-only in-browser mini-studio for NIRS analysis labs; deployed webpage at quali.nirs4all.org (GitHub Pages)"
+      - registry: github-release
+        name: nirs4all-quality
+        state: planned
+        reason: "in-browser app has no versioned release workflow yet; the deployed GitHub Pages runtime is the app surface (like nirs4all-web)"
+    version_aliases: {}
+
   - id: nirs4all-ui
     repo: nirs4all-ui
     channel: rc
