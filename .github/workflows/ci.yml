@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  push:
+    branches: [main, rc/**]
+  pull_request:
+    branches: [main, rc/**]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install cockpit
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+
+      - name: Lint and test
+        run: |
+          ruff check .
+          pytest -q
+          n4a-cockpit validate-targets ops/targets.yaml
+
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v2
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Dashboard smoke
+        run: |
+          node --check web/app.js
+          python scripts/smoke_dashboard_dom.py
