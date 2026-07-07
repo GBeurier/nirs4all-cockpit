@@ -253,3 +253,36 @@ actions:
       registry: cran
       name: pls4all
       expect: published
+
+  - id: cran-submit-nirs4allio
+    status: todo
+    severity: important
+    title: "CRAN — submit nirs4allio when the IO R surface is ready for CRAN review"
+    manual_url: "https://cran.r-project.org/submit.html"
+    affects: []
+    auto_check:
+      registry: cran
+      name: nirs4allio
+      expect: published
+
+  - id: cran-submit-nirs4alldatasets
+    status: todo
+    severity: important
+    title: "CRAN — submit nirs4alldatasets when the datasets R surface is ready for CRAN review"
+    manual_url: "https://cran.r-project.org/submit.html"
+    affects: []
+    auto_check:
+      registry: cran
+      name: nirs4alldatasets
+      expect: published
+
+  - id: cran-submit-nirs4all-core-aggregate
+    status: todo
+    severity: important
+    title: "CRAN — submit the nirs4all aggregate R package from nirs4all-core after RC source validation"
+    manual_url: "https://cran.r-project.org/submit.html"
+    affects: []
+    auto_check:
+      registry: cran
+      name: nirs4all
+      expect: published
