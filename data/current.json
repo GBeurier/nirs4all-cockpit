@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-07T12:05:58.937713+00:00",
+  "generated_at": "2026-07-07T12:39:00Z",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -2688,15 +2688,15 @@
           "status": "stale",
           "planned": false,
           "downloads": {
-            "last_day": 0,
-            "last_week": 7,
-            "last_month": 268,
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
             "total": null,
             "source": "pypistats",
             "by_version": [],
             "windows": {
-              "7d": 7,
-              "30d": 268,
+              "7d": null,
+              "30d": null,
               "90d": null,
               "total": null
             }
@@ -2746,17 +2746,17 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 215,
-            "total": 215,
+            "last_month": 230,
+            "total": 230,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.13",
-                "downloads": 0
+                "downloads": 14
               },
               {
                 "version": "0.2.12",
-                "downloads": 18
+                "downloads": 19
               },
               {
                 "version": "0.2.11",
@@ -2810,8 +2810,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 215,
-              "total": 215
+              "90d": 230,
+              "total": 230
             }
           },
           "evidence": {
@@ -2911,11 +2911,11 @@
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": 0,
+            "total": 8,
             "source": "github-release-assets",
             "by_version": [],
             "windows": {
-              "total": 0
+              "total": 8
             }
           },
           "evidence": {
@@ -2928,27 +2928,27 @@
       "workflows": [
         {
           "file": "release-python.yml",
-          "conclusion": "failure",
-          "created_at": "2026-07-07T06:35:07Z",
-          "head_sha": "38f536350b2f40cdc1ca52fa28e431af2cb3e4e9"
+          "conclusion": null,
+          "created_at": null,
+          "head_sha": null
         },
         {
           "file": "release-crates.yml",
-          "conclusion": "success",
-          "created_at": "2026-07-07T06:35:07Z",
-          "head_sha": "38f536350b2f40cdc1ca52fa28e431af2cb3e4e9"
+          "conclusion": null,
+          "created_at": null,
+          "head_sha": null
         },
         {
           "file": "release-npm.yml",
-          "conclusion": "success",
-          "created_at": "2026-07-07T06:35:07Z",
-          "head_sha": "38f536350b2f40cdc1ca52fa28e431af2cb3e4e9"
+          "conclusion": null,
+          "created_at": null,
+          "head_sha": null
         },
         {
           "file": "release-r.yml",
-          "conclusion": "success",
-          "created_at": "2026-07-07T06:35:07Z",
-          "head_sha": "38f536350b2f40cdc1ca52fa28e431af2cb3e4e9"
+          "conclusion": null,
+          "created_at": null,
+          "head_sha": null
         }
       ],
       "issues": {
@@ -2962,7 +2962,7 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 643,
+        "size_kb": 644,
         "language": "Python",
         "license": "AGPL-3.0",
         "pushed_at": "2026-07-07T11:27:11Z",
@@ -2989,18 +2989,18 @@
           "TypeScript": 263,
           "Shell": 252
         },
-        "coverage_pct": 30.3,
+        "coverage_pct": null,
         "source": "local-scan"
       },
       "actions_stats": {
-        "workflows": 8,
-        "total_runs": 86,
-        "recent_total": 86,
-        "recent_success": 80,
-        "recent_failure": 6,
-        "success_rate": 93.0,
-        "last_conclusion": "success",
-        "last_created_at": "2026-07-07T11:21:44Z"
+        "workflows": null,
+        "total_runs": null,
+        "recent_total": 0,
+        "recent_success": 0,
+        "recent_failure": 0,
+        "success_rate": null,
+        "last_conclusion": null,
+        "last_created_at": null
       }
     },
     {
@@ -4304,21 +4304,46 @@
       "id": "nirs4all-web",
       "repo": "nirs4all-web",
       "source": {
-        "manifest_version": "0.1.4",
-        "latest_prod_tag": "v0.1.4",
-        "latest_any_tag": "v0.1.4",
-        "expected_prod_version": "v0.1.4",
-        "commit": "964b8f5a014726c26719fedd2c54d905b6c464fd",
-        "latest_prod_tag_at": "2026-07-07T03:05:48Z",
-        "latest_release_at": "2026-07-07T03:05:56Z",
-        "latest_version_at": "2026-07-07T03:05:56Z",
+        "manifest_version": "0.1.5",
+        "latest_prod_tag": "v0.1.5",
+        "latest_any_tag": "v0.1.5",
+        "expected_prod_version": "v0.1.5",
+        "commit": "ba6678282c71f8239da28e57128d34fba3b39db8",
+        "latest_prod_tag_at": "2026-07-07T12:29:11Z",
+        "latest_release_at": "2026-07-07T12:29:26Z",
+        "latest_version_at": "2026-07-07T12:29:26Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-07T10:39:18Z",
-        "commits_ahead_of_latest_prod_tag": 6
+        "last_commit_at": "2026-07-07T12:29:11Z",
+        "commits_ahead_of_latest_prod_tag": 0
       },
       "rollup": "green",
       "flags": [],
       "targets": [
+        {
+          "registry": "github-release",
+          "name": "nirs4all-web",
+          "channel": "production",
+          "reason": "versioned client-side-only web app release; GitHub Pages remains the deployed runtime surface",
+          "published_version": "0.1.5",
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": 0,
+            "source": "github-release-assets",
+            "by_version": [],
+            "windows": {
+              "total": 0
+            }
+          },
+          "evidence": {
+            "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-web/releases/latest",
+            "downloads_endpoint": null
+          },
+          "error": null
+        },
         {
           "registry": "pages",
           "name": "nirs4all-web",
@@ -4355,10 +4380,10 @@
         "open_prs": 0,
         "closed_prs": 3,
         "merged_prs": 3,
-        "size_kb": 13848,
+        "size_kb": 13920,
         "language": "TypeScript",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-07T11:27:07Z",
+        "pushed_at": "2026-07-07T12:29:18Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4384,30 +4409,30 @@
         "source": "local-scan"
       },
       "actions_stats": {
-        "workflows": 3,
-        "total_runs": 256,
-        "recent_total": 100,
-        "recent_success": 80,
-        "recent_failure": 17,
-        "success_rate": 82.5,
-        "last_conclusion": "success",
-        "last_created_at": "2026-07-07T10:39:21Z"
+        "workflows": null,
+        "total_runs": null,
+        "recent_total": 0,
+        "recent_success": 0,
+        "recent_failure": 0,
+        "success_rate": null,
+        "last_conclusion": null,
+        "last_created_at": null
       }
     },
     {
       "id": "nirs4all-ui",
       "repo": "nirs4all-ui",
       "source": {
-        "manifest_version": "0.1.6",
-        "latest_prod_tag": "v0.1.6",
-        "latest_any_tag": "v0.1.6",
-        "expected_prod_version": "v0.1.6",
-        "commit": "210217f62cd58975b1372fd8a097a5b1d915667d",
-        "latest_prod_tag_at": "2026-07-07T10:31:47Z",
-        "latest_release_at": "2026-07-07T10:34:52Z",
-        "latest_version_at": "2026-07-07T10:34:52Z",
+        "manifest_version": "0.1.7",
+        "latest_prod_tag": "v0.1.7",
+        "latest_any_tag": "v0.1.7",
+        "expected_prod_version": "v0.1.7",
+        "commit": "4ab3eabb36604ffbede2b8f9bb6d2721164e3190",
+        "latest_prod_tag_at": "2026-07-07T12:21:44Z",
+        "latest_release_at": "2026-07-07T12:37:57Z",
+        "latest_version_at": "2026-07-07T12:37:57Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-07T10:31:47Z",
+        "last_commit_at": "2026-07-07T12:21:39Z",
         "commits_ahead_of_latest_prod_tag": 0
       },
       "rollup": "green",
@@ -4418,7 +4443,7 @@
           "name": "nirs4all-ui",
           "channel": "rc",
           "reason": null,
-          "published_version": "0.1.6",
+          "published_version": "0.1.7",
           "status": "green",
           "planned": false,
           "downloads": {
@@ -4443,7 +4468,7 @@
           "name": "nirs4all-ui",
           "channel": "rc",
           "reason": "RC V1 shared React/TS package of reusable components, status helpers, and brand assets; outside nirs4all-core aggregation lock",
-          "published_version": "0.1.6",
+          "published_version": "0.1.7",
           "status": "green",
           "planned": false,
           "downloads": {
@@ -4493,9 +4518,9 @@
       "workflows": [
         {
           "file": "release-npm.yml",
-          "conclusion": "success",
-          "created_at": "2026-07-07T10:33:42Z",
-          "head_sha": "210217f62cd58975b1372fd8a097a5b1d915667d"
+          "conclusion": null,
+          "created_at": null,
+          "head_sha": null
         }
       ],
       "issues": {
@@ -4512,7 +4537,7 @@
         "size_kb": 345,
         "language": "TypeScript",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-07T11:27:06Z",
+        "pushed_at": "2026-07-07T12:22:08Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4521,14 +4546,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 5977,
+        "loc_code": 5988,
         "loc_comment": 167,
         "loc_blank": 708,
-        "loc_total": 6852,
+        "loc_total": 6863,
         "files": 48,
         "tests": 76,
         "by_language": {
-          "TypeScript": 4485,
+          "TypeScript": 4496,
           "CSS": 1079,
           "JavaScript": 369,
           "HTML": 44
@@ -4537,14 +4562,14 @@
         "source": "local-scan"
       },
       "actions_stats": {
-        "workflows": 3,
-        "total_runs": 40,
-        "recent_total": 40,
-        "recent_success": 38,
-        "recent_failure": 2,
-        "success_rate": 95.0,
-        "last_conclusion": "success",
-        "last_created_at": "2026-07-07T10:32:12Z"
+        "workflows": null,
+        "total_runs": null,
+        "recent_total": 0,
+        "recent_success": 0,
+        "recent_failure": 0,
+        "success_rate": null,
+        "last_conclusion": null,
+        "last_created_at": null
       }
     },
     {
@@ -5085,7 +5110,7 @@
     }
   ],
   "summary": {
-    "green": 86,
+    "green": 87,
     "stale": 3,
     "pending": 4,
     "missing": 7,
@@ -5100,12 +5125,12 @@
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 1253654,
-    "loc_total": 1640381,
+    "loc_code": 1253665,
+    "loc_total": 1640392,
     "tests": 15866,
     "files": 5722,
-    "workflow_runs": 6169,
-    "downloads_last_month": 21637
+    "workflow_runs": 5787,
+    "downloads_last_month": 21384
   },
   "visits": {
     "available": true,

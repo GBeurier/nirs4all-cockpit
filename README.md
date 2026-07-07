@@ -119,14 +119,19 @@ is present, so the public site never shows them.
 
 ## RC topology notes
 
+- The machine-readable RC grouping is `release_bundles.v1-custom-app-host`
+  in `ops/targets.yaml`: it includes `nirs4all-core`, `nirs4all-ui`, and
+  `nirs4all-web`, while `nirs4all` and `nirs4all-studio` remain
+  `production-held` and outside the final V1 RC batch.
 - **`nirs4all`** remains the Python oracle: its PyPI/docs/release state is tracked
   independently and is not folded into the aggregate packages.
 - **`nirs4all-core`** is the canonical V1 RC aggregate, renamed from the former
   `nirs4all-lite` line. `ops/targets.yaml` and the cockpit row treat
   `nirs4all-core` as the source-of-truth release surface; `nirs4all-lite`
   remains tracked only as a legacy PyPI alias during the cutover audit.
-- **`nirs4all-web`** is client-side-only and is tracked as a Pages target, not as
-  a package-registry aggregate.
+- **`nirs4all-web`** is client-side-only; the deployed runtime is tracked as a
+  Pages target, and the shipped source/app version is tracked with a GitHub
+  Release. It is not a package-registry aggregate.
 - **`nirs4all-ui`** is a shared React/TypeScript package of reusable
   components, status helpers, and brand assets outside the
   `nirs4all-core` aggregation lock; it is tracked separately with npm,

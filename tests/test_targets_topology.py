@@ -10,8 +10,12 @@ from cockpit.reconcile import load_targets
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def _targets():
+    return load_targets(ROOT / "ops" / "targets.yaml")
+
+
 def _package(package_id: str):
-    targets = load_targets(ROOT / "ops" / "targets.yaml")
+    targets = _targets()
     for package in targets.packages:
         if package.id == package_id:
             return package
@@ -93,8 +97,15 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
     web = _package("nirs4all-web")
     ui = _package("nirs4all-ui")
 
+    assert oracle.channel == "production-held"
     assert any(target.registry == "pypi" and target.name == "nirs4all" for target in oracle.targets)
-    assert [target.registry for target in web.targets] == ["pages"]
+    assert web.channel == "production"
+    assert web.source_of_truth is not None
+    assert web.source_of_truth.strategy == "npm_package_json"
+    assert web.source_of_truth.path == "studio-lite/package.json"
+    assert [target.registry for target in web.targets] == ["github-release", "pages"]
+    web_release_reason = next(target.reason or "" for target in web.targets if target.registry == "github-release")
+    assert "client-side-only web app release" in web_release_reason
 
     assert ui.channel == "rc"
     assert ui.source_of_truth is not None
@@ -109,6 +120,28 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
     assert "reusable components" in npm_reason
     assert "brand assets" in npm_reason
     assert "components/assets showcase" in pages_reason
+
+
+def test_v1_custom_app_host_bundle_is_machine_readable() -> None:
+    targets = _targets()
+    packages = {package.id: package for package in targets.packages}
+    bundles = {bundle.id: bundle for bundle in targets.release_bundles}
+
+    assert "v1-custom-app-host" in bundles
+    bundle = bundles["v1-custom-app-host"]
+
+    assert bundle.channel == "rc"
+    assert bundle.included_packages == ["nirs4all-core", "nirs4all-ui", "nirs4all-web"]
+    assert bundle.held_packages == ["nirs4all", "nirs4all-studio"]
+    assert set(bundle.included_packages).isdisjoint(bundle.held_packages)
+    assert set(bundle.included_packages) | set(bundle.held_packages) <= set(packages)
+
+    assert packages["nirs4all-core"].channel == "rc"
+    assert packages["nirs4all-ui"].channel == "rc"
+    assert packages["nirs4all-web"].channel == "production"
+    assert packages["nirs4all"].channel == "production-held"
+    assert packages["nirs4all-studio"].channel == "production-held"
+    assert "client-side-only web host" in (bundle.reason or "")
 
 
 def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:

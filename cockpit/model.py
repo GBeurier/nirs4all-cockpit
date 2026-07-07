@@ -415,9 +415,21 @@ class Package(BaseModel):
     version_aliases: dict = Field(default_factory=dict)
 
 
+class ReleaseBundle(BaseModel):
+    """Machine-readable grouping for release scopes that span several packages."""
+
+    id: str
+    label: str
+    channel: str = "rc"
+    included_packages: list[str]
+    held_packages: list[str] = Field(default_factory=list)
+    reason: str | None = None
+
+
 class Targets(BaseModel):
     """Top-level inventory document parsed from ``ops/targets.yaml``."""
 
     schema_version: int = 1
     owner: str
+    release_bundles: list[ReleaseBundle] = Field(default_factory=list)
     packages: list[Package]
