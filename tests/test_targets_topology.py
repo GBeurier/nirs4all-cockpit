@@ -43,7 +43,7 @@ def test_rc_core_uses_canonical_repo_without_legacy_lite_alias() -> None:
     core_pypi_reason = targets[("pypi", "nirs4all-core")].reason or ""
     assert "MATLAB/Octave archive" in core_release_reason
     assert "Python wheel/sdist fallback assets" in core_release_reason
-    assert "GitHub Release v0.2.13 also carries Python wheel/sdist assets" in core_pypi_reason
+    assert "GitHub Release v0.3.0 also carries Python wheel/sdist assets" in core_pypi_reason
 
 
 def test_rc_core_targets_account_for_all_v1_language_surfaces() -> None:
@@ -266,7 +266,7 @@ def test_rc_python_facade_publish_state_is_explicit() -> None:
         ),
     }
 
-    assert "PyPI package is published at v0.2.13" in blockers["core"]
+    assert "PyPI package is published at v0.3.0" in blockers["core"]
     assert "PyPI package is published at v0.2.7" in blockers["providers"]
     assert "PyPI package is published at v0.0.4" in blockers["tools"]
     assert "GitHub Release v0.0.4 also carries wheel/sdist assets" in blockers["tools"]
@@ -278,7 +278,7 @@ def test_rc_python_facade_publish_state_is_explicit() -> None:
 def test_current_pypi_manual_actions_track_resolved_publishers() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
-        "pypi-publisher-core": ("nirs4all-core", "v0.2.13"),
+        "pypi-publisher-core": ("nirs4all-core", "v0.3.0"),
         "pypi-publisher-providers": ("nirs4all-providers", "v0.2.7"),
         "pypi-publisher-tools": ("nirs4all-tools", "v0.0.4"),
         "pypi-publisher-benchmarks": ("nirs4all-benchmarks", "v0.1.5"),
@@ -308,11 +308,11 @@ def test_active_readthedocs_targets_are_tracked_without_manual_activation_action
     assert not any(action_id.startswith("rtd-activate-") for action_id in actions)
 
 
-def test_current_runiverse_manual_action_tracks_core_rebuild_resolution() -> None:
+def test_current_runiverse_manual_action_tracks_core_rebuild_todo() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     action = actions["runiverse-core-rebuild"]
 
-    assert action.status == "done"
+    assert action.status == "todo"
     assert action.severity == "important"
     assert "nirs4all-core" in action.title
     assert "nirs4all-core:r-universe" in action.affects
@@ -322,7 +322,7 @@ def test_current_runiverse_manual_action_tracks_core_rebuild_resolution() -> Non
 def test_current_runiverse_manual_actions_cover_stale_rc_rebuilds() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
-        "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.2.13", "done"),
+        "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.3.0", "todo"),
         "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.4", "done"),
         "runiverse-io-rebuild": ("nirs4all-io", "nirs4allio", "v0.1.9", "done"),
         "runiverse-dagml-data-rebuild": ("dag-ml-data", "dagmldata", "v0.2.5", "todo"),

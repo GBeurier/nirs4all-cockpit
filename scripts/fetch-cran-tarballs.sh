@@ -24,9 +24,8 @@ REPOS=(nirs4all-methods nirs4all-formats nirs4all-io nirs4all-datasets nirs4all-
 
 # A CRAN R source tarball is `<Rpkg>_<version>.tar.gz` for these exact package
 # names. The anchored `_[0-9]` after the name (and "no hyphen before the version")
-# excludes, on the same Releases: the Python sdists (e.g. nirs4all_formats-…,
-# the legacy alias sdist nirs4all_lite-…), the `-src` bundles, and the
-# `-capi-` C-ABI archives.
+# excludes, on the same Releases: the Python sdists (e.g. nirs4all_formats-…),
+# the `-src` bundles, and the `-capi-` C-ABI archives.
 R_TARBALL_RE='^(n4m|pls4all|nirs4allformats|nirs4allformats\.lite|nirs4allio|nirs4alldatasets|nirs4all)_[0-9][^-]*\.tar\.gz$'
 
 command -v gh >/dev/null 2>&1 || { echo "error: gh CLI is required — https://cli.github.com" >&2; exit 1; }
