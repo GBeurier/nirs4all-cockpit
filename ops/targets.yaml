@@ -18,6 +18,19 @@
 schema_version: 1
 owner: GBeurier
 
+release_bundles:
+  - id: v1-custom-app-host
+    label: "NIRS4ALL V1 custom app host"
+    channel: rc
+    included_packages:
+      - nirs4all-core
+      - nirs4all-ui
+      - nirs4all-web
+    held_packages:
+      - nirs4all
+      - nirs4all-studio
+    reason: "Release-candidate app-host surface: portable runtimes from nirs4all-core, reusable React/TS assets from nirs4all-ui, and the client-side-only web host; the Python oracle and production Studio app stay tracked but outside the final V1 RC batch."
+
 packages:
   # ------------------------------------------------------------------------- #
   - id: nirs4all
@@ -850,6 +863,10 @@ packages:
       strategy: npm_package_json
       path: studio-lite/package.json
     targets:
+      - registry: github-release
+        name: nirs4all-web
+        state: tracked
+        reason: "versioned client-side-only web app release; GitHub Pages remains the deployed runtime surface"
       - registry: pages
         name: nirs4all-web
         state: tracked
