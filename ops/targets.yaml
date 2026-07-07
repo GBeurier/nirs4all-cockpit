@@ -640,7 +640,7 @@ packages:
       - registry: r-universe
         name: nirs4all
         state: tracked
-        reason: "R-universe surface is tracked against the 0.2.9 RC13 aggregate; release tag v0.2.9 carries the R source tarball"
+        reason: "R-universe target is the 0.2.9 RC13 aggregate from the v0.2.9 R source tarball; live R-universe can remain stale until the manual rebuild completes"
         workflow:
           file: release-r.yml
           trigger: tag
