@@ -263,7 +263,7 @@ actions:
     auto_check:
       registry: cran
       name: nirs4allio
-      expect: published
+      expect: green
 
   - id: cran-submit-nirs4alldatasets
     status: todo
@@ -274,7 +274,7 @@ actions:
     auto_check:
       registry: cran
       name: nirs4alldatasets
-      expect: published
+      expect: green
 
   - id: cran-submit-nirs4all-core-aggregate
     status: todo
@@ -285,4 +285,4 @@ actions:
     auto_check:
       registry: cran
       name: nirs4all
-      expect: published
+      expect: green

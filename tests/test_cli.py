@@ -1,8 +1,53 @@
 from __future__ import annotations
 
+from typer.testing import CliRunner
+
 from cockpit import cli
 from cockpit.cli import _carry_forward_public_signals, _print_summary
 from cockpit.model import SearchConsoleStats, SentryStatus, Snapshot, Visits
+
+
+def test_collect_only_refuses_default_public_snapshot_path() -> None:
+    runner = CliRunner()
+
+    result = runner.invoke(cli.app, ["collect", "--only", "nirs4all-cockpit", "--offline"])
+
+    assert result.exit_code == 2
+    assert "refusing to write a partial --only snapshot to data/current.json" in result.stderr
+
+
+def test_collect_only_allows_explicit_scratch_output(monkeypatch, tmp_path) -> None:
+    runner = CliRunner()
+    out = tmp_path / "partial-current.json"
+
+    def build_snapshot(*_args, **_kwargs):
+        return Snapshot(
+            schema_version=1,
+            generated_at="2026-07-07T00:00:00+00:00",
+            generator={},
+            packages=[],
+            summary={},
+            visits=Visits(),
+            sentry=SentryStatus(),
+        )
+
+    monkeypatch.setattr(cli.reconcile, "build_snapshot", build_snapshot)
+
+    result = runner.invoke(
+        cli.app,
+        [
+            "collect",
+            "--only",
+            "nirs4all-cockpit",
+            "--offline",
+            "--out",
+            str(out),
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert out.is_file()
+    assert "wrote" in result.stdout
 
 
 def test_collect_carries_forward_token_backed_public_signals() -> None:

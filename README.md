@@ -29,7 +29,7 @@ pip install -e .          # add [collect] for the rich CLI table, [dev] for test
 
 ```bash
 n4a-cockpit collect                          # all packages → data/current.json
-n4a-cockpit collect --only nirs4all,dag-ml   # a subset
+n4a-cockpit collect --only nirs4all,dag-ml --out /tmp/n4a-current.partial.json
 n4a-cockpit collect --offline                # fixtures/cache only; non-cached → unknown
 ```
 
@@ -38,6 +38,9 @@ shared, rate-limit-aware HTTP client, reconciles the four version facts
 (`manifest` / `latest_prod_tag` / `latest_any_tag` / `published`) into a status,
 and writes `data/current.json`. In CI an ambient `GITHUB_TOKEN` raises the
 GitHub rate limit.
+
+Subset collection is intentionally scratch-only: `--only` refuses to write the
+public `data/current.json` unless you provide an explicit `--out` path.
 
 Optional public analytics are enabled by secrets:
 

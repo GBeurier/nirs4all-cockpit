@@ -141,6 +141,14 @@ def collect(
     """Build a reconciled snapshot from the inventory and write ``current.json``."""
     targets_model = _load_targets(targets)
     only_ids = [p.strip() for p in only.split(",") if p.strip()] if only else None
+    if only_ids and out.resolve() == DEFAULT_CURRENT.resolve():
+        typer.secho(
+            "refusing to write a partial --only snapshot to data/current.json; "
+            "pass --out to an explicit scratch path instead",
+            fg="red",
+            err=True,
+        )
+        raise typer.Exit(code=2)
 
     # Coverage is read from each repo's ``coverage.xml``, which is not always
     # present (CI shallow-clones a repo without it). Carry the last-known coverage

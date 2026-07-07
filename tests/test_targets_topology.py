@@ -297,8 +297,39 @@ def test_cran_manual_actions_cover_tracked_rc_r_surfaces() -> None:
         assert action.auto_check == {
             "registry": "cran",
             "name": package_name,
-            "expect": "published",
+            "expect": "green",
         }
+
+
+def test_cran_rc_manual_actions_do_not_resolve_on_stale_publication() -> None:
+    actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
+    action = actions["cran-submit-nirs4alldatasets"]
+    snapshot = Snapshot(
+        generated_at="2026-07-07T00:00:00+00:00",
+        generator={},
+        summary={},
+        packages=[
+            PackageStatus(
+                id="nirs4all-datasets",
+                repo="nirs4all-datasets",
+                source=PackageSource(expected_prod_version="0.3.5"),
+                rollup="stale",
+                targets=[
+                    TargetStatus(
+                        registry="cran",
+                        name="nirs4alldatasets",
+                        status="stale",
+                        published_version="0.2.0",
+                    )
+                ],
+            )
+        ],
+    )
+
+    evaluate(action, snapshot)
+
+    assert action.resolved is False
+    assert "status=stale" in (action.check_note or "")
 
 
 def test_resolved_manual_actions_are_marked_done() -> None:
