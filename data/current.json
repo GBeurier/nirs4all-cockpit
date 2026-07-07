@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-07T03:45:49.283463+00:00",
+  "generated_at": "2026-07-07T03:59:50.250754+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -2303,13 +2303,13 @@
         "latest_prod_tag": "v0.2.6",
         "latest_any_tag": "v0.2.6",
         "expected_prod_version": "v0.2.6",
-        "commit": "12b9f65c7222ad85731f329a9de6c53fd69e06ce",
+        "commit": "e1bad9b7388d2c23615f079605f6612921a6972a",
         "latest_prod_tag_at": "2026-07-06T23:49:46Z",
         "latest_release_at": "2026-07-06T23:50:18Z",
         "latest_version_at": "2026-07-06T23:50:18Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-06T23:40:13Z",
-        "commits_ahead_of_latest_prod_tag": 0
+        "last_commit_at": "2026-07-07T03:58:39Z",
+        "commits_ahead_of_latest_prod_tag": 1
       },
       "rollup": "missing",
       "flags": [],
@@ -2318,7 +2318,7 @@
           "registry": "github-release",
           "name": "nirs4all-providers",
           "channel": "rc",
-          "reason": "RC V1 provider-client source release is tagged; PyPI distribution remains blocked by Trusted Publisher setup",
+          "reason": "RC V1 provider-client source release v0.2.6 is tagged and carries wheel/sdist fallback assets; PyPI distribution remains blocked by Trusted Publisher setup",
           "published_version": "0.2.6",
           "status": "green",
           "planned": false,
@@ -2413,7 +2413,7 @@
         "size_kb": 346,
         "language": "Python",
         "license": "NOASSERTION",
-        "pushed_at": "2026-07-06T23:49:52Z",
+        "pushed_at": "2026-07-07T03:58:39Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2437,13 +2437,13 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 41,
-        "recent_total": 41,
-        "recent_success": 31,
+        "total_runs": 43,
+        "recent_total": 43,
+        "recent_success": 33,
         "recent_failure": 9,
-        "success_rate": 77.5,
+        "success_rate": 78.6,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-06T23:40:16Z"
+        "last_created_at": "2026-07-07T03:58:42Z"
       }
     },
     {
@@ -2454,13 +2454,13 @@
         "latest_prod_tag": "v0.0.3",
         "latest_any_tag": "v0.0.3",
         "expected_prod_version": "v0.0.3",
-        "commit": "cc72fc4af02aac5211e01f14cf224353deecf00f",
+        "commit": "4a82d7b3277e5030a812928acbbf1999f09381ed",
         "latest_prod_tag_at": "2026-07-07T03:31:30Z",
         "latest_release_at": "2026-07-07T03:31:42Z",
         "latest_version_at": "2026-07-07T03:31:42Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-07T03:31:30Z",
-        "commits_ahead_of_latest_prod_tag": 0
+        "last_commit_at": "2026-07-07T03:58:39Z",
+        "commits_ahead_of_latest_prod_tag": 1
       },
       "rollup": "missing",
       "flags": [],
@@ -2469,7 +2469,7 @@
           "registry": "pypi",
           "name": "nirs4all-tools",
           "channel": "rc",
-          "reason": "RC V1 migration/converter toolkit; PyPI Trusted Publisher missing (invalid-publisher on v0.0.2 release)",
+          "reason": "RC V1 migration/converter toolkit; PyPI Trusted Publisher missing (invalid-publisher on v0.0.3 release); GitHub Release carries wheel/sdist fallback assets",
           "published_version": null,
           "status": "missing",
           "planned": false,
@@ -2490,6 +2490,31 @@
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-tools/json",
             "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-tools/recent"
+          },
+          "error": null
+        },
+        {
+          "registry": "github-release",
+          "name": "nirs4all-tools",
+          "channel": "rc",
+          "reason": "v0.0.3 release is tagged and carries wheel/sdist fallback assets while PyPI Trusted Publisher setup is pending",
+          "published_version": "0.0.3",
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": 0,
+            "source": "github-release-assets",
+            "by_version": [],
+            "windows": {
+              "total": 0
+            }
+          },
+          "evidence": {
+            "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-tools/releases/latest",
+            "downloads_endpoint": null
           },
           "error": null
         }
@@ -2516,7 +2541,7 @@
         "size_kb": 130,
         "language": "Python",
         "license": "NOASSERTION",
-        "pushed_at": "2026-07-07T03:31:31Z",
+        "pushed_at": "2026-07-07T03:58:39Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2539,13 +2564,13 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 19,
-        "recent_total": 19,
-        "recent_success": 18,
+        "total_runs": 20,
+        "recent_total": 20,
+        "recent_success": 19,
         "recent_failure": 1,
-        "success_rate": 94.7,
+        "success_rate": 95.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-07T03:31:33Z"
+        "last_created_at": "2026-07-07T03:58:42Z"
       }
     },
     {
@@ -2622,7 +2647,7 @@
           "registry": "pypi",
           "name": "nirs4all-core",
           "channel": "rc",
-          "reason": "RC V1 rename of nirs4all-lite; PyPI project remains unpublished at v0.2.12; current blocker is invalid-publisher on the v0.2.12 release",
+          "reason": "RC V1 rename of nirs4all-lite; PyPI project remains unpublished at v0.2.12 because the Trusted Publisher is missing (invalid-publisher on the v0.2.12 release); GitHub Release carries wheel/sdist fallback assets",
           "published_version": null,
           "status": "missing",
           "planned": false,
@@ -2810,7 +2835,7 @@
           "registry": "github-release",
           "name": "nirs4all-core",
           "channel": "rc",
-          "reason": "v0.2.12 release carries source/SBOM, MATLAB/Octave archive, R tarball, and SHA256SUMS; release tag v0.2.12 is available",
+          "reason": "v0.2.12 release carries source/SBOM, Python wheel/sdist, MATLAB/Octave archive, R tarball, and SHA256SUMS",
           "published_version": "0.2.12",
           "status": "green",
           "planned": false,
@@ -4061,13 +4086,13 @@
         "latest_prod_tag": "v1.0.2",
         "latest_any_tag": "v1.0.2",
         "expected_prod_version": "v1.0.2",
-        "commit": "fe18d5c6edb011a165b89a960a7b53e083871278",
+        "commit": "77c625028190637f1b96605d78f4251e7a3b01ac",
         "latest_prod_tag_at": "2026-07-06T08:20:29Z",
         "latest_release_at": "2026-07-06T08:20:32Z",
         "latest_version_at": "2026-07-06T08:20:32Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-07T03:25:41Z",
-        "commits_ahead_of_latest_prod_tag": 14
+        "last_commit_at": "2026-07-07T03:59:50Z",
+        "commits_ahead_of_latest_prod_tag": 15
       },
       "rollup": "green",
       "flags": [],
@@ -4111,7 +4136,7 @@
         "size_kb": 19137,
         "language": "HTML",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-07T03:25:42Z",
+        "pushed_at": "2026-07-07T03:59:51Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4134,13 +4159,13 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 167,
+        "total_runs": 169,
         "recent_total": 100,
         "recent_success": 99,
         "recent_failure": 1,
         "success_rate": 99.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-07T03:25:44Z"
+        "last_created_at": "2026-07-07T03:59:53Z"
       }
     },
     {
@@ -4398,13 +4423,13 @@
         "latest_prod_tag": "v0.1.6",
         "latest_any_tag": "v0.1.6",
         "expected_prod_version": "v0.1.6",
-        "commit": "68b95d468fab977b627be97d7b4a7ee4e349381d",
+        "commit": "ec425722e2c25193b9b42d58d0521f9c27ed7e35",
         "latest_prod_tag_at": "2026-07-06T08:05:17Z",
         "latest_release_at": "2026-07-06T08:06:50Z",
         "latest_version_at": "2026-07-06T08:06:50Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-07T03:25:41Z",
-        "commits_ahead_of_latest_prod_tag": 33
+        "last_commit_at": "2026-07-07T03:58:44Z",
+        "commits_ahead_of_latest_prod_tag": 35
       },
       "rollup": "green",
       "flags": [],
@@ -4445,10 +4470,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 767,
+        "size_kb": 772,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-07T03:25:42Z",
+        "pushed_at": "2026-07-07T03:58:45Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4457,14 +4482,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 6073,
+        "loc_code": 6077,
         "loc_comment": 1175,
         "loc_blank": 1446,
-        "loc_total": 8694,
+        "loc_total": 8698,
         "files": 42,
         "tests": 102,
         "by_language": {
-          "Python": 4765,
+          "Python": 4769,
           "JavaScript": 648,
           "CSS": 306,
           "Shell": 236,
@@ -4475,13 +4500,13 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 328,
+        "total_runs": 331,
         "recent_total": 100,
         "recent_success": 96,
         "recent_failure": 2,
         "success_rate": 98.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-07T03:25:44Z"
+        "last_created_at": "2026-07-07T03:58:47Z"
       }
     },
     {
@@ -4492,13 +4517,13 @@
         "latest_prod_tag": "v0.1.5",
         "latest_any_tag": "v0.1.5",
         "expected_prod_version": "v0.1.5",
-        "commit": "79724f257d89e06f71b1eb693a98205338b385be",
+        "commit": "64b7e463ad7f534eb4928a31825db837027c7cc6",
         "latest_prod_tag_at": "2026-07-07T03:31:30Z",
         "latest_release_at": "2026-07-07T03:31:42Z",
         "latest_version_at": "2026-07-07T03:31:42Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-07T03:31:30Z",
-        "commits_ahead_of_latest_prod_tag": 0
+        "last_commit_at": "2026-07-07T03:58:39Z",
+        "commits_ahead_of_latest_prod_tag": 1
       },
       "rollup": "missing",
       "flags": [],
@@ -4532,7 +4557,7 @@
           "registry": "pypi",
           "name": "nirs4all-benchmarks",
           "channel": "production",
-          "reason": "PyPI Trusted Publisher missing (invalid-publisher on v0.1.4 release); GitHub Release tag exists but PyPI remains unpublished",
+          "reason": "PyPI Trusted Publisher missing (invalid-publisher on v0.1.5 release); GitHub Release carries wheel/sdist fallback assets",
           "published_version": null,
           "status": "missing",
           "planned": false,
@@ -4625,7 +4650,7 @@
         "size_kb": 2439,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-07T03:31:31Z",
+        "pushed_at": "2026-07-07T03:58:40Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4651,13 +4676,13 @@
       },
       "actions_stats": {
         "workflows": 5,
-        "total_runs": 69,
-        "recent_total": 69,
-        "recent_success": 64,
+        "total_runs": 71,
+        "recent_total": 71,
+        "recent_success": 66,
         "recent_failure": 5,
-        "success_rate": 92.8,
+        "success_rate": 93.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-07T03:31:33Z"
+        "last_created_at": "2026-07-07T03:58:42Z"
       }
     },
     {
@@ -4841,13 +4866,13 @@
         "latest_prod_tag": "v0.1.0",
         "latest_any_tag": "v0.1.0",
         "expected_prod_version": "v0.1.0",
-        "commit": "6a1cfed77bb820c1e22ea99a8a711d3eb2f6b1bc",
+        "commit": "713d9670e89e1397d01b467072d5f99b2af32a97",
         "latest_prod_tag_at": "2026-06-16T12:45:18Z",
         "latest_release_at": "2026-06-16T15:02:30Z",
         "latest_version_at": "2026-06-16T15:02:30Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-07T03:44:59Z",
-        "commits_ahead_of_latest_prod_tag": 414
+        "last_commit_at": "2026-07-07T03:49:58Z",
+        "commits_ahead_of_latest_prod_tag": 415
       },
       "rollup": "green",
       "flags": [],
@@ -4890,10 +4915,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 3970,
+        "size_kb": 4009,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-07T03:45:00Z",
+        "pushed_at": "2026-07-07T03:49:59Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4917,18 +4942,18 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 315,
+        "total_runs": 317,
         "recent_total": 100,
         "recent_success": 96,
         "recent_failure": 4,
         "success_rate": 96.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-07T03:45:03Z"
+        "last_created_at": "2026-07-07T03:50:01Z"
       }
     }
   ],
   "summary": {
-    "green": 83,
+    "green": 84,
     "stale": 5,
     "pending": 4,
     "missing": 7,
@@ -4943,11 +4968,11 @@
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 1241397,
-    "loc_total": 1627754,
+    "loc_code": 1241401,
+    "loc_total": 1627758,
     "tests": 15839,
     "files": 5705,
-    "workflow_runs": 5936,
+    "workflow_runs": 5948,
     "downloads_last_month": 20806
   },
   "visits": {
