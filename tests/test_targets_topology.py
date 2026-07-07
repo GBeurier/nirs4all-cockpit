@@ -137,7 +137,7 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
         ("github-release", "nirs4all-tools", "tracked"),
     ]
     tools_release_reason = next(target.reason or "" for target in tools.targets if target.registry == "github-release")
-    assert "v0.0.3 release" in tools_release_reason
+    assert "v0.0.4 release" in tools_release_reason
     assert "wheel/sdist fallback assets" in tools_release_reason
 
 
@@ -201,9 +201,9 @@ def test_rc_python_facade_publish_blockers_are_explicit() -> None:
         ),
     }
 
-    assert "invalid-publisher on the v0.2.12 release" in blockers["core"]
-    assert "invalid-publisher on v0.2.6 release" in blockers["providers"]
-    assert "invalid-publisher on v0.0.3 release" in blockers["tools"]
+    assert "invalid-publisher expected on release-python.yml" in blockers["core"]
+    assert "invalid-publisher on v0.2.7 release" in blockers["providers"]
+    assert "invalid-publisher on v0.0.4 release" in blockers["tools"]
     assert "invalid-publisher on v0.1.5 release" in blockers["benchmarks"]
     assert "invalid-publisher on v0.1.6 release" in blockers["repository"]
     assert "until publish succeeds" in blockers["repository"]
@@ -212,9 +212,9 @@ def test_rc_python_facade_publish_blockers_are_explicit() -> None:
 def test_current_pypi_manual_actions_cover_invalid_publisher_failures() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
-        "pypi-publisher-core": ("nirs4all-core", "v0.2.12"),
-        "pypi-publisher-providers": ("nirs4all-providers", "v0.2.6"),
-        "pypi-publisher-tools": ("nirs4all-tools", "v0.0.3"),
+        "pypi-publisher-core": ("nirs4all-core", "v0.2.13"),
+        "pypi-publisher-providers": ("nirs4all-providers", "v0.2.7"),
+        "pypi-publisher-tools": ("nirs4all-tools", "v0.0.4"),
         "pypi-publisher-benchmarks": ("nirs4all-benchmarks", "v0.1.5"),
         "pypi-publisher-repository": ("nirs4all-repository", "v0.1.6"),
     }
