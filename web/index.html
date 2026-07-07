@@ -75,11 +75,6 @@
     <div class="wrap">
       <section class="chips" id="summary" aria-label="Status totals" hidden></section>
 
-      <section class="block" id="manual-actions-block" aria-labelledby="manual-actions-h" hidden>
-        <h2 id="manual-actions-h" class="section-h">Manual blockers <span class="muted">— account, registry and review actions outside the codebase</span></h2>
-        <div class="card panel" id="manual-actions"></div>
-      </section>
-
       <section class="block" id="matrix" aria-labelledby="mx-h">
         <h2 id="mx-h" class="section-h">Release matrix <span class="muted">— one LED per registry · click to open the package page</span></h2>
         <div class="legend" id="legend"></div>
@@ -119,6 +114,11 @@
       <section class="block" id="sentry-block" aria-labelledby="sentry-h" hidden>
         <h2 id="sentry-h" class="section-h">Errors <span class="muted">— Sentry aggregate counters only</span></h2>
         <div class="card panel" id="sentry"></div>
+      </section>
+
+      <section class="block" id="manual-actions-block" aria-labelledby="manual-actions-h" hidden>
+        <h2 id="manual-actions-h" class="section-h">Manual blockers <span class="muted">— account, registry and review actions outside the codebase</span></h2>
+        <div class="card panel" id="manual-actions"></div>
       </section>
 
       <p id="error" class="error" role="alert" hidden></p>

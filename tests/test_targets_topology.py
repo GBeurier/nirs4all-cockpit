@@ -217,6 +217,24 @@ def test_dashboard_surfaces_public_manual_blockers() -> None:
     assert "manual-actions-block" in index
 
 
+def test_dashboard_manual_blockers_are_bottom_section() -> None:
+    index = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+    blockers_at = index.index('id="manual-actions-block"')
+
+    for section_id in (
+        'id="matrix"',
+        'id="downloads"',
+        'id="repostats"',
+        'id="codestats"',
+        'id="admin"',
+        'id="visits-block"',
+        'id="search-console-block"',
+        'id="sentry-block"',
+    ):
+        assert index.index(section_id) < blockers_at
+    assert blockers_at < index.index('<footer class="foot">')
+
+
 def test_rc_python_facade_publish_blockers_are_explicit() -> None:
     core = _package("nirs4all-core")
     providers = _package("nirs4all-providers")
