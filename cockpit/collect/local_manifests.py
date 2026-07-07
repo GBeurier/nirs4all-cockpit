@@ -1,10 +1,10 @@
 """Source-of-truth version reader (``manifest_version``).
 
 Reads the in-repo version declaration named by a package's ``source_of_truth``.
-The file is read **locally** when a sibling checkout exists under
-``SIBLINGS_ROOT/<repo>``; otherwise it is fetched over **raw GitHub** at the
-repo's *default branch* (resolved via :func:`github.default_branch`, never
-hardcoded to ``main`` — local ``dag-ml*`` checkouts sit on work branches).
+The file is read from **raw GitHub** at the repo's public default branch first,
+then falls back to a local sibling checkout under ``SIBLINGS_ROOT/<repo>``. The
+cockpit reports public release state, so a stale or dirty maintainer checkout
+must not override the published default-branch manifest.
 
 ``SIBLINGS_ROOT`` defaults to the parent of this checkout (the sibling working
 tree) and is overridable with ``N4A_SIBLINGS_ROOT`` — the CI cron sets it to a
@@ -31,7 +31,6 @@ import re
 import tomllib
 from pathlib import Path
 
-from ..http import get_json
 from . import github
 
 # Where sibling repo checkouts live. Default: the parent of this checkout (the
@@ -62,6 +61,10 @@ def read_manifest_version(
 
 
 def _read_text(*, owner: str, repo: str, path: str) -> str | None:
+    remote = _read_public_default_branch_text(owner=owner, repo=repo, path=path)
+    if remote is not None:
+        return remote
+
     local = SIBLINGS_ROOT / repo / path
     if local.is_file():
         try:
@@ -69,13 +72,12 @@ def _read_text(*, owner: str, repo: str, path: str) -> str | None:
         except OSError:
             return None
 
+    return None
+
+
+def _read_public_default_branch_text(*, owner: str, repo: str, path: str) -> str | None:
     branch = github.default_branch(owner, repo) or "main"
     url = RAW_BASE.format(owner=owner, repo=repo, branch=branch, path=path)
-    status, _body, _error = get_json(url, accept="text/plain")
-    if status != 200:
-        return None
-    # raw GitHub returns text; get_json only parses JSON, so re-fetch the body
-    # text via the same primitive is not possible — read directly with httpx.
     return _read_raw_text(url)
 
 
