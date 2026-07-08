@@ -2,14 +2,30 @@
   "schema_version": 1,
   "snapshot_generated_at": "2026-07-08T18:13:32.616542+00:00",
   "counts": {
-    "total": 22,
-    "pending": 7,
+    "total": 23,
+    "pending": 8,
     "resolved": 15,
-    "blockers": 0,
+    "blockers": 1,
     "important": 7,
     "info": 0
   },
   "actions": [
+    {
+      "id": "studio-windows-rc-smoke",
+      "status": "todo",
+      "declared_status": "todo",
+      "severity": "blocker",
+      "title": "Studio — build and manually smoke-test the Windows RC installer before any production switch",
+      "manual_url": "https://github.com/GBeurier/nirs4all-studio/actions/workflows/release-unified.yml",
+      "affects": [
+        "nirs4all-studio:release-unified.yml",
+        "nirs4all-studio:github-release"
+      ],
+      "after_done": [],
+      "auto_check": null,
+      "resolved": null,
+      "check_note": null
+    },
     {
       "id": "npm-automation-token",
       "status": "done",

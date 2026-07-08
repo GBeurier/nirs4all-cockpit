@@ -17,6 +17,15 @@
 #                   expect: published -> green/stale with a version; green -> current only.
 
 actions:
+  - id: studio-windows-rc-smoke
+    status: todo
+    severity: blocker
+    title: "Studio — build and manually smoke-test the Windows RC installer before any production switch"
+    manual_url: "https://github.com/GBeurier/nirs4all-studio/actions/workflows/release-unified.yml"
+    affects:
+      - "nirs4all-studio:release-unified.yml"
+      - "nirs4all-studio:github-release"
+
   - id: npm-automation-token
     status: done
     severity: important
