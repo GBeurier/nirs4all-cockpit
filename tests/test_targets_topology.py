@@ -5,7 +5,7 @@ from pathlib import Path
 
 from cockpit.manual_actions import ManualAction, evaluate, load_actions, public_payload
 from cockpit.model import PackageSource, PackageStatus, Snapshot, TargetStatus
-from cockpit.reconcile import load_targets
+from cockpit.reconcile import _CANONICAL_PAGES_URLS, load_targets
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -196,26 +196,19 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
 
 def test_dashboard_pages_urls_cover_current_rc_pages_roster() -> None:
     app_js = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
-    pages_urls = {
-        "nirs4all-methods": "https://methods.nirs4all.org/",
-        "nirs4all-papers": "https://papers.nirs4all.org/",
-        "nirs4all-repository": "https://repository.nirs4all.org/",
-        "nirs4all-benchmarks": "https://benchmarks.nirs4all.org/",
-        "nirs4all-providers": "https://gbeurier.github.io/nirs4all-providers/",
-        "nirs4all-ui": "https://gbeurier.github.io/nirs4all-ui/",
-    }
-    pages_roster = [
-        ("/methods", "methods.nirs4all.org", "nirs4all-methods"),
-        ("/papers", "papers.nirs4all.org", "nirs4all-papers"),
-        ("/repository", "repository.nirs4all.org", "nirs4all-repository"),
-        ("/benchmarks", "benchmarks.nirs4all.org", "nirs4all-benchmarks"),
-        ("/providers", "gbeurier.github.io/nirs4all-providers", "nirs4all-providers"),
-        ("/ui", "gbeurier.github.io/nirs4all-ui", "nirs4all-ui"),
-    ]
 
-    for repo, url in pages_urls.items():
+    pages_targets = {
+        package.repo
+        for package in _targets().packages
+        for target in package.targets
+        if target.registry == "pages"
+    }
+    assert pages_targets == set(_CANONICAL_PAGES_URLS)
+
+    for repo, url in _CANONICAL_PAGES_URLS.items():
         assert f'"{repo}": "{url}"' in app_js
-    for path, host, repo in pages_roster:
+        path = f'/{repo.removeprefix("nirs4all-")}'
+        host = url.removeprefix("https://").removesuffix("/")
         assert f'["{path}", "{host}", "{repo}"]' in app_js
     assert (
         'const href = (reg === "readthedocs" || reg === "pages") && rep.evidence && rep.evidence.version_endpoint'
