@@ -93,7 +93,7 @@ actions:
       expect: published
 
   - id: runiverse-core-rebuild
-    status: todo
+    status: done
     severity: important
     title: "R-universe — rebuild nirs4all from nirs4all-core v0.3.7 (requires write access to r-universe/gbeurier)"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
@@ -106,7 +106,7 @@ actions:
       expect: green
 
   - id: runiverse-methods-n4m-rebuild
-    status: todo
+    status: done
     severity: important
     title: "R-universe — rebuild n4m from nirs4all-methods v1.0.8 (requires write access to r-universe/gbeurier)"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
@@ -119,7 +119,7 @@ actions:
       expect: green
 
   - id: runiverse-methods-pls4all-rebuild
-    status: todo
+    status: done
     severity: important
     title: "R-universe — rebuild pls4all from nirs4all-methods v1.0.8 (requires write access to r-universe/gbeurier)"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
