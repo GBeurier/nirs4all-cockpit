@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-08T20:42:28.926482+00:00",
+  "generated_at": "2026-07-08T21:12:23.210609+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -4570,13 +4570,13 @@
         "latest_prod_tag": "v0.0.1",
         "latest_any_tag": "v0.0.1",
         "expected_prod_version": "v0.0.1",
-        "commit": "9434b0f9a072b0fcbf350842d92616e6af96803d",
+        "commit": "52feff9c2c18a1cc117f7b05d75f93d39c4031ee",
         "latest_prod_tag_at": "2026-07-07T17:51:47Z",
         "latest_release_at": "2026-07-07T18:03:30Z",
         "latest_version_at": "2026-07-07T18:03:30Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-08T20:07:35Z",
-        "commits_ahead_of_latest_prod_tag": 2
+        "last_commit_at": "2026-07-08T21:10:57Z",
+        "commits_ahead_of_latest_prod_tag": 4
       },
       "rollup": "green",
       "flags": [],
@@ -4642,10 +4642,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 6372,
+        "size_kb": 6377,
         "language": "TypeScript",
         "license": null,
-        "pushed_at": "2026-07-08T20:08:47Z",
+        "pushed_at": "2026-07-08T21:11:18Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4654,16 +4654,16 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 6960,
-        "loc_comment": 747,
-        "loc_blank": 588,
-        "loc_total": 8295,
+        "loc_code": 7019,
+        "loc_comment": 742,
+        "loc_blank": 587,
+        "loc_total": 8348,
         "files": 67,
         "tests": 45,
         "by_language": {
-          "TypeScript": 5951,
+          "TypeScript": 5944,
+          "HTML": 466,
           "JavaScript": 423,
-          "HTML": 400,
           "CSS": 170,
           "Shell": 16
         },
@@ -4672,13 +4672,13 @@
       },
       "actions_stats": {
         "workflows": 2,
-        "total_runs": 2,
-        "recent_total": 2,
-        "recent_success": 2,
+        "total_runs": 4,
+        "recent_total": 4,
+        "recent_success": 4,
         "recent_failure": 0,
         "success_rate": 100.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-08T20:08:49Z"
+        "last_created_at": "2026-07-08T21:11:01Z"
       }
     },
     {
@@ -5285,13 +5285,13 @@
         "latest_prod_tag": "v0.1.0",
         "latest_any_tag": "v0.1.0",
         "expected_prod_version": "v0.1.0",
-        "commit": "080cf1f62331c32efe3819bb0a78d717375a844f",
+        "commit": "0b39b0db190d69eac47920527be2b548d73961db",
         "latest_prod_tag_at": "2026-06-16T12:45:18Z",
         "latest_release_at": "2026-06-16T15:02:30Z",
         "latest_version_at": "2026-06-16T15:02:30Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-08T20:40:40Z",
-        "commits_ahead_of_latest_prod_tag": 548
+        "last_commit_at": "2026-07-08T21:12:05Z",
+        "commits_ahead_of_latest_prod_tag": 551
       },
       "rollup": "green",
       "flags": [],
@@ -5337,7 +5337,7 @@
         "size_kb": 4492,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-08T20:40:41Z",
+        "pushed_at": "2026-07-08T21:12:06Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -5360,14 +5360,14 @@
         "source": "local-scan"
       },
       "actions_stats": {
-        "workflows": null,
-        "total_runs": null,
-        "recent_total": 0,
-        "recent_success": 0,
-        "recent_failure": 0,
-        "success_rate": null,
-        "last_conclusion": null,
-        "last_created_at": null
+        "workflows": 3,
+        "total_runs": 589,
+        "recent_total": 100,
+        "recent_success": 92,
+        "recent_failure": 7,
+        "success_rate": 92.9,
+        "last_conclusion": "success",
+        "last_created_at": "2026-07-08T21:12:09Z"
       }
     }
   ],
@@ -5387,11 +5387,11 @@
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 1816765,
-    "loc_total": 2292816,
+    "loc_code": 1816824,
+    "loc_total": 2292869,
     "tests": 16560,
     "files": 6962,
-    "workflow_runs": 5961,
+    "workflow_runs": 6552,
     "downloads_last_month": 23820
   },
   "visits": {
