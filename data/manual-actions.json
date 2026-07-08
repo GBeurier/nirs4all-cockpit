@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-08T21:44:39.178481+00:00",
+  "snapshot_generated_at": "2026-07-08T21:56:24.554832+00:00",
   "counts": {
     "total": 23,
-    "pending": 8,
-    "resolved": 15,
+    "pending": 6,
+    "resolved": 17,
     "blockers": 1,
-    "important": 7,
+    "important": 5,
     "info": 0
   },
   "actions": [
@@ -206,7 +206,7 @@
     },
     {
       "id": "runiverse-formats-rebuild",
-      "status": "todo",
+      "status": "done",
       "declared_status": "todo",
       "severity": "important",
       "title": "R-universe — rebuild nirs4allformats from nirs4all-formats v0.2.6 (requires write access to r-universe/gbeurier)",
@@ -221,8 +221,8 @@
         "name": "nirs4allformats",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4allformats status=stale version=0.2.5"
+      "resolved": true,
+      "check_note": "r-universe:nirs4allformats current 0.2.6 (status=green)"
     },
     {
       "id": "runiverse-io-rebuild",
@@ -246,7 +246,7 @@
     },
     {
       "id": "runiverse-dagml-data-rebuild",
-      "status": "todo",
+      "status": "done",
       "declared_status": "todo",
       "severity": "important",
       "title": "R-universe — rebuild dagmldata from dag-ml-data v0.2.8 (requires write access to r-universe/gbeurier)",
@@ -261,8 +261,8 @@
         "name": "dagmldata",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:dagmldata status=stale version=0.2.7"
+      "resolved": true,
+      "check_note": "r-universe:dagmldata current 0.2.8 (status=green)"
     },
     {
       "id": "pypi-publisher-providers",
