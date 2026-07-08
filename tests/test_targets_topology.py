@@ -250,6 +250,12 @@ def test_dashboard_manual_blockers_are_bottom_section() -> None:
     assert blockers_at < index.index('<footer class="foot">')
 
 
+def test_dashboard_manual_blockers_sort_after_other_manual_actions() -> None:
+    app_js = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
+
+    assert "const severityRank = { important: 0, info: 1, blocker: 2 };" in app_js
+
+
 def test_rc_python_facade_publish_state_is_explicit() -> None:
     core = _package("nirs4all-core")
     providers = _package("nirs4all-providers")

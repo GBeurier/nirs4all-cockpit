@@ -168,7 +168,7 @@ function renderManualActions(data) {
   const pending = data.actions.filter(isManualActionPending);
   if (!pending.length) return;
 
-  const severityRank = { blocker: 0, important: 1, info: 2 };
+  const severityRank = { important: 0, info: 1, blocker: 2 };
   pending.sort((a, b) => (severityRank[a.severity] ?? 9) - (severityRank[b.severity] ?? 9) || a.id.localeCompare(b.id));
   const counts = data.counts || {};
   box.innerHTML = "";
