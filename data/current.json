@@ -1,13 +1,14 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-08T22:19:22.334668+00:00",
+  "generated_at": "2026-07-08T22:38:23.471949+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
     "run_id": null,
     "notes": [
       "2026-07-08: targeted collect refreshed nirs4all-studio, nirs4all-web, nirs4all-quality, and nirs4all-ui after the full collect timed out locally.",
-      "2026-07-08: targeted collect refreshed nirs4all-web, nirs4all-quality, and nirs4all-ecosystem after WAVE_10M custom-host evidence."
+      "2026-07-08: targeted collect refreshed nirs4all-web, nirs4all-quality, and nirs4all-ecosystem after WAVE_10M custom-host evidence.",
+      "2026-07-08: targeted collect refreshed nirs4all-ecosystem after WAVE_10T stable runtime evidence ledger proofs."
     ]
   },
   "packages": [
@@ -5285,13 +5286,13 @@
         "latest_prod_tag": "v0.1.0",
         "latest_any_tag": "v0.1.0",
         "expected_prod_version": "v0.1.0",
-        "commit": "c0ba46d4fcd9666befe9090618c8d453b04b8516",
+        "commit": "5d16053d71a137ccd2da9df7d55648b79423dc0f",
         "latest_prod_tag_at": "2026-06-16T12:45:18Z",
         "latest_release_at": "2026-06-16T15:02:30Z",
         "latest_version_at": "2026-06-16T15:02:30Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-08T22:16:39Z",
-        "commits_ahead_of_latest_prod_tag": 557
+        "last_commit_at": "2026-07-08T22:35:51Z",
+        "commits_ahead_of_latest_prod_tag": 560
       },
       "rollup": "green",
       "flags": [],
@@ -5337,7 +5338,7 @@
         "size_kb": 4562,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-08T22:16:40Z",
+        "pushed_at": "2026-07-08T22:35:52Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -5346,14 +5347,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 11487,
+        "loc_code": 11559,
         "loc_comment": 208,
-        "loc_blank": 1330,
-        "loc_total": 13025,
+        "loc_blank": 1334,
+        "loc_total": 13101,
         "files": 24,
         "tests": 124,
         "by_language": {
-          "Python": 10718,
+          "Python": 10790,
           "Shell": 769
         },
         "coverage_pct": null,
@@ -5361,13 +5362,13 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 601,
+        "total_runs": 607,
         "recent_total": 100,
         "recent_success": 93,
         "recent_failure": 7,
         "success_rate": 93.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-08T22:16:42Z"
+        "last_created_at": "2026-07-08T22:35:55Z"
       }
     }
   ],
@@ -5387,11 +5388,11 @@
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 1817131,
-    "loc_total": 2293197,
+    "loc_code": 1817203,
+    "loc_total": 2293273,
     "tests": 16562,
     "files": 6962,
-    "workflow_runs": 6567,
+    "workflow_runs": 6573,
     "downloads_last_month": 24715
   },
   "visits": {
