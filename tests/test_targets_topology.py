@@ -319,6 +319,17 @@ def test_current_pypi_manual_actions_track_resolved_publishers() -> None:
         assert action.auto_check == {"registry": "pypi", "name": project, "expect": "published"}
 
 
+def test_studio_windows_rc_smoke_is_tracked_as_manual_blocker() -> None:
+    actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
+    action = actions["studio-windows-rc-smoke"]
+
+    assert action.status == "todo"
+    assert action.severity == "blocker"
+    assert "Windows RC installer" in action.title
+    assert "nirs4all-studio:release-unified.yml" in action.affects
+    assert "nirs4all-studio:github-release" in action.affects
+
+
 def test_active_readthedocs_targets_are_tracked_without_manual_activation_actions() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
 

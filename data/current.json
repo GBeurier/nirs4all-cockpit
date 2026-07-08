@@ -4,7 +4,10 @@
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
-    "run_id": null
+    "run_id": null,
+    "notes": [
+      "2026-07-08: targeted collect refreshed nirs4all-studio, nirs4all-web, nirs4all-quality, and nirs4all-ui after the full collect timed out locally."
+    ]
   },
   "packages": [
     {
@@ -168,13 +171,13 @@
         "latest_prod_tag": "0.9.1",
         "latest_any_tag": "0.9.1",
         "expected_prod_version": "0.9.1",
-        "commit": "03902bdaa4b1700b20add0dd9cfb3faec78866c5",
+        "commit": "dbf5bc2b121288f25603d784cf8669fdbf00fa44",
         "latest_prod_tag_at": "2026-06-23T07:53:21Z",
         "latest_release_at": "2026-06-23T08:22:40Z",
         "latest_version_at": "2026-06-23T08:22:40Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-08T09:13:18Z",
-        "commits_ahead_of_latest_prod_tag": 53
+        "last_commit_at": "2026-07-08T19:13:40Z",
+        "commits_ahead_of_latest_prod_tag": 54
       },
       "rollup": "green",
       "flags": [],
@@ -206,7 +209,7 @@
           "registry": "github-release",
           "name": "nirs4all-studio",
           "channel": "production-held",
-          "reason": "production app release remains held outside the final V1 RC; Windows installer RC remains held while RC10 coordination is tracked under tag n4a-v1-rc10-2026.07-refactor",
+          "reason": "production app release remains held outside the final V1 RC; Windows installer RC remains manual while the latest Studio V1 coordination tag is n4a-v1-rc8-2026.07-refactor",
           "published_version": "0.9.1",
           "status": "green",
           "planned": false,
@@ -237,20 +240,20 @@
         }
       ],
       "issues": {
-        "open": 0,
+        "open": 1,
         "bugs": 0
       },
       "repo_stats": {
         "stars": 22,
         "forks": 0,
         "watchers": 1,
-        "open_prs": 1,
+        "open_prs": 0,
         "closed_prs": 1,
         "merged_prs": 1,
         "size_kb": 37623,
         "language": "TypeScript",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-08T09:13:20Z",
+        "pushed_at": "2026-07-08T19:13:46Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -273,18 +276,18 @@
           "Shell": 535,
           "CSS": 469
         },
-        "coverage_pct": 59.1,
+        "coverage_pct": null,
         "source": "local-scan"
       },
       "actions_stats": {
-        "workflows": 3,
-        "total_runs": 263,
+        "workflows": 4,
+        "total_runs": 266,
         "recent_total": 100,
         "recent_success": 75,
-        "recent_failure": 23,
-        "success_rate": 76.5,
+        "recent_failure": 21,
+        "success_rate": 78.1,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-08T16:50:12Z"
+        "last_created_at": "2026-07-08T19:13:49Z"
       }
     },
     {
@@ -4487,7 +4490,7 @@
           "registry": "pages",
           "name": "nirs4all-web",
           "channel": "production",
-          "reason": "client-side web app is tracked from its own production version; no RC11 coordination tag is present on this repo",
+          "reason": "client-side web app is tracked from its own production version and current V1 coordination tag n4a-v1-rc14-2026.07-refactor",
           "published_version": null,
           "status": "green",
           "planned": false,
@@ -4566,13 +4569,13 @@
         "latest_prod_tag": "v0.0.1",
         "latest_any_tag": "v0.0.1",
         "expected_prod_version": "v0.0.1",
-        "commit": "1597b784104a6d1da20f77be46d33ed25a1cd326",
+        "commit": "3d99f7e2052fb489f8a00fc96015c4f5c1575580",
         "latest_prod_tag_at": "2026-07-07T17:51:47Z",
         "latest_release_at": "2026-07-07T18:03:30Z",
         "latest_version_at": "2026-07-07T18:03:30Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-07T17:51:47Z",
-        "commits_ahead_of_latest_prod_tag": 0
+        "last_commit_at": "2026-07-08T19:13:05Z",
+        "commits_ahead_of_latest_prod_tag": 1
       },
       "rollup": "green",
       "flags": [],
@@ -4604,7 +4607,7 @@
           "registry": "github-release",
           "name": "nirs4all-quality",
           "channel": "rc",
-          "reason": "in-browser app has no versioned release workflow yet; the deployed GitHub Pages runtime is the app surface (like nirs4all-web)",
+          "reason": "in-browser app has a version guard but no versioned release workflow yet; the deployed GitHub Pages runtime is the app surface (like nirs4all-web)",
           "published_version": "0.0.1",
           "status": "green",
           "planned": false,
@@ -4641,7 +4644,7 @@
         "size_kb": 6372,
         "language": "TypeScript",
         "license": null,
-        "pushed_at": "2026-07-07T18:03:30Z",
+        "pushed_at": "2026-07-08T19:13:09Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4667,14 +4670,14 @@
         "source": "local-scan"
       },
       "actions_stats": {
-        "workflows": 1,
-        "total_runs": 0,
-        "recent_total": 0,
-        "recent_success": 0,
+        "workflows": 2,
+        "total_runs": 1,
+        "recent_total": 1,
+        "recent_success": 1,
         "recent_failure": 0,
-        "success_rate": null,
-        "last_conclusion": null,
-        "last_created_at": null
+        "success_rate": 100.0,
+        "last_conclusion": "success",
+        "last_created_at": "2026-07-08T19:13:12Z"
       }
     },
     {
@@ -4685,13 +4688,13 @@
         "latest_prod_tag": "v0.1.8",
         "latest_any_tag": "v0.1.8",
         "expected_prod_version": "v0.1.8",
-        "commit": "90cf1d673002eb2e31e5fd09525e12083c69e751",
+        "commit": "f7b29fe391e24abbf1cae47c207e47987f7bfc60",
         "latest_prod_tag_at": "2026-07-08T08:20:51Z",
         "latest_release_at": "2026-07-08T08:24:18Z",
         "latest_version_at": "2026-07-08T08:24:18Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-08T08:20:50Z",
-        "commits_ahead_of_latest_prod_tag": 0
+        "last_commit_at": "2026-07-08T18:53:15Z",
+        "commits_ahead_of_latest_prod_tag": 1
       },
       "rollup": "green",
       "flags": [],
@@ -4795,7 +4798,7 @@
         "size_kb": 442,
         "language": "TypeScript",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-08T08:20:52Z",
+        "pushed_at": "2026-07-08T18:53:16Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4820,14 +4823,14 @@
         "source": "local-scan"
       },
       "actions_stats": {
-        "workflows": 3,
-        "total_runs": 50,
-        "recent_total": 50,
-        "recent_success": 48,
-        "recent_failure": 2,
-        "success_rate": 96.0,
-        "last_conclusion": "success",
-        "last_created_at": "2026-07-08T08:20:53Z"
+        "workflows": null,
+        "total_runs": null,
+        "recent_total": 0,
+        "recent_success": 0,
+        "recent_failure": 0,
+        "success_rate": null,
+        "last_conclusion": null,
+        "last_created_at": null
       }
     },
     {
