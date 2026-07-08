@@ -305,7 +305,7 @@ def test_current_pypi_manual_actions_track_resolved_publishers() -> None:
         "pypi-publisher-benchmarks": ("nirs4all-benchmarks", "v0.1.6"),
         "pypi-publisher-repository": ("nirs4all-repository", "v0.1.10"),
         "pypi-publisher-dag-ml": ("dag-ml", "v0.2.7"),
-        "pypi-publisher-dag-ml-data": ("dag-ml-data", "v0.2.7"),
+        "pypi-publisher-dag-ml-data": ("dag-ml-data", "v0.2.8"),
     }
 
     for action_id, (project, published_version) in expected.items():
@@ -346,9 +346,9 @@ def test_current_runiverse_manual_actions_cover_release_rebuilds() -> None:
         "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.3.7", "todo"),
         "runiverse-methods-n4m-rebuild": ("nirs4all-methods", "n4m", "v1.0.8", "todo"),
         "runiverse-methods-pls4all-rebuild": ("nirs4all-methods", "pls4all", "v1.0.8", "todo"),
-        "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.5", "todo"),
+        "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.6", "todo"),
         "runiverse-io-rebuild": ("nirs4all-io", "nirs4allio", "v0.1.10", "done"),
-        "runiverse-dagml-data-rebuild": ("dag-ml-data", "dagmldata", "v0.2.7", "todo"),
+        "runiverse-dagml-data-rebuild": ("dag-ml-data", "dagmldata", "v0.2.8", "todo"),
     }
 
     for action_id, (repo, package_name, version, status) in expected.items():

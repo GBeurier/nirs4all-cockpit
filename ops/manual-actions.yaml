@@ -134,7 +134,7 @@ actions:
   - id: runiverse-formats-rebuild
     status: todo
     severity: important
-    title: "R-universe — rebuild nirs4allformats from nirs4all-formats v0.2.5 (requires write access to r-universe/gbeurier)"
+    title: "R-universe — rebuild nirs4allformats from nirs4all-formats v0.2.6 (requires write access to r-universe/gbeurier)"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
     affects:
       - "nirs4all-formats:r-universe"
@@ -160,7 +160,7 @@ actions:
   - id: runiverse-dagml-data-rebuild
     status: todo
     severity: important
-    title: "R-universe — rebuild dagmldata from dag-ml-data v0.2.7 (requires write access to r-universe/gbeurier)"
+    title: "R-universe — rebuild dagmldata from dag-ml-data v0.2.8 (requires write access to r-universe/gbeurier)"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
     affects:
       - "dag-ml-data:r-universe"
@@ -263,7 +263,7 @@ actions:
   - id: pypi-publisher-dag-ml-data
     status: done
     severity: blocker
-    title: "PyPI — Trusted Publisher configured and dag-ml-data v0.2.7 published from release-python.yml"
+    title: "PyPI — Trusted Publisher configured and dag-ml-data v0.2.8 published from release-python.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "dag-ml-data:release-python.yml"

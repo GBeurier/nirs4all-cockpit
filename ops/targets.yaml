@@ -767,7 +767,7 @@ packages:
       - registry: pypi
         name: dag-ml-data
         state: tracked
-        reason: "RC Python binding from crates/dag-ml-data-py 0.2.7; PyPI package is published at v0.2.7"
+        reason: "RC Python binding from crates/dag-ml-data-py 0.2.8; PyPI package is published at v0.2.8"
         workflow:
           file: release-python.yml
           trigger: workflow_dispatch
@@ -780,7 +780,7 @@ packages:
       - registry: npm
         name: dag-ml-data-wasm
         state: tracked
-        reason: "RC WASM binding from crates/dag-ml-data-wasm; npm package is published at 0.2.7"
+        reason: "RC WASM binding from crates/dag-ml-data-wasm; npm package is published at 0.2.8"
         workflow:
           file: release-npm.yml
           trigger: workflow_dispatch
@@ -793,7 +793,7 @@ packages:
       - registry: r-universe
         name: dagmldata
         state: tracked
-        reason: "RC R binding from crates/dag-ml-data-r 0.2.7; main now uses crates.io Rust deps for R-universe subdir builds"
+        reason: "RC R binding from crates/dag-ml-data-r 0.2.8; main now uses crates.io Rust deps for R-universe subdir builds and skips wrapper regeneration on WebR"
       - registry: crates
         name: dag-ml-data
         state: tracked
