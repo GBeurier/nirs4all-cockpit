@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-08T00:56:18.939885+00:00",
+  "generated_at": "2026-07-08T01:16:15.654104+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -2622,15 +2622,15 @@
         "latest_prod_tag": "v0.3.1",
         "latest_any_tag": "v0.3.1",
         "expected_prod_version": "v0.3.1",
-        "commit": "47465ea0495f6f0cc9afa273ece677ab8a92c14c",
+        "commit": "3a8fdd9104239df782bc54a28f7722449ebed709",
         "latest_prod_tag_at": "2026-07-07T23:58:37Z",
         "latest_release_at": "2026-07-07T23:59:17Z",
         "latest_version_at": "2026-07-07T23:59:17Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-07T23:58:37Z",
-        "commits_ahead_of_latest_prod_tag": 0
+        "last_commit_at": "2026-07-08T01:02:57Z",
+        "commits_ahead_of_latest_prod_tag": 1
       },
-      "rollup": "stale",
+      "rollup": "pending",
       "flags": [],
       "targets": [
         {
@@ -2810,8 +2810,8 @@
           "name": "nirs4all",
           "channel": "rc",
           "reason": "R-universe target is the 0.3.1 RC aggregate from the v0.3.1 R source tarball; live R-universe may remain stale until the rebuild completes",
-          "published_version": "0.3.0",
-          "status": "stale",
+          "published_version": "0.3.1",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -2922,7 +2922,7 @@
         "size_kb": 736,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-07T23:58:47Z",
+        "pushed_at": "2026-07-08T01:03:06Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2931,14 +2931,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 10721,
+        "loc_code": 10739,
         "loc_comment": 592,
         "loc_blank": 1472,
-        "loc_total": 12785,
+        "loc_total": 12803,
         "files": 59,
         "tests": 105,
         "by_language": {
-          "Python": 5021,
+          "Python": 5039,
           "Rust": 1662,
           "R": 1291,
           "JavaScript": 1260,
@@ -5099,13 +5099,13 @@
         "latest_prod_tag": "v0.1.0",
         "latest_any_tag": "v0.1.0",
         "expected_prod_version": "v0.1.0",
-        "commit": "aa740addcfaa03cf1ba4cd3e36b9d4317869b83d",
+        "commit": "0ac244c8416b1addf66716a3a0894056d61204a4",
         "latest_prod_tag_at": "2026-06-16T12:45:18Z",
         "latest_release_at": "2026-06-16T15:02:30Z",
         "latest_version_at": "2026-06-16T15:02:30Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-08T00:48:09Z",
-        "commits_ahead_of_latest_prod_tag": 492
+        "last_commit_at": "2026-07-08T01:13:45Z",
+        "commits_ahead_of_latest_prod_tag": 494
       },
       "rollup": "green",
       "flags": [],
@@ -5148,10 +5148,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 4808,
+        "size_kb": 4269,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-08T00:48:15Z",
+        "pushed_at": "2026-07-08T01:13:51Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -5160,15 +5160,15 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 8709,
-        "loc_comment": 153,
-        "loc_blank": 1038,
-        "loc_total": 9900,
-        "files": 12,
+        "loc_code": 9529,
+        "loc_comment": 203,
+        "loc_blank": 1228,
+        "loc_total": 10960,
+        "files": 22,
         "tests": 120,
         "by_language": {
-          "Python": 8705,
-          "Shell": 4
+          "Python": 8760,
+          "Shell": 769
         },
         "coverage_pct": null,
         "source": "local-scan"
@@ -5186,8 +5186,8 @@
     }
   ],
   "summary": {
-    "green": 95,
-    "stale": 2,
+    "green": 96,
+    "stale": 1,
     "pending": 4,
     "missing": 0,
     "broken": 0,
