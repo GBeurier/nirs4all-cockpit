@@ -115,7 +115,11 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
 
     assert oracle.channel == "production-held"
     assert any(target.registry == "pypi" and target.name == "nirs4all" for target in oracle.targets)
-    studio_release_reason = next(target.reason or "" for target in studio.targets if target.registry == "github-release")
+    studio_release_reason = next(
+        target.reason or ""
+        for target in studio.targets
+        if target.registry == "github-release"
+    )
     assert "n4a-v1-rc8-2026.07-refactor" in studio_release_reason
     assert "RC10" not in studio_release_reason
     assert web.channel == "production"
