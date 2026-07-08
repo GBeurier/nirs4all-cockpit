@@ -48,6 +48,19 @@ def test_rc_core_uses_canonical_repo_without_legacy_lite_alias() -> None:
     assert "PyPI package is published at v0.3.3" in core_pypi_reason
 
 
+def test_inventory_tracks_no_live_nirs4all_lite_release_alias() -> None:
+    targets = _targets()
+
+    live_alias_targets = [
+        (package.id, target.registry, target.name)
+        for package in targets.packages
+        for target in package.targets
+        if target.name == "nirs4all-lite"
+    ]
+
+    assert live_alias_targets == []
+
+
 def test_rc_core_targets_account_for_all_v1_language_surfaces() -> None:
     package = _package("nirs4all-core")
 
