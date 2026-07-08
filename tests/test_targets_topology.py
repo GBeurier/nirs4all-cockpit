@@ -45,7 +45,7 @@ def test_rc_core_uses_canonical_repo_without_legacy_lite_alias() -> None:
     assert "R tarball" in core_release_reason
     assert "SHA256SUMS" in core_release_reason
     assert "Python wheel/sdist fallback assets" not in core_release_reason
-    assert "PyPI package targets v0.3.6" in core_pypi_reason
+    assert "PyPI package targets v0.3.7" in core_pypi_reason
 
 
 def test_inventory_tracks_no_live_nirs4all_lite_release_alias() -> None:
@@ -190,7 +190,7 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
         ("github-release", "nirs4all-tools", "tracked"),
     ]
     tools_release_reason = next(target.reason or "" for target in tools.targets if target.registry == "github-release")
-    assert "v0.0.4 release" in tools_release_reason
+    assert "v0.0.5 release" in tools_release_reason
     assert "carries wheel/sdist fallback assets" in tools_release_reason
 
 
@@ -287,11 +287,11 @@ def test_rc_python_facade_publish_state_is_explicit() -> None:
         ),
     }
 
-    assert "PyPI package targets v0.3.6" in blockers["core"]
-    assert "PyPI package is published at v0.2.8" in blockers["providers"]
-    assert "PyPI package is published at v0.0.4" in blockers["tools"]
-    assert "GitHub Release v0.0.4 also carries wheel/sdist assets" in blockers["tools"]
-    assert "PyPI package is published at v0.1.5" in blockers["benchmarks"]
+    assert "PyPI package targets v0.3.7" in blockers["core"]
+    assert "PyPI package is published at v0.2.9" in blockers["providers"]
+    assert "PyPI package is published at v0.0.5" in blockers["tools"]
+    assert "GitHub Release v0.0.5 also carries wheel/sdist assets" in blockers["tools"]
+    assert "PyPI package is published at v0.1.6" in blockers["benchmarks"]
     assert "PyPI package is published at v0.1.10" in blockers["repository"]
     assert "GitHub Release v0.1.10 also carries wheel/sdist assets" in blockers["repository"]
 
@@ -299,13 +299,13 @@ def test_rc_python_facade_publish_state_is_explicit() -> None:
 def test_current_pypi_manual_actions_track_resolved_publishers() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
-        "pypi-publisher-core": ("nirs4all-core", "v0.3.6"),
-        "pypi-publisher-providers": ("nirs4all-providers", "v0.2.8"),
-        "pypi-publisher-tools": ("nirs4all-tools", "v0.0.4"),
-        "pypi-publisher-benchmarks": ("nirs4all-benchmarks", "v0.1.5"),
+        "pypi-publisher-core": ("nirs4all-core", "v0.3.7"),
+        "pypi-publisher-providers": ("nirs4all-providers", "v0.2.9"),
+        "pypi-publisher-tools": ("nirs4all-tools", "v0.0.5"),
+        "pypi-publisher-benchmarks": ("nirs4all-benchmarks", "v0.1.6"),
         "pypi-publisher-repository": ("nirs4all-repository", "v0.1.10"),
-        "pypi-publisher-dag-ml": ("dag-ml", "v0.2.5"),
-        "pypi-publisher-dag-ml-data": ("dag-ml-data", "v0.2.5"),
+        "pypi-publisher-dag-ml": ("dag-ml", "v0.2.7"),
+        "pypi-publisher-dag-ml-data": ("dag-ml-data", "v0.2.7"),
     }
 
     for action_id, (project, published_version) in expected.items():
@@ -343,12 +343,12 @@ def test_current_runiverse_manual_action_tracks_core_rebuild_todo() -> None:
 def test_current_runiverse_manual_actions_cover_stale_rc_rebuilds() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
-        "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.3.6", "todo"),
+        "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.3.7", "todo"),
         "runiverse-methods-n4m-rebuild": ("nirs4all-methods", "n4m", "v1.0.8", "todo"),
         "runiverse-methods-pls4all-rebuild": ("nirs4all-methods", "pls4all", "v1.0.8", "todo"),
-        "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.4", "done"),
+        "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.5", "todo"),
         "runiverse-io-rebuild": ("nirs4all-io", "nirs4allio", "v0.1.10", "todo"),
-        "runiverse-dagml-data-rebuild": ("dag-ml-data", "dagmldata", "v0.2.5", "todo"),
+        "runiverse-dagml-data-rebuild": ("dag-ml-data", "dagmldata", "v0.2.7", "todo"),
     }
 
     for action_id, (repo, package_name, version, status) in expected.items():
