@@ -109,20 +109,28 @@ def test_dag_python_binding_surfaces_have_publish_workflows() -> None:
 
 def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
     oracle = _package("nirs4all")
+    studio = _package("nirs4all-studio")
     web = _package("nirs4all-web")
     ui = _package("nirs4all-ui")
 
     assert oracle.channel == "production-held"
     assert any(target.registry == "pypi" and target.name == "nirs4all" for target in oracle.targets)
+    studio_release_reason = next(target.reason or "" for target in studio.targets if target.registry == "github-release")
+    assert "n4a-v1-rc8-2026.07-refactor" in studio_release_reason
+    assert "RC10" not in studio_release_reason
     assert web.channel == "production"
+    assert web.coordination_tag == "n4a-v1-rc14-2026.07-refactor"
     assert web.source_of_truth is not None
     assert web.source_of_truth.strategy == "npm_package_json"
     assert web.source_of_truth.path == "studio-lite/package.json"
     assert [target.registry for target in web.targets] == ["github-release", "pages"]
     web_release_reason = next(target.reason or "" for target in web.targets if target.registry == "github-release")
+    web_pages_reason = next(target.reason or "" for target in web.targets if target.registry == "pages")
     assert "client-side-only web app release" in web_release_reason
+    assert "n4a-v1-rc14-2026.07-refactor" in web_pages_reason
 
     assert ui.channel == "rc"
+    assert ui.coordination_tag == "n4a-v1-rc14-2026.07-refactor"
     assert ui.source_of_truth is not None
     assert ui.source_of_truth.strategy == "npm_package_json"
     assert [(target.registry, target.name, target.state) for target in ui.targets] == [

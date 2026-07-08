@@ -80,7 +80,7 @@ packages:
       - registry: github-release
         name: nirs4all-studio
         state: tracked
-        reason: "production app release remains held outside the final V1 RC; Windows installer RC remains held while RC10 coordination is tracked under tag n4a-v1-rc10-2026.07-refactor"
+        reason: "production app release remains held outside the final V1 RC; Windows installer RC remains manual while the latest Studio V1 coordination tag is n4a-v1-rc8-2026.07-refactor"
         workflow:
           file: release-unified.yml
           trigger: workflow_dispatch
@@ -834,6 +834,7 @@ packages:
     repo: nirs4all-web
     channel: production
     issues_repo: nirs4all-web
+    coordination_tag: n4a-v1-rc14-2026.07-refactor
     source_of_truth:
       strategy: npm_package_json
       path: studio-lite/package.json
@@ -845,7 +846,7 @@ packages:
       - registry: pages
         name: nirs4all-web
         state: tracked
-        reason: "client-side web app is tracked from its own production version; no RC11 coordination tag is present on this repo"
+        reason: "client-side web app is tracked from its own production version and current V1 coordination tag n4a-v1-rc14-2026.07-refactor"
     version_aliases: {}
 
   - id: nirs4all-quality
@@ -863,13 +864,14 @@ packages:
       - registry: github-release
         name: nirs4all-quality
         state: planned
-        reason: "in-browser app has no versioned release workflow yet; the deployed GitHub Pages runtime is the app surface (like nirs4all-web)"
+        reason: "in-browser app has a version guard but no versioned release workflow yet; the deployed GitHub Pages runtime is the app surface (like nirs4all-web)"
     version_aliases: {}
 
   - id: nirs4all-ui
     repo: nirs4all-ui
     channel: rc
     issues_repo: nirs4all-ui
+    coordination_tag: n4a-v1-rc14-2026.07-refactor
     source_of_truth:
       strategy: npm_package_json
       path: package.json
