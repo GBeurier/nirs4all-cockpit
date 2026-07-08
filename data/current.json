@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-08T17:08:41.600641+00:00",
+  "generated_at": "2026-07-08T17:28:44.423445+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -663,7 +663,7 @@
         "last_commit_at": "2026-07-08T15:44:45Z",
         "commits_ahead_of_latest_prod_tag": 0
       },
-      "rollup": "stale",
+      "rollup": "green",
       "flags": [],
       "targets": [
         {
@@ -978,8 +978,8 @@
           "name": "nirs4allformats",
           "channel": "production",
           "reason": null,
-          "published_version": "0.2.4",
-          "status": "stale",
+          "published_version": "0.2.5",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -2662,7 +2662,7 @@
         "last_commit_at": "2026-07-08T16:12:38Z",
         "commits_ahead_of_latest_prod_tag": 0
       },
-      "rollup": "stale",
+      "rollup": "pending",
       "flags": [],
       "targets": [
         {
@@ -2858,8 +2858,8 @@
           "name": "nirs4all",
           "channel": "rc",
           "reason": "R-universe target is the 0.3.7 RC aggregate from the v0.3.7 R source tarball; live R-universe may remain stale until the rebuild completes",
-          "published_version": "0.3.6",
-          "status": "stale",
+          "published_version": "0.3.7",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -2967,7 +2967,7 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 655,
+        "size_kb": 663,
         "language": "Python",
         "license": "AGPL-3.0",
         "pushed_at": "2026-07-08T16:12:39Z",
@@ -3289,15 +3289,15 @@
           "status": "green",
           "planned": false,
           "downloads": {
-            "last_day": null,
-            "last_week": null,
-            "last_month": null,
+            "last_day": 186,
+            "last_week": 186,
+            "last_month": 186,
             "total": null,
             "source": "pypistats",
             "by_version": [],
             "windows": {
-              "7d": null,
-              "30d": null,
+              "7d": 186,
+              "30d": 186,
               "90d": null,
               "total": null
             }
@@ -3742,7 +3742,7 @@
         "last_commit_at": "2026-07-08T16:01:45Z",
         "commits_ahead_of_latest_prod_tag": 0
       },
-      "rollup": "stale",
+      "rollup": "green",
       "flags": [],
       "targets": [
         {
@@ -3829,8 +3829,8 @@
           "name": "dagmldata",
           "channel": "rc",
           "reason": "RC R binding from crates/dag-ml-data-r 0.2.7; main now uses crates.io Rust deps for R-universe subdir builds",
-          "published_version": "0.2.5",
-          "status": "stale",
+          "published_version": "0.2.7",
+          "status": "green",
           "planned": false,
           "downloads": {
             "last_day": null,
@@ -4358,7 +4358,7 @@
         "open_prs": 1,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 19637,
+        "size_kb": 19565,
         "language": "HTML",
         "license": "AGPL-3.0",
         "pushed_at": "2026-07-08T16:19:37Z",
@@ -4473,7 +4473,7 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 13893,
+        "size_kb": 13894,
         "language": "TypeScript",
         "license": "AGPL-3.0",
         "pushed_at": "2026-07-08T16:17:56Z",
@@ -4792,13 +4792,13 @@
         "latest_prod_tag": "v0.1.7",
         "latest_any_tag": "v0.1.7",
         "expected_prod_version": "v0.1.7",
-        "commit": "0bd3ac663513c185e8fd35cbc9d5f77de0dee516",
+        "commit": "639a1d283f17c5ca6dfccad570a3e8d5efd902ec",
         "latest_prod_tag_at": "2026-07-07T13:26:02Z",
         "latest_release_at": "2026-07-07T13:26:15Z",
         "latest_version_at": "2026-07-07T13:26:15Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-08T17:05:53Z",
-        "commits_ahead_of_latest_prod_tag": 71
+        "last_commit_at": "2026-07-08T17:12:40Z",
+        "commits_ahead_of_latest_prod_tag": 72
       },
       "rollup": "green",
       "flags": [],
@@ -4842,7 +4842,7 @@
         "size_kb": 856,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-08T17:05:54Z",
+        "pushed_at": "2026-07-08T17:12:41Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4869,13 +4869,13 @@
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 581,
+        "total_runs": 583,
         "recent_total": 100,
         "recent_success": 99,
         "recent_failure": 0,
         "success_rate": 100.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-08T17:05:58Z"
+        "last_created_at": "2026-07-08T17:12:48Z"
       }
     },
     {
@@ -5284,7 +5284,7 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 5634,
+        "size_kb": 5642,
         "language": "Python",
         "license": "AGPL-3.0",
         "pushed_at": "2026-07-08T16:24:35Z",
@@ -5322,8 +5322,8 @@
     }
   ],
   "summary": {
-    "green": 93,
-    "stale": 4,
+    "green": 96,
+    "stale": 1,
     "pending": 4,
     "missing": 0,
     "broken": 0,
@@ -5341,8 +5341,8 @@
     "loc_total": 1650367,
     "tests": 15998,
     "files": 5731,
-    "workflow_runs": 6874,
-    "downloads_last_month": 22604
+    "workflow_runs": 6876,
+    "downloads_last_month": 22790
   },
   "visits": {
     "available": true,
