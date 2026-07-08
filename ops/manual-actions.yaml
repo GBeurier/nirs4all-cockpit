@@ -95,7 +95,7 @@ actions:
   - id: runiverse-core-rebuild
     status: todo
     severity: important
-    title: "R-universe — rebuild nirs4all from nirs4all-core v0.3.7"
+    title: "R-universe — rebuild nirs4all from nirs4all-core v0.3.7 (requires write access to r-universe/gbeurier)"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
     affects:
       - "nirs4all-core:r-universe"
@@ -108,7 +108,7 @@ actions:
   - id: runiverse-methods-n4m-rebuild
     status: todo
     severity: important
-    title: "R-universe — rebuild n4m from nirs4all-methods v1.0.8"
+    title: "R-universe — rebuild n4m from nirs4all-methods v1.0.8 (requires write access to r-universe/gbeurier)"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
     affects:
       - "nirs4all-methods:r-universe:n4m"
@@ -121,7 +121,7 @@ actions:
   - id: runiverse-methods-pls4all-rebuild
     status: todo
     severity: important
-    title: "R-universe — rebuild pls4all from nirs4all-methods v1.0.8"
+    title: "R-universe — rebuild pls4all from nirs4all-methods v1.0.8 (requires write access to r-universe/gbeurier)"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
     affects:
       - "nirs4all-methods:r-universe:pls4all"
@@ -134,7 +134,7 @@ actions:
   - id: runiverse-formats-rebuild
     status: todo
     severity: important
-    title: "R-universe — rebuild nirs4allformats from nirs4all-formats v0.2.5"
+    title: "R-universe — rebuild nirs4allformats from nirs4all-formats v0.2.5 (requires write access to r-universe/gbeurier)"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
     affects:
       - "nirs4all-formats:r-universe"
@@ -145,7 +145,7 @@ actions:
       expect: green
 
   - id: runiverse-io-rebuild
-    status: todo
+    status: done
     severity: important
     title: "R-universe — rebuild nirs4allio from nirs4all-io v0.1.10"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
@@ -160,7 +160,7 @@ actions:
   - id: runiverse-dagml-data-rebuild
     status: todo
     severity: important
-    title: "R-universe — rebuild dagmldata from dag-ml-data v0.2.7"
+    title: "R-universe — rebuild dagmldata from dag-ml-data v0.2.7 (requires write access to r-universe/gbeurier)"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
     affects:
       - "dag-ml-data:r-universe"
