@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-08T16:42:12.044658+00:00",
+  "snapshot_generated_at": "2026-07-08T17:08:41.600641+00:00",
   "counts": {
     "total": 22,
-    "pending": 10,
-    "resolved": 12,
+    "pending": 8,
+    "resolved": 14,
     "blockers": 0,
-    "important": 10,
+    "important": 8,
     "info": 0
   },
   "actions": [
@@ -150,7 +150,7 @@
     },
     {
       "id": "runiverse-methods-n4m-rebuild",
-      "status": "todo",
+      "status": "done",
       "declared_status": "todo",
       "severity": "important",
       "title": "R-universe — rebuild n4m from nirs4all-methods v1.0.8 (requires write access to r-universe/gbeurier)",
@@ -165,12 +165,12 @@
         "name": "n4m",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:n4m status=stale version=1.0.7"
+      "resolved": true,
+      "check_note": "r-universe:n4m current 1.0.8 (status=green)"
     },
     {
       "id": "runiverse-methods-pls4all-rebuild",
-      "status": "todo",
+      "status": "done",
       "declared_status": "todo",
       "severity": "important",
       "title": "R-universe — rebuild pls4all from nirs4all-methods v1.0.8 (requires write access to r-universe/gbeurier)",
@@ -185,8 +185,8 @@
         "name": "pls4all",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:pls4all status=stale version=1.0.7"
+      "resolved": true,
+      "check_note": "r-universe:pls4all current 1.0.8 (status=green)"
     },
     {
       "id": "runiverse-formats-rebuild",
