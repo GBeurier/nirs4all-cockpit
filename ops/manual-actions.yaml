@@ -83,7 +83,7 @@ actions:
   - id: pypi-publisher-core
     status: done
     severity: blocker
-    title: "PyPI — Trusted Publisher configured and nirs4all-core v0.3.6 published from release-python.yml"
+    title: "PyPI — Trusted Publisher configured and nirs4all-core v0.3.7 published from release-python.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-core:release-python.yml"
@@ -95,7 +95,7 @@ actions:
   - id: runiverse-core-rebuild
     status: todo
     severity: important
-    title: "R-universe — rebuild nirs4all from nirs4all-core v0.3.6"
+    title: "R-universe — rebuild nirs4all from nirs4all-core v0.3.7"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
     affects:
       - "nirs4all-core:r-universe"
@@ -132,9 +132,9 @@ actions:
       expect: green
 
   - id: runiverse-formats-rebuild
-    status: done
+    status: todo
     severity: important
-    title: "R-universe — rebuild nirs4allformats from nirs4all-formats v0.2.4"
+    title: "R-universe — rebuild nirs4allformats from nirs4all-formats v0.2.5"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
     affects:
       - "nirs4all-formats:r-universe"
@@ -160,7 +160,7 @@ actions:
   - id: runiverse-dagml-data-rebuild
     status: todo
     severity: important
-    title: "R-universe — rebuild dagmldata from dag-ml-data v0.2.5"
+    title: "R-universe — rebuild dagmldata from dag-ml-data v0.2.7"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
     affects:
       - "dag-ml-data:r-universe"
@@ -173,7 +173,7 @@ actions:
   - id: pypi-publisher-providers
     status: done
     severity: blocker
-    title: "PyPI — Trusted Publisher configured and nirs4all-providers v0.2.8 published from publish.yml"
+    title: "PyPI — Trusted Publisher configured and nirs4all-providers v0.2.9 published from publish.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-providers:publish.yml"
@@ -191,7 +191,7 @@ actions:
   - id: pypi-publisher-tools
     status: done
     severity: blocker
-    title: "PyPI — Trusted Publisher configured and nirs4all-tools v0.0.4 published from publish.yml"
+    title: "PyPI — Trusted Publisher configured and nirs4all-tools v0.0.5 published from publish.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-tools:publish.yml"
@@ -199,7 +199,7 @@ actions:
       - run_workflow:
           repo: nirs4all-tools
           workflow: publish.yml
-          ref: v0.0.4
+          ref: v0.0.5
           inputs: { dry_run: "false" }
     auto_check:
       registry: pypi
@@ -209,7 +209,7 @@ actions:
   - id: pypi-publisher-benchmarks
     status: done
     severity: blocker
-    title: "PyPI — Trusted Publisher configured and nirs4all-benchmarks v0.1.5 published from publish.yml"
+    title: "PyPI — Trusted Publisher configured and nirs4all-benchmarks v0.1.6 published from publish.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-benchmarks:publish.yml"
@@ -245,7 +245,7 @@ actions:
   - id: pypi-publisher-dag-ml
     status: done
     severity: blocker
-    title: "PyPI — Trusted Publisher configured and dag-ml v0.2.5 published from release-python.yml"
+    title: "PyPI — Trusted Publisher configured and dag-ml v0.2.7 published from release-python.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "dag-ml:release-python.yml"
@@ -263,7 +263,7 @@ actions:
   - id: pypi-publisher-dag-ml-data
     status: done
     severity: blocker
-    title: "PyPI — Trusted Publisher configured and dag-ml-data v0.2.5 published from release-python.yml"
+    title: "PyPI — Trusted Publisher configured and dag-ml-data v0.2.7 published from release-python.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "dag-ml-data:release-python.yml"
@@ -344,7 +344,7 @@ actions:
   - id: cran-submit-nirs4all-core-aggregate
     status: todo
     severity: important
-    title: "CRAN — submit the nirs4all aggregate R package from nirs4all-core v0.3.6 after RC source validation"
+    title: "CRAN — submit the nirs4all aggregate R package from nirs4all-core v0.3.7 after RC source validation"
     manual_url: "https://cran.r-project.org/submit.html"
     affects: []
     auto_check:
