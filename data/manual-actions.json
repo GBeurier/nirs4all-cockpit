@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-08T01:37:32.582530+00:00",
+  "snapshot_generated_at": "2026-07-08T02:23:58.064499+00:00",
   "counts": {
     "total": 20,
     "pending": 6,
@@ -114,7 +114,7 @@
       "status": "done",
       "declared_status": "done",
       "severity": "blocker",
-      "title": "PyPI — Trusted Publisher configured and nirs4all-core v0.3.2 published from release-python.yml",
+      "title": "PyPI — Trusted Publisher configured and nirs4all-core v0.3.3 published from release-python.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
       "affects": [
         "nirs4all-core:release-python.yml"
@@ -126,14 +126,14 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-core published 0.3.2 (status=green)"
+      "check_note": "pypi:nirs4all-core published 0.3.3 (status=green)"
     },
     {
       "id": "runiverse-core-rebuild",
       "status": "todo",
       "declared_status": "todo",
       "severity": "important",
-      "title": "R-universe — rebuild nirs4all from nirs4all-core v0.3.2",
+      "title": "R-universe — rebuild nirs4all from nirs4all-core v0.3.3",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
       "affects": [
         "nirs4all-core:r-universe",
@@ -303,7 +303,7 @@
       "status": "done",
       "declared_status": "done",
       "severity": "blocker",
-      "title": "PyPI — Trusted Publisher configured and nirs4all-repository v0.1.8 published from publish.yml",
+      "title": "PyPI — Trusted Publisher configured and nirs4all-repository v0.1.10 published from publish.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
       "affects": [
         "nirs4all-repository:publish.yml"
@@ -326,7 +326,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-repository published 0.1.8 (status=green)"
+      "check_note": "pypi:nirs4all-repository published 0.1.10 (status=green)"
     },
     {
       "id": "pypi-publisher-dag-ml",
