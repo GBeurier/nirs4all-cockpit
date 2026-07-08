@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-08T09:56:19.869423+00:00",
+  "generated_at": "2026-07-08T10:31:09.645274+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -4287,13 +4287,13 @@
         "latest_prod_tag": "v0.1.5",
         "latest_any_tag": "v0.1.5",
         "expected_prod_version": "v0.1.5",
-        "commit": "0b82a505e96342dafac09073ec4f17d8c47cfe63",
+        "commit": "e2736749d75c90399ad348ca12121c38af8caf24",
         "latest_prod_tag_at": "2026-07-07T12:29:11Z",
         "latest_release_at": "2026-07-07T12:29:26Z",
         "latest_version_at": "2026-07-07T12:29:26Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-08T06:24:22Z",
-        "commits_ahead_of_latest_prod_tag": 13
+        "last_commit_at": "2026-07-08T10:22:26Z",
+        "commits_ahead_of_latest_prod_tag": 15
       },
       "rollup": "green",
       "flags": [],
@@ -4359,10 +4359,10 @@
         "open_prs": 0,
         "closed_prs": 3,
         "merged_prs": 3,
-        "size_kb": 13593,
+        "size_kb": 13595,
         "language": "TypeScript",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-08T04:10:45Z",
+        "pushed_at": "2026-07-08T10:22:28Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4371,17 +4371,17 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 28349,
+        "loc_code": 37825,
         "loc_comment": 2975,
-        "loc_blank": 2499,
-        "loc_total": 33823,
-        "files": 225,
-        "tests": 272,
+        "loc_blank": 2514,
+        "loc_total": 43314,
+        "files": 226,
+        "tests": 271,
         "by_language": {
-          "TypeScript": 19567,
-          "JavaScript": 8396,
+          "TypeScript": 19586,
+          "HTML": 9510,
+          "JavaScript": 8420,
           "CSS": 259,
-          "HTML": 77,
           "Shell": 50
         },
         "coverage_pct": null,
@@ -4389,13 +4389,13 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 278,
+        "total_runs": 302,
         "recent_total": 100,
-        "recent_success": 80,
-        "recent_failure": 18,
-        "success_rate": 81.6,
+        "recent_success": 85,
+        "recent_failure": 14,
+        "success_rate": 85.9,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-07T20:55:03Z"
+        "last_created_at": "2026-07-08T10:22:30Z"
       }
     },
     {
@@ -5121,13 +5121,13 @@
         "latest_prod_tag": "v0.1.0",
         "latest_any_tag": "v0.1.0",
         "expected_prod_version": "v0.1.0",
-        "commit": "010b7b4710bab5bfc5c18b7a3bd0c5293ace7bd7",
+        "commit": "81d9dfba0a38bc8ba6e3f55c356855bb198da600",
         "latest_prod_tag_at": "2026-06-16T12:45:18Z",
         "latest_release_at": "2026-06-16T15:02:30Z",
         "latest_version_at": "2026-06-16T15:02:30Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-08T09:54:20Z",
-        "commits_ahead_of_latest_prod_tag": 526
+        "last_commit_at": "2026-07-08T10:28:55Z",
+        "commits_ahead_of_latest_prod_tag": 529
       },
       "rollup": "green",
       "flags": [],
@@ -5170,10 +5170,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 5135,
+        "size_kb": 5220,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-08T09:54:22Z",
+        "pushed_at": "2026-07-08T10:28:56Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -5182,28 +5182,28 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 10264,
-        "loc_comment": 203,
-        "loc_blank": 1238,
-        "loc_total": 11705,
-        "files": 22,
+        "loc_code": 10552,
+        "loc_comment": 205,
+        "loc_blank": 1270,
+        "loc_total": 12027,
+        "files": 23,
         "tests": 121,
         "by_language": {
-          "Python": 9495,
+          "Python": 9783,
           "Shell": 769
         },
         "coverage_pct": null,
         "source": "local-scan"
       },
       "actions_stats": {
-        "workflows": null,
-        "total_runs": null,
-        "recent_total": 0,
-        "recent_success": 0,
-        "recent_failure": 0,
-        "success_rate": null,
-        "last_conclusion": null,
-        "last_created_at": null
+        "workflows": 3,
+        "total_runs": 547,
+        "recent_total": 100,
+        "recent_success": 93,
+        "recent_failure": 7,
+        "success_rate": 93.0,
+        "last_conclusion": "success",
+        "last_created_at": "2026-07-08T10:28:59Z"
       }
     }
   ],
