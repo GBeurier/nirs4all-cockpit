@@ -183,11 +183,13 @@ returns `0` for a package nobody has downloaded — that is not "missing").
 Two workflows drive the live site:
 
 - **`.github/workflows/collect.yml`** — cron `17 0 * * *` + manual dispatch;
-  installs the package, runs `n4a-cockpit collect`, and commits the refreshed
-  `data/*.json` via `git-auto-commit-action`.
-- **`.github/workflows/pages.yml`** — on push to `main` (and manual dispatch),
-  assembles `_site/` from `web/*` with `data/` copied to `_site/data/`, then
-  publishes it with `actions/upload-pages-artifact` + `actions/deploy-pages`.
+  installs the package, shallow-clones public sibling repos under `_siblings/`
+  for code stats and manifest reads, runs `n4a-cockpit collect`, and commits
+  refreshed `data/*.json` with plain git commands.
+- **`.github/workflows/pages.yml`** — on push to `main`, successful `collect`
+  workflow completion, and manual dispatch, assembles `_site/` from `web/*` with
+  `data/` copied to `_site/data/`, then publishes it with
+  `actions/upload-pages-artifact` + `actions/deploy-pages`.
 
 **Pages layout choice:** the build copies `web/` to the **site root** and `data/`
 to `_site/data/`, so the dashboard *is* the site root and reads
@@ -247,10 +249,11 @@ pytest -q
 - `tests/test_stats.py` — the local code scanner (code/comment/blank/test counts,
   vendored-dir skipping, missing-checkout → None) and the Actions success-rate.
 
-> **Note on code stats:** LOC/tests are a raw scan of the local sibling checkout
-> (`/home/delete/nirs4all/<repo>`), so they include tests/examples and need the
-> checkout present — the public CI cron omits them unless a checkout step is
-> added. Coverage is read from a Cobertura `coverage.xml` when present.
+> **Note on code stats:** LOC/tests are a raw scan of sibling checkouts, so they
+> include tests/examples and need source trees present. The public CI cron
+> shallow-clones public siblings into `_siblings/`; local runs can point
+> `N4A_SIBLINGS_ROOT` at any equivalent workspace. Coverage is read from a
+> Cobertura `coverage.xml` when present.
 
 ## License
 
