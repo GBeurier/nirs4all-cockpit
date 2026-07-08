@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-08T08:30:49.872979+00:00",
+  "snapshot_generated_at": "2026-07-08T09:07:37.850368+00:00",
   "counts": {
     "total": 20,
-    "pending": 5,
-    "resolved": 15,
+    "pending": 6,
+    "resolved": 14,
     "blockers": 0,
-    "important": 5,
+    "important": 6,
     "info": 0
   },
   "actions": [
@@ -114,7 +114,7 @@
       "status": "done",
       "declared_status": "done",
       "severity": "blocker",
-      "title": "PyPI — Trusted Publisher configured and nirs4all-core v0.3.4 published from release-python.yml",
+      "title": "PyPI — Trusted Publisher configured and nirs4all-core v0.3.5 published from release-python.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
       "affects": [
         "nirs4all-core:release-python.yml"
@@ -126,14 +126,14 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-core published 0.3.4 (status=green)"
+      "check_note": "pypi:nirs4all-core published 0.3.5 (status=green)"
     },
     {
       "id": "runiverse-core-rebuild",
-      "status": "done",
+      "status": "todo",
       "declared_status": "todo",
       "severity": "important",
-      "title": "R-universe — rebuild nirs4all from nirs4all-core v0.3.4",
+      "title": "R-universe — rebuild nirs4all from nirs4all-core v0.3.5",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
       "affects": [
         "nirs4all-core:r-universe",
@@ -145,8 +145,8 @@
         "name": "nirs4all",
         "expect": "green"
       },
-      "resolved": true,
-      "check_note": "r-universe:nirs4all current 0.3.4 (status=green)"
+      "resolved": false,
+      "check_note": "r-universe:nirs4all status=stale version=0.3.4"
     },
     {
       "id": "runiverse-formats-rebuild",
