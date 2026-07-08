@@ -141,7 +141,7 @@ actions:
       expect: green
 
   - id: runiverse-formats-rebuild
-    status: todo
+    status: done
     severity: important
     title: "R-universe — rebuild nirs4allformats from nirs4all-formats v0.2.6 (requires write access to r-universe/gbeurier)"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
@@ -167,7 +167,7 @@ actions:
       expect: green
 
   - id: runiverse-dagml-data-rebuild
-    status: todo
+    status: done
     severity: important
     title: "R-universe — rebuild dagmldata from dag-ml-data v0.2.8 (requires write access to r-universe/gbeurier)"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
