@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-08T02:23:58.064499+00:00",
+  "snapshot_generated_at": "2026-07-08T06:01:25.007805Z",
   "counts": {
     "total": 20,
-    "pending": 6,
-    "resolved": 14,
+    "pending": 5,
+    "resolved": 15,
     "blockers": 0,
-    "important": 6,
+    "important": 5,
     "info": 0
   },
   "actions": [
@@ -130,7 +130,7 @@
     },
     {
       "id": "runiverse-core-rebuild",
-      "status": "todo",
+      "status": "done",
       "declared_status": "todo",
       "severity": "important",
       "title": "R-universe — rebuild nirs4all from nirs4all-core v0.3.3",
@@ -145,8 +145,8 @@
         "name": "nirs4all",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4all status=stale version=0.3.1"
+      "resolved": true,
+      "check_note": "r-universe:nirs4all current 0.3.3 (status=green)"
     },
     {
       "id": "runiverse-formats-rebuild",
