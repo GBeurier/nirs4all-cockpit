@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-08T17:08:41.600641+00:00",
+  "snapshot_generated_at": "2026-07-08T17:28:44.423445+00:00",
   "counts": {
     "total": 22,
-    "pending": 8,
-    "resolved": 14,
+    "pending": 5,
+    "resolved": 17,
     "blockers": 0,
-    "important": 8,
+    "important": 5,
     "info": 0
   },
   "actions": [
@@ -130,7 +130,7 @@
     },
     {
       "id": "runiverse-core-rebuild",
-      "status": "todo",
+      "status": "done",
       "declared_status": "todo",
       "severity": "important",
       "title": "R-universe — rebuild nirs4all from nirs4all-core v0.3.7 (requires write access to r-universe/gbeurier)",
@@ -145,8 +145,8 @@
         "name": "nirs4all",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4all status=stale version=0.3.6"
+      "resolved": true,
+      "check_note": "r-universe:nirs4all current 0.3.7 (status=green)"
     },
     {
       "id": "runiverse-methods-n4m-rebuild",
@@ -190,7 +190,7 @@
     },
     {
       "id": "runiverse-formats-rebuild",
-      "status": "todo",
+      "status": "done",
       "declared_status": "todo",
       "severity": "important",
       "title": "R-universe — rebuild nirs4allformats from nirs4all-formats v0.2.5 (requires write access to r-universe/gbeurier)",
@@ -205,8 +205,8 @@
         "name": "nirs4allformats",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4allformats status=stale version=0.2.4"
+      "resolved": true,
+      "check_note": "r-universe:nirs4allformats current 0.2.5 (status=green)"
     },
     {
       "id": "runiverse-io-rebuild",
@@ -230,7 +230,7 @@
     },
     {
       "id": "runiverse-dagml-data-rebuild",
-      "status": "todo",
+      "status": "done",
       "declared_status": "todo",
       "severity": "important",
       "title": "R-universe — rebuild dagmldata from dag-ml-data v0.2.7 (requires write access to r-universe/gbeurier)",
@@ -245,8 +245,8 @@
         "name": "dagmldata",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:dagmldata status=stale version=0.2.5"
+      "resolved": true,
+      "check_note": "r-universe:dagmldata current 0.2.7 (status=green)"
     },
     {
       "id": "pypi-publisher-providers",
