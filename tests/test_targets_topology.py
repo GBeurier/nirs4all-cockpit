@@ -45,7 +45,7 @@ def test_rc_core_uses_canonical_repo_without_legacy_lite_alias() -> None:
     assert "R tarball" in core_release_reason
     assert "SHA256SUMS" in core_release_reason
     assert "Python wheel/sdist fallback assets" not in core_release_reason
-    assert "PyPI package is published at v0.3.1" in core_pypi_reason
+    assert "PyPI package is published at v0.3.2" in core_pypi_reason
 
 
 def test_rc_core_targets_account_for_all_v1_language_surfaces() -> None:
@@ -268,7 +268,7 @@ def test_rc_python_facade_publish_state_is_explicit() -> None:
         ),
     }
 
-    assert "PyPI package is published at v0.3.1" in blockers["core"]
+    assert "PyPI package is published at v0.3.2" in blockers["core"]
     assert "PyPI package is published at v0.2.8" in blockers["providers"]
     assert "PyPI package is published at v0.0.4" in blockers["tools"]
     assert "GitHub Release v0.0.4 also carries wheel/sdist assets" in blockers["tools"]
@@ -280,7 +280,7 @@ def test_rc_python_facade_publish_state_is_explicit() -> None:
 def test_current_pypi_manual_actions_track_resolved_publishers() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
-        "pypi-publisher-core": ("nirs4all-core", "v0.3.1"),
+        "pypi-publisher-core": ("nirs4all-core", "v0.3.2"),
         "pypi-publisher-providers": ("nirs4all-providers", "v0.2.8"),
         "pypi-publisher-tools": ("nirs4all-tools", "v0.0.4"),
         "pypi-publisher-benchmarks": ("nirs4all-benchmarks", "v0.1.5"),
@@ -324,7 +324,7 @@ def test_current_runiverse_manual_action_tracks_core_rebuild_todo() -> None:
 def test_current_runiverse_manual_actions_cover_stale_rc_rebuilds() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
-        "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.3.1", "todo"),
+        "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.3.2", "todo"),
         "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.4", "done"),
         "runiverse-io-rebuild": ("nirs4all-io", "nirs4allio", "v0.1.9", "done"),
         "runiverse-dagml-data-rebuild": ("dag-ml-data", "dagmldata", "v0.2.5", "todo"),
@@ -497,14 +497,14 @@ def test_public_manual_action_payload_marks_auto_resolved_todo_as_done() -> None
             PackageStatus(
                 id="nirs4all-core",
                 repo="nirs4all-core",
-                source=PackageSource(expected_prod_version="0.3.1"),
+                source=PackageSource(expected_prod_version="0.3.2"),
                 rollup="green",
                 targets=[
                     TargetStatus(
                         registry="r-universe",
                         name="nirs4all",
                         status="green",
-                        published_version="0.3.1",
+                        published_version="0.3.2",
                     )
                 ],
             )
