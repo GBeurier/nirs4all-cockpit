@@ -4,6 +4,8 @@ import json
 import re
 from pathlib import Path
 
+import yaml
+
 from cockpit import snapshot as snapshot_io
 from cockpit.manual_actions import ManualAction, evaluate, load_actions, public_payload
 from cockpit.model import PackageSource, PackageStatus, Snapshot, TargetStatus
@@ -27,7 +29,6 @@ def _package(package_id: str):
 def test_rc_core_uses_canonical_repo_without_legacy_lite_alias() -> None:
     package = _package("nirs4all-core")
 
-    assert package.channel == "rc"
     assert package.repo == "nirs4all-core"
     assert package.issues_repo == "nirs4all-core"
     assert package.coordination_tag == "n4a-v1-rc16-2026.07-refactor"
@@ -121,7 +122,6 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
     web = _package("nirs4all-web")
     ui = _package("nirs4all-ui")
 
-    assert oracle.channel == "production-held"
     assert any(target.registry == "pypi" and target.name == "nirs4all" for target in oracle.targets)
     studio_release_target = next(
         target
@@ -134,7 +134,6 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
     assert studio_release_target.workflow is not None
     assert studio_release_target.workflow.file == "release-unified.yml"
     assert studio_release_target.workflow.publishes_on_dispatch is False
-    assert web.channel == "production"
     assert web.coordination_tag == "n4a-v1-rc14-2026.07-refactor"
     assert web.source_of_truth is not None
     assert web.source_of_truth.strategy == "npm_package_json"
@@ -145,7 +144,6 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
     assert "client-side-only web app release" in web_release_reason
     assert "n4a-v1-rc14-2026.07-refactor" in web_pages_reason
 
-    assert ui.channel == "rc"
     assert ui.coordination_tag == "n4a-v1-rc14-2026.07-refactor"
     assert ui.source_of_truth is not None
     assert ui.source_of_truth.strategy == "npm_package_json"
@@ -165,38 +163,15 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
     assert ui_pages.workflow.danger == "safe"
 
 
-def test_v1_custom_app_host_bundle_is_machine_readable() -> None:
-    targets = _targets()
-    packages = {package.id: package for package in targets.packages}
-    bundles = {bundle.id: bundle for bundle in targets.release_bundles}
+def test_inventory_has_no_release_bundles_or_display_channels() -> None:
+    raw = yaml.safe_load((ROOT / "ops" / "targets.yaml").read_text(encoding="utf-8"))
 
-    assert "v1-custom-app-host" in bundles
-    bundle = bundles["v1-custom-app-host"]
-
-    assert bundle.channel == "rc"
-    assert bundle.included_packages == ["nirs4all-core", "nirs4all-ui", "nirs4all-web"]
-    assert bundle.held_packages == ["nirs4all", "nirs4all-studio"]
-    assert set(bundle.included_packages).isdisjoint(bundle.held_packages)
-    assert set(bundle.included_packages) | set(bundle.held_packages) <= set(packages)
-
-    assert packages["nirs4all-core"].channel == "rc"
-    assert packages["nirs4all-ui"].channel == "rc"
-    assert packages["nirs4all-web"].channel == "production"
-    assert packages["nirs4all"].channel == "production-held"
-    assert packages["nirs4all-studio"].channel == "production-held"
-    assert "client-side-only web host" in (bundle.reason or "")
+    assert "release_bundles" not in raw
+    for package in raw["packages"]:
+        assert "channel" not in package
 
 
-def test_v1_custom_app_host_bundle_stays_out_of_public_snapshot() -> None:
-    snapshot = reconcile(_targets(), no_network=True)
-    packages = {package.id: package for package in snapshot.packages}
-
-    assert not hasattr(snapshot, "release_bundles")
-    assert packages["nirs4all"].channel == "production-held"
-    assert packages["nirs4all-studio"].channel == "production-held"
-
-
-def test_public_snapshot_omits_channel_display_metadata() -> None:
+def test_public_snapshot_has_no_channel_display_metadata() -> None:
     snapshot = reconcile(_targets(), no_network=True)
     payload = json.loads(snapshot_io._dump(snapshot))
 
@@ -211,7 +186,6 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     providers = _package("nirs4all-providers")
     tools = _package("nirs4all-tools")
 
-    assert providers.channel == "rc"
     assert providers.source_of_truth is not None
     assert providers.source_of_truth.strategy == "python_attr"
     assert providers.source_of_truth.path == "src/nirs4all_providers/__init__.py"
@@ -233,7 +207,6 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     assert provider_pages.workflow.file == "pages.yml"
     assert provider_pages.workflow.danger == "safe"
 
-    assert tools.channel == "rc"
     assert tools.source_of_truth is not None
     assert tools.source_of_truth.strategy == "python_attr"
     assert tools.source_of_truth.path == "src/nirs4all_tools/__init__.py"
@@ -347,7 +320,7 @@ def test_dashboard_keeps_release_matrix_without_bundle_or_channel_chips() -> Non
     assert "snap.release_bundles" not in app_js
     assert "pkg-channel" not in app_js
     assert ".pkg-channel" not in style
-    assert "app.js?v=20260709-no-release-bundles" in index
+    assert "app.js?v=20260709-current-matrix" in index
 
 
 def test_dashboard_marks_missing_visit_rows_untracked() -> None:

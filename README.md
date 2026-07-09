@@ -117,12 +117,8 @@ is present, so the public site never shows them.
 
 ---
 
-## RC topology notes
+## Topology notes
 
-- The machine-readable RC grouping is `release_bundles.v1-custom-app-host`
-  in `ops/targets.yaml`: it includes `nirs4all-core`, `nirs4all-ui`, and
-  `nirs4all-web`, while `nirs4all` and `nirs4all-studio` remain
-  `production-held` and outside the final V1 RC batch.
 - **`nirs4all`** remains the Python oracle: its PyPI/docs/release state is tracked
   independently and is not folded into the aggregate packages.
 - **`nirs4all-core`** is the canonical V1 RC aggregate. `ops/targets.yaml` and
