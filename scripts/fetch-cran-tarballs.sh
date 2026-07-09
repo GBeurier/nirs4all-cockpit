@@ -77,10 +77,10 @@ The full, shipped-in-tarball `cran-comments.md` lives in each package under
 
 **Submit-now vs R-universe-first**
 
-* CRAN-ready now (≤10 MB, clean): `n4m`, `pls4all`, `nirs4allio`, `nirs4alldatasets`.
-* Size exception needed: `nirs4allformats` (~13 MB) and `nirs4allformats.lite`
-  (~10.5 MB) exceed CRAN's 10 MB soft cap (complete reader set) — the comment
-  flags it; otherwise keep them on R-universe.
+* CRAN-ready now (≤10 MB, clean): `n4m`, `pls4all`, `nirs4allio`.
+* Size exception needed: `nirs4allformats` (~13 MB), `nirs4allformats.lite`
+  (~10 MB), and `nirs4alldatasets` (~24 MB) exceed or sit at CRAN's 10 MB soft
+  cap. The matching comments flag the reason; otherwise keep them on R-universe.
 * R-universe-first: `nirs4all` (R binding of `nirs4all-core`) — its Suggests (the ecosystem R packages)
   are not yet on CRAN, so R-universe is the natural channel until they land.
 
@@ -203,8 +203,10 @@ unused Windows import-library blobs pruned. Toolchain in SystemRequirements.
 
 R CMD check --as-cran: 0 ERRORs, 0 WARNINGs; NOTES are New submission plus local
 conda-toolchain artefacts (-march=nocona, an nm parser quirk) absent on CRAN.
-Source tarball ~9.3 MB (under 10 MB). Imports only jsonlite. Maintainer: Grégory
-Beurier (CIRAD), gregory.beurier@cirad.fr.
+Source tarball ~24 MB and needs a size exception: the package ships no dataset
+payloads, but it must vendor the Rust/core/io/formats crates and their crates.io
+dependencies so CRAN installation is fully offline and reproducible. Imports
+only jsonlite. Maintainer: Grégory Beurier (CIRAD), gregory.beurier@cirad.fr.
 ```
 
 ## nirs4all_<ver>.tar.gz  (core aggregate)
