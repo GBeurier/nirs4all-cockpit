@@ -433,6 +433,9 @@ def test_current_runiverse_manual_action_tracks_core_rebuild_todo() -> None:
     assert "nirs4all-core" in action.title
     assert action.manual_url == "https://github.com/r-universe/gbeurier/compare/master...GBeurier:update-nirs4all-core-0.3.9"
     assert "nirs4all-core:r-universe" in action.affects
+    assert "fork:GBeurier/gbeurier:nirs4all-submodule@2d416b72e9c417a064d3ca3501e4e84280cee1f0" in action.affects
+    assert "r-universe/gbeurier:Update universe" in action.affects
+    assert "GBeurier.r-universe.dev:packages.json" not in action.affects
     assert action.auto_check == {"registry": "r-universe", "name": "nirs4all", "expect": "green"}
 
 
@@ -453,6 +456,7 @@ def test_current_runiverse_manual_actions_cover_release_rebuilds() -> None:
         assert action.severity == "important"
         assert "R-universe" in action.title
         assert any(repo in item for item in action.affects)
+        assert "GBeurier.r-universe.dev:packages.json" not in action.affects
         assert package_name in action.title
         assert version in action.title
         assert action.auto_check == {

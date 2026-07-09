@@ -153,9 +153,9 @@
       "manual_url": "https://github.com/r-universe/gbeurier/compare/master...GBeurier:update-nirs4all-core-0.3.9",
       "affects": [
         "nirs4all-core:r-universe",
-        "GBeurier.r-universe.dev:packages.json",
+        "fork:GBeurier/gbeurier:nirs4all-submodule@2d416b72e9c417a064d3ca3501e4e84280cee1f0",
         "fork:GBeurier/gbeurier:update-nirs4all-core-0.3.9",
-        "r-universe/gbeurier:sync.yml"
+        "r-universe/gbeurier:Update universe"
       ],
       "after_done": [],
       "auto_check": {
@@ -169,13 +169,13 @@
     {
       "id": "runiverse-methods-n4m-rebuild",
       "status": "done",
-      "declared_status": "todo",
+      "declared_status": "done",
       "severity": "important",
       "title": "R-universe — rebuild n4m from nirs4all-methods v1.0.9 (requires write access to r-universe/gbeurier)",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
       "affects": [
         "nirs4all-methods:r-universe:n4m",
-        "GBeurier.r-universe.dev:packages.json"
+        "r-universe/gbeurier:n4m-submodule"
       ],
       "after_done": [],
       "auto_check": {
@@ -189,13 +189,13 @@
     {
       "id": "runiverse-methods-pls4all-rebuild",
       "status": "done",
-      "declared_status": "todo",
+      "declared_status": "done",
       "severity": "important",
       "title": "R-universe — rebuild pls4all from nirs4all-methods v1.0.9 (requires write access to r-universe/gbeurier)",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
       "affects": [
         "nirs4all-methods:r-universe:pls4all",
-        "GBeurier.r-universe.dev:packages.json"
+        "r-universe/gbeurier:pls4all-submodule"
       ],
       "after_done": [],
       "auto_check": {
@@ -209,13 +209,13 @@
     {
       "id": "runiverse-formats-rebuild",
       "status": "done",
-      "declared_status": "todo",
+      "declared_status": "done",
       "severity": "important",
       "title": "R-universe — rebuild nirs4allformats from nirs4all-formats v0.2.7 (requires write access to r-universe/gbeurier)",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
       "affects": [
         "nirs4all-formats:r-universe",
-        "GBeurier.r-universe.dev:packages.json"
+        "r-universe/gbeurier:nirs4allformats-submodule"
       ],
       "after_done": [],
       "auto_check": {
@@ -235,7 +235,7 @@
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
       "affects": [
         "nirs4all-io:r-universe",
-        "GBeurier.r-universe.dev:packages.json"
+        "r-universe/gbeurier:nirs4allio-submodule"
       ],
       "after_done": [],
       "auto_check": {
@@ -255,7 +255,7 @@
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
       "affects": [
         "dag-ml-data:r-universe",
-        "GBeurier.r-universe.dev:packages.json"
+        "r-universe/gbeurier:dagmldata-submodule"
       ],
       "after_done": [],
       "auto_check": {
