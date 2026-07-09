@@ -80,12 +80,12 @@ packages:
       - registry: github-release
         name: nirs4all-studio
         state: tracked
-        reason: "production app release remains held outside the final V1 RC; Windows installer RC remains manual while the latest Studio V1 coordination tag is n4a-v1-rc8-2026.07-refactor"
+        reason: "production app release remains held outside the final V1 RC; Windows installer RC for manual local testing is published at n4a-v1-rc1-2026.07-studio-main-installer; release-unified workflow_dispatch builds smoke artifacts only, while tag releases publish"
         workflow:
           file: release-unified.yml
           trigger: workflow_dispatch
           danger: dangerous
-          publishes_on_dispatch: true
+          publishes_on_dispatch: false
           inputs:
             - name: tag
               type: string

@@ -115,13 +115,17 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
 
     assert oracle.channel == "production-held"
     assert any(target.registry == "pypi" and target.name == "nirs4all" for target in oracle.targets)
-    studio_release_reason = next(
-        target.reason or ""
+    studio_release_target = next(
+        target
         for target in studio.targets
         if target.registry == "github-release"
     )
-    assert "n4a-v1-rc8-2026.07-refactor" in studio_release_reason
-    assert "RC10" not in studio_release_reason
+    studio_release_reason = studio_release_target.reason or ""
+    assert "n4a-v1-rc1-2026.07-studio-main-installer" in studio_release_reason
+    assert "n4a-v1-rc8-2026.07-refactor" not in studio_release_reason
+    assert studio_release_target.workflow is not None
+    assert studio_release_target.workflow.file == "release-unified.yml"
+    assert studio_release_target.workflow.publishes_on_dispatch is False
     assert web.channel == "production"
     assert web.coordination_tag == "n4a-v1-rc14-2026.07-refactor"
     assert web.source_of_truth is not None
@@ -330,6 +334,7 @@ def test_studio_windows_rc_smoke_is_tracked_as_manual_blocker() -> None:
     assert action.status == "todo"
     assert action.severity == "blocker"
     assert "Windows RC installer" in action.title
+    assert action.manual_url == "https://github.com/GBeurier/nirs4all-studio/releases/tag/n4a-v1-rc1-2026.07-studio-main-installer"
     assert "nirs4all-studio:release-unified.yml" in action.affects
     assert "nirs4all-studio:github-release" in action.affects
 
