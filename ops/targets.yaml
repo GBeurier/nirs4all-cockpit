@@ -544,6 +544,12 @@ packages:
         name: nirs4all-providers
         state: tracked
         reason: "providers docs/site page is deployed through GitHub Pages at https://gbeurier.github.io/nirs4all-providers/"
+        workflow:
+          file: pages.yml
+          trigger: workflow_dispatch
+          danger: safe
+          publishes_on_dispatch: false
+          inputs: []
     version_aliases: {}
 
   - id: nirs4all-tools
@@ -585,6 +591,17 @@ packages:
     source_of_truth:
       strategy: cargo_package
       path: bindings/rust/nirs4all/Cargo.toml
+    workflows:
+      - file: release-source.yml
+        trigger: tag
+        danger: safe
+        publishes_on_dispatch: false
+        inputs: []
+      - file: release-matlab.yml
+        trigger: tag
+        danger: safe
+        publishes_on_dispatch: false
+        inputs: []
     targets:
       - registry: readthedocs
         name: nirs4all-core
@@ -847,6 +864,12 @@ packages:
         name: nirs4all-web
         state: tracked
         reason: "client-side web app is tracked from its own production version and current V1 coordination tag n4a-v1-rc14-2026.07-refactor"
+        workflow:
+          file: deploy-pages.yml
+          trigger: workflow_dispatch
+          danger: safe
+          publishes_on_dispatch: false
+          inputs: []
     version_aliases: {}
 
   - id: nirs4all-quality
@@ -896,6 +919,12 @@ packages:
         name: nirs4all-ui
         state: tracked
         reason: "GitHub Pages components/assets showcase at https://gbeurier.github.io/nirs4all-ui/"
+        workflow:
+          file: pages.yml
+          trigger: workflow_dispatch
+          danger: safe
+          publishes_on_dispatch: false
+          inputs: []
     version_aliases: {}
 
   - id: nirs4all-cockpit
@@ -909,6 +938,12 @@ packages:
       - registry: pages
         name: nirs4all-cockpit
         state: tracked
+        workflow:
+          file: pages.yml
+          trigger: workflow_dispatch
+          danger: safe
+          publishes_on_dispatch: false
+          inputs: []
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -941,6 +976,12 @@ packages:
       - registry: pages
         name: nirs4all-benchmarks
         state: tracked
+        workflow:
+          file: pages.yml
+          trigger: workflow_dispatch
+          danger: safe
+          publishes_on_dispatch: false
+          inputs: []
       - registry: readthedocs
         name: nirs4all-benchmarks
         state: tracked
@@ -974,6 +1015,12 @@ packages:
       - registry: pages
         name: nirs4all-repository
         state: tracked
+        workflow:
+          file: deploy-pages.yml
+          trigger: workflow_dispatch
+          danger: safe
+          publishes_on_dispatch: false
+          inputs: []
       - registry: readthedocs
         name: nirs4all-repository
         state: tracked

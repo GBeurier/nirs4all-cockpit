@@ -401,7 +401,7 @@ class Target(BaseModel):
 
 
 class Package(BaseModel):
-    """One ecosystem package: its repo, channel, source-of-truth, and targets."""
+    """One ecosystem package: its repo, channel, source-of-truth, targets, and shared workflows."""
 
     id: str
     repo: str
@@ -411,6 +411,7 @@ class Package(BaseModel):
     primary_language: str | None = None
     tag_prefix: str = "v"
     coordination_tag: str | None = None
+    workflows: list[WorkflowRef] = Field(default_factory=list)
     targets: list[Target]
     version_aliases: dict = Field(default_factory=dict)
 
