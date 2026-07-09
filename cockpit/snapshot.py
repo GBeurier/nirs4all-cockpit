@@ -45,12 +45,4 @@ def append_history(snap: Snapshot, history_dir: str | Path, generated_at: str) -
 
 
 def _dump(snap: Snapshot) -> str:
-    public_exclude = {
-        "packages": {
-            "__all__": {
-                "channel": True,
-                "targets": {"__all__": {"channel": True}},
-            }
-        }
-    }
-    return json.dumps(snap.model_dump(mode="json", exclude=public_exclude), indent=2, ensure_ascii=False) + "\n"
+    return json.dumps(snap.model_dump(mode="json"), indent=2, ensure_ascii=False) + "\n"

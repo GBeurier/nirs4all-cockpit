@@ -64,7 +64,6 @@ class TargetStatus(BaseModel):
 
     registry: str
     name: str
-    channel: str = "production"
     reason: str | None = None
     published_version: str | None = None
     status: State
@@ -199,7 +198,6 @@ class PackageStatus(BaseModel):
 
     id: str
     repo: str
-    channel: str = "production"
     source: PackageSource
     rollup: State
     flags: list[str] = Field(default_factory=list)
@@ -402,11 +400,10 @@ class Target(BaseModel):
 
 
 class Package(BaseModel):
-    """One ecosystem package: its repo, channel, source-of-truth, targets, and shared workflows."""
+    """One ecosystem package: its repo, source-of-truth, targets, and shared workflows."""
 
     id: str
     repo: str
-    channel: str = "production"
     issues_repo: str | None = None
     source_of_truth: SourceOfTruth | None = None
     primary_language: str | None = None
@@ -417,21 +414,9 @@ class Package(BaseModel):
     version_aliases: dict = Field(default_factory=dict)
 
 
-class ReleaseBundle(BaseModel):
-    """Machine-readable grouping for release scopes that span several packages."""
-
-    id: str
-    label: str
-    channel: str = "rc"
-    included_packages: list[str]
-    held_packages: list[str] = Field(default_factory=list)
-    reason: str | None = None
-
-
 class Targets(BaseModel):
     """Top-level inventory document parsed from ``ops/targets.yaml``."""
 
     schema_version: int = 1
     owner: str
-    release_bundles: list[ReleaseBundle] = Field(default_factory=list)
     packages: list[Package]

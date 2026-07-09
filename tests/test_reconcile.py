@@ -101,19 +101,18 @@ def test_dagml_crate_planned_is_missing(monkeypatch) -> None:
     assert state == "missing"
 
 
-def test_snapshot_carries_target_channel_and_reason() -> None:
+def test_snapshot_carries_target_reason() -> None:
     targets = Targets(
         owner="GBeurier",
         packages=[
             Package(
-                id="demo-rc",
-                repo="demo-rc",
-                channel="rc",
+                id="demo",
+                repo="demo",
                 targets=[
                     Target(
                         registry="pypi",
-                        name="demo-rc",
-                        reason="RC package awaiting Trusted Publisher",
+                        name="demo",
+                        reason="package awaiting Trusted Publisher",
                     )
                 ],
             )
@@ -123,8 +122,7 @@ def test_snapshot_carries_target_channel_and_reason() -> None:
     snapshot = rec.reconcile(targets, no_network=True)
     target = snapshot.packages[0].targets[0]
 
-    assert target.channel == "rc"
-    assert target.reason == "RC package awaiting Trusted Publisher"
+    assert target.reason == "package awaiting Trusted Publisher"
     assert target.status == "unknown"
 
 

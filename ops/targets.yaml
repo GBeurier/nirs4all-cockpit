@@ -18,24 +18,10 @@
 schema_version: 1
 owner: GBeurier
 
-release_bundles:
-  - id: v1-custom-app-host
-    label: "NIRS4ALL V1 custom app host"
-    channel: rc
-    included_packages:
-      - nirs4all-core
-      - nirs4all-ui
-      - nirs4all-web
-    held_packages:
-      - nirs4all
-      - nirs4all-studio
-    reason: "Release-candidate app-host surface: portable runtimes from nirs4all-core, reusable React/TS assets from nirs4all-ui, and the client-side-only web host; the Python oracle and production Studio app stay tracked but outside the final V1 RC batch."
-
 packages:
   # ------------------------------------------------------------------------- #
   - id: nirs4all
     repo: nirs4all
-    channel: production-held
     issues_repo: nirs4all
     tag_prefix: ""        # nirs4all tags are unprefixed (e.g. 0.10.1), not v-prefixed
     source_of_truth:
@@ -66,7 +52,6 @@ packages:
   # ------------------------------------------------------------------------- #
   - id: nirs4all-studio
     repo: nirs4all-studio
-    channel: production-held
     issues_repo: nirs4all-studio
     source_of_truth:
       strategy: npm_package_json
@@ -101,7 +86,6 @@ packages:
   # ------------------------------------------------------------------------- #
   - id: nirs4all-methods
     repo: nirs4all-methods
-    channel: production
     issues_repo: nirs4all-methods
     primary_language: C++
     source_of_truth:
@@ -189,7 +173,6 @@ packages:
   # ------------------------------------------------------------------------- #
   - id: nirs4all-formats
     repo: nirs4all-formats
-    channel: production
     issues_repo: nirs4all-formats
     source_of_truth:
       strategy: cargo_workspace
@@ -294,7 +277,6 @@ packages:
   # ------------------------------------------------------------------------- #
   - id: nirs4all-io
     repo: nirs4all-io
-    channel: production
     issues_repo: nirs4all-io
     source_of_truth:
       strategy: cargo_workspace
@@ -399,7 +381,6 @@ packages:
   # ------------------------------------------------------------------------- #
   - id: nirs4all-datasets
     repo: nirs4all-datasets
-    channel: production
     issues_repo: nirs4all-datasets
     source_of_truth:
       strategy: cargo_workspace
@@ -492,7 +473,6 @@ packages:
   # ------------------------------------------------------------------------- #
   - id: nirs4all-papers
     repo: nirs4all-papers
-    channel: production
     issues_repo: nirs4all-papers
     primary_language: Python
     source_of_truth:
@@ -516,7 +496,6 @@ packages:
 
   - id: nirs4all-providers
     repo: nirs4all-providers
-    channel: rc
     issues_repo: nirs4all-providers
     source_of_truth:
       strategy: python_attr
@@ -554,7 +533,6 @@ packages:
 
   - id: nirs4all-tools
     repo: nirs4all-tools
-    channel: rc
     issues_repo: nirs4all-tools
     source_of_truth:
       strategy: python_attr
@@ -585,7 +563,6 @@ packages:
   # nirs4all-core. Do not track legacy aggregate aliases as release targets.
   - id: nirs4all-core
     repo: nirs4all-core
-    channel: rc
     issues_repo: nirs4all-core
     coordination_tag: n4a-v1-rc16-2026.07-refactor
     source_of_truth:
@@ -669,7 +646,6 @@ packages:
   # ------------------------------------------------------------------------- #
   - id: nirs4all-aom
     repo: nirs4all-aom
-    channel: production
     issues_repo: nirs4all-aom
     source_of_truth:
       strategy: python_pyproject
@@ -689,7 +665,6 @@ packages:
   # ------------------------------------------------------------------------- #
   - id: nirs4all-cluster
     repo: nirs4all-cluster
-    channel: production
     issues_repo: nirs4all-cluster
     source_of_truth:
       strategy: python_attr
@@ -713,7 +688,6 @@ packages:
   # ------------------------------------------------------------------------- #
   - id: dag-ml
     repo: dag-ml
-    channel: rc
     issues_repo: dag-ml
     coordination_tag: n4a-v1-rc12-2026.07-refactor
     source_of_truth:
@@ -770,7 +744,6 @@ packages:
   # ------------------------------------------------------------------------- #
   - id: dag-ml-data
     repo: dag-ml-data
-    channel: rc
     issues_repo: dag-ml-data
     coordination_tag: n4a-v1-rc12-2026.07-refactor
     source_of_truth:
@@ -836,7 +809,6 @@ packages:
   # tracked for GitHub stats, code/CI, and their explicit package/pages targets.
   - id: nirs4all-org
     repo: nirs4all-org
-    channel: production
     issues_repo: nirs4all-org
     source_of_truth:
       strategy: npm_package_json
@@ -849,7 +821,6 @@ packages:
 
   - id: nirs4all-web
     repo: nirs4all-web
-    channel: production
     issues_repo: nirs4all-web
     coordination_tag: n4a-v1-rc14-2026.07-refactor
     source_of_truth:
@@ -874,7 +845,6 @@ packages:
 
   - id: nirs4all-quality
     repo: nirs4all-quality
-    channel: rc
     issues_repo: nirs4all-quality
     source_of_truth:
       strategy: npm_package_json
@@ -892,7 +862,6 @@ packages:
 
   - id: nirs4all-device
     repo: nirs4all-device
-    channel: rc
     issues_repo: nirs4all-device
     source_of_truth:
       strategy: npm_package_json
@@ -912,7 +881,6 @@ packages:
 
   - id: nirs4all-ui
     repo: nirs4all-ui
-    channel: rc
     issues_repo: nirs4all-ui
     coordination_tag: n4a-v1-rc14-2026.07-refactor
     source_of_truth:
@@ -949,7 +917,6 @@ packages:
 
   - id: nirs4all-cockpit
     repo: nirs4all-cockpit
-    channel: production
     issues_repo: nirs4all-cockpit
     source_of_truth:
       strategy: python_pyproject
@@ -971,7 +938,6 @@ packages:
   # Release so every public project has a version. No registry artifacts (yet).
   - id: nirs4all-benchmarks
     repo: nirs4all-benchmarks
-    channel: production
     issues_repo: nirs4all-benchmarks
     source_of_truth:
       strategy: version_file
@@ -1010,7 +976,6 @@ packages:
 
   - id: nirs4all-repository
     repo: nirs4all-repository
-    channel: production
     issues_repo: nirs4all-repository
     source_of_truth:
       strategy: version_file
@@ -1049,7 +1014,6 @@ packages:
 
   - id: nirs4all-ecosystem
     repo: nirs4all-ecosystem
-    channel: production
     issues_repo: nirs4all-ecosystem
     source_of_truth:
       strategy: version_file
