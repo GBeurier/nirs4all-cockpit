@@ -16,9 +16,10 @@
 - ✅ Generated public snapshots: `data/current.json`, `data/manual-actions.json`, and history snapshots.
 - ✅ Vanilla static dashboard: `web/index.html`, `web/app.js`, and `web/style.css`, with manual blockers intentionally rendered at the bottom.
 - ✅ CI workflows: `collect.yml` for scheduled/manual collection and commits; `pages.yml` for GitHub Pages deploy on pushes, successful collect completion, or manual dispatch.
-- ✅ `n4a-cockpit` CLI: `collect`, `validate-targets`, `summarize`, `status`, `admin run`, `admin set-secret`, and `admin actions`.
+- ✅ `n4a-cockpit` CLI: `collect`, `validate-targets`, `summarize`, `status`, `admin run`, `admin set-secret`, `admin actions`, and local-only `admin collect`.
+- ✅ Local-only admin snapshot: traffic, open PRs, security alerts, and Sentry counters are collected into gitignored `data/admin/snapshot.admin.json`; they are never deployed to the public Pages site.
 - ✅ Offline fixture tests for version parsing, collectors, reconciliation, topology, and dashboard DOM smoke.
-- 🟡 Phase 2 remains intentionally out of v1: Sentry/PR/security collectors, private `snapshot.admin.json`, and any local FastAPI/admin UI.
+- 🟡 Phase 2 remains intentionally out of v1: any local FastAPI/admin UI and richer long-term admin/history views. The v1 admin signals remain CLI-only and local-only.
 
 ## Layout
 
@@ -41,9 +42,9 @@ nirs4all-cockpit/
 │   │   ├── pypi.py  npm.py  crates.py  runiverse.py  cran.py
 │   │   ├── github.py              # releases + workflow runs + issues (GITHUB_TOKEN ambiant)
 │   │   ├── local_manifests.py     # lit la version-de-vérité depuis les manifests des repos frères (../<repo>)
-│   │   ├── sentry.py              # TODO phase 2 (org wwwciradfr / de.sentry.io / projet nirs4all-studio)
-│   │   ├── github_prs.py          # TODO phase 2
-│   │   └── github_security.py     # TODO phase 2
+│   │   ├── sentry.py              # admin-only local Sentry aggregate counters
+│   │   ├── github_prs.py          # admin-only local open-PR counts
+│   │   └── github_security.py     # admin-only local security alert counts
 │   ├── reconcile.py               # snapshot(faits) -> current.json (états)
 │   ├── snapshot.py                # écrit current.json + history/, compaction mensuelle
 │   ├── admin.py                   # wrappers `gh` : workflow run / secret set ; jamais de publish direct
@@ -141,6 +142,7 @@ n4a-cockpit summarize data/current.json
 n4a-cockpit status [pkg]                         # table colorée lue depuis current.json
 n4a-cockpit admin run <pkg> <registry> [--publish] [--dry-run/--no-dry-run]   # gh workflow run, dry-run défaut
 n4a-cockpit admin set-secret <repo> <NAME> --from-file <path>                 # gh secret set, jamais affiché
+n4a-cockpit admin collect [--only pkg,...] [--out data/admin/snapshot.admin.json] # local-only admin snapshot
 n4a-cockpit admin actions [--md]                 # manual-actions.yaml + auto_check vs current.json
 ```
 Admin guardrails: refuse if`gh auth status`fails;`--dry-run`default; confirmation for publish/secret/tag; tokens referenced by path, never read except`gh secret set`; refuse trigger ≠ declarable (tag-only → offers the tag command, does not run it).
@@ -153,9 +155,9 @@ Admin guardrails: refuse if`gh auth status`fails;`--dry-run`default; confirmatio
 
 - Frontend remains **vanilla static**: immediate Pages deploy, no Node build, no app server.
 - Admin remains **CLI-only** in v1; no FastAPI/admin UI is shipped.
-- Public store remains `current.json` plus `manual-actions.json`; private `snapshot.admin.json` stays phase 2.
-- Sentry/PR/security collectors stay phase 2 and must not block the public release cockpit.
+- Public store remains `current.json` plus `manual-actions.json`; private `data/admin/snapshot.admin.json` is local-only, gitignored, and built only by `admin collect`.
+- Sentry/PR/security collectors are admin-only local signals and must not block or redden the public release cockpit.
 - `local_manifests`: in CI, truth versions are read via GitHub raw URLs; locally, sibling checkouts under `../<repo>` are preferred.
 
 ## Definition of “finished” (gate one-shot)
-1.`python -m compileall cockpit`OK;`ruff check`clean if available. 2.`n4a-cockpit validate-targets ops/targets.yaml`OK. 3.`n4a-cockpit collect`produces a full public`data/current.json`; any `--only` probe must write to an explicit scratch `--out` path. 4.`tests/`pass (offline, fixtures). 5.`web/index.html`opens and renders the matrix from`data/current.json`. 6. README explains collect/serve/admin + phase 2 status.
+1.`python -m compileall cockpit`OK;`ruff check`clean if available. 2.`n4a-cockpit validate-targets ops/targets.yaml`OK. 3.`n4a-cockpit collect`produces a full public`data/current.json`; any `--only` probe must write to an explicit scratch `--out` path. 4.`tests/`pass (offline, fixtures). 5.`web/index.html`opens and renders the matrix from`data/current.json`. 6. README/ROADMAP explain collect/serve/admin, the local-only admin snapshot, and remaining phase 2 UI scope.
