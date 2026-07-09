@@ -212,50 +212,6 @@ function renderManualActions(data) {
   box.appendChild(list);
 }
 
-function renderReleaseBundles(snap) {
-  const section = document.getElementById("release-bundles-block");
-  const box = document.getElementById("release-bundles");
-  const bundles = snap.release_bundles || [];
-  if (!section || !box || !bundles.length) return;
-  box.innerHTML = "";
-  section.hidden = false;
-
-  for (const bundle of bundles) {
-    const article = el("article", { class: "bundle" });
-    const head = el("div", { class: "bundle__head" });
-    head.append(
-      el("span", { class: `bundle-status bundle-status--${bundle.status || "unknown"}` }, [
-        led(bundle.status || "unknown"),
-        el("b", { text: bundle.label || bundle.id }),
-      ]),
-      el("span", { class: "pkg-channel", text: bundle.channel || "rc" }),
-    );
-    article.appendChild(head);
-    if (bundle.reason) article.appendChild(el("p", { class: "bundle__reason", text: bundle.reason }));
-
-    const groups = el("div", { class: "bundle-groups" });
-    groups.appendChild(bundleGroup("included", bundle.included_packages || [], bundle.included_rollups || {}));
-    groups.appendChild(bundleGroup("held", bundle.held_packages || [], bundle.held_rollups || {}, true));
-    article.appendChild(groups);
-    box.appendChild(article);
-  }
-}
-
-function bundleGroup(label, packages, rollups, held = false) {
-  const group = el("div", { class: `bundle-group${held ? " bundle-group--held" : ""}` });
-  group.appendChild(el("div", { class: "bundle-group__label", text: label }));
-  const chips = el("div", { class: "bundle-chips" });
-  for (const packageId of packages) {
-    const state = rollups[packageId] || (held ? "green" : "missing");
-    chips.appendChild(el("span", { class: "bundle-chip" }, [
-      led(state),
-      el("span", { text: packageId }),
-    ]));
-  }
-  group.appendChild(chips);
-  return group;
-}
-
 // ---- matrix ----------------------------------------------------------------
 
 function worstState(targets) {
@@ -300,7 +256,6 @@ function renderMatrix(snap) {
     a.append(el("span", { class: "pkg-name", text: pkg.id }));
     if (pkg.repo && pkg.repo !== pkg.id) a.append(el("span", { class: "pkg-repo", text: `repo ${pkg.repo}` }));
     cPkg.appendChild(a);
-    if (pkg.channel && pkg.channel !== "production") cPkg.appendChild(el("span", { class: "pkg-channel", text: pkg.channel }));
     tr.appendChild(cPkg);
 
     const src = pkg.source || {};
@@ -324,7 +279,7 @@ function renderMatrix(snap) {
       if (targets.length > 1) { const wrap = el("span", { class: "led-multi" }); wrap.append(dot, el("span", { class: "badge-n", text: `×${targets.length}` })); link.appendChild(wrap); }
       else link.appendChild(dot);
       const rows = targets.map((t) => {
-        const meta = [t.status, t.channel && t.channel !== "production" ? t.channel : null, t.planned ? "planned" : null, t.published_version ? "v" + t.published_version : null].filter(Boolean).join(" · ");
+        const meta = [t.status, t.planned ? "planned" : null, t.published_version ? "v" + t.published_version : null].filter(Boolean).join(" · ");
         const reason = t.reason ? `<div class="tt-row tt-reason">${esc(t.reason)}</div>` : "";
         return `<div class="tt-row"><span class="led led--${esc(t.status)}"></span> <b>${esc(t.name)}</b> · ${esc(meta)}</div>${reason}`;
       }).join("");
@@ -810,7 +765,6 @@ async function main() {
     renderSummary(snap);
     renderLegend(snap);
     renderManualActions(await loadManualActions());
-    renderReleaseBundles(snap);
     renderMatrix(snap);
     renderDownloads(snap);
     renderVisits(snap);

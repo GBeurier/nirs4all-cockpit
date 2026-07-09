@@ -294,7 +294,6 @@ def test_dashboard_manual_blockers_are_bottom_section() -> None:
     blockers_at = index.index('id="manual-actions-block"')
 
     for section_id in (
-        'id="release-bundles-block"',
         'id="matrix"',
         'id="downloads"',
         'id="repostats"',
@@ -314,15 +313,16 @@ def test_dashboard_manual_blockers_sort_after_other_manual_actions() -> None:
     assert "const severityRank = { important: 0, info: 1, blocker: 2 };" in app_js
 
 
-def test_dashboard_surfaces_release_bundles_and_package_channels() -> None:
+def test_dashboard_keeps_release_matrix_without_bundle_or_channel_chips() -> None:
     app_js = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
     index = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+    style = (ROOT / "web" / "style.css").read_text(encoding="utf-8")
 
-    assert 'id="release-bundles-block"' in index
-    assert "renderReleaseBundles" in app_js
-    assert "snap.release_bundles" in app_js
-    assert "pkg.channel && pkg.channel !== \"production\"" in app_js
-    assert "production-held" in (ROOT / "ops" / "targets.yaml").read_text(encoding="utf-8")
+    assert 'id="release-bundles-block"' not in index
+    assert "renderReleaseBundles" not in app_js
+    assert "snap.release_bundles" not in app_js
+    assert "pkg-channel" not in app_js
+    assert ".pkg-channel" not in style
 
 
 def test_dashboard_marks_missing_visit_rows_untracked() -> None:
