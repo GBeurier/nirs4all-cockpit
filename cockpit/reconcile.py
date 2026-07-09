@@ -50,6 +50,8 @@ from .model import (
     Package,
     PackageSource,
     PackageStatus,
+    ReleaseBundle,
+    ReleaseBundleStatus,
     RepoStats,
     SearchConsoleStats,
     SentryStatus,
@@ -149,6 +151,7 @@ def reconcile(
             "run_id": run_id,
         },
         packages=packages,
+        release_bundles=_release_bundle_statuses(targets.release_bundles, packages),
         summary=summary,
         totals=_compute_totals(packages),
         visits=visits_status,
@@ -177,6 +180,56 @@ def _compute_totals(packages: list[PackageStatus]) -> Totals:
             if t.downloads.last_month:
                 totals.downloads_last_month += t.downloads.last_month
     return totals
+
+
+def _release_bundle_statuses(
+    bundles: list[ReleaseBundle],
+    packages: list[PackageStatus],
+) -> list[ReleaseBundleStatus]:
+    """Project inventory release bundles into the public snapshot.
+
+    Bundle status deliberately considers only the included RC/custom-host members.
+    Held production packages are displayed alongside the bundle but do not make
+    the release-candidate bundle red or pending.
+    """
+    by_id = {package.id: package for package in packages}
+    out: list[ReleaseBundleStatus] = []
+    for bundle in bundles:
+        included_rollups = {
+            package_id: by_id[package_id].rollup
+            for package_id in bundle.included_packages
+            if package_id in by_id
+        }
+        held_rollups = {
+            package_id: by_id[package_id].rollup
+            for package_id in bundle.held_packages
+            if package_id in by_id
+        }
+        missing_included = [package_id for package_id in bundle.included_packages if package_id not in by_id]
+        status = _rollup(
+            [
+                TargetStatus(registry="bundle", name=package_id, status=rollup)
+                for package_id, rollup in included_rollups.items()
+            ]
+            + [
+                TargetStatus(registry="bundle", name=package_id, status="missing")
+                for package_id in missing_included
+            ]
+        )
+        out.append(
+            ReleaseBundleStatus(
+                id=bundle.id,
+                label=bundle.label,
+                channel=bundle.channel,
+                status=status,
+                included_packages=bundle.included_packages,
+                held_packages=bundle.held_packages,
+                included_rollups=included_rollups,
+                held_rollups=held_rollups,
+                reason=bundle.reason,
+            )
+        )
+    return out
 
 
 def build_snapshot(
@@ -271,6 +324,7 @@ def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traff
     return PackageStatus(
         id=pkg.id,
         repo=pkg.repo,
+        channel=pkg.channel,
         source=PackageSource.model_validate({**source_facts, "expected_prod_version": expected}),
         rollup=rollup,
         flags=flags,

@@ -5,7 +5,7 @@ from pathlib import Path
 
 from cockpit.manual_actions import ManualAction, evaluate, load_actions, public_payload
 from cockpit.model import PackageSource, PackageStatus, Snapshot, TargetStatus
-from cockpit.reconcile import _CANONICAL_PAGES_URLS, load_targets
+from cockpit.reconcile import _CANONICAL_PAGES_URLS, load_targets, reconcile
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -185,6 +185,20 @@ def test_v1_custom_app_host_bundle_is_machine_readable() -> None:
     assert "client-side-only web host" in (bundle.reason or "")
 
 
+def test_v1_custom_app_host_bundle_enters_public_snapshot() -> None:
+    snapshot = reconcile(_targets(), no_network=True)
+    bundles = {bundle.id: bundle for bundle in snapshot.release_bundles}
+    packages = {package.id: package for package in snapshot.packages}
+
+    bundle = bundles["v1-custom-app-host"]
+    assert bundle.included_packages == ["nirs4all-core", "nirs4all-ui", "nirs4all-web"]
+    assert bundle.held_packages == ["nirs4all", "nirs4all-studio"]
+    assert packages["nirs4all"].channel == "production-held"
+    assert packages["nirs4all-studio"].channel == "production-held"
+    assert "nirs4all-core" in bundle.included_rollups
+    assert "nirs4all" in bundle.held_rollups
+
+
 def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     providers = _package("nirs4all-providers")
     tools = _package("nirs4all-tools")
@@ -280,6 +294,7 @@ def test_dashboard_manual_blockers_are_bottom_section() -> None:
     blockers_at = index.index('id="manual-actions-block"')
 
     for section_id in (
+        'id="release-bundles-block"',
         'id="matrix"',
         'id="downloads"',
         'id="repostats"',
@@ -297,6 +312,24 @@ def test_dashboard_manual_blockers_sort_after_other_manual_actions() -> None:
     app_js = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
 
     assert "const severityRank = { important: 0, info: 1, blocker: 2 };" in app_js
+
+
+def test_dashboard_surfaces_release_bundles_and_package_channels() -> None:
+    app_js = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
+    index = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+
+    assert 'id="release-bundles-block"' in index
+    assert "renderReleaseBundles" in app_js
+    assert "snap.release_bundles" in app_js
+    assert "pkg.channel && pkg.channel !== \"production\"" in app_js
+    assert "production-held" in (ROOT / "ops" / "targets.yaml").read_text(encoding="utf-8")
+
+
+def test_dashboard_marks_missing_visit_rows_untracked() -> None:
+    app_js = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
+
+    assert 'text: r.count == null ? "untracked" : fmtInt(r.count)' in app_js
+    assert "counts.has(path) ? counts.get(path) : null" in app_js
 
 
 def test_rc_python_facade_publish_state_is_explicit() -> None:
