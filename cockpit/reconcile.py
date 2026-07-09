@@ -83,6 +83,7 @@ _CANONICAL_PAGES_URLS = {
     "nirs4all-cockpit": "https://cockpit.nirs4all.org/",
     "nirs4all-web": "https://web.nirs4all.org/",
     "nirs4all-quality": "https://quali.nirs4all.org/",
+    "nirs4all-device": "https://device.nirs4all.org/",
     "nirs4all-repository": "https://repository.nirs4all.org/",
     "nirs4all-papers": "https://papers.nirs4all.org/",
     "nirs4all-benchmarks": "https://benchmarks.nirs4all.org/",

@@ -890,6 +890,26 @@ packages:
         reason: "in-browser app has a versioned GitHub Release for the RC app surface; GitHub Pages remains the deployed runtime surface"
     version_aliases: {}
 
+  - id: nirs4all-device
+    repo: nirs4all-device
+    channel: rc
+    issues_repo: nirs4all-device
+    source_of_truth:
+      strategy: npm_package_json
+      path: package.json
+    targets:
+      - registry: pages
+        name: nirs4all-device
+        state: tracked
+        reason: "phone/tablet spectrometer workbench deployed at device.nirs4all.org; Android debug APK remains a CI artifact, not a registry release target"
+        workflow:
+          file: pages.yml
+          trigger: workflow_dispatch
+          danger: safe
+          publishes_on_dispatch: false
+          inputs: []
+    version_aliases: {}
+
   - id: nirs4all-ui
     repo: nirs4all-ui
     channel: rc

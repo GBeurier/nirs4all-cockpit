@@ -251,6 +251,7 @@ def test_pages_targets_declare_repo_local_deploy_workflows_when_available() -> N
         "nirs4all-web": "deploy-pages.yml",
         "nirs4all-ui": "pages.yml",
         "nirs4all-providers": "pages.yml",
+        "nirs4all-device": "pages.yml",
         "nirs4all-cockpit": "pages.yml",
         "nirs4all-benchmarks": "pages.yml",
         "nirs4all-repository": "deploy-pages.yml",
@@ -264,6 +265,21 @@ def test_pages_targets_declare_repo_local_deploy_workflows_when_available() -> N
         assert page_target.workflow.trigger == "workflow_dispatch"
         assert page_target.workflow.danger == "safe"
         assert page_target.workflow.publishes_on_dispatch is False
+
+
+def test_device_is_tracked_as_pages_only_public_surface() -> None:
+    device = _package("nirs4all-device")
+
+    assert device.source_of_truth is not None
+    assert device.source_of_truth.strategy == "npm_package_json"
+    assert device.source_of_truth.path == "package.json"
+    assert [(target.registry, target.name, target.state) for target in device.targets] == [
+        ("pages", "nirs4all-device", "tracked"),
+    ]
+    pages = device.targets[0]
+    assert pages.workflow is not None
+    assert pages.workflow.file == "pages.yml"
+    assert "Android debug APK remains a CI artifact" in (pages.reason or "")
 
 
 def test_dashboard_pages_urls_cover_current_rc_pages_roster() -> None:

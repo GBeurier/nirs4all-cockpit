@@ -142,6 +142,9 @@ is present, so the public site never shows them.
 - **`nirs4all-tools`** is the Python migration/converter toolkit for legacy
   workspaces, pipelines and predictions. It is tracked separately because it is
   an operational cutover surface, not runtime core.
+- **`nirs4all-device`** is tracked as a public Pages app surface for the
+  phone/tablet spectrometer workbench. Its Android debug APK remains a CI
+  artifact, not a registry or production-store release target.
 
 ---
 
