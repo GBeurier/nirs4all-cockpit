@@ -46,7 +46,7 @@ packages:
       - registry: readthedocs
         name: nirs4all
         state: tracked
-        reason: "existing Python production documentation is maintained but held outside the final V1 RC; portable aggregate release is nirs4all-core 0.3.7"
+        reason: "existing Python production documentation is maintained but held outside the final V1 RC; portable aggregate release is nirs4all-core 0.3.8"
       - registry: pypi
         name: nirs4all
         state: tracked
@@ -526,11 +526,11 @@ packages:
       - registry: github-release
         name: nirs4all-providers
         state: tracked
-        reason: "RC V1 provider-client release v0.2.9 is tagged; PyPI distribution is published"
+        reason: "RC V1 provider-client release v0.2.10 is tagged; PyPI distribution is published"
       - registry: pypi
         name: nirs4all-providers
         state: tracked
-        reason: "RC V1 optional Python provider clients/read facade; PyPI package is published at v0.2.9; neutral contracts remain canonical"
+        reason: "RC V1 optional Python provider clients/read facade; PyPI package is published at v0.2.10; neutral contracts remain canonical"
         workflow:
           file: publish.yml
           trigger: release_published
@@ -610,7 +610,7 @@ packages:
       - registry: pypi
         name: nirs4all-core
         state: tracked
-        reason: "PyPI package targets v0.3.7; release tag v0.3.7 is available and registry propagation is tracked"
+        reason: "PyPI package targets v0.3.8; release tag v0.3.8 is available and registry propagation is tracked"
         workflow:
           file: release-python.yml
           trigger: tag
@@ -623,7 +623,7 @@ packages:
       - registry: crates
         name: nirs4all
         state: tracked
-        reason: "RC aggregate crate targets product version 0.3.7; release tag v0.3.7 is available and registry propagation is tracked"
+        reason: "RC aggregate crate targets product version 0.3.8; release tag v0.3.8 is available and registry propagation is tracked"
         workflow:
           file: release-crates.yml
           trigger: tag
@@ -636,7 +636,7 @@ packages:
       - registry: npm
         name: nirs4all
         state: tracked
-        reason: "RC aggregate npm package targets product version 0.3.7; release tag v0.3.7 is available and registry propagation is tracked"
+        reason: "RC aggregate npm package targets product version 0.3.8; release tag v0.3.8 is available and registry propagation is tracked"
         workflow:
           file: release-npm.yml
           trigger: tag
@@ -649,7 +649,7 @@ packages:
       - registry: r-universe
         name: nirs4all
         state: tracked
-        reason: "R-universe target is the 0.3.7 RC aggregate from the v0.3.7 R source tarball; live R-universe may remain stale until the rebuild completes"
+        reason: "R-universe target is the 0.3.8 RC aggregate from the v0.3.8 R source tarball; live R-universe may remain stale until the rebuild completes"
         workflow:
           file: release-r.yml
           trigger: tag
@@ -659,11 +659,11 @@ packages:
       - registry: cran
         name: nirs4all
         state: tracked
-        reason: "manual web submission; CRAN remains unpublished for the 0.3.7 RC aggregate"
+        reason: "manual web submission; CRAN remains unpublished for the 0.3.8 RC aggregate"
       - registry: github-release
         name: nirs4all-core
         state: tracked
-        reason: "v0.3.7 release carries source/SBOM, MATLAB/Octave archive, R tarball, and SHA256SUMS"
+        reason: "v0.3.8 release carries source/SBOM, MATLAB/Octave archive, R tarball, and SHA256SUMS"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #

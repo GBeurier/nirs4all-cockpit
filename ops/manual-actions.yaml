@@ -92,7 +92,7 @@ actions:
   - id: pypi-publisher-core
     status: done
     severity: blocker
-    title: "PyPI — Trusted Publisher configured and nirs4all-core v0.3.7 published from release-python.yml"
+    title: "PyPI — Trusted Publisher configured and nirs4all-core v0.3.8 published from release-python.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-core:release-python.yml"
@@ -104,7 +104,7 @@ actions:
   - id: runiverse-core-rebuild
     status: done
     severity: important
-    title: "R-universe — rebuild nirs4all from nirs4all-core v0.3.7 (requires write access to r-universe/gbeurier)"
+    title: "R-universe — rebuild nirs4all from nirs4all-core v0.3.8 (requires write access to r-universe/gbeurier)"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
     affects:
       - "nirs4all-core:r-universe"
@@ -182,7 +182,7 @@ actions:
   - id: pypi-publisher-providers
     status: done
     severity: blocker
-    title: "PyPI — Trusted Publisher configured and nirs4all-providers v0.2.9 published from publish.yml"
+    title: "PyPI — Trusted Publisher configured and nirs4all-providers v0.2.10 published from publish.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-providers:publish.yml"
@@ -353,7 +353,7 @@ actions:
   - id: cran-submit-nirs4all-core-aggregate
     status: todo
     severity: important
-    title: "CRAN — submit the nirs4all aggregate R package from nirs4all-core v0.3.7 after RC source validation"
+    title: "CRAN — submit the nirs4all aggregate R package from nirs4all-core v0.3.8 after RC source validation"
     manual_url: "https://cran.r-project.org/submit.html"
     affects: []
     auto_check:
