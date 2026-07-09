@@ -237,7 +237,6 @@ def _bearer_token(token: str | None) -> tuple[str | None, str | None]:
         )
 
     try:
-        from google.auth.transport.requests import Request
         from google.oauth2 import service_account
     except ImportError:
         return None, "google-auth is not installed; install nirs4all-cockpit with the current dependencies"
@@ -248,8 +247,28 @@ def _bearer_token(token: str | None) -> tuple[str | None, str | None]:
             creds = service_account.Credentials.from_service_account_info(info, scopes=[READONLY_SCOPE])
         else:
             creds = service_account.Credentials.from_service_account_file(service_file, scopes=[READONLY_SCOPE])
-        creds.refresh(Request())
+        creds.refresh(_google_auth_request())
     except Exception as exc:  # noqa: BLE001 - credential errors should degrade, not crash collect.
         return None, f"{type(exc).__name__}: {exc}"
 
     return creds.token, None
+
+
+def _google_auth_request():
+    """Google auth request wrapper using the cockpit HTTP timeout budget."""
+    from google.auth.transport.requests import Request
+
+    request = Request()
+    auth_timeout = _float_env("GOOGLE_AUTH_TIMEOUT", _float_env("COCKPIT_HTTP_TIMEOUT", 20.0))
+
+    def _request(url, method="GET", body=None, headers=None, timeout=None, **kwargs):  # noqa: ARG001
+        return request(url, method=method, body=body, headers=headers, timeout=auth_timeout, **kwargs)
+
+    return _request
+
+
+def _float_env(name: str, default: float) -> float:
+    try:
+        return float(os.environ.get(name, default))
+    except (TypeError, ValueError):
+        return default

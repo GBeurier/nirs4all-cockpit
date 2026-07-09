@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from google.auth.transport import requests as google_auth_requests
+from google.oauth2 import service_account
+
 from cockpit.collect import search_console
 
 
@@ -79,3 +82,32 @@ def test_search_console_collects_windows_and_pages(monkeypatch) -> None:
     assert seen
     assert seen[0][0].endswith("/sites/sc-domain%3Anirs4all.org/searchAnalytics/query")
     assert seen[0][2]["Authorization"] == "Bearer tok"
+
+
+def test_search_console_service_account_refresh_uses_bounded_timeout(monkeypatch) -> None:
+    calls = []
+
+    class FakeCreds:
+        token = "service-token"
+
+        def refresh(self, request):
+            request("https://oauth.example/token")
+
+    class FakeRequest:
+        def __call__(self, url, method="GET", body=None, headers=None, timeout=120, **kwargs):  # noqa: ARG001
+            calls.append(timeout)
+
+    monkeypatch.setenv("GOOGLE_SEARCH_CONSOLE_SERVICE_ACCOUNT_JSON", "{}")
+    monkeypatch.setenv("GOOGLE_AUTH_TIMEOUT", "4.5")
+    monkeypatch.setattr(google_auth_requests, "Request", lambda: FakeRequest())
+    monkeypatch.setattr(
+        service_account.Credentials,
+        "from_service_account_info",
+        lambda info, scopes: FakeCreds(),  # noqa: ARG005
+    )
+
+    token, error = search_console._bearer_token(None)
+
+    assert token == "service-token"
+    assert error is None
+    assert calls == [4.5]
