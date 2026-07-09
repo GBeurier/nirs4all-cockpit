@@ -316,11 +316,20 @@ def test_dashboard_keeps_release_matrix_without_bundle_or_channel_chips() -> Non
     style = (ROOT / "web" / "style.css").read_text(encoding="utf-8")
 
     assert 'id="release-bundles-block"' not in index
+    assert "Release bundles" not in index
+    assert "RC scopes" not in index
+    assert "held production lines" not in index
     assert "renderReleaseBundles" not in app_js
     assert "snap.release_bundles" not in app_js
+    assert "bundle.channel" not in app_js
+    assert "bundle-status" not in app_js
+    assert "bundle-status" not in style
+    assert "bundle-chip" not in style
     assert "pkg-channel" not in app_js
     assert ".pkg-channel" not in style
-    assert "app.js?v=20260709-current-matrix" in index
+    assert "production held" not in app_js
+    assert "production held" not in index
+    assert "app.js?v=20260710-current-matrix" in index
 
 
 def test_dashboard_marks_missing_visit_rows_untracked() -> None:
