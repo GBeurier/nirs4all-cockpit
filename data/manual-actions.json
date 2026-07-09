@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-09T22:13:15.433001+00:00",
+  "snapshot_generated_at": "2026-07-09T23:14:52.759746+00:00",
   "counts": {
     "total": 23,
-    "pending": 6,
-    "resolved": 17,
+    "pending": 7,
+    "resolved": 16,
     "blockers": 1,
-    "important": 5,
+    "important": 6,
     "info": 0
   },
   "actions": [
@@ -65,7 +65,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "npm:@nirs4all/methods published 1.0.8 (status=green)"
+      "check_note": "npm:@nirs4all/methods published 1.0.9 (status=green)"
     },
     {
       "id": "pypi-publisher-pls4all",
@@ -93,7 +93,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:pls4all published 1.0.8 (status=green)"
+      "check_note": "pypi:pls4all published 1.0.9 (status=green)"
     },
     {
       "id": "pypi-publisher-io",
@@ -123,14 +123,14 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-io published 0.1.10 (status=green)"
+      "check_note": "pypi:nirs4all-io published 0.1.11 (status=green)"
     },
     {
       "id": "pypi-publisher-core",
       "status": "done",
       "declared_status": "done",
       "severity": "blocker",
-      "title": "PyPI — Trusted Publisher configured and nirs4all-core v0.3.8 published from release-python.yml",
+      "title": "PyPI — Trusted Publisher configured and nirs4all-core v0.3.9 published from release-python.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
       "affects": [
         "nirs4all-core:release-python.yml"
@@ -142,19 +142,19 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-core published 0.3.8 (status=green)"
+      "check_note": "pypi:nirs4all-core published 0.3.9 (status=green)"
     },
     {
       "id": "runiverse-core-rebuild",
-      "status": "done",
-      "declared_status": "done",
+      "status": "todo",
+      "declared_status": "todo",
       "severity": "important",
-      "title": "R-universe — merge the prepared nirs4all-core v0.3.8 gitlink update, then rebuild nirs4all",
-      "manual_url": "https://github.com/r-universe/gbeurier/compare/master...GBeurier:update-nirs4all-core-0.3.8",
+      "title": "R-universe — merge the prepared nirs4all-core v0.3.9 gitlink update, then rebuild nirs4all",
+      "manual_url": "https://github.com/r-universe/gbeurier/compare/master...GBeurier:update-nirs4all-core-0.3.9",
       "affects": [
         "nirs4all-core:r-universe",
         "GBeurier.r-universe.dev:packages.json",
-        "fork:GBeurier/gbeurier:update-nirs4all-core-0.3.8",
+        "fork:GBeurier/gbeurier:update-nirs4all-core-0.3.9",
         "r-universe/gbeurier:sync.yml"
       ],
       "after_done": [],
@@ -163,15 +163,15 @@
         "name": "nirs4all",
         "expect": "green"
       },
-      "resolved": true,
-      "check_note": "r-universe:nirs4all current 0.3.8 (status=green)"
+      "resolved": false,
+      "check_note": "r-universe:nirs4all status=stale version=0.3.8"
     },
     {
       "id": "runiverse-methods-n4m-rebuild",
       "status": "done",
-      "declared_status": "done",
+      "declared_status": "todo",
       "severity": "important",
-      "title": "R-universe — rebuild n4m from nirs4all-methods v1.0.8 (requires write access to r-universe/gbeurier)",
+      "title": "R-universe — rebuild n4m from nirs4all-methods v1.0.9 (requires write access to r-universe/gbeurier)",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
       "affects": [
         "nirs4all-methods:r-universe:n4m",
@@ -184,14 +184,14 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:n4m current 1.0.8 (status=green)"
+      "check_note": "r-universe:n4m current 1.0.9 (status=green)"
     },
     {
       "id": "runiverse-methods-pls4all-rebuild",
       "status": "done",
-      "declared_status": "done",
+      "declared_status": "todo",
       "severity": "important",
-      "title": "R-universe — rebuild pls4all from nirs4all-methods v1.0.8 (requires write access to r-universe/gbeurier)",
+      "title": "R-universe — rebuild pls4all from nirs4all-methods v1.0.9 (requires write access to r-universe/gbeurier)",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
       "affects": [
         "nirs4all-methods:r-universe:pls4all",
@@ -204,14 +204,14 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:pls4all current 1.0.8 (status=green)"
+      "check_note": "r-universe:pls4all current 1.0.9 (status=green)"
     },
     {
       "id": "runiverse-formats-rebuild",
       "status": "done",
-      "declared_status": "done",
+      "declared_status": "todo",
       "severity": "important",
-      "title": "R-universe — rebuild nirs4allformats from nirs4all-formats v0.2.6 (requires write access to r-universe/gbeurier)",
+      "title": "R-universe — rebuild nirs4allformats from nirs4all-formats v0.2.7 (requires write access to r-universe/gbeurier)",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
       "affects": [
         "nirs4all-formats:r-universe",
@@ -224,14 +224,14 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:nirs4allformats current 0.2.6 (status=green)"
+      "check_note": "r-universe:nirs4allformats current 0.2.7 (status=green)"
     },
     {
       "id": "runiverse-io-rebuild",
       "status": "done",
       "declared_status": "done",
       "severity": "important",
-      "title": "R-universe — rebuild nirs4allio from nirs4all-io v0.1.10",
+      "title": "R-universe — rebuild nirs4allio from nirs4all-io v0.1.11",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
       "affects": [
         "nirs4all-io:r-universe",
@@ -244,14 +244,14 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:nirs4allio current 0.1.10 (status=green)"
+      "check_note": "r-universe:nirs4allio current 0.1.11 (status=green)"
     },
     {
       "id": "runiverse-dagml-data-rebuild",
       "status": "done",
       "declared_status": "done",
       "severity": "important",
-      "title": "R-universe — rebuild dagmldata from dag-ml-data v0.2.8 (requires write access to r-universe/gbeurier)",
+      "title": "R-universe — rebuild dagmldata from dag-ml-data v0.2.9 (requires write access to r-universe/gbeurier)",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
       "affects": [
         "dag-ml-data:r-universe",
@@ -264,7 +264,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:dagmldata current 0.2.8 (status=green)"
+      "check_note": "r-universe:dagmldata current 0.2.9 (status=green)"
     },
     {
       "id": "pypi-publisher-providers",
@@ -421,7 +421,7 @@
       "status": "done",
       "declared_status": "done",
       "severity": "blocker",
-      "title": "PyPI — Trusted Publisher configured and dag-ml-data v0.2.8 published from release-python.yml",
+      "title": "PyPI — Trusted Publisher configured and dag-ml-data v0.2.9 published from release-python.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
       "affects": [
         "dag-ml-data:release-python.yml"
@@ -444,7 +444,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:dag-ml-data published 0.2.8 (status=green)"
+      "check_note": "pypi:dag-ml-data published 0.2.9 (status=green)"
     },
     {
       "id": "crates-verify-email",
@@ -475,14 +475,14 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "crates:nirs4all-formats published 0.2.6 (status=green)"
+      "check_note": "crates:nirs4all-formats published 0.2.7 (status=green)"
     },
     {
       "id": "cran-resubmit-n4m-pls4all",
       "status": "todo",
       "declared_status": "todo",
       "severity": "important",
-      "title": "CRAN — submit n4m only at 1.0.8 from the current release tarball; do NOT submit nirs4allformats",
+      "title": "CRAN — submit n4m only at 1.0.9 from the current release tarball; do NOT submit nirs4allformats",
       "manual_url": "https://cran.r-project.org/submit.html",
       "affects": [],
       "after_done": [],
@@ -499,7 +499,7 @@
       "status": "todo",
       "declared_status": "todo",
       "severity": "important",
-      "title": "CRAN — submit pls4all only at 1.0.8 from the current release tarball; do NOT submit nirs4allformats",
+      "title": "CRAN — submit pls4all only at 1.0.9 from the current release tarball; do NOT submit nirs4allformats",
       "manual_url": "https://cran.r-project.org/submit.html",
       "affects": [],
       "after_done": [],
@@ -550,7 +550,7 @@
       "status": "todo",
       "declared_status": "todo",
       "severity": "important",
-      "title": "CRAN — submit the nirs4all aggregate R package from nirs4all-core v0.3.8 after RC source validation",
+      "title": "CRAN — submit the nirs4all aggregate R package from nirs4all-core v0.3.9 after RC source validation",
       "manual_url": "https://cran.r-project.org/submit.html",
       "affects": [],
       "after_done": [],
