@@ -292,20 +292,6 @@ class SentryStatus(BaseModel):
     error: str | None = None
 
 
-class ReleaseBundleStatus(BaseModel):
-    """Observed status for one cross-package release scope."""
-
-    id: str
-    label: str
-    channel: str = "rc"
-    status: State
-    included_packages: list[str]
-    held_packages: list[str] = Field(default_factory=list)
-    included_rollups: dict[str, State] = Field(default_factory=dict)
-    held_rollups: dict[str, State] = Field(default_factory=dict)
-    reason: str | None = None
-
-
 class Snapshot(BaseModel):
     """Top-level document written to ``data/current.json``."""
 
@@ -313,7 +299,6 @@ class Snapshot(BaseModel):
     generated_at: str
     generator: dict
     packages: list[PackageStatus]
-    release_bundles: list[ReleaseBundleStatus] = Field(default_factory=list)
     summary: dict[str, int]
     totals: Totals = Field(default_factory=Totals)
     visits: Visits = Field(default_factory=Visits)

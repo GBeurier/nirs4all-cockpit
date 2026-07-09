@@ -5541,32 +5541,5 @@
     "issues": [],
     "resolved_issues": [],
     "error": null
-  },
-  "release_bundles": [
-    {
-      "id": "v1-custom-app-host",
-      "label": "NIRS4ALL V1 custom app host",
-      "channel": "rc",
-      "status": "pending",
-      "included_packages": [
-        "nirs4all-core",
-        "nirs4all-ui",
-        "nirs4all-web"
-      ],
-      "held_packages": [
-        "nirs4all",
-        "nirs4all-studio"
-      ],
-      "included_rollups": {
-        "nirs4all-core": "pending",
-        "nirs4all-ui": "green",
-        "nirs4all-web": "green"
-      },
-      "held_rollups": {
-        "nirs4all": "green",
-        "nirs4all-studio": "green"
-      },
-      "reason": "Release-candidate app-host surface: portable runtimes from nirs4all-core, reusable React/TS assets from nirs4all-ui, and the client-side-only web host; the Python oracle and production Studio app stay tracked but outside the final V1 RC batch."
-    }
-  ]
+  }
 }

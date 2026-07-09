@@ -185,18 +185,13 @@ def test_v1_custom_app_host_bundle_is_machine_readable() -> None:
     assert "client-side-only web host" in (bundle.reason or "")
 
 
-def test_v1_custom_app_host_bundle_enters_public_snapshot() -> None:
+def test_v1_custom_app_host_bundle_stays_out_of_public_snapshot() -> None:
     snapshot = reconcile(_targets(), no_network=True)
-    bundles = {bundle.id: bundle for bundle in snapshot.release_bundles}
     packages = {package.id: package for package in snapshot.packages}
 
-    bundle = bundles["v1-custom-app-host"]
-    assert bundle.included_packages == ["nirs4all-core", "nirs4all-ui", "nirs4all-web"]
-    assert bundle.held_packages == ["nirs4all", "nirs4all-studio"]
+    assert not hasattr(snapshot, "release_bundles")
     assert packages["nirs4all"].channel == "production-held"
     assert packages["nirs4all-studio"].channel == "production-held"
-    assert "nirs4all-core" in bundle.included_rollups
-    assert "nirs4all" in bundle.held_rollups
 
 
 def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
