@@ -1,13 +1,24 @@
-# nirs4all-cockpit — Implementation roadmap (one-shot spec, lean)
+# nirs4all-cockpit — Implementation status and operating roadmap
 
-> Objective: implement the heart of the cockpit in **a rushed but complete one-shot**. Forehead **vanilla static**
-> (zero build), admin = **CLI** (`gh`-wrapping). Sentry/PR/security + UI FastAPI = **stubs/phase 2** clearly
-> marked. Non-negotiable principle: **the cockpit aggregates & orchestrates, it does not reimplement any repository logic.**
-> Operational design lives in `README.md`, `ops/targets.yaml`, `ops/manual-actions.yaml`, and the offline test suite.
+> Objective: keep a public, static release cockpit for the NIRS4ALL ecosystem.
+> The v1 cockpit is implemented as a vanilla static dashboard plus a CLI
+> collector/admin surface. Non-negotiable principle: **the cockpit aggregates and
+> orchestrates; it does not reimplement repository release logic.** Operational
+> truth lives in `README.md`, `ops/targets.yaml`, `ops/manual-actions.yaml`, the
+> generated `data/*.json` snapshots, and the offline test suite.
 
-## Scope v1 (what we're building NOW)
+## Scope v1 (implemented)
 
-- ✅`ops/targets.yaml`— complete declarative inventory (package × registry × exact name × workflow × trigger × version-of-truth). - ✅`ops/manual-actions.yaml`— structured migration of`RELEASE_ACTIONS.md`(with`after_done`+`auto_check`). - ✅ **read-only public** collectors: pypi, npm, crates, r-universe, cran, github (releases + workflow runs + issues), local_manifests (version-of-truth). - ✅`reconcile`— model **3 versions** (manifest / release_tag / published) →`green/stale/missing/broken/unknown`(+`source-ahead`, +`excluded`). - ✅`current.json`(+`history/YYYY-MM-DD.json`) committed in`data/`. - ✅ Front **vanilla**`web/index.html`+`app.js`+`style.css`reading`../data/current.json`→ packet × register matrix + downloads + issues + CI. - ✅ CI:`.github/workflows/collect.yml`(daily cron → collect → commit) +`pages.yml`(deploy`web/`+`data/` on push, successful collect completion, or manual dispatch). - ✅`n4a-cockpit`CLI:`collect`,`validate-targets`,`summarize`,`status`,`admin run`,`admin set-secret`,`admin actions`. - ✅ Fixture tests (offline) to reconcile + collector analysis. - 🟡 **Phase 2 (stubs marked TODO)**: collectors`sentry`,`github_prs`,`github_security`, store`snapshot.admin.json`, UI FastAPI 127.0.0.1.
+- ✅ `ops/targets.yaml` — complete declarative inventory: package x registry x exact name x workflow x trigger x version-of-truth.
+- ✅ `ops/manual-actions.yaml` — structured manual release queue with `after_done` and `auto_check`.
+- ✅ Read-only public collectors: PyPI, npm, crates.io, R-universe, CRAN, GitHub releases/workflow runs/issues, and local manifests.
+- ✅ `reconcile` — manifest / release tag / published version state model with `green`, `stale`, `pending`, `missing`, `broken`, `unknown`, `source-ahead`, and `excluded`.
+- ✅ Generated public snapshots: `data/current.json`, `data/manual-actions.json`, and history snapshots.
+- ✅ Vanilla static dashboard: `web/index.html`, `web/app.js`, and `web/style.css`, with manual blockers intentionally rendered at the bottom.
+- ✅ CI workflows: `collect.yml` for scheduled/manual collection and commits; `pages.yml` for GitHub Pages deploy on pushes, successful collect completion, or manual dispatch.
+- ✅ `n4a-cockpit` CLI: `collect`, `validate-targets`, `summarize`, `status`, `admin run`, `admin set-secret`, and `admin actions`.
+- ✅ Offline fixture tests for version parsing, collectors, reconciliation, topology, and dashboard DOM smoke.
+- 🟡 Phase 2 remains intentionally out of v1: Sentry/PR/security collectors, private `snapshot.admin.json`, and any local FastAPI/admin UI.
 
 ## Layout
 
@@ -73,7 +84,7 @@ packages:
         name: <nom EXACT par registre>
         workflow: { file: <release-*.yml>, inputs: {k: v} }   # optionnel (admin)
         state: tracked|excluded
-        reason: <si excluded>          # ex CRAN >5Mo
+        reason: <si excluded>          # ex CRAN size exception or intentionally R-universe-only
     version_aliases: { "0.2.0-alpha.1": { pep440: "0.2.0a1", r_devel: "0.2.0.9000" } }
 ```
 
@@ -93,8 +104,17 @@ packages:
 ```
 
 ## State machine (reconcile)
--`expected_version`=`release_tag_version`if a prod tag exists, otherwise`manifest_version`. -`manifest_version > release_tag_version`⇒ badge **`source-ahead`** (not a fake red). -`published == expected`⇒ **green** ·`published < expected`⇒ **stale** · 404/absent ⇒ **missing**
-  ·`Version:null`/build failed/last release-run failed ⇒ **broken** · timeout/429/5xx ⇒ **unknown** ·`state:excluded`⇒ **excluded**. - Comparison **SemVer/PEP440-aware** (never lexical), prereleases via`version_aliases`. - Roll-up packet = worst cell (broken>missing>stale>unknown>source-ahead>green; excluded ignored).
+- `expected_version` = `release_tag_version` if a prod tag exists, otherwise `manifest_version`.
+- `manifest_version > release_tag_version` ⇒ badge **`source-ahead`** (not a fake red).
+- `published == expected` ⇒ **green**.
+- `published < expected` ⇒ **stale**.
+- Submitted or intentionally waiting on an external review queue ⇒ **pending**.
+- 404/absent ⇒ **missing**.
+- `Version:null`, build failed, or last release-run failed ⇒ **broken**.
+- timeout/429/5xx ⇒ **unknown**.
+- `state:excluded` ⇒ **excluded**.
+- Comparison is SemVer/PEP440-aware, never lexical; prereleases use `version_aliases`.
+- Roll-up packet = worst cell (`broken` > `missing` > `stale` > `pending` > `unknown` > `source-ahead` > `green`; `excluded` ignored).
 
 ## APIs (endpoints, traps) — summary
 - PyPI`https://pypi.org/pypi/{pkg}/json`→`info.version`(no real downloads here). 404=missing. - pypistats`…/api/packages/{pkg}/recent`(**429 possible** → cache+backoff,`unknown`). overall ~180 days. - npm`https://registry.npmjs.org/{pkg}`(scoped`%2F`); downloads`api.npmjs.org/downloads/point/last-month/{pkg}`(**scoped 404 + error in HTTP 200** → parse the body). -`https://crates.io/api/v1/crates/{crate}`crates (**User-Agent required**, otherwise 403). 404=missing. - R-universe`https://gbeurier.r-universe.dev/api/packages`(`Version:null`=broken). - CRAN`https://crandb.r-pkg.org/{pkg}`(404 as long as not accepted); cranlogs`…/downloads/total/last-month/{pkg}`(**0 in 200** ≠ missing). - GitHub releases/runs/issues:`GITHUB_TOKEN`ambient (5000/h); Search issues 30/min;`download_count`per asset.
@@ -102,9 +122,9 @@ packages:
 ## Package inventory (LOCK in targets.yaml — check names/inputs against real workflows)
 - **nirs4all** (production Python oracle, held) — pypi`nirs4all`; github-release via `publish.yml`.
 - **nirs4all-methods** — pypi`nirs4all-methods` + `pls4all`; npm`@nirs4all/methods`; r-universe`n4m` + `pls4all`; github-release.
-- **nirs4all-formats** (`0.2.6` train) — pypi`nirs4all-formats`; crates`nirs4all-formats{,-core,-capi,-cli}`; npm`@nirs4all/formats-wasm`; r-universe`nirs4allformats`; CRAN explicitly excluded for `nirs4allformats`.
+- **nirs4all-formats** (`0.2.6` train) — pypi`nirs4all-formats`; crates`nirs4all-formats{,-core,-capi,-cli}`; npm`@nirs4all/formats-wasm`; r-universe`nirs4allformats`; CRAN explicitly excluded / R-universe-only for `nirs4allformats`.
 - **nirs4all-io** — pypi`nirs4all-io`; crates`nirs4all-io{,-core,-capi,-cli}`; npm`@nirs4all/io-wasm`; r-universe`nirs4allio`; github-release.
-- **nirs4all-datasets** — pypi`nirs4all-datasets`; crates`nirs4all-datasets{,-core,-capi,-cli}`; npm`@nirs4all/datasets-wasm`; r-universe`nirs4alldatasets`; github-release.
+- **nirs4all-datasets** — pypi`nirs4all-datasets`; crates`nirs4all-datasets{,-core,-capi,-cli}`; npm`@nirs4all/datasets-wasm`; r-universe`nirs4alldatasets`; CRAN manual resubmission is tracked and needs the 24 MB size-exception comment; github-release.
 - **nirs4all-core** (`0.3.7` train) — pypi`nirs4all-core`; github-release`nirs4all-core`; crates/npm/r-universe logical package name `nirs4all`.
 - **nirs4all-ui** (`0.1.9` train) — tracked npm`nirs4all-ui` + Pages showcase; outside core aggregation lock.
 - **dag-ml** (`0.2.7` train) — pypi`dag-ml`; npm`dag-ml-wasm`; crates`dag-ml{,-core,-arrow,-capi,-cli}`.
@@ -129,8 +149,13 @@ Admin guardrails: refuse if`gh auth status`fails;`--dry-run`default; confirmatio
 -`collect.yml`:`schedule cron "17 0 * * *"`+`workflow_dispatch`;`contents: write, actions: read, issues: read`permissions; pip install -e .; shallow-clone public sibling repos under `_siblings/`;`n4a-cockpit collect`; commit`data/*.json`with plain git commands;`GITHUB_TOKEN`ambient.
 -`pages.yml`: deploys`web/`+`data/`on GitHub Pages (actions/upload-pages-artifact + deploy-pages) on push, successful `collect` workflow completion, or manual dispatch.
 
-## “Lean” decisions assumed
-- Front **vanilla** (not Vite/React): Immediate pages, zero node_modules, zero CI build. Upgrade React possible later. - Admin = **CLI** only (no FastAPI UI in v1). - Public store only (`current.json`);`snapshot.admin.json`+ Sentry/PR/security = phase 2 stubbed. -`local_manifests`: in CI (no siblings) → reads the truth-version via **GitHub raw** (`raw.githubusercontent.com/GBeurier/{repo}/{default}/…`); locally → reads`../<repo>`.
+## “Lean” decisions kept
+
+- Frontend remains **vanilla static**: immediate Pages deploy, no Node build, no app server.
+- Admin remains **CLI-only** in v1; no FastAPI/admin UI is shipped.
+- Public store remains `current.json` plus `manual-actions.json`; private `snapshot.admin.json` stays phase 2.
+- Sentry/PR/security collectors stay phase 2 and must not block the public release cockpit.
+- `local_manifests`: in CI, truth versions are read via GitHub raw URLs; locally, sibling checkouts under `../<repo>` are preferred.
 
 ## Definition of “finished” (gate one-shot)
 1.`python -m compileall cockpit`OK;`ruff check`clean if available. 2.`n4a-cockpit validate-targets ops/targets.yaml`OK. 3.`n4a-cockpit collect`produces a full public`data/current.json`; any `--only` probe must write to an explicit scratch `--out` path. 4.`tests/`pass (offline, fixtures). 5.`web/index.html`opens and renders the matrix from`data/current.json`. 6. README explains collect/serve/admin + phase 2 status.
