@@ -209,8 +209,8 @@ def render_markdown(actions: list[ManualAction]) -> str:
 
 def public_payload(actions: list[ManualAction], snapshot: Snapshot | None) -> dict[str, Any]:
     """Return the public, non-secret manual-action payload for the dashboard."""
-    pending = [action for action in actions if action.status != "done" and action.resolved is not True]
-    resolved = [action for action in actions if action.status == "done" or action.resolved is True]
+    pending = [action for action in actions if action.resolved is not True]
+    resolved = [action for action in actions if action.resolved is True]
     counts = {
         "total": len(actions),
         "pending": len(pending),

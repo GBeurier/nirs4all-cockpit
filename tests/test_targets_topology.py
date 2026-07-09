@@ -623,6 +623,48 @@ def test_public_manual_action_payload_marks_auto_resolved_todo_as_done() -> None
     assert payload["counts"]["resolved"] == 1
 
 
+def test_public_manual_action_payload_counts_declared_done_until_auto_check_resolves() -> None:
+    action = ManualAction(
+        id="runiverse-core-rebuild",
+        status="done",
+        severity="important",
+        title="R-universe rebuild",
+        auto_check={"registry": "r-universe", "name": "nirs4all", "expect": "green"},
+    )
+    snapshot = Snapshot(
+        generated_at="2026-07-09T00:00:00+00:00",
+        generator={},
+        summary={},
+        packages=[
+            PackageStatus(
+                id="nirs4all-core",
+                repo="nirs4all-core",
+                source=PackageSource(expected_prod_version="0.3.8"),
+                rollup="stale",
+                targets=[
+                    TargetStatus(
+                        registry="r-universe",
+                        name="nirs4all",
+                        status="stale",
+                        published_version="0.3.7",
+                    )
+                ],
+            )
+        ],
+    )
+
+    evaluate(action, snapshot)
+    payload = public_payload([action], snapshot)
+    exported = payload["actions"][0]
+
+    assert exported["status"] == "done"
+    assert exported["declared_status"] == "done"
+    assert exported["resolved"] is False
+    assert payload["counts"]["pending"] == 1
+    assert payload["counts"]["important"] == 1
+    assert payload["counts"]["resolved"] == 0
+
+
 def test_current_pypi_manual_actions_match_targets_reasons_and_workflow_inputs() -> None:
     actions = {
         action.id: action
