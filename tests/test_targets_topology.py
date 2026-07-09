@@ -480,6 +480,10 @@ def test_cran_optional_comments_flag_datasets_size_exception() -> None:
     assert "`nirs4alldatasets` (~24 MB)" in script
     assert "24,666,282 bytes" in script
     assert "ships no dataset\npayloads" in script
+    assert "sha256sum or shasum is required" in script
+    assert 'mv "$SUMS_TMP" "$OUTDIR/SHA256SUMS"' in script
+    assert "this script verifies the local file against it" in script
+    assert '[ "$expected_sha" = "null" ] && expected_sha=""' in script
     assert "Source tarball ~9.3 MB" not in script
     assert "shipped-in-tarball `cran-comments.md`" not in script
     assert "License: CeCILL-2.1 | AGPL (>= 3)." in script
