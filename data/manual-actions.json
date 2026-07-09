@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-09T16:59:05.731476+00:00",
+  "snapshot_generated_at": "2026-07-09T17:16:45.828417+00:00",
   "counts": {
     "total": 23,
-    "pending": 7,
-    "resolved": 16,
+    "pending": 6,
+    "resolved": 17,
     "blockers": 1,
-    "important": 6,
+    "important": 5,
     "info": 0
   },
   "actions": [
@@ -146,7 +146,7 @@
     },
     {
       "id": "runiverse-core-rebuild",
-      "status": "todo",
+      "status": "done",
       "declared_status": "todo",
       "severity": "important",
       "title": "R-universe — merge the prepared nirs4all-core v0.3.8 gitlink update, then rebuild nirs4all",
@@ -172,8 +172,8 @@
         "name": "nirs4all",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4all status=stale version=0.3.7"
+      "resolved": true,
+      "check_note": "r-universe:nirs4all current 0.3.8 (status=green)"
     },
     {
       "id": "runiverse-methods-n4m-rebuild",
