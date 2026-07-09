@@ -384,21 +384,30 @@ def test_active_readthedocs_targets_are_tracked_without_manual_activation_action
     assert not any(action_id.startswith("rtd-activate-") for action_id in actions)
 
 
-def test_current_runiverse_manual_action_tracks_core_rebuild_done() -> None:
+def test_current_runiverse_manual_action_tracks_core_rebuild_todo() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     action = actions["runiverse-core-rebuild"]
 
-    assert action.status == "done"
+    assert action.status == "todo"
     assert action.severity == "important"
     assert "nirs4all-core" in action.title
+    assert action.manual_url == "https://github.com/r-universe/gbeurier/compare/master...GBeurier:update-nirs4all-core-0.3.8"
     assert "nirs4all-core:r-universe" in action.affects
+    assert {
+        "run_workflow": {
+            "repo": "r-universe/gbeurier",
+            "workflow": "sync.yml",
+            "ref": "master",
+            "inputs": {},
+        }
+    } in action.after_done
     assert action.auto_check == {"registry": "r-universe", "name": "nirs4all", "expect": "green"}
 
 
 def test_current_runiverse_manual_actions_cover_release_rebuilds() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
-        "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.3.8", "done"),
+        "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.3.8", "todo"),
         "runiverse-methods-n4m-rebuild": ("nirs4all-methods", "n4m", "v1.0.8", "done"),
         "runiverse-methods-pls4all-rebuild": ("nirs4all-methods", "pls4all", "v1.0.8", "done"),
         "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.6", "done"),
