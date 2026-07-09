@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from google.auth.transport import requests as google_auth_requests
+import sys
+from types import SimpleNamespace
+
 from google.oauth2 import service_account
 
 from cockpit.collect import search_console
@@ -99,7 +101,7 @@ def test_search_console_service_account_refresh_uses_bounded_timeout(monkeypatch
 
     monkeypatch.setenv("GOOGLE_SEARCH_CONSOLE_SERVICE_ACCOUNT_JSON", "{}")
     monkeypatch.setenv("GOOGLE_AUTH_TIMEOUT", "4.5")
-    monkeypatch.setattr(google_auth_requests, "Request", lambda: FakeRequest())
+    monkeypatch.setitem(sys.modules, "google.auth.transport.requests", SimpleNamespace(Request=lambda: FakeRequest()))
     monkeypatch.setattr(
         service_account.Credentials,
         "from_service_account_info",
