@@ -19,14 +19,16 @@ set -euo pipefail
 OWNER="${N4A_OWNER:-GBeurier}"
 OUTDIR="${1:-${N4A_CRAN_OUT:-dist/cran}}"
 
-# The repos whose Releases carry a CRAN R source tarball.
-REPOS=(nirs4all-methods nirs4all-formats nirs4all-io nirs4all-datasets nirs4all-core)
+# The repos whose Releases carry a CRAN-submission R source tarball. Formats is
+# intentionally absent: current release policy keeps nirs4allformats on
+# R-universe only.
+REPOS=(nirs4all-methods nirs4all-io nirs4all-datasets nirs4all-core)
 
 # A CRAN R source tarball is `<Rpkg>_<version>.tar.gz` for these exact package
 # names. The anchored `_[0-9]` after the name (and "no hyphen before the version")
 # excludes, on the same Releases: the Python sdists (e.g. nirs4all_formats-…),
 # the `-src` bundles, and the `-capi-` C-ABI archives.
-R_TARBALL_RE='^(n4m|pls4all|nirs4allformats|nirs4allformats\.lite|nirs4allio|nirs4alldatasets|nirs4all)_[0-9][^-]*\.tar\.gz$'
+R_TARBALL_RE='^(n4m|pls4all|nirs4allio|nirs4alldatasets|nirs4all)_[0-9][^-]*\.tar\.gz$'
 
 command -v gh >/dev/null 2>&1 || { echo "error: gh CLI is required — https://cli.github.com" >&2; exit 1; }
 gh auth status >/dev/null 2>&1 || { echo "error: gh is not authenticated — run 'gh auth login'" >&2; exit 1; }
@@ -110,9 +112,10 @@ and are meant for maintainer/submission notes, not package payload.
 **Submit-now vs R-universe-first**
 
 * CRAN-ready now (≤10 MB, clean): `n4m`, `pls4all`, `nirs4allio`.
-* Size exception needed: `nirs4allformats` (~13 MB), `nirs4allformats.lite`
-  (~10 MB), and `nirs4alldatasets` (~24 MB) exceed or sit at CRAN's 10 MB soft
-  cap. The matching comments flag the reason; otherwise keep them on R-universe.
+* Size exception needed: `nirs4alldatasets` (~24 MB) exceeds CRAN's 10 MB soft
+  cap. The matching comments flag the reason.
+* R-universe-only: `nirs4allformats`; do not submit it to CRAN in the current
+  release train.
 * R-universe-first: `nirs4all` (R binding of `nirs4all-core`) — its Suggests (the ecosystem R packages)
   are not yet on CRAN, so R-universe is the natural channel until they land.
 
@@ -143,52 +146,6 @@ SystemRequirements. License: CeCILL-2.1. Imports only stats. R CMD check --as-cr
 0 ERROR, 0 WARNING, 2 NOTES — New submission, and a -march=nocona flag from
 conda-forge R's own Makeconf on our local host (not from the package; absent on
 CRAN). Maintainer: Grégory Beurier (CIRAD), gregory.beurier@cirad.fr.
-```
-
-## nirs4allformats_<ver>.tar.gz
-```
-New submission. nirs4allformats is a thin R binding for the Rust-first
-nirs4all-formats engine (~58 NIRS/spectroscopy format families); it compiles a
-vendored extendr static library OFFLINE at install. License: MIT + file LICENSE.
-
-CRAN Policy compliance: the install NEVER writes to ~/.cargo or ~/.rustup.
-src/Makevars(.win) set CARGO_HOME and CARGO_TARGET_DIR build-local (inside the
-package tree); a post-link rust_clean rule then wipes target/, the build-local
-CARGO_HOME and the extracted vendor/, so R CMD check scans no third-party build
-artefacts (the GNU-make-extension Makefiles and a stray CITATION.cff inside the
-vendored C-library crates are deleted by ./configure, with their .cargo-checksum
-entries removed). cargo runs with -j 2; rustc/cargo --version are echoed before
-compiling. Verified by an offline install under a pristine fake HOME (no .cargo is
-created). The Cargo/rustc toolchain is declared in SystemRequirements.
-
-R CMD check --as-cran: 0 ERROR. The only WARNING is the Rust-std `abort` reference
-(panic / allocation-failure path) — inherent to linking any Rust static library
-and the known WARNING CRAN tolerates for Rust packages. NOTES: New submission plus
-local conda-toolchain artefacts (-march=nocona, an nm parser quirk) absent on CRAN.
-
-Note on size: this ~13 MB tarball is the COMPLETE reader set (incl. Parquet/Arrow,
-HDF5/netCDF, MATLAB) and exceeds the 10 MB soft cap — it may need a size exception.
-The smaller sibling nirs4allformats.lite (~10.5 MB, Parquet dropped) is submitted
-alongside. Imports only jsonlite. Maintainer: Grégory Beurier (CIRAD).
-```
-
-## nirs4allformats.lite_<ver>.tar.gz
-```
-New submission. nirs4allformats.lite is the smaller variant of nirs4allformats:
-the complete reader set MINUS the Parquet/Arrow reader (the single biggest
-dependency); it keeps HDF5/netCDF, MATLAB and every core reader. Same Rust core,
-same exported R API. Feeding it a Parquet file returns a clean error naming the
-complete package and the exact install line. License: MIT + file LICENSE.
-
-CRAN Policy compliance is identical to nirs4allformats: no ~/.cargo / ~/.rustup
-writes (build-local CARGO_HOME + CARGO_TARGET_DIR, post-link rust_clean), cargo
--j 2, rustc/cargo versions echoed before compiling, offline vendored build,
-toolchain in SystemRequirements.
-
-R CMD check --as-cran: 0 ERROR; the only WARNING is the inherent Rust-std `abort`
-reference. NOTES: New submission + local conda-toolchain artefacts absent on CRAN.
-Source tarball ~10.5 MB (just over the 10 MB soft cap — may need a size exception).
-Imports only jsonlite. Maintainer: Grégory Beurier (CIRAD).
 ```
 
 ## nirs4allio_<ver>.tar.gz
