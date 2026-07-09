@@ -13,7 +13,7 @@
 #   scripts/fetch-cran-tarballs.sh [OUTDIR]        # default OUTDIR=dist/cran
 #   N4A_OWNER=GBeurier scripts/fetch-cran-tarballs.sh /tmp/cran
 #
-# Requires: gh (authenticated: `gh auth login`).
+# Requires: gh (authenticated: `gh auth login`) and sha256sum/shasum.
 set -euo pipefail
 
 OWNER="${N4A_OWNER:-GBeurier}"
@@ -30,8 +30,19 @@ R_TARBALL_RE='^(n4m|pls4all|nirs4allformats|nirs4allformats\.lite|nirs4allio|nir
 
 command -v gh >/dev/null 2>&1 || { echo "error: gh CLI is required — https://cli.github.com" >&2; exit 1; }
 gh auth status >/dev/null 2>&1 || { echo "error: gh is not authenticated — run 'gh auth login'" >&2; exit 1; }
+if command -v sha256sum >/dev/null 2>&1; then
+  sha256_file() { sha256sum "$1" | awk '{print $1}'; }
+elif command -v shasum >/dev/null 2>&1; then
+  sha256_file() { shasum -a 256 "$1" | awk '{print $1}'; }
+else
+  echo "error: sha256sum or shasum is required" >&2
+  exit 1
+fi
 
 mkdir -p "$OUTDIR"
+SUMS_TMP="$OUTDIR/.SHA256SUMS.tmp"
+: > "$SUMS_TMP"
+trap 'rm -f "$SUMS_TMP"' EXIT
 echo "→ owner=$OWNER  output=$OUTDIR"
 echo
 
@@ -51,7 +62,22 @@ for repo in "${REPOS[@]}"; do
   for a in "${assets[@]}"; do
     rm -f "$OUTDIR/$a"            # gh release download has no --clobber; overwrite by hand
     gh release download "$tag" -R "$OWNER/$repo" --pattern "$a" --dir "$OUTDIR"
-    echo "  ✓ $repo $tag → $a"
+    actual_sha="$(sha256_file "$OUTDIR/$a")"
+    release_digest="$(gh release view "$tag" -R "$OWNER/$repo" --json assets --jq ".assets[] | select(.name == \"$a\") | .digest" 2>/dev/null || true)"
+    expected_sha="${release_digest#sha256:}"
+    [ "$expected_sha" = "null" ] && expected_sha=""
+    if [ -n "$expected_sha" ] && [ "$expected_sha" != "$actual_sha" ]; then
+      echo "error: checksum mismatch for $repo $tag asset $a" >&2
+      echo "       expected: $expected_sha" >&2
+      echo "       actual:   $actual_sha" >&2
+      exit 1
+    fi
+    printf '%s  %s\n' "$actual_sha" "$a" >> "$SUMS_TMP"
+    if [ -n "$expected_sha" ]; then
+      echo "  ✓ $repo $tag → $a  sha256 verified"
+    else
+      echo "  ✓ $repo $tag → $a  sha256 recorded"
+    fi
     found=$((found + 1))
   done
 done
@@ -60,6 +86,8 @@ if [ "$found" -eq 0 ]; then
   echo "error: downloaded 0 tarballs — check 'gh auth status' and the release tags" >&2
   exit 1
 fi
+mv "$SUMS_TMP" "$OUTDIR/SHA256SUMS"
+trap - EXIT
 
 # ----------------------------------------------------------------------------
 # Optional-comments Markdown (one block per package, paste into the CRAN form).
@@ -72,6 +100,9 @@ MD_PATH="$OUTDIR/CRAN-optional-comments.md"
 
 Submit each tarball in this folder at <https://cran.r-project.org/submit.html>
 and paste the matching block below into the form's *Optional comments* box.
+`SHA256SUMS` records the downloaded source-tarball hashes; when GitHub exposes a
+Release asset digest, this script verifies the local file against it before the
+bundle is considered ready.
 Each package also keeps a longer repo-side `cran-comments.md` next to its R
 package root; those files are intentionally excluded from the R source tarball
 and are meant for maintainer/submission notes, not package payload.
@@ -240,5 +271,6 @@ echo
 echo "Downloaded ${found} tarball(s):"
 ( cd "$OUTDIR" && for f in *.tar.gz; do [ -e "$f" ] || continue; printf '  %-40s %8s\n' "$f" "$(du -h "$f" | cut -f1)"; done )
 echo
+echo "Checksums → $OUTDIR/SHA256SUMS"
 echo "Optional comments → $MD_PATH"
 echo "Submit each tarball at https://cran.r-project.org/submit.html"
