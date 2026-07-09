@@ -28,6 +28,7 @@ def test_rc_core_uses_canonical_repo_without_legacy_lite_alias() -> None:
     assert package.channel == "rc"
     assert package.repo == "nirs4all-core"
     assert package.issues_repo == "nirs4all-core"
+    assert package.coordination_tag == "n4a-v1-rc16-2026.07-refactor"
     assert package.source_of_truth is not None
     assert package.source_of_truth.strategy == "cargo_package"
 
