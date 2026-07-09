@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-09T19:26:46.727434+00:00",
+  "generated_at": "2026-07-09T19:48:50.043837+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
-    "run_id": "29044302880"
+    "run_id": "29045625556"
   },
   "packages": [
     {
@@ -2577,7 +2577,7 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 158,
+        "size_kb": 157,
         "language": "Python",
         "license": "NOASSERTION",
         "pushed_at": "2026-07-09T18:49:12Z",
@@ -3170,7 +3170,7 @@
         "open_prs": 2,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 543,
+        "size_kb": 545,
         "language": "Python",
         "license": "AGPL-3.0",
         "pushed_at": "2026-07-09T18:49:11Z",
@@ -4451,7 +4451,7 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 14013,
+        "size_kb": 14019,
         "language": "TypeScript",
         "license": "AGPL-3.0",
         "pushed_at": "2026-07-09T18:53:20Z",
@@ -4605,6 +4605,105 @@
         "success_rate": 100.0,
         "last_conclusion": "success",
         "last_created_at": "2026-07-08T21:11:01Z"
+      }
+    },
+    {
+      "id": "nirs4all-device",
+      "repo": "nirs4all-device",
+      "source": {
+        "manifest_version": "0.1.0",
+        "latest_prod_tag": null,
+        "latest_any_tag": null,
+        "expected_prod_version": "0.1.0",
+        "commit": "103defc991e6a8feb7f0d9ea71306daca7390e40",
+        "latest_prod_tag_at": null,
+        "latest_release_at": null,
+        "latest_version_at": null,
+        "latest_version_source": null,
+        "last_commit_at": "2026-07-09T19:05:57Z",
+        "commits_ahead_of_latest_prod_tag": null
+      },
+      "rollup": "green",
+      "flags": [],
+      "targets": [
+        {
+          "registry": "pages",
+          "name": "nirs4all-device",
+          "reason": "phone/tablet spectrometer workbench deployed at device.nirs4all.org; Android debug APK remains a CI artifact, not a registry release target",
+          "published_version": null,
+          "status": "green",
+          "planned": false,
+          "downloads": {
+            "last_day": null,
+            "last_week": null,
+            "last_month": null,
+            "total": null,
+            "source": null,
+            "by_version": [],
+            "windows": {}
+          },
+          "evidence": {
+            "version_endpoint": "https://device.nirs4all.org/",
+            "downloads_endpoint": null
+          },
+          "error": null
+        }
+      ],
+      "workflows": [
+        {
+          "file": "pages.yml",
+          "conclusion": "success",
+          "created_at": "2026-07-09T19:06:01Z",
+          "head_sha": "103defc991e6a8feb7f0d9ea71306daca7390e40"
+        }
+      ],
+      "issues": {
+        "open": 0,
+        "bugs": 0
+      },
+      "repo_stats": {
+        "stars": 0,
+        "forks": 0,
+        "watchers": 0,
+        "open_prs": 0,
+        "closed_prs": 0,
+        "merged_prs": 0,
+        "size_kb": 469,
+        "language": "TypeScript",
+        "license": "AGPL-3.0",
+        "pushed_at": "2026-07-09T19:05:58Z",
+        "default_branch": "main",
+        "traffic_views_14d": null,
+        "traffic_views_uniques": null,
+        "traffic_clones_14d": null,
+        "traffic_clones_uniques": null,
+        "traffic_available": false
+      },
+      "code_stats": {
+        "loc_code": 4077,
+        "loc_comment": 12,
+        "loc_blank": 343,
+        "loc_total": 4432,
+        "files": 37,
+        "tests": 24,
+        "by_language": {
+          "TypeScript": 3315,
+          "CSS": 625,
+          "Java": 120,
+          "HTML": 17
+        },
+        "coverage_pct": null,
+        "source": "local-scan"
+      },
+      "actions_stats": {
+        "workflows": 3,
+        "total_runs": 19,
+        "recent_total": 19,
+        "recent_success": 16,
+        "recent_failure": 3,
+        "success_rate": 84.2,
+        "last_conclusion": "success",
+        "last_created_at": "2026-07-09T19:06:01Z"
       }
     },
     {
@@ -4771,13 +4870,13 @@
         "latest_prod_tag": "v0.1.7",
         "latest_any_tag": "v0.1.7",
         "expected_prod_version": "v0.1.7",
-        "commit": "1a0f2351652b1292e8343bd57f54bd441912cf40",
+        "commit": "0497dbf3614b73809aa71a5fba280e89c279fc5a",
         "latest_prod_tag_at": "2026-07-07T13:26:02Z",
         "latest_release_at": "2026-07-07T13:26:15Z",
         "latest_version_at": "2026-07-07T13:26:15Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-09T19:18:58Z",
-        "commits_ahead_of_latest_prod_tag": 144
+        "last_commit_at": "2026-07-09T19:46:56Z",
+        "commits_ahead_of_latest_prod_tag": 147
       },
       "rollup": "green",
       "flags": [],
@@ -4809,8 +4908,8 @@
         {
           "file": "pages.yml",
           "conclusion": "success",
-          "created_at": "2026-07-09T19:19:01Z",
-          "head_sha": "1a0f2351652b1292e8343bd57f54bd441912cf40"
+          "created_at": "2026-07-09T19:47:01Z",
+          "head_sha": "0497dbf3614b73809aa71a5fba280e89c279fc5a"
         }
       ],
       "issues": {
@@ -4827,7 +4926,7 @@
         "size_kb": 981,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-09T19:18:59Z",
+        "pushed_at": "2026-07-09T19:46:58Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4836,15 +4935,15 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 6937,
+        "loc_code": 6972,
         "loc_comment": 1186,
-        "loc_blank": 1620,
-        "loc_total": 9743,
+        "loc_blank": 1626,
+        "loc_total": 9784,
         "files": 44,
-        "tests": 130,
+        "tests": 132,
         "by_language": {
-          "Python": 5531,
-          "JavaScript": 707,
+          "Python": 5564,
+          "JavaScript": 709,
           "CSS": 338,
           "Shell": 239,
           "HTML": 122
@@ -4854,13 +4953,13 @@
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 756,
+        "total_runs": 764,
         "recent_total": 100,
         "recent_success": 91,
         "recent_failure": 3,
         "success_rate": 96.8,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-09T19:19:02Z"
+        "last_created_at": "2026-07-09T19:47:01Z"
       }
     },
     {
@@ -5181,7 +5280,7 @@
         "open_prs": 3,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 364,
+        "size_kb": 357,
         "language": "Python",
         "license": "AGPL-3.0",
         "pushed_at": "2026-07-09T18:49:23Z",
@@ -5224,13 +5323,13 @@
         "latest_prod_tag": "v0.1.0",
         "latest_any_tag": "v0.1.0",
         "expected_prod_version": "v0.1.0",
-        "commit": "2f987398550069bd8e7a66c8d2e65f474c37a76d",
+        "commit": "b15b683f83451834e6da86e38497e737f32a8b1e",
         "latest_prod_tag_at": "2026-06-16T12:45:18Z",
         "latest_release_at": "2026-06-16T15:02:30Z",
         "latest_version_at": "2026-06-16T15:02:30Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-09T19:11:14Z",
-        "commits_ahead_of_latest_prod_tag": 615
+        "last_commit_at": "2026-07-09T19:47:43Z",
+        "commits_ahead_of_latest_prod_tag": 616
       },
       "rollup": "green",
       "flags": [],
@@ -5275,7 +5374,7 @@
         "size_kb": 6248,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-09T19:11:16Z",
+        "pushed_at": "2026-07-09T19:47:44Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -5299,18 +5398,18 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 746,
+        "total_runs": 748,
         "recent_total": 100,
         "recent_success": 88,
         "recent_failure": 11,
         "success_rate": 88.9,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-09T19:11:18Z"
+        "last_created_at": "2026-07-09T19:47:47Z"
       }
     }
   ],
   "summary": {
-    "green": 96,
+    "green": 97,
     "stale": 1,
     "pending": 4,
     "missing": 0,
@@ -5319,17 +5418,17 @@
     "excluded": 1
   },
   "totals": {
-    "packages": 22,
-    "repos": 22,
+    "packages": 23,
+    "repos": 23,
     "stars": 156,
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 1454752,
-    "loc_total": 1844984,
-    "tests": 16027,
-    "files": 5796,
-    "workflow_runs": 7501,
+    "loc_code": 1458864,
+    "loc_total": 1849457,
+    "tests": 16053,
+    "files": 5833,
+    "workflow_runs": 7530,
     "downloads_last_month": 39166
   },
   "visits": {
