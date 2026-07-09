@@ -78,7 +78,6 @@ packages:
       attr: <optionnel, pour python_attr>
     release_trigger:                   # comment une release part (admin)
       kind: tag|workflow_dispatch|github_release_published
-    channel: production|prerelease
     issues_repo: <repo>
     targets:
       - registry: pypi|npm|crates|r-universe|cran|github-release
