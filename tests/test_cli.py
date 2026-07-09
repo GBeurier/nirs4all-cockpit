@@ -50,6 +50,33 @@ def test_collect_only_allows_explicit_scratch_output(monkeypatch, tmp_path) -> N
     assert "wrote" in result.stdout
 
 
+def test_collect_records_github_run_id(monkeypatch, tmp_path) -> None:
+    runner = CliRunner()
+    out = tmp_path / "current.json"
+    seen: dict[str, str | None] = {}
+
+    def build_snapshot(*_args, **kwargs):
+        seen["run_id"] = kwargs.get("run_id")
+        return Snapshot(
+            schema_version=1,
+            generated_at="2026-07-07T00:00:00+00:00",
+            generator={"run_id": kwargs.get("run_id")},
+            packages=[],
+            summary={},
+            visits=Visits(),
+            sentry=SentryStatus(),
+        )
+
+    monkeypatch.setenv("GITHUB_RUN_ID", "29019559738")
+    monkeypatch.setattr(cli.reconcile, "build_snapshot", build_snapshot)
+
+    result = runner.invoke(cli.app, ["collect", "--offline", "--out", str(out)])
+
+    assert result.exit_code == 0
+    assert seen["run_id"] == "29019559738"
+    assert '"run_id": "29019559738"' in out.read_text(encoding="utf-8")
+
+
 def test_admin_actions_can_write_public_json(tmp_path) -> None:
     runner = CliRunner()
     out = tmp_path / "manual-actions.json"

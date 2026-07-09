@@ -21,6 +21,7 @@ and passed into the pure collection/reconcile layer.
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -172,6 +173,7 @@ def collect(
         offline=offline,
         with_traffic=with_traffic,
         generated_at=_utc_now(),
+        run_id=os.environ.get("GITHUB_RUN_ID"),
     )
     for p in snap.packages:
         if p.code_stats and p.code_stats.coverage_pct is None and p.repo in prior_coverage:

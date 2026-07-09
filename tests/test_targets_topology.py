@@ -477,6 +477,10 @@ def test_cran_optional_comments_flag_datasets_size_exception() -> None:
     targets = {(target.registry, target.name): target for target in package.targets}
 
     assert "CRAN-ready now (≤10 MB, clean): `n4m`, `pls4all`, `nirs4allio`." in script
+    assert "R-universe-only: `nirs4allformats`; do not submit it to CRAN" in script
+    assert "nirs4all-formats" not in script.split("REPOS=", 1)[1].split(")", 1)[0]
+    assert "nirs4allformats.lite" not in script
+    assert "nirs4allformats|nirs4allformats\\.lite" not in script
     assert "`nirs4alldatasets` (~24 MB)" in script
     assert "24,666,282 bytes" in script
     assert "ships no dataset\npayloads" in script
