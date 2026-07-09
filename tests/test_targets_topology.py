@@ -431,9 +431,9 @@ def test_current_runiverse_manual_actions_cover_release_rebuilds() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
         "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.3.9", "todo"),
-        "runiverse-methods-n4m-rebuild": ("nirs4all-methods", "n4m", "v1.0.9", "todo"),
-        "runiverse-methods-pls4all-rebuild": ("nirs4all-methods", "pls4all", "v1.0.9", "todo"),
-        "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.7", "todo"),
+        "runiverse-methods-n4m-rebuild": ("nirs4all-methods", "n4m", "v1.0.9", "done"),
+        "runiverse-methods-pls4all-rebuild": ("nirs4all-methods", "pls4all", "v1.0.9", "done"),
+        "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.7", "done"),
         "runiverse-io-rebuild": ("nirs4all-io", "nirs4allio", "v0.1.11", "done"),
         "runiverse-dagml-data-rebuild": ("dag-ml-data", "dagmldata", "v0.2.9", "done"),
     }
