@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-09T15:18:12.199796+00:00",
+  "snapshot_generated_at": "2026-07-09T15:43:16.545075+00:00",
   "counts": {
     "total": 23,
     "pending": 6,
@@ -130,7 +130,7 @@
       "status": "done",
       "declared_status": "done",
       "severity": "blocker",
-      "title": "PyPI — Trusted Publisher configured and nirs4all-core v0.3.7 published from release-python.yml",
+      "title": "PyPI — Trusted Publisher configured and nirs4all-core v0.3.8 published from release-python.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
       "affects": [
         "nirs4all-core:release-python.yml"
@@ -142,14 +142,14 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-core published 0.3.7 (status=green)"
+      "check_note": "pypi:nirs4all-core published 0.3.8 (status=green)"
     },
     {
       "id": "runiverse-core-rebuild",
       "status": "done",
       "declared_status": "done",
       "severity": "important",
-      "title": "R-universe — rebuild nirs4all from nirs4all-core v0.3.7 (requires write access to r-universe/gbeurier)",
+      "title": "R-universe — rebuild nirs4all from nirs4all-core v0.3.8 (requires write access to r-universe/gbeurier)",
       "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
       "affects": [
         "nirs4all-core:r-universe",
@@ -161,8 +161,8 @@
         "name": "nirs4all",
         "expect": "green"
       },
-      "resolved": true,
-      "check_note": "r-universe:nirs4all current 0.3.7 (status=green)"
+      "resolved": false,
+      "check_note": "r-universe:nirs4all status=stale version=0.3.7"
     },
     {
       "id": "runiverse-methods-n4m-rebuild",
@@ -269,7 +269,7 @@
       "status": "done",
       "declared_status": "done",
       "severity": "blocker",
-      "title": "PyPI — Trusted Publisher configured and nirs4all-providers v0.2.9 published from publish.yml",
+      "title": "PyPI — Trusted Publisher configured and nirs4all-providers v0.2.10 published from publish.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
       "affects": [
         "nirs4all-providers:publish.yml"
@@ -292,7 +292,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-providers published 0.2.9 (status=green)"
+      "check_note": "pypi:nirs4all-providers published 0.2.10 (status=green)"
     },
     {
       "id": "pypi-publisher-tools",
@@ -548,7 +548,7 @@
       "status": "todo",
       "declared_status": "todo",
       "severity": "important",
-      "title": "CRAN — submit the nirs4all aggregate R package from nirs4all-core v0.3.7 after RC source validation",
+      "title": "CRAN — submit the nirs4all aggregate R package from nirs4all-core v0.3.8 after RC source validation",
       "manual_url": "https://cran.r-project.org/submit.html",
       "affects": [],
       "after_done": [],
