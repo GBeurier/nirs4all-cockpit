@@ -152,7 +152,7 @@ function renderLegend(snap) {
 }
 
 function isManualActionPending(action) {
-  return action && action.status !== "done" && action.resolved !== true;
+  return action && action.resolved !== true;
 }
 
 function manualActionUrl(action) {
