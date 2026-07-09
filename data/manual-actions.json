@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-09T10:41:37.661474+00:00",
+  "snapshot_generated_at": "2026-07-09T11:04:29.104334+00:00",
   "counts": {
     "total": 23,
     "pending": 6,
@@ -15,8 +15,8 @@
       "status": "todo",
       "declared_status": "todo",
       "severity": "blocker",
-      "title": "Studio — build and manually smoke-test the Windows RC installer before any production switch",
-      "manual_url": "https://github.com/GBeurier/nirs4all-studio/actions/workflows/release-unified.yml",
+      "title": "Studio — manually smoke-test the published Windows RC installer before any production switch",
+      "manual_url": "https://github.com/GBeurier/nirs4all-studio/releases/tag/n4a-v1-rc1-2026.07-studio-main-installer",
       "affects": [
         "nirs4all-studio:release-unified.yml",
         "nirs4all-studio:github-release"
