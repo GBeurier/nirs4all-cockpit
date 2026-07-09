@@ -465,6 +465,20 @@ def test_cran_rc_manual_actions_do_not_resolve_on_stale_publication() -> None:
     assert "status=stale" in (action.check_note or "")
 
 
+def test_cran_optional_comments_flag_datasets_size_exception() -> None:
+    script = (ROOT / "scripts" / "fetch-cran-tarballs.sh").read_text(encoding="utf-8")
+    actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
+    package = _package("nirs4all-datasets")
+    targets = {(target.registry, target.name): target for target in package.targets}
+
+    assert "CRAN-ready now (≤10 MB, clean): `n4m`, `pls4all`, `nirs4allio`." in script
+    assert "`nirs4alldatasets` (~24 MB)" in script
+    assert "ships no dataset\npayloads" in script
+    assert "Source tarball ~9.3 MB" not in script
+    assert "24 MB size-exception" in actions["cran-submit-nirs4alldatasets"].title
+    assert "size-exception comment" in (targets[("cran", "nirs4alldatasets")].reason or "")
+
+
 def test_resolved_manual_actions_are_marked_done() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     done_actions = {
