@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import http.server
 import json
+import os
 import shutil
 import socketserver
 import subprocess
@@ -45,13 +46,25 @@ def _find_chrome(explicit: str | None) -> str:
     )
 
 
-def _dump_dom(chrome: str, url: str) -> str:
+def _timeout_seconds(explicit: int | None) -> int:
+    if explicit is not None:
+        return explicit
+    raw = os.environ.get("COCKPIT_DASHBOARD_SMOKE_TIMEOUT", "90")
+    try:
+        return max(10, int(raw))
+    except ValueError:
+        return 90
+
+
+def _dump_dom(chrome: str, url: str, *, timeout: int) -> str:
     proc = subprocess.run(
         [
             chrome,
             "--headless=new",
             "--disable-gpu",
             "--no-sandbox",
+            "--disable-dev-shm-usage",
+            "--run-all-compositor-stages-before-draw",
             "--virtual-time-budget=5000",
             "--dump-dom",
             url,
@@ -60,7 +73,7 @@ def _dump_dom(chrome: str, url: str) -> str:
         check=True,
         capture_output=True,
         text=True,
-        timeout=30,
+        timeout=timeout,
     )
     return proc.stdout
 
@@ -68,14 +81,20 @@ def _dump_dom(chrome: str, url: str) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--chrome", help="Chrome/Chromium executable to use")
+    parser.add_argument(
+        "--timeout",
+        type=int,
+        help="Seconds to wait for headless Chrome before failing; defaults to COCKPIT_DASHBOARD_SMOKE_TIMEOUT or 90.",
+    )
     args = parser.parse_args()
 
     chrome = _find_chrome(args.chrome)
+    timeout = _timeout_seconds(args.timeout)
     with socketserver.TCPServer(("127.0.0.1", 0), QuietHandler) as server:
         port = server.server_address[1]
         thread = threading.Thread(target=server.serve_forever, daemon=True)
         thread.start()
-        dom = _dump_dom(chrome, f"http://127.0.0.1:{port}/web/index.html")
+        dom = _dump_dom(chrome, f"http://127.0.0.1:{port}/web/index.html", timeout=timeout)
 
     manual_actions = json.loads((ROOT / "data" / "manual-actions.json").read_text(encoding="utf-8"))
     unresolved_action_ids = [
