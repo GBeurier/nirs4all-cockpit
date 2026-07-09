@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-09T10:41:37.661474+00:00",
+  "generated_at": "2026-07-09T11:04:29.104334+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -206,7 +206,7 @@
           "registry": "github-release",
           "name": "nirs4all-studio",
           "channel": "production-held",
-          "reason": "production app release remains held outside the final V1 RC; Windows installer RC remains manual while the latest Studio V1 coordination tag is n4a-v1-rc8-2026.07-refactor",
+          "reason": "production app release remains held outside the final V1 RC; Windows installer RC for manual local testing is published at n4a-v1-rc1-2026.07-studio-main-installer; release-unified workflow_dispatch builds smoke artifacts only, while tag releases publish",
           "published_version": "0.9.1",
           "status": "green",
           "planned": false,
@@ -250,7 +250,7 @@
         "size_kb": 37652,
         "language": "TypeScript",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-09T04:24:45Z",
+        "pushed_at": "2026-07-09T10:57:26Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4832,13 +4832,13 @@
         "latest_prod_tag": "v0.1.7",
         "latest_any_tag": "v0.1.7",
         "expected_prod_version": "v0.1.7",
-        "commit": "3f131a1903f20169ba8d2190e931fbce29b22d36",
+        "commit": "e51b2d85ec1e6d4dfc556e4bde02d37a782a7b63",
         "latest_prod_tag_at": "2026-07-07T13:26:02Z",
         "latest_release_at": "2026-07-07T13:26:15Z",
         "latest_version_at": "2026-07-07T13:26:15Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-09T10:30:54Z",
-        "commits_ahead_of_latest_prod_tag": 106
+        "last_commit_at": "2026-07-09T11:03:17Z",
+        "commits_ahead_of_latest_prod_tag": 108
       },
       "rollup": "green",
       "flags": [],
@@ -4882,7 +4882,7 @@
         "size_kb": 813,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-09T10:30:56Z",
+        "pushed_at": "2026-07-09T11:03:18Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4891,14 +4891,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 6695,
+        "loc_code": 6700,
         "loc_comment": 1183,
         "loc_blank": 1577,
-        "loc_total": 9455,
+        "loc_total": 9460,
         "files": 44,
         "tests": 122,
         "by_language": {
-          "Python": 5291,
+          "Python": 5296,
           "JavaScript": 707,
           "CSS": 337,
           "Shell": 238,
@@ -4909,13 +4909,13 @@
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 668,
+        "total_runs": 673,
         "recent_total": 100,
-        "recent_success": 92,
+        "recent_success": 91,
         "recent_failure": 4,
         "success_rate": 95.8,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-09T10:35:03Z"
+        "last_created_at": "2026-07-09T11:03:21Z"
       }
     },
     {
@@ -5324,7 +5324,7 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 5872,
+        "size_kb": 5876,
         "language": "Python",
         "license": "AGPL-3.0",
         "pushed_at": "2026-07-09T10:08:45Z",
@@ -5377,11 +5377,11 @@
     "forks": 0,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 1454249,
-    "loc_total": 1844401,
+    "loc_code": 1454254,
+    "loc_total": 1844406,
     "tests": 16017,
     "files": 5794,
-    "workflow_runs": 7278,
+    "workflow_runs": 7283,
     "downloads_last_month": 39084
   },
   "visits": {
