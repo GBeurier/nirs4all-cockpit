@@ -50,7 +50,7 @@ def test_rc_core_uses_canonical_repo_without_legacy_lite_alias() -> None:
     assert "R tarball" in core_release_reason
     assert "SHA256SUMS" in core_release_reason
     assert "Python wheel/sdist fallback assets" not in core_release_reason
-    assert "PyPI package targets v0.3.7" in core_pypi_reason
+    assert "PyPI package targets v0.3.8" in core_pypi_reason
 
 
 def test_inventory_tracks_no_live_nirs4all_lite_release_alias() -> None:
@@ -329,8 +329,8 @@ def test_rc_python_facade_publish_state_is_explicit() -> None:
         ),
     }
 
-    assert "PyPI package targets v0.3.7" in blockers["core"]
-    assert "PyPI package is published at v0.2.9" in blockers["providers"]
+    assert "PyPI package targets v0.3.8" in blockers["core"]
+    assert "PyPI package is published at v0.2.10" in blockers["providers"]
     assert "PyPI package is published at v0.0.5" in blockers["tools"]
     assert "GitHub Release v0.0.5 also carries wheel/sdist assets" in blockers["tools"]
     assert "PyPI package is published at v0.1.6" in blockers["benchmarks"]
@@ -341,8 +341,8 @@ def test_rc_python_facade_publish_state_is_explicit() -> None:
 def test_current_pypi_manual_actions_track_resolved_publishers() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
-        "pypi-publisher-core": ("nirs4all-core", "v0.3.7"),
-        "pypi-publisher-providers": ("nirs4all-providers", "v0.2.9"),
+        "pypi-publisher-core": ("nirs4all-core", "v0.3.8"),
+        "pypi-publisher-providers": ("nirs4all-providers", "v0.2.10"),
         "pypi-publisher-tools": ("nirs4all-tools", "v0.0.5"),
         "pypi-publisher-benchmarks": ("nirs4all-benchmarks", "v0.1.6"),
         "pypi-publisher-repository": ("nirs4all-repository", "v0.1.10"),
@@ -397,7 +397,7 @@ def test_current_runiverse_manual_action_tracks_core_rebuild_done() -> None:
 def test_current_runiverse_manual_actions_cover_release_rebuilds() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
-        "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.3.7", "done"),
+        "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.3.8", "done"),
         "runiverse-methods-n4m-rebuild": ("nirs4all-methods", "n4m", "v1.0.8", "done"),
         "runiverse-methods-pls4all-rebuild": ("nirs4all-methods", "pls4all", "v1.0.8", "done"),
         "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.6", "done"),
