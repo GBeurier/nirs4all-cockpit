@@ -212,6 +212,50 @@ function renderManualActions(data) {
   box.appendChild(list);
 }
 
+function renderReleaseBundles(snap) {
+  const section = document.getElementById("release-bundles-block");
+  const box = document.getElementById("release-bundles");
+  const bundles = snap.release_bundles || [];
+  if (!section || !box || !bundles.length) return;
+  box.innerHTML = "";
+  section.hidden = false;
+
+  for (const bundle of bundles) {
+    const article = el("article", { class: "bundle" });
+    const head = el("div", { class: "bundle__head" });
+    head.append(
+      el("span", { class: `bundle-status bundle-status--${bundle.status || "unknown"}` }, [
+        led(bundle.status || "unknown"),
+        el("b", { text: bundle.label || bundle.id }),
+      ]),
+      el("span", { class: "pkg-channel", text: bundle.channel || "rc" }),
+    );
+    article.appendChild(head);
+    if (bundle.reason) article.appendChild(el("p", { class: "bundle__reason", text: bundle.reason }));
+
+    const groups = el("div", { class: "bundle-groups" });
+    groups.appendChild(bundleGroup("included", bundle.included_packages || [], bundle.included_rollups || {}));
+    groups.appendChild(bundleGroup("held", bundle.held_packages || [], bundle.held_rollups || {}, true));
+    article.appendChild(groups);
+    box.appendChild(article);
+  }
+}
+
+function bundleGroup(label, packages, rollups, held = false) {
+  const group = el("div", { class: `bundle-group${held ? " bundle-group--held" : ""}` });
+  group.appendChild(el("div", { class: "bundle-group__label", text: label }));
+  const chips = el("div", { class: "bundle-chips" });
+  for (const packageId of packages) {
+    const state = rollups[packageId] || (held ? "green" : "missing");
+    chips.appendChild(el("span", { class: "bundle-chip" }, [
+      led(state),
+      el("span", { text: packageId }),
+    ]));
+  }
+  group.appendChild(chips);
+  return group;
+}
+
 // ---- matrix ----------------------------------------------------------------
 
 function worstState(targets) {
@@ -256,6 +300,7 @@ function renderMatrix(snap) {
     a.append(el("span", { class: "pkg-name", text: pkg.id }));
     if (pkg.repo && pkg.repo !== pkg.id) a.append(el("span", { class: "pkg-repo", text: `repo ${pkg.repo}` }));
     cPkg.appendChild(a);
+    if (pkg.channel && pkg.channel !== "production") cPkg.appendChild(el("span", { class: "pkg-channel", text: pkg.channel }));
     tr.appendChild(cPkg);
 
     const src = pkg.source || {};
@@ -507,11 +552,12 @@ function renderVisits(snap) {
   });
   box.appendChild(chips);
 
-  // Every ecosystem page, even at 0 views; counts come from the snapshot.
+  // Every ecosystem page; missing rows are explicitly "untracked" rather than a
+  // fake zero, because GoatCounter omits paths not covered by the current token.
   const counts = new Map((v.pages || []).map((p) => [p.path, p.count || 0]));
   const rows = ECO_PAGES
-    .map(([path, label, repo]) => ({ path, label, repo, count: counts.get(path) || 0 }))
-    .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+    .map(([path, label, repo]) => ({ path, label, repo, count: counts.has(path) ? counts.get(path) : null }))
+    .sort((a, b) => (b.count ?? -1) - (a.count ?? -1) || a.label.localeCompare(b.label));
   const table = el("table", { class: "stats visits-table" });
   const thead = el("thead"), hr = el("tr");
   for (const h of ["page", "views"]) hr.appendChild(el("th", { text: h }));
@@ -523,7 +569,7 @@ function renderVisits(snap) {
     const pageTd = el("th", { class: "s-repo", attrs: { scope: "row" } });
     pageTd.appendChild(el("a", { text: r.label, attrs: { href, target: "_blank", rel: "noopener", title: r.path } }));
     row.appendChild(pageTd);
-    row.appendChild(el("td", { class: "num", text: fmtInt(r.count) }));
+    row.appendChild(el("td", { class: `num${r.count == null ? " muted-cell" : ""}`, text: r.count == null ? "untracked" : fmtInt(r.count) }));
     tbody.appendChild(row);
   }
   table.appendChild(tbody);
@@ -764,6 +810,7 @@ async function main() {
     renderSummary(snap);
     renderLegend(snap);
     renderManualActions(await loadManualActions());
+    renderReleaseBundles(snap);
     renderMatrix(snap);
     renderDownloads(snap);
     renderVisits(snap);
