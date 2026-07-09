@@ -72,8 +72,9 @@ MD_PATH="$OUTDIR/CRAN-optional-comments.md"
 
 Submit each tarball in this folder at <https://cran.r-project.org/submit.html>
 and paste the matching block below into the form's *Optional comments* box.
-The full, shipped-in-tarball `cran-comments.md` lives in each package under
-`bindings/r/<pkg>/cran-comments.md`.
+Each package also keeps a longer repo-side `cran-comments.md` next to its R
+package root; those files are intentionally excluded from the R source tarball
+and are meant for maintainer/submission notes, not package payload.
 
 **Submit-now vs R-universe-first**
 
@@ -188,12 +189,13 @@ imports only jsonlite. Maintainer: Grégory Beurier (CIRAD), gregory.beurier@cir
 
 ## nirs4alldatasets_<ver>.tar.gz
 ```
-New submission. nirs4alldatasets is a thin R binding (a small C shim over the
-stable n4ds_* C ABI) for the Rust-first nirs4all-datasets acquisition core:
-resolve a dataset id from the catalog into a version-pinned download contract,
-fetch the canonical Parquet (Dataverse/Zenodo/figshare) with SHA-256 verification
-into a local cache, and re-verify a cached directory offline. It compiles the
-vendored Rust core into a static library OFFLINE at install. License: MIT.
+Update of the existing CRAN package nirs4alldatasets (0.2.0 -> 0.3.5).
+nirs4alldatasets is a thin R binding (a small C shim over the stable n4ds_* C
+ABI) for the Rust-first nirs4all-datasets acquisition core: resolve a dataset id
+from the catalog into a version-pinned download contract, fetch the canonical
+Parquet (Dataverse/Zenodo/figshare) with SHA-256 verification into a local cache,
+and re-verify a cached directory offline. It compiles the vendored Rust core into
+a static library OFFLINE at install. License: MIT.
 
 CRAN Policy compliance: the install never writes to ~/.cargo or ~/.rustup —
 CARGO_HOME and CARGO_TARGET_DIR are build-local and wiped after linking; cargo runs
@@ -201,12 +203,14 @@ with -j 2; rustc/cargo versions are echoed before compiling; vendored crates shi
 compressed (vendor.tar.xz) with dev/build (cbindgen) deps stripped and ~76 MB of
 unused Windows import-library blobs pruned. Toolchain in SystemRequirements.
 
-R CMD check --as-cran: 0 ERRORs, 0 WARNINGs; NOTES are New submission plus local
-conda-toolchain artefacts (-march=nocona, an nm parser quirk) absent on CRAN.
-Source tarball ~24 MB and needs a size exception: the package ships no dataset
-payloads, but it must vendor the Rust/core/io/formats crates and their crates.io
-dependencies so CRAN installation is fully offline and reproducible. Imports
-only jsonlite. Maintainer: Grégory Beurier (CIRAD), gregory.beurier@cirad.fr.
+R CMD check --as-cran: 0 ERRORs, 0 WARNINGs; NOTES are the expected CRAN incoming
+title-case/package-size notes plus local conda-toolchain artefacts
+(-march=nocona, an nm parser quirk) absent on CRAN. Source tarball:
+24,666,282 bytes. It needs a size exception: the package ships no dataset
+payloads, but it must vendor the Rust acquisition core and its crates.io
+dependencies plus embedded catalog metadata so CRAN installation/checks are fully
+offline and reproducible. Imports only jsonlite. Maintainer: Grégory Beurier
+(CIRAD), gregory.beurier@cirad.fr.
 ```
 
 ## nirs4all_<ver>.tar.gz  (core aggregate)
@@ -217,16 +221,17 @@ the R sources, so none of the Rust / ~.cargo / Makevars considerations of the
 compiled siblings apply. It is an umbrella that exposes the ecosystem (NIRS file
 readers, dataset assembly, datasets catalog, PLS engine, dag-ml coordinators)
 behind one R surface and delegates all parsing/numerical/pipeline work upstream.
-Imports: jsonlite, yaml only. License: MIT + file LICENSE.
+Imports: jsonlite, yaml only. License: CeCILL-2.1 | AGPL (>= 3).
 
 The aggregated upstream R packages (nirs4allformats, nirs4allio, nirs4alldatasets,
 n4m, dagmldata) are in Suggests, used conditionally behind requireNamespace(), and
 served from R-universe via Additional_repositories — they are not yet on mainstream
-CRAN. R CMD check --as-cran: 0 ERROR, 0 WARNING, 3 NOTES — New submission;
-"packages suggested but not available" for those R-universe packages (expected,
-optional); a future-file-timestamp note. Because the Suggests are not yet on CRAN,
-R-universe is the natural channel for this package until the upstreams land on CRAN.
-Maintainer: Grégory Beurier (CIRAD), gregory.beurier@cirad.fr.
+CRAN. R CMD check --as-cran: 0 ERROR, 0 WARNING. Expected NOTES: New submission;
+"Suggests or Enhances not in mainstream repositories" for the R-universe packages;
+and title-case on the lower-case product name "nirs4all". Because the Suggests
+are not yet on CRAN, R-universe is the natural channel for this package until the
+upstreams land on CRAN. Maintainer: Grégory Beurier (CIRAD),
+gregory.beurier@cirad.fr.
 ```
 MD
 } > "$MD_PATH"
