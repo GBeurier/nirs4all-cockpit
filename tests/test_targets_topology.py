@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 
+from cockpit import snapshot as snapshot_io
 from cockpit.manual_actions import ManualAction, evaluate, load_actions, public_payload
 from cockpit.model import PackageSource, PackageStatus, Snapshot, TargetStatus
 from cockpit.reconcile import _CANONICAL_PAGES_URLS, load_targets, reconcile
@@ -194,6 +196,17 @@ def test_v1_custom_app_host_bundle_stays_out_of_public_snapshot() -> None:
     assert packages["nirs4all-studio"].channel == "production-held"
 
 
+def test_public_snapshot_omits_channel_display_metadata() -> None:
+    snapshot = reconcile(_targets(), no_network=True)
+    payload = json.loads(snapshot_io._dump(snapshot))
+
+    assert "release_bundles" not in payload
+    for package in payload["packages"]:
+        assert "channel" not in package
+        for target in package["targets"]:
+            assert "channel" not in target
+
+
 def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     providers = _package("nirs4all-providers")
     tools = _package("nirs4all-tools")
@@ -318,6 +331,7 @@ def test_dashboard_keeps_release_matrix_without_bundle_or_channel_chips() -> Non
     assert "snap.release_bundles" not in app_js
     assert "pkg-channel" not in app_js
     assert ".pkg-channel" not in style
+    assert "app.js?v=20260709-no-release-bundles" in index
 
 
 def test_dashboard_marks_missing_visit_rows_untracked() -> None:
