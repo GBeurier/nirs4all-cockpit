@@ -863,8 +863,8 @@ packages:
         reason: "WASM-only in-browser mini-studio for NIRS analysis labs; deployed webpage at quali.nirs4all.org (GitHub Pages)"
       - registry: github-release
         name: nirs4all-quality
-        state: planned
-        reason: "in-browser app has a version guard but no versioned release workflow yet; the deployed GitHub Pages runtime is the app surface (like nirs4all-web)"
+        state: tracked
+        reason: "in-browser app has a versioned GitHub Release for the RC app surface; GitHub Pages remains the deployed runtime surface"
     version_aliases: {}
 
   - id: nirs4all-ui
