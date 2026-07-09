@@ -104,11 +104,13 @@ actions:
   - id: runiverse-core-rebuild
     status: done
     severity: important
-    title: "R-universe — rebuild nirs4all from nirs4all-core v0.3.8 (requires write access to r-universe/gbeurier)"
-    manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
+    title: "R-universe — merge the prepared nirs4all-core v0.3.8 gitlink update, then rebuild nirs4all"
+    manual_url: "https://github.com/r-universe/gbeurier/compare/master...GBeurier:update-nirs4all-core-0.3.8"
     affects:
       - "nirs4all-core:r-universe"
       - "GBeurier.r-universe.dev:packages.json"
+      - "fork:GBeurier/gbeurier:update-nirs4all-core-0.3.8"
+      - "r-universe/gbeurier:sync.yml"
     auto_check:
       registry: r-universe
       name: nirs4all
