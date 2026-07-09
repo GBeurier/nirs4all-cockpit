@@ -102,7 +102,7 @@ actions:
       expect: published
 
   - id: runiverse-core-rebuild
-    status: done
+    status: todo
     severity: important
     title: "R-universe — merge the prepared nirs4all-core v0.3.8 gitlink update, then rebuild nirs4all"
     manual_url: "https://github.com/r-universe/gbeurier/compare/master...GBeurier:update-nirs4all-core-0.3.8"
@@ -111,6 +111,12 @@ actions:
       - "GBeurier.r-universe.dev:packages.json"
       - "fork:GBeurier/gbeurier:update-nirs4all-core-0.3.8"
       - "r-universe/gbeurier:sync.yml"
+    after_done:
+      - run_workflow:
+          repo: r-universe/gbeurier
+          workflow: sync.yml
+          ref: master
+          inputs: {}
     auto_check:
       registry: r-universe
       name: nirs4all
