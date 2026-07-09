@@ -31,6 +31,11 @@ def test_rc_core_uses_canonical_repo_without_legacy_lite_alias() -> None:
     assert package.source_of_truth is not None
     assert package.source_of_truth.strategy == "cargo_package"
 
+    assert [(workflow.file, workflow.trigger, workflow.danger) for workflow in package.workflows] == [
+        ("release-source.yml", "tag", "safe"),
+        ("release-matlab.yml", "tag", "safe"),
+    ]
+
     targets = {(target.registry, target.name): target for target in package.targets}
     assert ("pypi", "nirs4all-lite") not in targets
     assert targets[("github-release", "nirs4all-core")].state == "tracked"
@@ -151,6 +156,10 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
     assert "reusable components" in npm_reason
     assert "brand assets" in npm_reason
     assert "components/assets showcase" in pages_reason
+    ui_pages = next(target for target in ui.targets if target.registry == "pages")
+    assert ui_pages.workflow is not None
+    assert ui_pages.workflow.file == "pages.yml"
+    assert ui_pages.workflow.danger == "safe"
 
 
 def test_v1_custom_app_host_bundle_is_machine_readable() -> None:
@@ -196,6 +205,10 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     assert "provider clients/read facade" in pypi_reason
     assert "neutral contracts remain canonical" in pypi_reason
     assert "docs/site page" in pages_reason
+    provider_pages = next(target for target in providers.targets if target.registry == "pages")
+    assert provider_pages.workflow is not None
+    assert provider_pages.workflow.file == "pages.yml"
+    assert provider_pages.workflow.danger == "safe"
 
     assert tools.channel == "rc"
     assert tools.source_of_truth is not None
@@ -208,6 +221,26 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     tools_release_reason = next(target.reason or "" for target in tools.targets if target.registry == "github-release")
     assert "v0.0.5 release" in tools_release_reason
     assert "carries wheel/sdist fallback assets" in tools_release_reason
+
+
+def test_pages_targets_declare_repo_local_deploy_workflows_when_available() -> None:
+    expected = {
+        "nirs4all-web": "deploy-pages.yml",
+        "nirs4all-ui": "pages.yml",
+        "nirs4all-providers": "pages.yml",
+        "nirs4all-cockpit": "pages.yml",
+        "nirs4all-benchmarks": "pages.yml",
+        "nirs4all-repository": "deploy-pages.yml",
+    }
+
+    for package_id, workflow_file in expected.items():
+        package = _package(package_id)
+        page_target = next(target for target in package.targets if target.registry == "pages")
+        assert page_target.workflow is not None
+        assert page_target.workflow.file == workflow_file
+        assert page_target.workflow.trigger == "workflow_dispatch"
+        assert page_target.workflow.danger == "safe"
+        assert page_target.workflow.publishes_on_dispatch is False
 
 
 def test_dashboard_pages_urls_cover_current_rc_pages_roster() -> None:

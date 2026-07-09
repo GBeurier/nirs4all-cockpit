@@ -23,7 +23,7 @@ from conftest import load_fixture
 from cockpit import reconcile as rec
 from cockpit import version as v
 from cockpit.collect import cran, crates, npm, readthedocs, runiverse
-from cockpit.model import Package, SourceOfTruth, Target, Targets, TargetStatus
+from cockpit.model import Package, SourceOfTruth, Target, Targets, TargetStatus, WorkflowRef
 from cockpit.reconcile import (
     _latest_any_tag,
     _latest_prod_tag,
@@ -138,6 +138,79 @@ def test_package_rollup_uses_worst_tracked_target() -> None:
 def test_package_rollup_ignores_excluded_targets() -> None:
     assert _rollup([_target_status("excluded"), _target_status("green")]) == "green"
     assert _rollup([_target_status("excluded")]) == "green"
+
+
+def test_package_level_workflows_are_collected_and_deduplicated(monkeypatch) -> None:
+    pkg = Package(
+        id="demo",
+        repo="demo",
+        workflows=[
+            WorkflowRef(file="release-source.yml", trigger="tag", danger="safe"),
+        ],
+        targets=[
+            Target(
+                registry="pypi",
+                name="demo",
+                workflow=WorkflowRef(file="release-source.yml", trigger="tag", danger="safe"),
+            ),
+            Target(
+                registry="npm",
+                name="demo",
+                workflow=WorkflowRef(
+                    file="release-npm.yml",
+                    trigger="workflow_dispatch",
+                    danger="publish",
+                    publishes_on_dispatch=True,
+                    inputs=[{"name": "publish", "type": "boolean", "default": False}],
+                ),
+            ),
+        ],
+    )
+    calls: list[str] = []
+
+    monkeypatch.setattr(
+        rec,
+        "_source_versions",
+        lambda owner, package, *, no_network: {  # noqa: ARG005
+            "manifest_version": "1.0.0",
+            "latest_prod_tag": "v1.0.0",
+            "latest_any_tag": "v1.0.0",
+        },
+    )
+    monkeypatch.setattr(
+        rec,
+        "_reconcile_target",
+        lambda owner, package, target, expected, *, no_network: TargetStatus(  # noqa: ARG005
+            registry=target.registry,
+            name=target.name,
+            status="green",
+        ),
+    )
+    monkeypatch.setattr(rec.github, "open_issues", lambda owner, repo: {"open": 0, "bugs": 0})  # noqa: ARG005
+    monkeypatch.setattr(
+        rec.github,
+        "repo_stats",
+        lambda owner, repo, *, with_traffic=False: {"_open_issues_count": 0},  # noqa: ARG005
+    )
+    monkeypatch.setattr(rec.github, "pr_counts", lambda owner, repo: {"closed": 0, "merged": 0})  # noqa: ARG005
+    monkeypatch.setattr(rec.github, "actions_stats", lambda owner, repo: {})  # noqa: ARG005
+    monkeypatch.setattr(rec.code_stats, "scan", lambda repo, *, allow_artifact_coverage=True: None)  # noqa: ARG005
+
+    def _workflow_last_run(owner, repo, workflow_file):  # noqa: ARG001
+        calls.append(workflow_file)
+        return {
+            "file": workflow_file,
+            "conclusion": "success",
+            "created_at": "2026-07-09T00:00:00Z",
+            "head_sha": "abc123",
+        }
+
+    monkeypatch.setattr(rec.github, "workflow_last_run", _workflow_last_run)
+
+    status = _reconcile_package("GBeurier", pkg, no_network=False)
+
+    assert calls == ["release-source.yml", "release-npm.yml"]
+    assert [workflow.file for workflow in status.workflows] == ["release-source.yml", "release-npm.yml"]
 
 
 # --------------------------------------------------------------------------- #

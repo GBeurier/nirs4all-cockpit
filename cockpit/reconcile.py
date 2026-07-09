@@ -60,6 +60,7 @@ from .model import (
     Totals,
     Visits,
     WorkflowHealth,
+    WorkflowRef,
 )
 
 # registry → collector entry function (each returns the fact dict).
@@ -232,9 +233,13 @@ def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traff
     for tgt in pkg.targets:
         ts = _reconcile_target(owner, pkg, tgt, expected, no_network=no_network)
         target_statuses.append(ts)
-        if tgt.workflow and tgt.workflow.file not in seen_workflows and not no_network:
-            seen_workflows.add(tgt.workflow.file)
-            wf = github.workflow_last_run(owner, pkg.repo, tgt.workflow.file)
+
+    if not no_network:
+        for workflow in _declared_workflow_refs(pkg):
+            if workflow.file in seen_workflows:
+                continue
+            seen_workflows.add(workflow.file)
+            wf = github.workflow_last_run(owner, pkg.repo, workflow.file)
             if wf is not None:
                 workflows.append(WorkflowHealth.model_validate(wf))
 
@@ -276,6 +281,14 @@ def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traff
         code_stats=code_model,
         actions_stats=actions_stats,
     )
+
+
+def _declared_workflow_refs(pkg: Package) -> Iterable[WorkflowRef]:
+    """Return package-level and target-level workflow declarations, in stable order."""
+    yield from pkg.workflows
+    for tgt in pkg.targets:
+        if tgt.workflow is not None:
+            yield tgt.workflow
 
 
 def _source_versions(owner: str, pkg: Package, *, no_network: bool) -> dict[str, Any]:
