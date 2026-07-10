@@ -32,11 +32,11 @@ packages:
       - registry: readthedocs
         name: nirs4all
         state: tracked
-        reason: "existing Python production documentation is maintained but held outside the final V1 RC; portable aggregate release is nirs4all-core 0.3.9"
+        reason: "existing Python production documentation remains tracked; portable aggregate release is nirs4all-core 0.3.9"
       - registry: pypi
         name: nirs4all
         state: tracked
-        reason: "existing Python production package remains 0.10.x and is intentionally not part of the final V1 RC release batch"
+        reason: "existing Python production package remains on the 0.10.x line; portable V1 aggregate release tracking is carried by nirs4all-core"
         workflow:
           file: publish.yml
           trigger: release_published
@@ -46,7 +46,7 @@ packages:
       - registry: github-release
         name: nirs4all
         state: tracked
-        reason: "production release line kept intact for existing users; final V1 RC release tracking is carried by nirs4all-core"
+        reason: "production release line remains tracked for existing users; portable V1 aggregate release tracking is carried by nirs4all-core"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -61,11 +61,11 @@ packages:
       - registry: readthedocs
         name: nirs4all-studio
         state: tracked
-        reason: "existing Studio production documentation is maintained but held outside the final V1 RC application release"
+        reason: "existing Studio production documentation remains tracked on the current production line"
       - registry: github-release
         name: nirs4all-studio
         state: tracked
-        reason: "production app release remains held outside the final V1 RC; Windows installer RC for manual local testing is published at n4a-v1-rc1-2026.07-studio-main-installer; release-unified workflow_dispatch builds smoke artifacts only, while tag releases publish"
+        reason: "Studio production app remains on the current line; Windows installer test artifact is published at n4a-v1-rc1-2026.07-studio-main-installer; release-unified workflow_dispatch builds smoke artifacts only, while tag releases publish"
         workflow:
           file: release-unified.yml
           trigger: workflow_dispatch

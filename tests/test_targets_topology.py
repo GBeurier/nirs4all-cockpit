@@ -174,8 +174,13 @@ def test_inventory_has_no_release_bundles_or_display_channels() -> None:
 def test_public_snapshot_has_no_channel_display_metadata() -> None:
     snapshot = reconcile(_targets(), no_network=True)
     payload = json.loads(snapshot_io._dump(snapshot))
+    raw_payload = json.dumps(payload)
 
     assert "release_bundles" not in payload
+    assert "Release bundles" not in raw_payload
+    assert "production held" not in raw_payload
+    assert "held outside" not in raw_payload
+    assert "production app release remains held" not in raw_payload
     for package in payload["packages"]:
         assert "channel" not in package
         for target in package["targets"]:
