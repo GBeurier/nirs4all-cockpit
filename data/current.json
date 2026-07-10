@@ -1,14 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-10T07:32:02.934470+00:00",
+  "generated_at": "2026-07-10T08:16:58.216414+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
-    "workflow": "local-targeted-refresh",
-    "run_id": null,
-    "only": [
-      "nirs4all-studio",
-      "nirs4all-ui"
-    ]
+    "workflow": "collect.yml",
+    "run_id": "29079242998"
   },
   "packages": [
     {
@@ -36,6 +32,9 @@
           "reason": "existing Python production documentation remains tracked; portable aggregate release is nirs4all-core 0.3.11",
           "published_version": "latest",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -49,6 +48,7 @@
           },
           "evidence": {
             "version_endpoint": "https://nirs4all.readthedocs.io/en/latest/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -59,6 +59,9 @@
           "reason": "existing Python production package remains on the 0.10.x line; portable V1 aggregate release tracking is carried by nirs4all-core",
           "published_version": "0.10.3",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -77,6 +80,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all/recent"
           },
           "error": null
@@ -87,6 +91,9 @@
           "reason": "production release line remains tracked for existing users; portable V1 aggregate release tracking is carried by nirs4all-core",
           "published_version": "0.10.3",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -102,6 +109,7 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -120,7 +128,7 @@
         "bugs": 0
       },
       "repo_stats": {
-        "stars": 33,
+        "stars": 34,
         "forks": 0,
         "watchers": 1,
         "open_prs": 1,
@@ -189,6 +197,9 @@
           "reason": "existing Studio production documentation remains tracked on the current production line",
           "published_version": "latest",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -202,6 +213,7 @@
           },
           "evidence": {
             "version_endpoint": "https://nirs4all-studio.readthedocs.io/en/latest/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -212,6 +224,9 @@
           "reason": "Studio production app remains on the current line; Windows installer test artifact is published at n4a-v1-rc2-2026.07-studio-main-installer; release-unified workflow_dispatch builds smoke artifacts only, while tag releases publish",
           "published_version": "0.9.1",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -227,6 +242,7 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-studio/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -241,16 +257,16 @@
         }
       ],
       "issues": {
-        "open": 0,
+        "open": 1,
         "bugs": 0
       },
       "repo_stats": {
         "stars": 23,
         "forks": 0,
         "watchers": 1,
-        "open_prs": 1,
-        "closed_prs": 1,
-        "merged_prs": 1,
+        "open_prs": 0,
+        "closed_prs": 8,
+        "merged_prs": 0,
         "size_kb": 37677,
         "language": "TypeScript",
         "license": "AGPL-3.0",
@@ -263,32 +279,32 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 415100,
-        "loc_comment": 36679,
-        "loc_blank": 85735,
-        "loc_total": 537514,
-        "files": 2368,
-        "tests": 4296,
+        "loc_code": 354973,
+        "loc_comment": 28131,
+        "loc_blank": 46928,
+        "loc_total": 430032,
+        "files": 2210,
+        "tests": 4205,
         "by_language": {
           "TypeScript": 293659,
-          "Python": 96117,
-          "HTML": 19117,
-          "JavaScript": 5203,
+          "Python": 59575,
           "Shell": 535,
-          "CSS": 469
+          "HTML": 520,
+          "CSS": 467,
+          "JavaScript": 217
         },
         "coverage_pct": 59.1,
         "source": "local-scan"
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 284,
+        "total_runs": 287,
         "recent_total": 100,
-        "recent_success": 81,
-        "recent_failure": 17,
-        "success_rate": 82.7,
+        "recent_success": 79,
+        "recent_failure": 18,
+        "success_rate": 81.4,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-09T17:57:58Z"
+        "last_created_at": "2026-07-10T07:12:03Z"
       }
     },
     {
@@ -316,6 +332,9 @@
           "reason": null,
           "published_version": "latest",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -329,6 +348,7 @@
           },
           "evidence": {
             "version_endpoint": "https://nirs4all-methods.readthedocs.io/en/latest/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -339,6 +359,9 @@
           "reason": null,
           "published_version": "1.0.9",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -357,6 +380,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-methods/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-methods/recent"
           },
           "error": null
@@ -367,6 +391,9 @@
           "reason": null,
           "published_version": "1.0.9",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -385,6 +412,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/pls4all/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/pls4all/recent"
           },
           "error": null
@@ -395,6 +423,9 @@
           "reason": null,
           "published_version": "1.0.9",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -413,6 +444,7 @@
           },
           "evidence": {
             "version_endpoint": "https://registry.npmjs.org/@nirs4all%2Fmethods",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://api.npmjs.org/downloads/point/last-month/@nirs4all%2Fmethods"
           },
           "error": null
@@ -423,6 +455,9 @@
           "reason": null,
           "published_version": "1.0.9",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -436,6 +471,7 @@
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.r-universe.dev/api/packages",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -446,6 +482,9 @@
           "reason": null,
           "published_version": "1.0.9",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -459,6 +498,7 @@
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.r-universe.dev/api/packages",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -469,6 +509,9 @@
           "reason": "manual web submission; no admin button",
           "published_version": null,
           "status": "pending",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": true,
           "downloads": {
@@ -487,6 +530,7 @@
           },
           "evidence": {
             "version_endpoint": "https://crandb.r-pkg.org/n4m",
+            "archive_endpoint": "https://CRAN.R-project.org/package=n4m",
             "downloads_endpoint": "https://cranlogs.r-pkg.org/downloads/total/last-month/n4m"
           },
           "error": null
@@ -497,6 +541,9 @@
           "reason": "manual web submission; no admin button",
           "published_version": null,
           "status": "pending",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": true,
           "downloads": {
@@ -515,6 +562,7 @@
           },
           "evidence": {
             "version_endpoint": "https://crandb.r-pkg.org/pls4all",
+            "archive_endpoint": "https://CRAN.R-project.org/package=pls4all",
             "downloads_endpoint": "https://cranlogs.r-pkg.org/downloads/total/last-month/pls4all"
           },
           "error": null
@@ -525,6 +573,9 @@
           "reason": null,
           "published_version": "1.0.9",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -540,6 +591,7 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-methods/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -550,6 +602,9 @@
           "reason": null,
           "published_version": null,
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -563,6 +618,7 @@
           },
           "evidence": {
             "version_endpoint": "https://methods.nirs4all.org/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -676,6 +732,9 @@
           "reason": null,
           "published_version": "latest",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -689,6 +748,7 @@
           },
           "evidence": {
             "version_endpoint": "https://nirs4all-formats.readthedocs.io/en/latest/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -699,6 +759,9 @@
           "reason": null,
           "published_version": "0.2.7",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -717,6 +780,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-formats/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-formats/recent"
           },
           "error": null
@@ -727,18 +791,21 @@
           "reason": null,
           "published_version": "0.2.7",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 302,
-            "total": 302,
+            "last_month": 308,
+            "total": 308,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.7",
-                "downloads": 11
+                "downloads": 17
               },
               {
                 "version": "0.2.6",
@@ -776,12 +843,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 302,
-              "total": 302
+              "90d": 308,
+              "total": 308
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-formats-core",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/nirs4all-formats-core"
           },
           "error": null
@@ -792,18 +860,21 @@
           "reason": null,
           "published_version": "0.2.7",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 269,
-            "total": 269,
+            "last_month": 274,
+            "total": 274,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.7",
-                "downloads": 10
+                "downloads": 15
               },
               {
                 "version": "0.2.6",
@@ -841,12 +912,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 269,
-              "total": 269
+              "90d": 274,
+              "total": 274
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-formats",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/nirs4all-formats"
           },
           "error": null
@@ -857,18 +929,21 @@
           "reason": null,
           "published_version": "0.2.7",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 144,
-            "total": 144,
+            "last_month": 147,
+            "total": 147,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.7",
-                "downloads": 9
+                "downloads": 12
               },
               {
                 "version": "0.2.6",
@@ -906,12 +981,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 144,
-              "total": 144
+              "90d": 147,
+              "total": 147
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-formats-capi",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/nirs4all-formats-capi"
           },
           "error": null
@@ -922,18 +998,21 @@
           "reason": null,
           "published_version": "0.2.7",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 137,
-            "total": 137,
+            "last_month": 140,
+            "total": 140,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.7",
-                "downloads": 9
+                "downloads": 12
               },
               {
                 "version": "0.2.6",
@@ -971,12 +1050,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 137,
-              "total": 137
+              "90d": 140,
+              "total": 140
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-formats-cli",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/nirs4all-formats-cli"
           },
           "error": null
@@ -987,6 +1067,9 @@
           "reason": null,
           "published_version": "0.2.7",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -1005,6 +1088,7 @@
           },
           "evidence": {
             "version_endpoint": "https://registry.npmjs.org/@nirs4all%2Fformats-wasm",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://api.npmjs.org/downloads/point/last-month/@nirs4all%2Fformats-wasm"
           },
           "error": null
@@ -1015,6 +1099,9 @@
           "reason": null,
           "published_version": "0.2.7",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -1028,6 +1115,7 @@
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.r-universe.dev/api/packages",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -1038,6 +1126,9 @@
           "reason": "manual release policy says do NOT submit nirs4allformats to CRAN; keep the R surface on R-universe only",
           "published_version": null,
           "status": "excluded",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -1051,6 +1142,7 @@
           },
           "evidence": {
             "version_endpoint": null,
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": "manual release policy says do NOT submit nirs4allformats to CRAN; keep the R surface on R-universe only"
@@ -1061,6 +1153,9 @@
           "reason": null,
           "published_version": "0.2.7",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -1076,6 +1171,7 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-formats/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -1086,6 +1182,9 @@
           "reason": null,
           "published_version": null,
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -1099,6 +1198,7 @@
           },
           "evidence": {
             "version_endpoint": "https://formats.nirs4all.org/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -1208,6 +1308,9 @@
           "reason": null,
           "published_version": "latest",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -1221,6 +1324,7 @@
           },
           "evidence": {
             "version_endpoint": "https://nirs4all-io.readthedocs.io/en/latest/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -1231,6 +1335,9 @@
           "reason": null,
           "published_version": "0.1.11",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -1249,6 +1356,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-io/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-io/recent"
           },
           "error": null
@@ -1259,18 +1367,21 @@
           "reason": null,
           "published_version": "0.1.11",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 398,
-            "total": 398,
+            "last_month": 404,
+            "total": 404,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.1.11",
-                "downloads": 22
+                "downloads": 28
               },
               {
                 "version": "0.1.10",
@@ -1320,12 +1431,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 398,
-              "total": 398
+              "90d": 404,
+              "total": 404
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-io-core",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/nirs4all-io-core"
           },
           "error": null
@@ -1336,18 +1448,21 @@
           "reason": null,
           "published_version": "0.1.11",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 352,
-            "total": 352,
+            "last_month": 357,
+            "total": 357,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.1.11",
-                "downloads": 19
+                "downloads": 24
               },
               {
                 "version": "0.1.10",
@@ -1397,12 +1512,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 352,
-              "total": 352
+              "90d": 357,
+              "total": 357
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-io",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/nirs4all-io"
           },
           "error": null
@@ -1413,18 +1529,21 @@
           "reason": null,
           "published_version": "0.1.11",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 190,
-            "total": 190,
+            "last_month": 193,
+            "total": 193,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.1.11",
-                "downloads": 9
+                "downloads": 12
               },
               {
                 "version": "0.1.10",
@@ -1474,12 +1593,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 190,
-              "total": 190
+              "90d": 193,
+              "total": 193
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-io-capi",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/nirs4all-io-capi"
           },
           "error": null
@@ -1490,18 +1610,21 @@
           "reason": null,
           "published_version": "0.1.11",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 197,
-            "total": 197,
+            "last_month": 200,
+            "total": 200,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.1.11",
-                "downloads": 14
+                "downloads": 17
               },
               {
                 "version": "0.1.10",
@@ -1551,12 +1674,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 197,
-              "total": 197
+              "90d": 200,
+              "total": 200
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-io-cli",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/nirs4all-io-cli"
           },
           "error": null
@@ -1567,6 +1691,9 @@
           "reason": null,
           "published_version": "0.1.11",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -1585,6 +1712,7 @@
           },
           "evidence": {
             "version_endpoint": "https://registry.npmjs.org/@nirs4all%2Fio-wasm",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://api.npmjs.org/downloads/point/last-month/@nirs4all%2Fio-wasm"
           },
           "error": null
@@ -1595,6 +1723,9 @@
           "reason": null,
           "published_version": "0.1.11",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -1608,6 +1739,7 @@
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.r-universe.dev/api/packages",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -1618,6 +1750,9 @@
           "reason": "manual web submission; no admin button",
           "published_version": null,
           "status": "pending",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": true,
           "downloads": {
@@ -1636,6 +1771,7 @@
           },
           "evidence": {
             "version_endpoint": "https://crandb.r-pkg.org/nirs4allio",
+            "archive_endpoint": "https://CRAN.R-project.org/package=nirs4allio",
             "downloads_endpoint": "https://cranlogs.r-pkg.org/downloads/total/last-month/nirs4allio"
           },
           "error": null
@@ -1646,6 +1782,9 @@
           "reason": null,
           "published_version": "0.1.11",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -1661,6 +1800,7 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-io/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -1671,6 +1811,9 @@
           "reason": null,
           "published_version": null,
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -1684,6 +1827,7 @@
           },
           "evidence": {
             "version_endpoint": "https://io.nirs4all.org/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -1796,6 +1940,9 @@
           "reason": null,
           "published_version": "latest",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -1809,6 +1956,7 @@
           },
           "evidence": {
             "version_endpoint": "https://nirs4all-datasets.readthedocs.io/en/latest/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -1819,6 +1967,9 @@
           "reason": null,
           "published_version": "0.3.5",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -1837,6 +1988,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-datasets/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-datasets/recent"
           },
           "error": null
@@ -1847,6 +1999,9 @@
           "reason": null,
           "published_version": "0.3.5",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -1906,6 +2061,7 @@
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-datasets-core",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/nirs4all-datasets-core"
           },
           "error": null
@@ -1916,6 +2072,9 @@
           "reason": null,
           "published_version": "0.3.5",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -1975,6 +2134,7 @@
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-datasets-capi",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/nirs4all-datasets-capi"
           },
           "error": null
@@ -1985,6 +2145,9 @@
           "reason": null,
           "published_version": "0.3.5",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2044,6 +2207,7 @@
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all-datasets-cli",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/nirs4all-datasets-cli"
           },
           "error": null
@@ -2054,6 +2218,9 @@
           "reason": null,
           "published_version": "0.3.5",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2072,6 +2239,7 @@
           },
           "evidence": {
             "version_endpoint": "https://registry.npmjs.org/@nirs4all%2Fdatasets-wasm",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://api.npmjs.org/downloads/point/last-month/@nirs4all%2Fdatasets-wasm"
           },
           "error": null
@@ -2082,6 +2250,9 @@
           "reason": null,
           "published_version": "0.3.5",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2095,6 +2266,7 @@
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.r-universe.dev/api/packages",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -2102,9 +2274,12 @@
         {
           "registry": "cran",
           "name": "nirs4alldatasets",
-          "reason": "manual web submission; no admin button; 24 MB source tarball needs size-exception comment",
-          "published_version": "0.2.0",
-          "status": "stale",
+          "reason": "manual web submission; CRAN lifecycle is collected separately; 24 MB source tarball needs a size-exception comment",
+          "published_version": null,
+          "status": "pending",
+          "lifecycle": "archived",
+          "lifecycle_reason": "CRAN archived on 2026-07-04: issues were not corrected in time",
+          "former_version": "0.2.0",
           "planned": false,
           "manual": true,
           "downloads": {
@@ -2123,6 +2298,7 @@
           },
           "evidence": {
             "version_endpoint": "https://crandb.r-pkg.org/nirs4alldatasets",
+            "archive_endpoint": "https://CRAN.R-project.org/package=nirs4alldatasets",
             "downloads_endpoint": "https://cranlogs.r-pkg.org/downloads/total/last-month/nirs4alldatasets"
           },
           "error": null
@@ -2133,21 +2309,25 @@
           "reason": null,
           "published_version": "0.3.5",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": 16,
+            "total": 19,
             "source": "github-release-assets",
             "by_version": [],
             "windows": {
-              "total": 16
+              "total": 19
             }
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-datasets/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -2158,6 +2338,9 @@
           "reason": null,
           "published_version": null,
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2171,6 +2354,7 @@
           },
           "evidence": {
             "version_endpoint": "https://datasets.nirs4all.org/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -2279,6 +2463,9 @@
           "reason": null,
           "published_version": "0.2.3",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2294,6 +2481,7 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-papers/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -2304,6 +2492,9 @@
           "reason": null,
           "published_version": null,
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2317,6 +2508,7 @@
           },
           "evidence": {
             "version_endpoint": "https://papers.nirs4all.org/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -2327,6 +2519,9 @@
           "reason": "Read the Docs project is active and builds from .readthedocs.yaml",
           "published_version": "latest",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2340,6 +2535,7 @@
           },
           "evidence": {
             "version_endpoint": "https://nirs4all-papers.readthedocs.io/en/latest/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -2350,6 +2546,9 @@
           "reason": null,
           "published_version": "0.2.3",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2368,6 +2567,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-papers/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-papers/recent"
           },
           "error": null
@@ -2445,6 +2645,9 @@
           "reason": "RC V1 provider-client release v0.2.10 is tagged; PyPI distribution is published",
           "published_version": "0.2.10",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2460,6 +2663,7 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-providers/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -2470,6 +2674,9 @@
           "reason": "RC V1 optional Python provider clients/read facade; PyPI package is published at v0.2.10; neutral contracts remain canonical",
           "published_version": "0.2.10",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2488,6 +2695,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-providers/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-providers/recent"
           },
           "error": null
@@ -2498,6 +2706,9 @@
           "reason": "providers docs/site page is deployed through GitHub Pages at https://gbeurier.github.io/nirs4all-providers/",
           "published_version": null,
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2511,6 +2722,7 @@
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.github.io/nirs4all-providers/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -2526,8 +2738,8 @@
         {
           "file": "pages.yml",
           "conclusion": "success",
-          "created_at": "2026-07-09T19:19:01Z",
-          "head_sha": "d771c0d11e222768d98711fd68e2d31111a23225"
+          "created_at": "2026-07-10T06:26:54Z",
+          "head_sha": "dd14d471a0ec7ccc122c59194a493797922b9316"
         }
       ],
       "issues": {
@@ -2541,10 +2753,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 296,
+        "size_kb": 297,
         "language": "Python",
         "license": "NOASSERTION",
-        "pushed_at": "2026-07-09T19:18:59Z",
+        "pushed_at": "2026-07-10T06:26:52Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2568,13 +2780,13 @@
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 73,
-        "recent_total": 73,
-        "recent_success": 62,
+        "total_runs": 76,
+        "recent_total": 76,
+        "recent_success": 65,
         "recent_failure": 10,
-        "success_rate": 86.1,
+        "success_rate": 86.7,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-09T19:19:01Z"
+        "last_created_at": "2026-07-10T06:26:54Z"
       }
     },
     {
@@ -2602,6 +2814,9 @@
           "reason": "RC V1 migration/converter toolkit; PyPI package is published at v0.0.5; GitHub Release v0.0.5 also carries wheel/sdist assets",
           "published_version": "0.0.5",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2620,6 +2835,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-tools/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-tools/recent"
           },
           "error": null
@@ -2630,6 +2846,9 @@
           "reason": "v0.0.5 release is tagged and carries wheel/sdist fallback assets; PyPI distribution is published",
           "published_version": "0.0.5",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2645,6 +2864,7 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-tools/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -2729,6 +2949,9 @@
           "reason": null,
           "published_version": "latest",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2742,6 +2965,7 @@
           },
           "evidence": {
             "version_endpoint": "https://nirs4all-core.readthedocs.io/en/latest/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -2752,6 +2976,9 @@
           "reason": "PyPI package targets v0.3.11; release tag v0.3.11 is available and registry propagation is tracked",
           "published_version": "0.3.11",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2770,6 +2997,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-core/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-core/recent"
           },
           "error": null
@@ -2780,26 +3008,29 @@
           "reason": "RC aggregate crate targets product version 0.3.11; release tag v0.3.11 is available and registry propagation is tracked",
           "published_version": "0.3.11",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 402,
-            "total": 402,
+            "last_month": 430,
+            "total": 430,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.3.11",
-                "downloads": 0
+                "downloads": 15
               },
               {
                 "version": "0.3.10",
-                "downloads": 0
+                "downloads": 12
               },
               {
                 "version": "0.3.9",
-                "downloads": 15
+                "downloads": 16
               },
               {
                 "version": "0.3.8",
@@ -2873,12 +3104,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 402,
-              "total": 402
+              "90d": 430,
+              "total": 430
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/nirs4all",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/nirs4all"
           },
           "error": null
@@ -2889,6 +3121,9 @@
           "reason": "RC aggregate npm package targets product version 0.3.11; release tag v0.3.11 is available and registry propagation is tracked",
           "published_version": "0.3.11",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2907,6 +3142,7 @@
           },
           "evidence": {
             "version_endpoint": "https://registry.npmjs.org/nirs4all",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://api.npmjs.org/downloads/point/last-month/nirs4all"
           },
           "error": null
@@ -2917,6 +3153,9 @@
           "reason": "GBeurier.r-universe.dev published nirs4all 0.3.11 from the nirs4all-core v0.3.11 rebuild at b478818; the R-universe target remains a manual registry surface tracked by auto-check",
           "published_version": "0.3.11",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": true,
           "downloads": {
@@ -2930,6 +3169,7 @@
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.r-universe.dev/api/packages",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -2940,6 +3180,9 @@
           "reason": "manual web submission; CRAN remains unpublished for the 0.3.11 RC aggregate",
           "published_version": null,
           "status": "pending",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": true,
           "downloads": {
@@ -2958,6 +3201,7 @@
           },
           "evidence": {
             "version_endpoint": "https://crandb.r-pkg.org/nirs4all",
+            "archive_endpoint": "https://CRAN.R-project.org/package=nirs4all",
             "downloads_endpoint": "https://cranlogs.r-pkg.org/downloads/total/last-month/nirs4all"
           },
           "error": null
@@ -2968,6 +3212,9 @@
           "reason": "v0.3.11 release carries source/SBOM, MATLAB/Octave archive, R tarball, and SHA256SUMS",
           "published_version": "0.3.11",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -2983,6 +3230,7 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-core/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -3031,10 +3279,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 744,
+        "size_kb": 748,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-10T04:04:17Z",
+        "pushed_at": "2026-07-10T06:26:52Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -3063,13 +3311,13 @@
       },
       "actions_stats": {
         "workflows": 8,
-        "total_runs": 174,
+        "total_runs": 176,
         "recent_total": 100,
         "recent_success": 92,
         "recent_failure": 7,
         "success_rate": 92.9,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-10T04:04:19Z"
+        "last_created_at": "2026-07-10T06:26:54Z"
       }
     },
     {
@@ -3097,6 +3345,9 @@
           "reason": null,
           "published_version": "0.10.3",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -3115,6 +3366,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-aom/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-aom/recent"
           },
           "error": null
@@ -3201,6 +3453,9 @@
           "reason": null,
           "published_version": "latest",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -3214,6 +3469,7 @@
           },
           "evidence": {
             "version_endpoint": "https://nirs4all-cluster.readthedocs.io/en/latest/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -3224,6 +3480,9 @@
           "reason": null,
           "published_version": "0.1.4",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -3242,6 +3501,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-cluster/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-cluster/recent"
           },
           "error": null
@@ -3327,6 +3587,9 @@
           "reason": null,
           "published_version": "latest",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -3340,6 +3603,7 @@
           },
           "evidence": {
             "version_endpoint": "https://dag-ml.readthedocs.io/en/latest/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -3350,6 +3614,9 @@
           "reason": "RC Python binding from crates/dag-ml-py 0.2.7; PyPI package is published at v0.2.7",
           "published_version": "0.2.7",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -3368,6 +3635,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/dag-ml/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/dag-ml/recent"
           },
           "error": null
@@ -3378,6 +3646,9 @@
           "reason": "RC WASM binding from crates/dag-ml-wasm; npm package is published at 0.2.7",
           "published_version": "0.2.7",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -3396,6 +3667,7 @@
           },
           "evidence": {
             "version_endpoint": "https://registry.npmjs.org/dag-ml-wasm",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://api.npmjs.org/downloads/point/last-month/dag-ml-wasm"
           },
           "error": null
@@ -3406,18 +3678,21 @@
           "reason": null,
           "published_version": "0.2.7",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 666,
-            "total": 666,
+            "last_month": 693,
+            "total": 693,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.7",
-                "downloads": 25
+                "downloads": 42
               },
               {
                 "version": "0.2.6",
@@ -3433,11 +3708,11 @@
               },
               {
                 "version": "0.2.3",
-                "downloads": 243
+                "downloads": 251
               },
               {
                 "version": "0.2.2",
-                "downloads": 154
+                "downloads": 156
               },
               {
                 "version": "0.2.1",
@@ -3455,12 +3730,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 666,
-              "total": 666
+              "90d": 693,
+              "total": 693
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/dag-ml",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/dag-ml"
           },
           "error": null
@@ -3471,18 +3747,21 @@
           "reason": null,
           "published_version": "0.2.7",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 833,
-            "total": 833,
+            "last_month": 860,
+            "total": 860,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.7",
-                "downloads": 55
+                "downloads": 72
               },
               {
                 "version": "0.2.6",
@@ -3498,11 +3777,11 @@
               },
               {
                 "version": "0.2.3",
-                "downloads": 262
+                "downloads": 270
               },
               {
                 "version": "0.2.2",
-                "downloads": 177
+                "downloads": 179
               },
               {
                 "version": "0.2.1",
@@ -3520,12 +3799,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 833,
-              "total": 833
+              "90d": 860,
+              "total": 860
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/dag-ml-core",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/dag-ml-core"
           },
           "error": null
@@ -3536,6 +3816,9 @@
           "reason": null,
           "published_version": "0.2.7",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -3591,6 +3874,7 @@
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/dag-ml-arrow",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/dag-ml-arrow"
           },
           "error": null
@@ -3601,6 +3885,9 @@
           "reason": null,
           "published_version": "0.2.7",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -3656,6 +3943,7 @@
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/dag-ml-capi",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/dag-ml-capi"
           },
           "error": null
@@ -3666,6 +3954,9 @@
           "reason": null,
           "published_version": "0.2.7",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -3721,6 +4012,7 @@
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/dag-ml-cli",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/dag-ml-cli"
           },
           "error": null
@@ -3815,6 +4107,9 @@
           "reason": null,
           "published_version": "latest",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -3828,6 +4123,7 @@
           },
           "evidence": {
             "version_endpoint": "https://dag-ml-data.readthedocs.io/en/latest/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -3838,6 +4134,9 @@
           "reason": "RC Python binding from crates/dag-ml-data-py 0.2.9; PyPI package is published at v0.2.9",
           "published_version": "0.2.9",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -3856,6 +4155,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/dag-ml-data/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/dag-ml-data/recent"
           },
           "error": null
@@ -3866,6 +4166,9 @@
           "reason": "RC WASM binding from crates/dag-ml-data-wasm; npm package is published at 0.2.9",
           "published_version": "0.2.9",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -3884,6 +4187,7 @@
           },
           "evidence": {
             "version_endpoint": "https://registry.npmjs.org/dag-ml-data-wasm",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://api.npmjs.org/downloads/point/last-month/dag-ml-data-wasm"
           },
           "error": null
@@ -3894,6 +4198,9 @@
           "reason": "RC R binding from crates/dag-ml-data-r 0.2.9; main now uses crates.io Rust deps for R-universe subdir builds and skips wrapper regeneration on WebR",
           "published_version": "0.2.9",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -3907,6 +4214,7 @@
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.r-universe.dev/api/packages",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -3917,18 +4225,21 @@
           "reason": null,
           "published_version": "0.2.9",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 1060,
-            "total": 1060,
+            "last_month": 1088,
+            "total": 1088,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.9",
-                "downloads": 20
+                "downloads": 46
               },
               {
                 "version": "0.2.8",
@@ -3952,7 +4263,7 @@
               },
               {
                 "version": "0.2.3",
-                "downloads": 241
+                "downloads": 243
               },
               {
                 "version": "0.2.2",
@@ -3974,12 +4285,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 1060,
-              "total": 1060
+              "90d": 1088,
+              "total": 1088
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/dag-ml-data",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/dag-ml-data"
           },
           "error": null
@@ -3990,18 +4302,21 @@
           "reason": null,
           "published_version": "0.2.9",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 1383,
-            "total": 1383,
+            "last_month": 1417,
+            "total": 1417,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.9",
-                "downloads": 46
+                "downloads": 78
               },
               {
                 "version": "0.2.8",
@@ -4025,7 +4340,7 @@
               },
               {
                 "version": "0.2.3",
-                "downloads": 270
+                "downloads": 272
               },
               {
                 "version": "0.2.2",
@@ -4047,12 +4362,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 1383,
-              "total": 1383
+              "90d": 1417,
+              "total": 1417
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/dag-ml-data-core",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/dag-ml-data-core"
           },
           "error": null
@@ -4063,18 +4379,21 @@
           "reason": null,
           "published_version": "0.2.9",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 186,
-            "total": 186,
+            "last_month": 189,
+            "total": 189,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.9",
-                "downloads": 10
+                "downloads": 13
               },
               {
                 "version": "0.2.8",
@@ -4120,12 +4439,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 186,
-              "total": 186
+              "90d": 189,
+              "total": 189
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/dag-ml-data-arrow",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/dag-ml-data-arrow"
           },
           "error": null
@@ -4136,18 +4456,21 @@
           "reason": null,
           "published_version": "0.2.9",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 173,
-            "total": 173,
+            "last_month": 176,
+            "total": 176,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.9",
-                "downloads": 14
+                "downloads": 17
               },
               {
                 "version": "0.2.8",
@@ -4193,12 +4516,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 173,
-              "total": 173
+              "90d": 176,
+              "total": 176
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/dag-ml-data-capi",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/dag-ml-data-capi"
           },
           "error": null
@@ -4209,18 +4533,21 @@
           "reason": null,
           "published_version": "0.2.9",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 185,
-            "total": 185,
+            "last_month": 188,
+            "total": 188,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.9",
-                "downloads": 14
+                "downloads": 17
               },
               {
                 "version": "0.2.8",
@@ -4266,12 +4593,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 185,
-              "total": 185
+              "90d": 188,
+              "total": 188
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/dag-ml-data-cli",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/dag-ml-data-cli"
           },
           "error": null
@@ -4282,18 +4610,21 @@
           "reason": null,
           "published_version": "0.2.9",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 355,
-            "total": 355,
+            "last_month": 359,
+            "total": 359,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.9",
-                "downloads": 29
+                "downloads": 33
               },
               {
                 "version": "0.2.8",
@@ -4339,12 +4670,13 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 355,
-              "total": 355
+              "90d": 359,
+              "total": 359
             }
           },
           "evidence": {
             "version_endpoint": "https://crates.io/api/v1/crates/dag-ml-data-provider",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://crates.io/api/v1/crates/dag-ml-data-provider"
           },
           "error": null
@@ -4440,6 +4772,9 @@
           "reason": null,
           "published_version": null,
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -4453,6 +4788,7 @@
           },
           "evidence": {
             "version_endpoint": "https://nirs4all.org/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -4530,6 +4866,9 @@
           "reason": "versioned client-side-only web app release; GitHub Pages remains the deployed runtime surface",
           "published_version": "0.1.8",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -4545,6 +4884,7 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-web/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -4555,6 +4895,9 @@
           "reason": "client-side web app is tracked from its own production version and current V1 coordination tag n4a-v1-rc14-2026.07-refactor",
           "published_version": null,
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -4568,6 +4911,7 @@
           },
           "evidence": {
             "version_endpoint": "https://web.nirs4all.org/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -4656,6 +5000,9 @@
           "reason": "WASM-only in-browser mini-studio for NIRS analysis labs; deployed webpage at quali.nirs4all.org (GitHub Pages)",
           "published_version": null,
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -4669,6 +5016,7 @@
           },
           "evidence": {
             "version_endpoint": "https://quali.nirs4all.org/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -4679,6 +5027,9 @@
           "reason": "in-browser app has a versioned GitHub Release for the RC app surface; GitHub Pages remains the deployed runtime surface",
           "published_version": "0.0.1",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -4694,6 +5045,7 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-quality/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -4758,12 +5110,12 @@
         "latest_prod_tag": null,
         "latest_any_tag": null,
         "expected_prod_version": "0.1.0",
-        "commit": "0c864e38a5c64e97b2dc5c5c23de2fa23efd5baf",
+        "commit": "6380740aa11e87be421c70ff6b042d2d5b9ac668",
         "latest_prod_tag_at": null,
         "latest_release_at": null,
         "latest_version_at": null,
         "latest_version_source": null,
-        "last_commit_at": "2026-07-09T23:16:42Z",
+        "last_commit_at": "2026-07-10T08:05:17Z",
         "commits_ahead_of_latest_prod_tag": null
       },
       "rollup": "green",
@@ -4775,6 +5127,9 @@
           "reason": "phone/tablet spectrometer workbench deployed at device.nirs4all.org; Android debug APK remains a CI artifact, not a registry release target",
           "published_version": null,
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -4788,6 +5143,7 @@
           },
           "evidence": {
             "version_endpoint": "https://device.nirs4all.org/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -4797,8 +5153,8 @@
         {
           "file": "pages.yml",
           "conclusion": "success",
-          "created_at": "2026-07-09T23:16:45Z",
-          "head_sha": "0c864e38a5c64e97b2dc5c5c23de2fa23efd5baf"
+          "created_at": "2026-07-10T08:05:20Z",
+          "head_sha": "6380740aa11e87be421c70ff6b042d2d5b9ac668"
         }
       ],
       "issues": {
@@ -4815,7 +5171,7 @@
         "size_kb": 501,
         "language": "TypeScript",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-09T23:16:43Z",
+        "pushed_at": "2026-07-10T08:05:18Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4824,15 +5180,15 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 4077,
-        "loc_comment": 12,
-        "loc_blank": 343,
-        "loc_total": 4432,
+        "loc_code": 4201,
+        "loc_comment": 13,
+        "loc_blank": 346,
+        "loc_total": 4560,
         "files": 37,
         "tests": 24,
         "by_language": {
-          "TypeScript": 3315,
-          "CSS": 625,
+          "TypeScript": 3364,
+          "CSS": 700,
           "Java": 120,
           "HTML": 17
         },
@@ -4841,13 +5197,13 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 22,
-        "recent_total": 22,
-        "recent_success": 19,
+        "total_runs": 25,
+        "recent_total": 25,
+        "recent_success": 22,
         "recent_failure": 3,
-        "success_rate": 86.4,
+        "success_rate": 88.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-09T23:16:45Z"
+        "last_created_at": "2026-07-10T08:05:20Z"
       }
     },
     {
@@ -4875,6 +5231,9 @@
           "reason": null,
           "published_version": "0.1.12",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -4890,6 +5249,7 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-ui/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -4900,6 +5260,9 @@
           "reason": "RC V1 shared React/TS package of reusable components, status helpers, and brand assets; outside nirs4all-core aggregation lock",
           "published_version": "0.1.12",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -4918,6 +5281,7 @@
           },
           "evidence": {
             "version_endpoint": "https://registry.npmjs.org/nirs4all-ui",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://api.npmjs.org/downloads/point/last-month/nirs4all-ui"
           },
           "error": null
@@ -4928,6 +5292,9 @@
           "reason": "GitHub Pages components/assets showcase at https://gbeurier.github.io/nirs4all-ui/",
           "published_version": null,
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -4941,6 +5308,7 @@
           },
           "evidence": {
             "version_endpoint": "https://gbeurier.github.io/nirs4all-ui/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -4971,7 +5339,7 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 517,
+        "size_kb": 519,
         "language": "TypeScript",
         "license": "AGPL-3.0",
         "pushed_at": "2026-07-10T07:11:49Z",
@@ -5000,13 +5368,13 @@
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 92,
-        "recent_total": 92,
-        "recent_success": 88,
+        "total_runs": 101,
+        "recent_total": 100,
+        "recent_success": 96,
         "recent_failure": 4,
-        "success_rate": 95.7,
+        "success_rate": 96.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-10T01:04:37Z"
+        "last_created_at": "2026-07-10T07:11:48Z"
       }
     },
     {
@@ -5017,13 +5385,13 @@
         "latest_prod_tag": "v0.1.7",
         "latest_any_tag": "v0.1.7",
         "expected_prod_version": "v0.1.7",
-        "commit": "132f2ad28a9c2687a7ae28646291b5981344aa04",
+        "commit": "842cb6e3e0613b9285077a509cda026557c322f8",
         "latest_prod_tag_at": "2026-07-07T13:26:02Z",
         "latest_release_at": "2026-07-07T13:26:15Z",
         "latest_version_at": "2026-07-07T13:26:15Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-10T05:49:04Z",
-        "commits_ahead_of_latest_prod_tag": 184
+        "last_commit_at": "2026-07-10T08:15:45Z",
+        "commits_ahead_of_latest_prod_tag": 191
       },
       "rollup": "green",
       "flags": [],
@@ -5034,6 +5402,9 @@
           "reason": null,
           "published_version": null,
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -5047,6 +5418,7 @@
           },
           "evidence": {
             "version_endpoint": "https://cockpit.nirs4all.org/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -5056,8 +5428,8 @@
         {
           "file": "pages.yml",
           "conclusion": "success",
-          "created_at": "2026-07-10T05:49:11Z",
-          "head_sha": "132f2ad28a9c2687a7ae28646291b5981344aa04"
+          "created_at": "2026-07-10T08:15:48Z",
+          "head_sha": "842cb6e3e0613b9285077a509cda026557c322f8"
         }
       ],
       "issues": {
@@ -5071,10 +5443,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 1219,
+        "size_kb": 967,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-10T05:49:05Z",
+        "pushed_at": "2026-07-10T08:15:46Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -5083,16 +5455,16 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 7001,
-        "loc_comment": 1189,
-        "loc_blank": 1627,
-        "loc_total": 9817,
+        "loc_code": 7115,
+        "loc_comment": 1210,
+        "loc_blank": 1646,
+        "loc_total": 9971,
         "files": 44,
-        "tests": 133,
+        "tests": 135,
         "by_language": {
-          "Python": 5589,
-          "JavaScript": 713,
-          "CSS": 338,
+          "Python": 5699,
+          "JavaScript": 716,
+          "CSS": 339,
           "Shell": 239,
           "HTML": 122
         },
@@ -5101,13 +5473,13 @@
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 848,
+        "total_runs": 867,
         "recent_total": 100,
         "recent_success": 99,
         "recent_failure": 0,
         "success_rate": 100.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-10T05:49:11Z"
+        "last_created_at": "2026-07-10T08:15:48Z"
       }
     },
     {
@@ -5135,6 +5507,9 @@
           "reason": null,
           "published_version": "0.1.6",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -5150,6 +5525,7 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-benchmarks/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -5160,6 +5536,9 @@
           "reason": "PyPI package is published at v0.1.6; GitHub Release also carries wheel/sdist assets",
           "published_version": "0.1.6",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -5178,6 +5557,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-benchmarks/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-benchmarks/recent"
           },
           "error": null
@@ -5188,6 +5568,9 @@
           "reason": null,
           "published_version": null,
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -5201,6 +5584,7 @@
           },
           "evidence": {
             "version_endpoint": "https://benchmarks.nirs4all.org/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -5211,6 +5595,9 @@
           "reason": "Read the Docs project is active and builds from .readthedocs.yaml",
           "published_version": "latest",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -5224,6 +5611,7 @@
           },
           "evidence": {
             "version_endpoint": "https://nirs4all-benchmarks.readthedocs.io/en/latest/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -5317,6 +5705,9 @@
           "reason": null,
           "published_version": "0.1.10",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -5332,6 +5723,7 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-repository/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -5342,6 +5734,9 @@
           "reason": "PyPI package is published at v0.1.10; GitHub Release v0.1.10 also carries wheel/sdist assets",
           "published_version": "0.1.10",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -5360,6 +5755,7 @@
           },
           "evidence": {
             "version_endpoint": "https://pypi.org/pypi/nirs4all-repository/json",
+            "archive_endpoint": null,
             "downloads_endpoint": "https://pypistats.org/api/packages/nirs4all-repository/recent"
           },
           "error": null
@@ -5370,6 +5766,9 @@
           "reason": null,
           "published_version": null,
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -5383,6 +5782,7 @@
           },
           "evidence": {
             "version_endpoint": "https://repository.nirs4all.org/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -5393,6 +5793,9 @@
           "reason": "Read the Docs project is active and builds from .readthedocs.yaml",
           "published_version": "latest",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -5406,6 +5809,7 @@
           },
           "evidence": {
             "version_endpoint": "https://nirs4all-repository.readthedocs.io/en/latest/",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -5496,6 +5900,9 @@
           "reason": null,
           "published_version": "0.1.0",
           "status": "green",
+          "lifecycle": null,
+          "lifecycle_reason": null,
+          "former_version": null,
           "planned": false,
           "manual": false,
           "downloads": {
@@ -5511,6 +5918,7 @@
           },
           "evidence": {
             "version_endpoint": "https://api.github.com/repos/GBeurier/nirs4all-ecosystem/releases/latest",
+            "archive_endpoint": null,
             "downloads_endpoint": null
           },
           "error": null
@@ -5528,10 +5936,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 5106,
+        "size_kb": 5108,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-10T05:08:15Z",
+        "pushed_at": "2026-07-10T06:52:26Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -5555,20 +5963,20 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 807,
+        "total_runs": 809,
         "recent_total": 100,
         "recent_success": 97,
         "recent_failure": 3,
         "success_rate": 97.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-10T05:38:49Z"
+        "last_created_at": "2026-07-10T06:52:28Z"
       }
     }
   ],
   "summary": {
     "green": 97,
-    "stale": 1,
-    "pending": 4,
+    "stale": 0,
+    "pending": 5,
     "missing": 0,
     "broken": 0,
     "unknown": 0,
@@ -5577,16 +5985,16 @@
   "totals": {
     "packages": 23,
     "repos": 23,
-    "stars": 156,
+    "stars": 157,
     "forks": 0,
     "watchers": 3,
-    "open_issues": 0,
-    "loc_code": 1519114,
-    "loc_total": 1957085,
-    "tests": 16147,
-    "files": 5991,
-    "workflow_runs": 7823,
-    "downloads_last_month": 41591
+    "open_issues": 1,
+    "loc_code": 1459225,
+    "loc_total": 1849885,
+    "tests": 16058,
+    "files": 5833,
+    "workflow_runs": 7864,
+    "downloads_last_month": 41782
   },
   "visits": {
     "available": true,
