@@ -177,7 +177,7 @@ imports only jsonlite. Maintainer: Grégory Beurier (CIRAD), gregory.beurier@cir
 
 ## nirs4alldatasets_<ver>.tar.gz
 ```
-Update of the existing CRAN package nirs4alldatasets (0.2.0 -> 0.3.5).
+Update of the existing CRAN package nirs4alldatasets (0.2.0 -> 0.3.6).
 nirs4alldatasets is a thin R binding (a small C shim over the stable n4ds_* C
 ABI) for the Rust-first nirs4all-datasets acquisition core: resolve a dataset id
 from the catalog into a version-pinned download contract, fetch the canonical
@@ -194,7 +194,7 @@ unused Windows import-library blobs pruned. Toolchain in SystemRequirements.
 R CMD check --as-cran: 0 ERRORs, 0 WARNINGs; NOTES are the expected CRAN incoming
 title-case/package-size notes plus local conda-toolchain artefacts
 (-march=nocona, an nm parser quirk) absent on CRAN. Source tarball:
-24,666,282 bytes. It needs a size exception: the package ships no dataset
+24,664,283 bytes. It needs a size exception: the package ships no dataset
 payloads, but it must vendor the Rust acquisition core and its crates.io
 dependencies plus embedded catalog metadata so CRAN installation/checks are fully
 offline and reproducible. Imports only jsonlite. Maintainer: Grégory Beurier
