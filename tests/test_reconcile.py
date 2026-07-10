@@ -144,7 +144,7 @@ def test_package_rollup_ignores_manual_targets() -> None:
     assert _rollup([_target_status("pending", manual=True)]) == "green"
 
 
-def test_snapshot_summary_ignores_manual_targets(monkeypatch) -> None:
+def test_snapshot_summary_counts_manual_targets(monkeypatch) -> None:
     pkg = Package(
         id="demo",
         repo="demo",
@@ -172,7 +172,7 @@ def test_snapshot_summary_ignores_manual_targets(monkeypatch) -> None:
     snapshot = rec.reconcile(Targets(owner="GBeurier", packages=[pkg]), no_network=True)
 
     assert snapshot.summary["green"] == 1
-    assert snapshot.summary["pending"] == 0
+    assert snapshot.summary["pending"] == 1
 
 
 def test_package_level_workflows_are_collected_and_deduplicated(monkeypatch) -> None:
