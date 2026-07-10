@@ -169,8 +169,8 @@ Two signals are deliberately **not** statuses:
   `missing` and gets no admin button.
 
 The package **roll-up** is the worst tracked cell
-(`broken` > `missing` > `stale` > `pending` > `unknown` > `green`); `excluded` is ignored in
-the roll-up but still counted in the summary.
+(`broken` > `missing` > `stale` > `pending` > `unknown` > `green`); `excluded`
+and manual targets are ignored in the roll-up but still counted in the summary.
 
 Download counts use `n/a` for `null`/unknown; `0` is a real zero (e.g. cranlogs
 returns `0` for a package nobody has downloaded — that is not "missing").

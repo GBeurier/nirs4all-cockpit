@@ -114,7 +114,7 @@ packages:
 - timeout/429/5xx ⇒ **unknown**.
 - `state:excluded` ⇒ **excluded**.
 - Comparison is SemVer/PEP440-aware, never lexical; prereleases use `version_aliases`.
-- Roll-up packet = worst cell (`broken` > `missing` > `stale` > `pending` > `unknown` > `source-ahead` > `green`; `excluded` ignored).
+- Roll-up packet = worst cell (`broken` > `missing` > `stale` > `pending` > `unknown` > `source-ahead` > `green`; `excluded` and manual targets ignored in package roll-up, but still counted in the global summary).
 
 ## APIs (endpoints, traps) — summary
 - PyPI`https://pypi.org/pypi/{pkg}/json`→`info.version`(no real downloads here). 404=missing. - pypistats`…/api/packages/{pkg}/recent`(**429 possible** → cache+backoff,`unknown`). overall ~180 days. - npm`https://registry.npmjs.org/{pkg}`(scoped`%2F`); downloads`api.npmjs.org/downloads/point/last-month/{pkg}`(**scoped 404 + error in HTTP 200** → parse the body). -`https://crates.io/api/v1/crates/{crate}`crates (**User-Agent required**, otherwise 403). 404=missing. - R-universe`https://gbeurier.r-universe.dev/api/packages`(`Version:null`=broken). - CRAN`https://crandb.r-pkg.org/{pkg}`(404 as long as not accepted); cranlogs`…/downloads/total/last-month/{pkg}`(**0 in 200** ≠ missing). - GitHub releases/runs/issues:`GITHUB_TOKEN`ambient (5000/h); Search issues 30/min;`download_count`per asset.

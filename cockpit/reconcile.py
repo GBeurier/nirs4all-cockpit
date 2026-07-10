@@ -10,9 +10,9 @@ worst-cell verdict. The rules it enforces (from the Codex review):
 * Download counts that come back ``unknown`` never degrade the version verdict.
 * A ``planned`` target reconciles as ``missing`` and carries a ``planned`` flag;
   it gets no admin button (that is the admin layer's concern).
-* A ``manual`` target is still probed and displayed, but it is kept out of the
-  package roll-up and summary; the dedicated manual-action board carries the
-  actionability for those human-only submissions.
+* A ``manual`` target is still probed and displayed. It is kept out of the
+  package roll-up, but it is counted in the global summary so the headline
+  health score cannot hide human-only submissions that remain pending or stale.
 * ``excluded`` targets are counted in the summary but kept **out** of the
   package roll-up and never turned green.
 * The package roll-up is the worst cell, ordered
@@ -134,8 +134,7 @@ def reconcile(
         status = _reconcile_package(targets.owner, pkg, no_network=no_network, with_traffic=with_traffic)
         packages.append(status)
         for tgt in status.targets:
-            if not tgt.manual:
-                summary[tgt.status] = summary.get(tgt.status, 0) + 1
+            summary[tgt.status] = summary.get(tgt.status, 0) + 1
 
     stamp = generated_at or now_iso()
     if no_network:
