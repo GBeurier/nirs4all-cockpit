@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-10T05:33:53.087673+00:00",
+  "snapshot_generated_at": "2026-07-10T05:42:46.891255+00:00",
   "counts": {
     "total": 23,
     "pending": 7,
@@ -149,13 +149,13 @@
       "status": "todo",
       "declared_status": "todo",
       "severity": "important",
-      "title": "R-universe — merge the prepared nirs4all-core v0.3.11 gitlink update, then rebuild nirs4all",
-      "manual_url": "https://github.com/r-universe/gbeurier/compare/master...GBeurier:update-nirs4all-core-0.3.11",
+      "title": "R-universe — monitor or retrigger the nirs4all-core v0.3.11 rebuild for nirs4all",
+      "manual_url": "https://gbeurier.r-universe.dev/nirs4all",
       "affects": [
         "nirs4all-core:r-universe",
-        "fork:GBeurier/gbeurier:nirs4all-submodule@59d54c97399a43eb53665d236f5ab01b5972fe16",
-        "fork:GBeurier/gbeurier:update-nirs4all-core-0.3.11",
-        "r-universe/gbeurier:Update universe"
+        "nirs4all-core@59d54c97399a43eb53665d236f5ab01b5972fe16",
+        "GBeurier/GBeurier.r-universe.dev@b4788189c992d3e1d9edd7fdd2c92b6c801160cc",
+        "r-universe/gbeurier:nirs4all rebuild"
       ],
       "after_done": [],
       "auto_check": {

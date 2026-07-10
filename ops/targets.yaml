@@ -628,7 +628,7 @@ packages:
       - registry: r-universe
         name: nirs4all
         state: manual
-        reason: "R-universe mirror update is prepared on GBeurier:gbeurier/update-nirs4all-core-0.3.11; live R-universe remains manual until r-universe/gbeurier merges and rebuilds nirs4all"
+        reason: "GBeurier.r-universe.dev triggered a nirs4all 0.3.11 rebuild at b478818; live R-universe remains manual until the index publishes nirs4all 0.3.11"
       - registry: cran
         name: nirs4all
         state: manual

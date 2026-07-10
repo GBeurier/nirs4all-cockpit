@@ -439,11 +439,11 @@ def test_current_runiverse_manual_action_tracks_core_rebuild_todo() -> None:
     assert action.status == "todo"
     assert action.severity == "important"
     assert "nirs4all-core" in action.title
-    assert action.manual_url == "https://github.com/r-universe/gbeurier/compare/master...GBeurier:update-nirs4all-core-0.3.11"
+    assert action.manual_url == "https://gbeurier.r-universe.dev/nirs4all"
     assert "nirs4all-core:r-universe" in action.affects
-    assert "fork:GBeurier/gbeurier:nirs4all-submodule@59d54c97399a43eb53665d236f5ab01b5972fe16" in action.affects
-    assert "r-universe/gbeurier:Update universe" in action.affects
-    assert "GBeurier.r-universe.dev:packages.json" not in action.affects
+    assert "nirs4all-core@59d54c97399a43eb53665d236f5ab01b5972fe16" in action.affects
+    assert "GBeurier/GBeurier.r-universe.dev@b4788189c992d3e1d9edd7fdd2c92b6c801160cc" in action.affects
+    assert "r-universe/gbeurier:nirs4all rebuild" in action.affects
     assert action.auto_check == {"registry": "r-universe", "name": "nirs4all", "expect": "green"}
 
 
