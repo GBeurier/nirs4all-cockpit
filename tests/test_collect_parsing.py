@@ -43,6 +43,12 @@ def _patch(monkeypatch, module, replies):
 
 
 @pytest.fixture(autouse=True)
+def _cran_page_not_archived(monkeypatch) -> None:
+    """Keep CRAN collector tests offline unless a test supplies an archive page."""
+    monkeypatch.setattr(cran, "get_text", lambda *args, **kwargs: (404, None, "http 404"))
+
+
+@pytest.fixture(autouse=True)
 def _reset_runiverse_index():
     """R-universe caches its package index in module globals; reset around tests."""
     runiverse._INDEX = None
@@ -164,6 +170,29 @@ def test_cranlogs_zero_is_real_zero_not_none(monkeypatch) -> None:
     assert out["published_version"] is None  # not on CRAN yet
     assert out["downloads"]["last_month"] == 0  # a real zero, not None
     assert out["downloads"]["last_month"] is not None
+
+
+def test_cran_archive_page_overrides_stale_crandb_metadata(monkeypatch) -> None:
+    _patch(
+        monkeypatch,
+        cran,
+        [
+            (200, {"Version": "0.2.0"}, None),
+            (200, [{"downloads": 7}], None),
+        ],
+    )
+    page = (
+        "<p>Package &lsquo;nirs4alldatasets&rsquo; was removed from the CRAN repository.</p>"
+        "<p>Archived on 2026-07-04 as issues were not corrected in time.</p>"
+    )
+    monkeypatch.setattr(cran, "get_text", lambda *args, **kwargs: (200, page, None))
+
+    out = cran.collect("nirs4alldatasets")
+
+    assert out["published_version"] == "0.2.0"
+    assert out["lifecycle"] == "archived"
+    assert out["lifecycle_reason"] == "CRAN archived on 2026-07-04: issues were not corrected in time"
+    assert out["evidence"]["archive_endpoint"] == "https://CRAN.R-project.org/package=nirs4alldatasets"
 
 
 # --------------------------------------------------------------------------- #

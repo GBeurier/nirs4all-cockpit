@@ -185,6 +185,7 @@ section.block { margin: 0 0 34px; }
 .led--green   { --st: var(--green);   box-shadow: 0 0 0 2px color-mix(in srgb, var(--green) 16%, transparent), 0 0 8px color-mix(in srgb, var(--green) 75%, transparent); }
 .led--stale   { --st: var(--stale);   box-shadow: 0 0 0 2px color-mix(in srgb, var(--stale) 16%, transparent), 0 0 7px color-mix(in srgb, var(--stale) 60%, transparent); }
 .led--pending { --st: var(--pending); box-shadow: 0 0 0 2px color-mix(in srgb, var(--pending) 18%, transparent), 0 0 7px color-mix(in srgb, var(--pending) 55%, transparent); animation: led-pulse 2s ease-in-out infinite; }
+.led--archived { --st: #c2410c; box-shadow: 0 0 0 2px color-mix(in srgb, #c2410c 18%, transparent), 0 0 7px color-mix(in srgb, #c2410c 60%, transparent); }
 .led--unknown { --st: var(--unknown); box-shadow: 0 0 0 2px color-mix(in srgb, var(--unknown) 16%, transparent); }
 .led--broken  { --st: var(--broken);  box-shadow: 0 0 0 2px color-mix(in srgb, var(--broken) 18%, transparent), 0 0 8px color-mix(in srgb, var(--broken) 70%, transparent); animation: led-pulse 1.6s ease-in-out infinite; }
 .led--missing { background: transparent; border: 1.5px solid var(--missing); box-shadow: none; }

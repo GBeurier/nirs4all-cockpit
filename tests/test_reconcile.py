@@ -32,6 +32,9 @@ from cockpit.reconcile import (
     _reconcile_pages,
     _rollup,
 )
+from cockpit.reconcile import (
+    _reconcile_target as reconcile_target,
+)
 
 
 def _patch(monkeypatch, module, replies):
@@ -142,6 +145,32 @@ def test_package_rollup_ignores_manual_targets() -> None:
     assert _rollup([_target_status("green"), _target_status("pending", manual=True)]) == "green"
     assert _rollup([_target_status("stale", manual=True), _target_status("green")]) == "green"
     assert _rollup([_target_status("pending", manual=True)]) == "green"
+
+
+def test_cran_archive_becomes_pending_resubmission_without_being_stale(monkeypatch) -> None:
+    monkeypatch.setitem(
+        rec._COLLECTORS,
+        "cran",
+        lambda name: {  # noqa: ARG005
+            "published_version": "0.2.0",
+            "http_status": 200,
+            "downloads": {},
+            "evidence": {"archive_endpoint": "https://CRAN.R-project.org/package=nirs4alldatasets"},
+            "lifecycle": "archived",
+            "lifecycle_reason": "CRAN archived on 2026-07-04: issues were not corrected in time",
+        },
+    )
+    monkeypatch.setattr(rec.github, "release_asset_matches", lambda *args, **kwargs: True)
+    pkg = Package(id="nirs4all-datasets", repo="nirs4all-datasets", targets=[])
+    target = Target(registry="cran", name="nirs4alldatasets", state="manual")
+
+    status = reconcile_target("GBeurier", pkg, target, "0.3.5", no_network=False)
+
+    assert status.status == "pending"
+    assert status.published_version is None
+    assert status.lifecycle == "archived"
+    assert status.former_version == "0.2.0"
+    assert status.lifecycle_reason == "CRAN archived on 2026-07-04: issues were not corrected in time"
 
 
 def test_snapshot_summary_counts_manual_targets(monkeypatch) -> None:

@@ -276,7 +276,7 @@ function renderMatrix(snap) {
         ? rep.evidence.version_endpoint
         : registryUrl(reg, rep.name, pkg.repo);
       const link = el("a", { attrs: { href, target: "_blank", rel: "noopener" } });
-      const dot = led(st);
+      const dot = led(rep.lifecycle === "archived" ? "archived" : st);
       if (targets.length > 1) { const wrap = el("span", { class: "led-multi" }); wrap.append(dot, el("span", { class: "badge-n", text: `×${targets.length}` })); link.appendChild(wrap); }
       else link.appendChild(dot);
       const rows = targets.map((t) => {
@@ -285,8 +285,11 @@ function renderMatrix(snap) {
           t.planned ? "planned" : null,
           t.manual ? "manual action" : null,
           t.published_version ? "v" + t.published_version : null,
+          t.former_version ? "former v" + t.former_version : null,
+          t.lifecycle ? `lifecycle=${t.lifecycle}` : null,
         ].filter(Boolean).join(" · ");
-        return `<div class="tt-row"><span class="led led--${esc(t.status)}"></span> <b>${esc(t.name)}</b> · ${esc(meta)}</div>`;
+        const detail = t.lifecycle_reason || t.error ? `<div class="tt-row" style="margin:3px 0 0 17px;opacity:.72">${esc(t.lifecycle_reason || t.error)}</div>` : "";
+        return `<div class="tt-row"><span class="led led--${esc(t.status)}"></span> <b>${esc(t.name)}</b> · ${esc(meta)}</div>${detail}`;
       }).join("");
       attachTip(link, `<b>${REG_LABEL[reg]}</b>${rows}<div class="tt-row" style="margin-top:5px;opacity:.7">click → open registry page</div>`);
       td.appendChild(link);
