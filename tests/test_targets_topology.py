@@ -457,7 +457,7 @@ def test_current_runiverse_manual_actions_cover_release_rebuilds() -> None:
         "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.7", "done"),
         "runiverse-io-rebuild": ("nirs4all-io", "nirs4allio", "v0.1.11", "done"),
         "runiverse-dagml-data-rebuild": ("dag-ml-data", "dagmldata", "v0.2.9", "done"),
-        "runiverse-datasets-rebuild": ("nirs4all-datasets", "nirs4alldatasets", "v0.3.6", "todo"),
+        "runiverse-datasets-rebuild": ("nirs4all-datasets", "nirs4alldatasets", "v0.3.7", "todo"),
     }
 
     for action_id, (repo, package_name, version, status) in expected.items():
