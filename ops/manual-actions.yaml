@@ -92,7 +92,7 @@ actions:
   - id: pypi-publisher-core
     status: done
     severity: blocker
-    title: "PyPI — Trusted Publisher configured and nirs4all-core v0.3.10 published from release-python.yml"
+    title: "PyPI — Trusted Publisher configured and nirs4all-core v0.3.11 published from release-python.yml"
     manual_url: "https://pypi.org/manage/account/publishing/"
     affects:
       - "nirs4all-core:release-python.yml"
@@ -104,12 +104,12 @@ actions:
   - id: runiverse-core-rebuild
     status: todo
     severity: important
-    title: "R-universe — merge the prepared nirs4all-core v0.3.10 gitlink update, then rebuild nirs4all"
-    manual_url: "https://github.com/r-universe/gbeurier/compare/master...GBeurier:update-nirs4all-core-0.3.10"
+    title: "R-universe — merge the prepared nirs4all-core v0.3.11 gitlink update, then rebuild nirs4all"
+    manual_url: "https://github.com/r-universe/gbeurier/compare/master...GBeurier:update-nirs4all-core-0.3.11"
     affects:
       - "nirs4all-core:r-universe"
-      - "fork:GBeurier/gbeurier:nirs4all-submodule@cc06b45862230a6d70a7c92a2cf7fa16020fa13c"
-      - "fork:GBeurier/gbeurier:update-nirs4all-core-0.3.10"
+      - "fork:GBeurier/gbeurier:nirs4all-submodule@59d54c97399a43eb53665d236f5ab01b5972fe16"
+      - "fork:GBeurier/gbeurier:update-nirs4all-core-0.3.11"
       - "r-universe/gbeurier:Update universe"
     auto_check:
       registry: r-universe
@@ -355,7 +355,7 @@ actions:
   - id: cran-submit-nirs4all-core-aggregate
     status: todo
     severity: important
-    title: "CRAN — submit the nirs4all aggregate R package from nirs4all-core v0.3.10 after RC source validation"
+    title: "CRAN — submit the nirs4all aggregate R package from nirs4all-core v0.3.11 after RC source validation"
     manual_url: "https://cran.r-project.org/submit.html"
     affects: []
     auto_check:
