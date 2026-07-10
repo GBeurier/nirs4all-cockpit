@@ -126,7 +126,7 @@ packages:
 - **nirs4all-io** — pypi`nirs4all-io`; crates`nirs4all-io{,-core,-capi,-cli}`; npm`@nirs4all/io-wasm`; r-universe`nirs4allio`; github-release.
 - **nirs4all-datasets** — pypi`nirs4all-datasets`; crates`nirs4all-datasets{,-core,-capi,-cli}`; npm`@nirs4all/datasets-wasm`; r-universe`nirs4alldatasets`; CRAN manual resubmission is tracked and needs the 24 MB size-exception comment; github-release.
 - **nirs4all-core** (`0.3.11` train) — pypi`nirs4all-core`; github-release`nirs4all-core`; crates/npm/r-universe logical package name `nirs4all`.
-- **nirs4all-ui** (`0.1.10` train) — tracked npm`nirs4all-ui` + Pages showcase; outside core aggregation lock.
+- **nirs4all-ui** (`0.1.11` train) — tracked npm`nirs4all-ui` + Pages showcase; outside core aggregation lock.
 - **dag-ml** (`0.2.7` train) — pypi`dag-ml`; npm`dag-ml-wasm`; crates`dag-ml{,-core,-arrow,-capi,-cli}`.
 - **dag-ml-data** (`0.2.9` train) — pypi`dag-ml-data`; npm`dag-ml-data-wasm`; crates`dag-ml-data{,-core,-arrow,-capi,-cli,-provider}`; r-universe`dagmldata` may lag until rebuild.
 - **nirs4all-providers** (`0.2.10` train) — tracked pypi`nirs4all-providers`; read-side bridge over datasets/repository neutral contracts only.
