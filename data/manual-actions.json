@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-10T14:08:53.302269+00:00",
+  "snapshot_generated_at": "2026-07-10T23:03:00.583163+00:00",
   "counts": {
     "total": 24,
-    "pending": 7,
-    "resolved": 17,
+    "pending": 6,
+    "resolved": 18,
     "blockers": 1,
-    "important": 6,
+    "important": 5,
     "info": 0
   },
   "actions": [
@@ -268,7 +268,7 @@
     },
     {
       "id": "runiverse-datasets-rebuild",
-      "status": "todo",
+      "status": "done",
       "declared_status": "todo",
       "severity": "important",
       "title": "R-universe — rebuild nirs4alldatasets from nirs4all-datasets v0.3.8 after the configuration trigger",
@@ -285,8 +285,8 @@
         "name": "nirs4alldatasets",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4alldatasets status=stale version=0.3.7"
+      "resolved": true,
+      "check_note": "r-universe:nirs4alldatasets current 0.3.8 (status=green)"
     },
     {
       "id": "pypi-publisher-providers",
