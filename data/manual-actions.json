@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-10T02:53:13.863987+00:00",
+  "snapshot_generated_at": "2026-07-10T03:18:56.598498+00:00",
   "counts": {
     "total": 23,
-    "pending": 6,
-    "resolved": 17,
+    "pending": 7,
+    "resolved": 16,
     "blockers": 1,
-    "important": 5,
+    "important": 6,
     "info": 0
   },
   "actions": [
@@ -142,11 +142,11 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-core published 0.3.9 (status=green)"
+      "check_note": "pypi:nirs4all-core published 0.3.10 (status=green)"
     },
     {
       "id": "runiverse-core-rebuild",
-      "status": "done",
+      "status": "todo",
       "declared_status": "todo",
       "severity": "important",
       "title": "R-universe — merge the prepared nirs4all-core v0.3.9 gitlink update, then rebuild nirs4all",
@@ -163,8 +163,8 @@
         "name": "nirs4all",
         "expect": "green"
       },
-      "resolved": true,
-      "check_note": "r-universe:nirs4all current 0.3.9 (status=green)"
+      "resolved": false,
+      "check_note": "r-universe:nirs4all status=stale version=0.3.9"
     },
     {
       "id": "runiverse-methods-n4m-rebuild",
