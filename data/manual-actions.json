@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-10T05:45:38.178889+00:00",
+  "snapshot_generated_at": "2026-07-10T05:56:33.454918+00:00",
   "counts": {
     "total": 23,
-    "pending": 7,
-    "resolved": 16,
+    "pending": 6,
+    "resolved": 17,
     "blockers": 1,
-    "important": 6,
+    "important": 5,
     "info": 0
   },
   "actions": [
@@ -146,7 +146,7 @@
     },
     {
       "id": "runiverse-core-rebuild",
-      "status": "todo",
+      "status": "done",
       "declared_status": "todo",
       "severity": "important",
       "title": "R-universe — monitor or retrigger the nirs4all-core v0.3.11 rebuild for nirs4all",
@@ -163,8 +163,8 @@
         "name": "nirs4all",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4all status=stale version=0.3.9"
+      "resolved": true,
+      "check_note": "r-universe:nirs4all current 0.3.11 (status=green)"
     },
     {
       "id": "runiverse-methods-n4m-rebuild",

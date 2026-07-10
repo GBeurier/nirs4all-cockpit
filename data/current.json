@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-10T05:45:38.178889+00:00",
+  "generated_at": "2026-07-10T05:56:33.454918+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
-    "run_id": "29072081130"
+    "run_id": "29072518579"
   },
   "packages": [
     {
@@ -2911,8 +2911,8 @@
           "registry": "r-universe",
           "name": "nirs4all",
           "reason": "GBeurier.r-universe.dev triggered a nirs4all 0.3.11 rebuild at b478818; live R-universe remains manual until the index publishes nirs4all 0.3.11",
-          "published_version": "0.3.9",
-          "status": "stale",
+          "published_version": "0.3.11",
+          "status": "green",
           "planned": false,
           "manual": true,
           "downloads": {
@@ -5013,13 +5013,13 @@
         "latest_prod_tag": "v0.1.7",
         "latest_any_tag": "v0.1.7",
         "expected_prod_version": "v0.1.7",
-        "commit": "6ec7ce52854a2c83cef65bdde5685e34370b5908",
+        "commit": "132f2ad28a9c2687a7ae28646291b5981344aa04",
         "latest_prod_tag_at": "2026-07-07T13:26:02Z",
         "latest_release_at": "2026-07-07T13:26:15Z",
         "latest_version_at": "2026-07-07T13:26:15Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-10T05:44:33Z",
-        "commits_ahead_of_latest_prod_tag": 183
+        "last_commit_at": "2026-07-10T05:49:04Z",
+        "commits_ahead_of_latest_prod_tag": 184
       },
       "rollup": "green",
       "flags": [],
@@ -5052,8 +5052,8 @@
         {
           "file": "pages.yml",
           "conclusion": "success",
-          "created_at": "2026-07-10T05:44:36Z",
-          "head_sha": "6ec7ce52854a2c83cef65bdde5685e34370b5908"
+          "created_at": "2026-07-10T05:49:11Z",
+          "head_sha": "132f2ad28a9c2687a7ae28646291b5981344aa04"
         }
       ],
       "issues": {
@@ -5070,7 +5070,7 @@
         "size_kb": 1219,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-10T05:44:34Z",
+        "pushed_at": "2026-07-10T05:49:05Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -5097,13 +5097,13 @@
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 846,
+        "total_runs": 848,
         "recent_total": 100,
         "recent_success": 99,
         "recent_failure": 0,
         "success_rate": 100.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-10T05:44:36Z"
+        "last_created_at": "2026-07-10T05:49:11Z"
       }
     },
     {
@@ -5553,17 +5553,17 @@
         "workflows": 3,
         "total_runs": 807,
         "recent_total": 100,
-        "recent_success": 96,
+        "recent_success": 97,
         "recent_failure": 3,
         "success_rate": 97.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-10T05:08:22Z"
+        "last_created_at": "2026-07-10T05:38:49Z"
       }
     }
   ],
   "summary": {
-    "green": 96,
-    "stale": 2,
+    "green": 97,
+    "stale": 1,
     "pending": 4,
     "missing": 0,
     "broken": 0,
@@ -5581,7 +5581,7 @@
     "loc_total": 1849599,
     "tests": 16056,
     "files": 5833,
-    "workflow_runs": 7821,
+    "workflow_runs": 7823,
     "downloads_last_month": 41591
   },
   "visits": {
