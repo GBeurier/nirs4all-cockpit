@@ -1,10 +1,14 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-10T06:54:36.429041+00:00",
+  "generated_at": "2026-07-10T07:32:02.934470+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
-    "workflow": "collect.yml",
-    "run_id": "29072518579"
+    "workflow": "local-targeted-refresh",
+    "run_id": null,
+    "only": [
+      "nirs4all-studio",
+      "nirs4all-ui"
+    ]
   },
   "packages": [
     {
@@ -205,7 +209,7 @@
         {
           "registry": "github-release",
           "name": "nirs4all-studio",
-          "reason": "Studio production app remains on the current line; Windows installer test artifact is published at n4a-v1-rc1-2026.07-studio-main-installer; release-unified workflow_dispatch builds smoke artifacts only, while tag releases publish",
+          "reason": "Studio production app remains on the current line; Windows installer test artifact is published at n4a-v1-rc2-2026.07-studio-main-installer; release-unified workflow_dispatch builds smoke artifacts only, while tag releases publish",
           "published_version": "0.9.1",
           "status": "green",
           "planned": false,
@@ -232,25 +236,25 @@
         {
           "file": "release-unified.yml",
           "conclusion": "success",
-          "created_at": "2026-07-09T04:27:33Z",
-          "head_sha": "4c61379ae7b401ef0e1811c313cda1f5b69bfc23"
+          "created_at": "2026-07-10T07:12:03Z",
+          "head_sha": "0f4ec859a2098ae5a557310ed2f0b9e52176eda3"
         }
       ],
       "issues": {
-        "open": 1,
+        "open": 0,
         "bugs": 0
       },
       "repo_stats": {
         "stars": 23,
         "forks": 0,
         "watchers": 1,
-        "open_prs": 0,
-        "closed_prs": 8,
-        "merged_prs": 0,
+        "open_prs": 1,
+        "closed_prs": 1,
+        "merged_prs": 1,
         "size_kb": 37677,
         "language": "TypeScript",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-09T17:57:56Z",
+        "pushed_at": "2026-07-10T07:22:06Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -259,19 +263,19 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 354973,
-        "loc_comment": 28131,
-        "loc_blank": 46928,
-        "loc_total": 430032,
-        "files": 2210,
-        "tests": 4205,
+        "loc_code": 415100,
+        "loc_comment": 36679,
+        "loc_blank": 85735,
+        "loc_total": 537514,
+        "files": 2368,
+        "tests": 4296,
         "by_language": {
           "TypeScript": 293659,
-          "Python": 59575,
+          "Python": 96117,
+          "HTML": 19117,
+          "JavaScript": 5203,
           "Shell": 535,
-          "HTML": 520,
-          "CSS": 467,
-          "JavaScript": 217
+          "CSS": 469
         },
         "coverage_pct": 59.1,
         "source": "local-scan"
@@ -4850,16 +4854,16 @@
       "id": "nirs4all-ui",
       "repo": "nirs4all-ui",
       "source": {
-        "manifest_version": "0.1.11",
-        "latest_prod_tag": "v0.1.11",
-        "latest_any_tag": "v0.1.11",
-        "expected_prod_version": "v0.1.11",
-        "commit": "01ec91f0e0f2111ba652386c904d1a0f6e77c95d",
-        "latest_prod_tag_at": "2026-07-10T01:04:26Z",
-        "latest_release_at": "2026-07-10T01:04:47Z",
-        "latest_version_at": "2026-07-10T01:04:47Z",
+        "manifest_version": "0.1.12",
+        "latest_prod_tag": "v0.1.12",
+        "latest_any_tag": "v0.1.12",
+        "expected_prod_version": "v0.1.12",
+        "commit": "1450b5aacb0accc796575b1744794446861c3684",
+        "latest_prod_tag_at": "2026-07-10T07:11:45Z",
+        "latest_release_at": "2026-07-10T07:29:47Z",
+        "latest_version_at": "2026-07-10T07:29:47Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-10T01:04:26Z",
+        "last_commit_at": "2026-07-10T07:11:45Z",
         "commits_ahead_of_latest_prod_tag": 0
       },
       "rollup": "green",
@@ -4869,7 +4873,7 @@
           "registry": "github-release",
           "name": "nirs4all-ui",
           "reason": null,
-          "published_version": "0.1.11",
+          "published_version": "0.1.12",
           "status": "green",
           "planned": false,
           "manual": false,
@@ -4894,7 +4898,7 @@
           "registry": "npm",
           "name": "nirs4all-ui",
           "reason": "RC V1 shared React/TS package of reusable components, status helpers, and brand assets; outside nirs4all-core aggregation lock",
-          "published_version": "0.1.11",
+          "published_version": "0.1.12",
           "status": "green",
           "planned": false,
           "manual": false,
@@ -4946,14 +4950,14 @@
         {
           "file": "release-npm.yml",
           "conclusion": "success",
-          "created_at": "2026-07-10T01:04:37Z",
-          "head_sha": "01ec91f0e0f2111ba652386c904d1a0f6e77c95d"
+          "created_at": "2026-07-10T07:11:51Z",
+          "head_sha": "1450b5aacb0accc796575b1744794446861c3684"
         },
         {
           "file": "pages.yml",
           "conclusion": "success",
-          "created_at": "2026-07-10T01:04:36Z",
-          "head_sha": "01ec91f0e0f2111ba652386c904d1a0f6e77c95d"
+          "created_at": "2026-07-10T07:11:48Z",
+          "head_sha": "1450b5aacb0accc796575b1744794446861c3684"
         }
       ],
       "issues": {
@@ -4970,7 +4974,7 @@
         "size_kb": 517,
         "language": "TypeScript",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-10T01:04:34Z",
+        "pushed_at": "2026-07-10T07:11:49Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4979,16 +4983,16 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 11105,
+        "loc_code": 11108,
         "loc_comment": 640,
-        "loc_blank": 1180,
-        "loc_total": 12925,
+        "loc_blank": 1181,
+        "loc_total": 12929,
         "files": 90,
         "tests": 120,
         "by_language": {
           "TypeScript": 9068,
           "CSS": 1494,
-          "JavaScript": 499,
+          "JavaScript": 502,
           "HTML": 44
         },
         "coverage_pct": null,
@@ -5576,11 +5580,11 @@
     "stars": 156,
     "forks": 0,
     "watchers": 3,
-    "open_issues": 1,
-    "loc_code": 1458984,
-    "loc_total": 1849599,
-    "tests": 16056,
-    "files": 5833,
+    "open_issues": 0,
+    "loc_code": 1519114,
+    "loc_total": 1957085,
+    "tests": 16147,
+    "files": 5991,
     "workflow_runs": 7823,
     "downloads_last_month": 41591
   },
