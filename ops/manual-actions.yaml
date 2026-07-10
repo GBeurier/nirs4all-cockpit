@@ -184,12 +184,12 @@ actions:
   - id: runiverse-datasets-rebuild
     status: todo
     severity: important
-    title: "R-universe — rebuild nirs4alldatasets from nirs4all-datasets v0.3.7 after the configuration trigger"
+    title: "R-universe — rebuild nirs4alldatasets from nirs4all-datasets v0.3.8 after the configuration trigger"
     manual_url: "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml"
     affects:
       - "nirs4all-datasets:r-universe"
-      - "nirs4all-datasets@784c2872662204e820c8cf6b58d01bc4788148c0"
-      - "GBeurier/GBeurier.r-universe.dev@bca4cdb0a5084abe09a88a86a3856233805dfcdc"
+      - "nirs4all-datasets@2b074472588db86ae6f432686918c33c4f674ba0"
+      - "GBeurier/GBeurier.r-universe.dev@9d7341a"
       - "r-universe/gbeurier:nirs4alldatasets rebuild"
     auto_check:
       registry: r-universe
@@ -359,7 +359,7 @@ actions:
   - id: cran-submit-nirs4alldatasets
     status: todo
     severity: important
-    title: "CRAN — validate Cargo discovery on a CRAN macOS builder, then resubmit nirs4alldatasets 0.3.7 with the 24 MB size-exception comment"
+    title: "CRAN — validate Cargo discovery on a CRAN macOS builder, then resubmit nirs4alldatasets 0.3.8 with the 24 MB size-exception comment"
     manual_url: "https://cran.r-project.org/submit.html"
     affects: []
     auto_check:
