@@ -457,6 +457,7 @@ def test_current_runiverse_manual_actions_cover_release_rebuilds() -> None:
         "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.7", "done"),
         "runiverse-io-rebuild": ("nirs4all-io", "nirs4allio", "v0.1.11", "done"),
         "runiverse-dagml-data-rebuild": ("dag-ml-data", "dagmldata", "v0.2.9", "done"),
+        "runiverse-datasets-rebuild": ("nirs4all-datasets", "nirs4alldatasets", "v0.3.6", "todo"),
     }
 
     for action_id, (repo, package_name, version, status) in expected.items():
@@ -578,7 +579,7 @@ def test_cran_optional_comments_flag_datasets_size_exception() -> None:
     assert "nirs4allformats.lite" not in script
     assert "nirs4allformats|nirs4allformats\\.lite" not in script
     assert "`nirs4alldatasets` (~24 MB)" in script
-    assert "24,666,282 bytes" in script
+    assert "24,664,283 bytes" in script
     assert "ships no dataset\npayloads" in script
     assert "sha256sum or shasum is required" in script
     assert 'mv "$SUMS_TMP" "$OUTDIR/SHA256SUMS"' in script

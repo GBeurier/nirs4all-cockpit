@@ -2,11 +2,11 @@
   "schema_version": 1,
   "snapshot_generated_at": "2026-07-10T09:49:25.673072+00:00",
   "counts": {
-    "total": 23,
-    "pending": 6,
+    "total": 24,
+    "pending": 7,
     "resolved": 17,
     "blockers": 1,
-    "important": 5,
+    "important": 6,
     "info": 0
   },
   "actions": [
@@ -265,6 +265,28 @@
       },
       "resolved": true,
       "check_note": "r-universe:dagmldata current 0.2.9 (status=green)"
+    },
+    {
+      "id": "runiverse-datasets-rebuild",
+      "status": "todo",
+      "declared_status": "todo",
+      "severity": "important",
+      "title": "R-universe — rebuild nirs4alldatasets from nirs4all-datasets v0.3.6 after the configuration trigger",
+      "manual_url": "https://github.com/r-universe/gbeurier/actions/workflows/sync.yml",
+      "affects": [
+        "nirs4all-datasets:r-universe",
+        "nirs4all-datasets@96046847741e137cfcdd7945fa816e4c727aa5b8",
+        "GBeurier/GBeurier.r-universe.dev@8b1696f520a86b3348f7a4fa6eb669dc9b5d546c",
+        "r-universe/gbeurier:nirs4alldatasets rebuild"
+      ],
+      "after_done": [],
+      "auto_check": {
+        "registry": "r-universe",
+        "name": "nirs4alldatasets",
+        "expect": "green"
+      },
+      "resolved": false,
+      "check_note": "r-universe:nirs4alldatasets status=stale version=0.3.5"
     },
     {
       "id": "pypi-publisher-providers",
@@ -533,7 +555,7 @@
       "status": "todo",
       "declared_status": "todo",
       "severity": "important",
-      "title": "CRAN — validate Cargo discovery on a CRAN macOS builder, then resubmit nirs4alldatasets 0.3.5 with the 24 MB size-exception comment",
+      "title": "CRAN — validate Cargo discovery on a CRAN macOS builder, then resubmit nirs4alldatasets 0.3.6 with the 24 MB size-exception comment",
       "manual_url": "https://cran.r-project.org/submit.html",
       "affects": [],
       "after_done": [],
