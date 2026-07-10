@@ -68,6 +68,7 @@ class TargetStatus(BaseModel):
     published_version: str | None = None
     status: State
     planned: bool = False
+    manual: bool = False
     downloads: Downloads = Field(default_factory=Downloads)
     evidence: Evidence = Field(default_factory=Evidence)
     error: str | None = None
@@ -394,7 +395,7 @@ class Target(BaseModel):
 
     registry: str
     name: str
-    state: Literal["tracked", "excluded", "planned"] = "tracked"
+    state: Literal["tracked", "excluded", "planned", "manual"] = "tracked"
     reason: str | None = None
     workflow: WorkflowRef | None = None
 

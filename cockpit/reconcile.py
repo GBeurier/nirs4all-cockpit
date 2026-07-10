@@ -10,10 +10,13 @@ worst-cell verdict. The rules it enforces (from the Codex review):
 * Download counts that come back ``unknown`` never degrade the version verdict.
 * A ``planned`` target reconciles as ``missing`` and carries a ``planned`` flag;
   it gets no admin button (that is the admin layer's concern).
+* A ``manual`` target is still probed and displayed, but it is kept out of the
+  package roll-up and summary; the dedicated manual-action board carries the
+  actionability for those human-only submissions.
 * ``excluded`` targets are counted in the summary but kept **out** of the
   package roll-up and never turned green.
 * The package roll-up is the worst cell, ordered
-  ``broken > missing > stale > unknown > green`` (excluded ignored).
+  ``broken > missing > stale > pending > unknown > green`` (excluded/manual ignored).
 """
 
 from __future__ import annotations
@@ -131,7 +134,8 @@ def reconcile(
         status = _reconcile_package(targets.owner, pkg, no_network=no_network, with_traffic=with_traffic)
         packages.append(status)
         for tgt in status.targets:
-            summary[tgt.status] = summary.get(tgt.status, 0) + 1
+            if not tgt.manual:
+                summary[tgt.status] = summary.get(tgt.status, 0) + 1
 
     stamp = generated_at or now_iso()
     if no_network:
@@ -403,6 +407,7 @@ def _reconcile_target(
 ) -> TargetStatus:
     excluded = tgt.state == "excluded"
     planned = tgt.state == "planned"
+    manual = tgt.state == "manual"
 
     if excluded:
         return TargetStatus(
@@ -412,6 +417,7 @@ def _reconcile_target(
             published_version=None,
             status="excluded",
             planned=False,
+            manual=False,
             downloads=Downloads(),
             evidence=Evidence(),
             error=tgt.reason,
@@ -432,6 +438,7 @@ def _reconcile_target(
             published_version=None,
             status="missing",
             planned=True,
+            manual=False,
             downloads=Downloads(),
             evidence=Evidence(),
             error=None,
@@ -448,6 +455,7 @@ def _reconcile_target(
             published_version=None,
             status="unknown",
             planned=False,
+            manual=manual,
             downloads=Downloads(),
             evidence=Evidence(),
             error="no-network" if no_network else None,
@@ -494,6 +502,7 @@ def _reconcile_target(
         published_version=published,
         status=state,
         planned=False,
+        manual=manual,
         downloads=Downloads.model_validate(fact.get("downloads") or {}),
         evidence=Evidence.model_validate(fact.get("evidence") or {}),
         error=error,
@@ -579,13 +588,13 @@ def _is_transient(http_status: int | None, error: str | None) -> bool:
 
 
 def _rollup(targets: list[TargetStatus]) -> str:
-    """Package roll-up. ``excluded`` cells are ignored, all-excluded → green.
+    """Package roll-up. ``excluded`` and ``manual`` cells are ignored.
 
     The package roll-up is the worst tracked target, matching the dashboard rank.
     This keeps blockers such as a missing PyPI project visible even when the same
     package is already green on GitHub Pages or another registry.
     """
-    states = {ts.status for ts in targets if ts.status != "excluded"}
+    states = {ts.status for ts in targets if ts.status != "excluded" and not ts.manual}
     for s in ("broken", "missing", "stale", "pending", "unknown", "green"):
         if s in states:
             return s

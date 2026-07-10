@@ -450,7 +450,8 @@ def validate_targets(
     * unique ``(registry, name)`` per package;
     * a declared ``workflow`` for any ``danger: publish``/``dangerous`` target;
     * a mandatory ``reason`` on every ``excluded`` target;
-    * no ``workflow`` on a ``planned`` target (planned = no button yet).
+    * no ``workflow`` on a ``planned`` target (planned = no button yet);
+    * no ``workflow`` on a ``manual`` target (manual = human-only web/action board).
 
     Exits non-zero on the first batch of violations.
     """
@@ -476,6 +477,11 @@ def validate_targets(
             if target.state == "planned" and target.workflow is not None:
                 errors.append(
                     f"{pkg.id}: planned target {target.registry}:{target.name} must not declare a workflow"
+                )
+
+            if target.state == "manual" and target.workflow is not None:
+                errors.append(
+                    f"{pkg.id}: manual target {target.registry}:{target.name} must not declare a workflow"
                 )
 
             wf = target.workflow

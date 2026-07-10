@@ -47,7 +47,7 @@ def test_rc_core_uses_canonical_repo_without_legacy_lite_alias() -> None:
     assert targets[("crates", "nirs4all")].state == "tracked"
     assert targets[("npm", "nirs4all")].state == "tracked"
     assert targets[("r-universe", "nirs4all")].state == "tracked"
-    assert targets[("cran", "nirs4all")].state == "tracked"
+    assert targets[("cran", "nirs4all")].state == "manual"
     core_release_reason = targets[("github-release", "nirs4all-core")].reason or ""
     core_pypi_reason = targets[("pypi", "nirs4all-core")].reason or ""
     assert "MATLAB/Octave archive" in core_release_reason
@@ -504,8 +504,14 @@ def test_cran_manual_actions_cover_n4m_and_pls4all_separately() -> None:
     assert "pls4all only" in actions["cran-resubmit-pls4all"].title
 
 
-def test_cran_manual_actions_cover_tracked_rc_r_surfaces() -> None:
+def test_cran_manual_actions_cover_manual_rc_r_surfaces() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
+    packages = _targets().packages
+    targets = {
+        (target.registry, target.name): target
+        for package in packages
+        for target in package.targets
+    }
     expected = {
         "cran-submit-nirs4allio": "nirs4allio",
         "cran-submit-nirs4alldatasets": "nirs4alldatasets",
@@ -523,6 +529,8 @@ def test_cran_manual_actions_cover_tracked_rc_r_surfaces() -> None:
             "name": package_name,
             "expect": "green",
         }
+        assert targets[("cran", package_name)].state == "manual"
+        assert targets[("cran", package_name)].workflow is None
 
 
 def test_cran_rc_manual_actions_do_not_resolve_on_stale_publication() -> None:
