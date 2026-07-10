@@ -137,7 +137,7 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
     assert web.coordination_tag == "n4a-v1-rc14-2026.07-refactor"
     assert web.source_of_truth is not None
     assert web.source_of_truth.strategy == "npm_package_json"
-    assert web.source_of_truth.path == "studio-lite/package.json"
+    assert web.source_of_truth.path == "web-app/package.json"
     assert [target.registry for target in web.targets] == ["github-release", "pages"]
     web_release_reason = next(target.reason or "" for target in web.targets if target.registry == "github-release")
     web_pages_reason = next(target.reason or "" for target in web.targets if target.registry == "pages")
