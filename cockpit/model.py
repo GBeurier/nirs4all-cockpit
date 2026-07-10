@@ -25,6 +25,8 @@ State = Literal["green", "stale", "pending", "missing", "broken", "unknown", "ex
 live (e.g. the R source tarball is attached to a GitHub Release but the package
 is not on CRAN yet — awaiting manual review); it is distinct from ``stale`` (an
 *older* version IS published) and from ``missing`` (nothing built/submitted).
+Registry lifecycle is carried separately on ``TargetStatus`` so a CRAN archive
+can coexist with a pending resubmission.
 ``source_ahead`` is a package flag, not a status; ``planned`` is carried
 separately on ``TargetStatus``."""
 
@@ -56,6 +58,7 @@ class Evidence(BaseModel):
     """Endpoints consulted to reach a target's verdict (for auditability)."""
 
     version_endpoint: str | None = None
+    archive_endpoint: str | None = None
     downloads_endpoint: str | None = None
 
 
@@ -67,6 +70,9 @@ class TargetStatus(BaseModel):
     reason: str | None = None
     published_version: str | None = None
     status: State
+    lifecycle: Literal["archived"] | None = None
+    lifecycle_reason: str | None = None
+    former_version: str | None = None
     planned: bool = False
     manual: bool = False
     downloads: Downloads = Field(default_factory=Downloads)

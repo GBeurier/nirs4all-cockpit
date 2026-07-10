@@ -1,7 +1,8 @@
 """Shared HTTP client for cockpit collectors.
 
-A single :func:`get_json` helper is the only network primitive the collectors
-use. It is deliberately *boundary-defensive*: it never raises on an HTTP error
+A small pair of ``get_json`` / :func:`get_text` helpers are the only network
+primitives the collectors use. They are deliberately *boundary-defensive*: they
+never raise on an HTTP error
 status, a timeout, a connection drop, or a malformed body. Instead it returns a
 ``(status, body, error)`` tuple so each collector can decide what an error
 *means* for its registry (a 404 on crates.io is ``missing``; a 429 on pypistats
@@ -108,6 +109,48 @@ def get_json(
           "<reason>")`` so the caller can map it to ``unknown``.
     """
     return _json_request("GET", url, headers=headers, accept=accept, max_retries=max_retries)
+
+
+def get_text(
+    url: str,
+    headers: dict[str, str] | None = None,
+    *,
+    accept: str = "text/html, text/plain;q=0.9, */*;q=0.1",
+    max_retries: int = MAX_RETRIES,
+) -> tuple[int, str | None, str | None]:
+    """Fetch a text response without raising on HTTP or transport failures.
+
+    This is deliberately separate from :func:`get_json` for registries such as
+    CRAN whose authoritative archive notice is served as HTML rather than via a
+    machine-readable endpoint.  The result has the same error convention as
+    ``get_json``: ``status == 0`` means transport failure, and a non-2xx status
+    carries ``"http <status>"`` while retaining no body.
+    """
+    merged = {"User-Agent": USER_AGENT, "Accept": accept}
+    if headers:
+        merged.update(headers)
+
+    last_error: str | None = None
+    last_status = 0
+    for attempt in range(max_retries + 1):
+        try:
+            resp = httpx.get(url, headers=merged, timeout=TIMEOUT_S, follow_redirects=True)
+        except httpx.HTTPError as exc:
+            last_error = f"{type(exc).__name__}: {exc}"
+            last_status = 0
+        else:
+            last_status = resp.status_code
+            if resp.status_code in RETRY_STATUSES and attempt < max_retries:
+                time.sleep(_retry_delay(resp, attempt))
+                continue
+            if resp.is_success:
+                return resp.status_code, resp.text, None
+            return resp.status_code, None, f"http {resp.status_code}"
+
+        if attempt < max_retries:
+            time.sleep(_retry_delay(None, attempt))
+
+    return last_status, None, last_error or f"http {last_status}"
 
 
 def post_json(

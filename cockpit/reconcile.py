@@ -16,7 +16,9 @@ worst-cell verdict. The rules it enforces (from the Codex review):
 * ``excluded`` targets are counted in the summary but kept **out** of the
   package roll-up and never turned green.
 * The package roll-up is the worst cell, ordered
-  ``broken > missing > stale > pending > unknown > green`` (excluded/manual ignored).
+  ``broken > missing > stale > pending > unknown > green`` (excluded/manual
+  ignored). Registry lifecycle is orthogonal: CRAN ``archived`` can coexist
+  with a ``pending`` resubmission.
 """
 
 from __future__ import annotations
@@ -465,6 +467,14 @@ def _reconcile_target(
     http_status = fact.get("http_status")
     error = fact.get("error")
     broken = bool(fact.get("broken"))
+    lifecycle = fact.get("lifecycle")
+    lifecycle_reason = fact.get("lifecycle_reason")
+    former_version = published if lifecycle == "archived" else None
+    if lifecycle == "archived":
+        # crandb retains the former record after CRAN removes it. It is not a
+        # current publication, so classify it as absent and let a shipped R
+        # tarball promote the target to pending below.
+        published = None
     transient = _is_transient(http_status, error)
 
     if broken:
@@ -500,6 +510,9 @@ def _reconcile_target(
         reason=tgt.reason,
         published_version=published,
         status=state,
+        lifecycle=lifecycle,
+        lifecycle_reason=lifecycle_reason,
+        former_version=former_version,
         planned=False,
         manual=manual,
         downloads=Downloads.model_validate(fact.get("downloads") or {}),
