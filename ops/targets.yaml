@@ -14,6 +14,8 @@
 #   tracked   = expected to be published; reconciled normally
 #   excluded  = intentionally not on this registry (reason mandatory)
 #   planned   = no release workflow yet (reconciles as missing, flagged, no admin button)
+#   manual    = human-only registry action; still probed/displayed, but actionability
+#               lives in ops/manual-actions.yaml and does not degrade package rollup
 
 schema_version: 1
 owner: GBeurier
@@ -156,11 +158,11 @@ packages:
           inputs: []
       - registry: cran
         name: n4m
-        state: tracked
+        state: manual
         reason: "manual web submission; no admin button"
       - registry: cran
         name: pls4all
-        state: tracked
+        state: manual
         reason: "manual web submission; no admin button"
       - registry: github-release
         name: nirs4all-methods
@@ -368,7 +370,7 @@ packages:
           inputs: []
       - registry: cran
         name: nirs4allio
-        state: tracked
+        state: manual
         reason: "manual web submission; no admin button"
       - registry: github-release
         name: nirs4all-io
@@ -460,7 +462,7 @@ packages:
           inputs: []
       - registry: cran
         name: nirs4alldatasets
-        state: tracked
+        state: manual
         reason: "manual web submission; no admin button; 24 MB source tarball needs size-exception comment"
       - registry: github-release
         name: nirs4all-datasets
@@ -635,7 +637,7 @@ packages:
           inputs: []
       - registry: cran
         name: nirs4all
-        state: tracked
+        state: manual
         reason: "manual web submission; CRAN remains unpublished for the 0.3.9 RC aggregate"
       - registry: github-release
         name: nirs4all-core

@@ -280,7 +280,12 @@ function renderMatrix(snap) {
       if (targets.length > 1) { const wrap = el("span", { class: "led-multi" }); wrap.append(dot, el("span", { class: "badge-n", text: `×${targets.length}` })); link.appendChild(wrap); }
       else link.appendChild(dot);
       const rows = targets.map((t) => {
-        const meta = [t.status, t.planned ? "planned" : null, t.published_version ? "v" + t.published_version : null].filter(Boolean).join(" · ");
+        const meta = [
+          t.status,
+          t.planned ? "planned" : null,
+          t.manual ? "manual action" : null,
+          t.published_version ? "v" + t.published_version : null,
+        ].filter(Boolean).join(" · ");
         return `<div class="tt-row"><span class="led led--${esc(t.status)}"></span> <b>${esc(t.name)}</b> · ${esc(meta)}</div>`;
       }).join("");
       attachTip(link, `<b>${REG_LABEL[reg]}</b>${rows}<div class="tt-row" style="margin-top:5px;opacity:.7">click → open registry page</div>`);

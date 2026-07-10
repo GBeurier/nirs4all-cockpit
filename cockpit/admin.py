@@ -237,12 +237,17 @@ def run_workflow(
 
     target = find_target(package, registry, name)
 
-    # 2. planned / no workflow → no button.
+    # 2. planned/manual/no workflow → no button.
     if target.workflow is None:
         if target.state == "planned":
             messages.append(
                 f"{package.id}:{target.registry}:{target.name} is PLANNED — "
                 "pas de bouton de release (no release workflow exists yet)."
+            )
+        elif target.state == "manual":
+            messages.append(
+                f"{package.id}:{target.registry}:{target.name} is MANUAL — "
+                "pas de bouton de release (human-only action tracked at the bottom of the cockpit)."
             )
         else:
             messages.append(

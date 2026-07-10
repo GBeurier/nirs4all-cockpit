@@ -23,7 +23,7 @@ from conftest import load_fixture
 from cockpit import reconcile as rec
 from cockpit import version as v
 from cockpit.collect import cran, crates, npm, readthedocs, runiverse
-from cockpit.model import Package, SourceOfTruth, Target, Targets, TargetStatus, WorkflowRef
+from cockpit.model import Package, PackageStatus, SourceOfTruth, Target, Targets, TargetStatus, WorkflowRef
 from cockpit.reconcile import (
     _latest_any_tag,
     _latest_prod_tag,
@@ -81,8 +81,8 @@ def _reconcile_target(collected, *, expected, excluded=False, planned=False):
     return state
 
 
-def _target_status(status: str) -> TargetStatus:
-    return TargetStatus(registry="pypi", name=f"demo-{status}", status=status)
+def _target_status(status: str, *, manual: bool = False) -> TargetStatus:
+    return TargetStatus(registry="pypi", name=f"demo-{status}", status=status, manual=manual)
 
 
 # --------------------------------------------------------------------------- #
@@ -136,6 +136,43 @@ def test_package_rollup_uses_worst_tracked_target() -> None:
 def test_package_rollup_ignores_excluded_targets() -> None:
     assert _rollup([_target_status("excluded"), _target_status("green")]) == "green"
     assert _rollup([_target_status("excluded")]) == "green"
+
+
+def test_package_rollup_ignores_manual_targets() -> None:
+    assert _rollup([_target_status("green"), _target_status("pending", manual=True)]) == "green"
+    assert _rollup([_target_status("stale", manual=True), _target_status("green")]) == "green"
+    assert _rollup([_target_status("pending", manual=True)]) == "green"
+
+
+def test_snapshot_summary_ignores_manual_targets(monkeypatch) -> None:
+    pkg = Package(
+        id="demo",
+        repo="demo",
+        targets=[
+            Target(registry="pypi", name="demo"),
+            Target(registry="cran", name="demo", state="manual", reason="manual web submission"),
+        ],
+    )
+
+    monkeypatch.setattr(
+        rec,
+        "_reconcile_package",
+        lambda owner, package, *, no_network, with_traffic=False: PackageStatus(  # noqa: ARG005
+            id=package.id,
+            repo=package.repo,
+            source={},
+            rollup="green",
+            targets=[
+                TargetStatus(registry="pypi", name="demo", status="green"),
+                TargetStatus(registry="cran", name="demo", status="pending", manual=True),
+            ],
+        ),
+    )
+
+    snapshot = rec.reconcile(Targets(owner="GBeurier", packages=[pkg]), no_network=True)
+
+    assert snapshot.summary["green"] == 1
+    assert snapshot.summary["pending"] == 0
 
 
 def test_package_level_workflows_are_collected_and_deduplicated(monkeypatch) -> None:
