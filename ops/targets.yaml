@@ -67,7 +67,7 @@ packages:
       - registry: github-release
         name: nirs4all-studio
         state: tracked
-        reason: "Studio production app remains on the current line; Windows installer test artifact is published at n4a-v1-rc1-2026.07-studio-main-installer; release-unified workflow_dispatch builds smoke artifacts only, while tag releases publish"
+        reason: "Studio production app remains on the current line; Windows installer test artifact is published at n4a-v1-rc2-2026.07-studio-main-installer; release-unified workflow_dispatch builds smoke artifacts only, while tag releases publish"
         workflow:
           file: release-unified.yml
           trigger: workflow_dispatch
