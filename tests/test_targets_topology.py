@@ -432,13 +432,14 @@ def test_active_readthedocs_targets_are_tracked_without_manual_activation_action
     assert not any(action_id.startswith("rtd-activate-") for action_id in actions)
 
 
-def test_current_runiverse_manual_action_tracks_core_rebuild_todo() -> None:
+def test_current_runiverse_manual_action_tracks_core_rebuild_done() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     action = actions["runiverse-core-rebuild"]
 
-    assert action.status == "todo"
+    assert action.status == "done"
     assert action.severity == "important"
     assert "nirs4all-core" in action.title
+    assert "published" in action.title
     assert action.manual_url == "https://gbeurier.r-universe.dev/nirs4all"
     assert "nirs4all-core:r-universe" in action.affects
     assert "nirs4all-core@59d54c97399a43eb53665d236f5ab01b5972fe16" in action.affects
@@ -450,7 +451,7 @@ def test_current_runiverse_manual_action_tracks_core_rebuild_todo() -> None:
 def test_current_runiverse_manual_actions_cover_release_rebuilds() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     expected = {
-        "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.3.11", "todo"),
+        "runiverse-core-rebuild": ("nirs4all-core", "nirs4all", "v0.3.11", "done"),
         "runiverse-methods-n4m-rebuild": ("nirs4all-methods", "n4m", "v1.0.9", "done"),
         "runiverse-methods-pls4all-rebuild": ("nirs4all-methods", "pls4all", "v1.0.9", "done"),
         "runiverse-formats-rebuild": ("nirs4all-formats", "nirs4allformats", "v0.2.7", "done"),
