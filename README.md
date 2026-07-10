@@ -39,6 +39,12 @@ shared, rate-limit-aware HTTP client, reconciles the four version facts
 and writes `data/current.json`. In CI an ambient `GITHUB_TOKEN` raises the
 GitHub rate limit.
 
+CRAN also has a lifecycle probe against its canonical package page. `crandb`
+keeps an old version record after CRAN archives a package, so an archived target
+carries `lifecycle="archived"`, its archival reason and former version
+separately. Its release status remains `missing` or `pending`: an archive is not
+a publication and can coexist with a replacement tarball awaiting manual review.
+
 Subset collection is intentionally scratch-only: `--only` refuses to write the
 public `data/current.json` unless you provide an explicit `--out` path.
 
@@ -167,6 +173,10 @@ Two signals are deliberately **not** statuses:
   target.
 - **`planned`** — a per-target flag (no release workflow yet). It reconciles as
   `missing` and gets no admin button.
+- **`lifecycle="archived"`** — a registry-specific historical fact. CRAN sets
+  it when its canonical package page says the package was removed. The matrix
+  renders an amber archive glyph while the release status remains `pending` or
+  `missing`; the former version and official reason stay in the target record.
 
 The package **roll-up** is the worst tracked cell
 (`broken` > `missing` > `stale` > `pending` > `unknown` > `green`); `excluded`
@@ -224,9 +234,9 @@ falls back across `../data`, `./`, and `./data`.
 
 ## Tests
 
-Offline only — no network. The collectors reach the network through a single
-`cockpit.http.get_json` seam, which the tests monkeypatch with captured fixtures
-under `tests/fixtures/`.
+Offline only — no network. JSON collectors reach the network through
+`cockpit.http.get_json`; the CRAN archive probe uses `get_text`. Tests monkeypatch
+both seams with captured fixtures under `tests/fixtures/`.
 
 ```bash
 pip install -e .[dev]
