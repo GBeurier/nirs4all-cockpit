@@ -34,7 +34,7 @@ packages:
       - registry: readthedocs
         name: nirs4all
         state: tracked
-        reason: "existing Python production documentation remains tracked; portable aggregate release is nirs4all-core 0.3.10"
+        reason: "existing Python production documentation remains tracked; portable aggregate release is nirs4all-core 0.3.11"
       - registry: pypi
         name: nirs4all
         state: tracked
@@ -566,7 +566,7 @@ packages:
   - id: nirs4all-core
     repo: nirs4all-core
     issues_repo: nirs4all-core
-    coordination_tag: n4a-v1-rc16-2026.07-refactor
+    coordination_tag: n4a-v1-rc17-2026.07-refactor
     source_of_truth:
       strategy: cargo_package
       path: bindings/rust/nirs4all/Cargo.toml
@@ -589,7 +589,7 @@ packages:
       - registry: pypi
         name: nirs4all-core
         state: tracked
-        reason: "PyPI package targets v0.3.10; release tag v0.3.10 is available and registry propagation is tracked"
+        reason: "PyPI package targets v0.3.11; release tag v0.3.11 is available and registry propagation is tracked"
         workflow:
           file: release-python.yml
           trigger: tag
@@ -602,7 +602,7 @@ packages:
       - registry: crates
         name: nirs4all
         state: tracked
-        reason: "RC aggregate crate targets product version 0.3.10; release tag v0.3.10 is available and registry propagation is tracked"
+        reason: "RC aggregate crate targets product version 0.3.11; release tag v0.3.11 is available and registry propagation is tracked"
         workflow:
           file: release-crates.yml
           trigger: tag
@@ -615,7 +615,7 @@ packages:
       - registry: npm
         name: nirs4all
         state: tracked
-        reason: "RC aggregate npm package targets product version 0.3.10; release tag v0.3.10 is available and registry propagation is tracked"
+        reason: "RC aggregate npm package targets product version 0.3.11; release tag v0.3.11 is available and registry propagation is tracked"
         workflow:
           file: release-npm.yml
           trigger: tag
@@ -628,15 +628,15 @@ packages:
       - registry: r-universe
         name: nirs4all
         state: manual
-        reason: "R-universe mirror update is prepared on GBeurier:gbeurier/update-nirs4all-core-0.3.10; live R-universe remains manual until r-universe/gbeurier merges and rebuilds nirs4all"
+        reason: "R-universe mirror update is prepared on GBeurier:gbeurier/update-nirs4all-core-0.3.11; live R-universe remains manual until r-universe/gbeurier merges and rebuilds nirs4all"
       - registry: cran
         name: nirs4all
         state: manual
-        reason: "manual web submission; CRAN remains unpublished for the 0.3.10 RC aggregate"
+        reason: "manual web submission; CRAN remains unpublished for the 0.3.11 RC aggregate"
       - registry: github-release
         name: nirs4all-core
         state: tracked
-        reason: "v0.3.10 release carries source/SBOM, MATLAB/Octave archive, R tarball, and SHA256SUMS"
+        reason: "v0.3.11 release carries source/SBOM, MATLAB/Octave archive, R tarball, and SHA256SUMS"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -685,7 +685,7 @@ packages:
   - id: dag-ml
     repo: dag-ml
     issues_repo: dag-ml
-    coordination_tag: n4a-v1-rc12-2026.07-refactor
+    coordination_tag: n4a-v1-rc17-2026.07-refactor
     source_of_truth:
       strategy: cargo_workspace
       path: Cargo.toml
@@ -741,7 +741,7 @@ packages:
   - id: dag-ml-data
     repo: dag-ml-data
     issues_repo: dag-ml-data
-    coordination_tag: n4a-v1-rc12-2026.07-refactor
+    coordination_tag: n4a-v1-rc17-2026.07-refactor
     source_of_truth:
       strategy: cargo_workspace
       path: Cargo.toml
