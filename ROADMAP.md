@@ -11,8 +11,8 @@
 
 - ✅ `ops/targets.yaml` — complete declarative inventory: package x registry x exact name x workflow x trigger x version-of-truth.
 - ✅ `ops/manual-actions.yaml` — structured manual release queue with `after_done` and `auto_check`.
-- ✅ Read-only public collectors: PyPI, npm, crates.io, R-universe, CRAN, GitHub releases/workflow runs/issues, and local manifests.
-- ✅ `reconcile` — manifest / release tag / published version state model with `green`, `stale`, `pending`, `missing`, `broken`, `unknown`, `source-ahead`, and `excluded`.
+- ✅ Read-only public collectors: PyPI, npm, crates.io, R-universe, CRAN (including canonical archive lifecycle), GitHub releases/workflow runs/issues, and local manifests.
+- ✅ `reconcile` — manifest / release tag / published version state model with `green`, `stale`, `pending`, `missing`, `broken`, `unknown`, `source-ahead`, and `excluded`; CRAN `archived` lifecycle remains orthogonal to release status.
 - ✅ Generated public snapshots: `data/current.json`, `data/manual-actions.json`, and history snapshots.
 - ✅ Vanilla static dashboard: `web/index.html`, `web/app.js`, and `web/style.css`, with manual blockers intentionally rendered at the bottom.
 - ✅ CI workflows: `collect.yml` for scheduled/manual collection and commits; `pages.yml` for GitHub Pages deploy on pushes, successful collect completion, or manual dispatch.
@@ -107,9 +107,10 @@ packages:
 - `expected_version` = `release_tag_version` if a prod tag exists, otherwise `manifest_version`.
 - `manifest_version > release_tag_version` ⇒ badge **`source-ahead`** (not a fake red).
 - `published == expected` ⇒ **green**.
-- `published < expected` ⇒ **stale**.
+- `published < expected` ⇒ **stale**, only while that older version is still live on the registry.
 - Submitted or intentionally waiting on an external review queue ⇒ **pending**.
 - 404/absent ⇒ **missing**.
+- CRAN canonical archive notice ⇒ `lifecycle="archived"`, former version and reason retained; status is still **missing** or **pending**, never a fake publication.
 - `Version:null`, build failed, or last release-run failed ⇒ **broken**.
 - timeout/429/5xx ⇒ **unknown**.
 - `state:excluded` ⇒ **excluded**.
@@ -117,7 +118,7 @@ packages:
 - Roll-up packet = worst cell (`broken` > `missing` > `stale` > `pending` > `unknown` > `source-ahead` > `green`; `excluded` and manual targets ignored in package roll-up, but still counted in the global summary).
 
 ## APIs (endpoints, traps) — summary
-- PyPI`https://pypi.org/pypi/{pkg}/json`→`info.version`(no real downloads here). 404=missing. - pypistats`…/api/packages/{pkg}/recent`(**429 possible** → cache+backoff,`unknown`). overall ~180 days. - npm`https://registry.npmjs.org/{pkg}`(scoped`%2F`); downloads`api.npmjs.org/downloads/point/last-month/{pkg}`(**scoped 404 + error in HTTP 200** → parse the body). -`https://crates.io/api/v1/crates/{crate}`crates (**User-Agent required**, otherwise 403). 404=missing. - R-universe`https://gbeurier.r-universe.dev/api/packages`(`Version:null`=broken). - CRAN`https://crandb.r-pkg.org/{pkg}`(404 as long as not accepted); cranlogs`…/downloads/total/last-month/{pkg}`(**0 in 200** ≠ missing). - GitHub releases/runs/issues:`GITHUB_TOKEN`ambient (5000/h); Search issues 30/min;`download_count`per asset.
+- PyPI`https://pypi.org/pypi/{pkg}/json`→`info.version`(no real downloads here). 404=missing. - pypistats`…/api/packages/{pkg}/recent`(**429 possible** → cache+backoff,`unknown`). overall ~180 days. - npm`https://registry.npmjs.org/{pkg}`(scoped`%2F`); downloads`api.npmjs.org/downloads/point/last-month/{pkg}`(**scoped 404 + error in HTTP 200** → parse the body). -`https://crates.io/api/v1/crates/{crate}`crates (**User-Agent required**, otherwise 403). 404=missing. - R-universe`https://gbeurier.r-universe.dev/api/packages`(`Version:null`=broken). - CRAN`https://crandb.r-pkg.org/{pkg}` plus canonical `https://CRAN.R-project.org/package={pkg}` (archive lifecycle); cranlogs`…/downloads/total/last-month/{pkg}`(**0 in 200** ≠ missing). - GitHub releases/runs/issues:`GITHUB_TOKEN`ambient (5000/h); Search issues 30/min;`download_count`per asset.
 
 ## Package inventory (LOCK in targets.yaml — check names/inputs against real workflows)
 - **nirs4all** (production Python oracle, held) — pypi`nirs4all`; github-release via `publish.yml`.
