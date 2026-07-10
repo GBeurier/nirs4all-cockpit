@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-07-10T03:18:56.598498+00:00",
+  "snapshot_generated_at": "2026-07-10T03:34:16.229952+00:00",
   "counts": {
     "total": 23,
     "pending": 7,
@@ -130,7 +130,7 @@
       "status": "done",
       "declared_status": "done",
       "severity": "blocker",
-      "title": "PyPI — Trusted Publisher configured and nirs4all-core v0.3.9 published from release-python.yml",
+      "title": "PyPI — Trusted Publisher configured and nirs4all-core v0.3.10 published from release-python.yml",
       "manual_url": "https://pypi.org/manage/account/publishing/",
       "affects": [
         "nirs4all-core:release-python.yml"
@@ -149,12 +149,12 @@
       "status": "todo",
       "declared_status": "todo",
       "severity": "important",
-      "title": "R-universe — merge the prepared nirs4all-core v0.3.9 gitlink update, then rebuild nirs4all",
-      "manual_url": "https://github.com/r-universe/gbeurier/compare/master...GBeurier:update-nirs4all-core-0.3.9",
+      "title": "R-universe — merge the prepared nirs4all-core v0.3.10 gitlink update, then rebuild nirs4all",
+      "manual_url": "https://github.com/r-universe/gbeurier/compare/master...GBeurier:update-nirs4all-core-0.3.10",
       "affects": [
         "nirs4all-core:r-universe",
-        "fork:GBeurier/gbeurier:nirs4all-submodule@2d416b72e9c417a064d3ca3501e4e84280cee1f0",
-        "fork:GBeurier/gbeurier:update-nirs4all-core-0.3.9",
+        "fork:GBeurier/gbeurier:nirs4all-submodule@cc06b45862230a6d70a7c92a2cf7fa16020fa13c",
+        "fork:GBeurier/gbeurier:update-nirs4all-core-0.3.10",
         "r-universe/gbeurier:Update universe"
       ],
       "after_done": [],
@@ -550,7 +550,7 @@
       "status": "todo",
       "declared_status": "todo",
       "severity": "important",
-      "title": "CRAN — submit the nirs4all aggregate R package from nirs4all-core v0.3.9 after RC source validation",
+      "title": "CRAN — submit the nirs4all aggregate R package from nirs4all-core v0.3.10 after RC source validation",
       "manual_url": "https://cran.r-project.org/submit.html",
       "affects": [],
       "after_done": [],
