@@ -281,8 +281,7 @@ function renderMatrix(snap) {
       else link.appendChild(dot);
       const rows = targets.map((t) => {
         const meta = [t.status, t.planned ? "planned" : null, t.published_version ? "v" + t.published_version : null].filter(Boolean).join(" · ");
-        const reason = t.reason ? `<div class="tt-row tt-reason">${esc(t.reason)}</div>` : "";
-        return `<div class="tt-row"><span class="led led--${esc(t.status)}"></span> <b>${esc(t.name)}</b> · ${esc(meta)}</div>${reason}`;
+        return `<div class="tt-row"><span class="led led--${esc(t.status)}"></span> <b>${esc(t.name)}</b> · ${esc(meta)}</div>`;
       }).join("");
       attachTip(link, `<b>${REG_LABEL[reg]}</b>${rows}<div class="tt-row" style="margin-top:5px;opacity:.7">click → open registry page</div>`);
       td.appendChild(link);
