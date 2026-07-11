@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-11T05:11:27.303712+00:00",
+  "generated_at": "2026-07-11T05:40:51.171716+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -180,13 +180,13 @@
         "latest_prod_tag": "0.9.1",
         "latest_any_tag": "0.9.1",
         "expected_prod_version": "0.9.1",
-        "commit": "3bbd471587af5532003d6e0857b3d6c7e717b380",
+        "commit": "c89a004542f928c4702d808a0b377a1516f10d47",
         "latest_prod_tag_at": "2026-06-23T07:53:21Z",
         "latest_release_at": "2026-06-23T08:22:40Z",
         "latest_version_at": "2026-06-23T08:22:40Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-11T04:03:27Z",
-        "commits_ahead_of_latest_prod_tag": 74
+        "last_commit_at": "2026-07-11T05:39:59Z",
+        "commits_ahead_of_latest_prod_tag": 75
       },
       "rollup": "green",
       "flags": [],
@@ -221,7 +221,7 @@
         {
           "registry": "github-release",
           "name": "nirs4all-studio",
-          "reason": "Studio production app remains on the current line; current Windows installer test artifact is available from workflow run 29138360308; release-unified workflow_dispatch builds smoke artifacts only, while tag releases publish",
+          "reason": "Studio production app remains on the current line; current Windows installer test artifact is available from workflow run 29141166400; release-unified workflow_dispatch builds smoke artifacts only, while tag releases publish",
           "published_version": "0.9.1",
           "status": "green",
           "lifecycle": null,
@@ -252,25 +252,25 @@
         {
           "file": "release-unified.yml",
           "conclusion": "success",
-          "created_at": "2026-07-11T03:39:43Z",
-          "head_sha": "514ebe1449578d8c96e7ddf6a018be797050e185"
+          "created_at": "2026-07-11T05:24:39Z",
+          "head_sha": "3bbd471587af5532003d6e0857b3d6c7e717b380"
         }
       ],
       "issues": {
-        "open": 1,
+        "open": 0,
         "bugs": 0
       },
       "repo_stats": {
         "stars": 23,
         "forks": 0,
         "watchers": 1,
-        "open_prs": 0,
+        "open_prs": 1,
         "closed_prs": 1,
         "merged_prs": 1,
         "size_kb": 37850,
         "language": "TypeScript",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-11T04:03:28Z",
+        "pushed_at": "2026-07-11T05:40:01Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -5428,13 +5428,13 @@
         "latest_prod_tag": "v0.1.7",
         "latest_any_tag": "v0.1.7",
         "expected_prod_version": "v0.1.7",
-        "commit": "6ec2d74b1f04fe1d4eb17730480c8e23ce6234c8",
+        "commit": "78d2da47a1f893d78344e0d21b462d1f4701b55a",
         "latest_prod_tag_at": "2026-07-07T13:26:02Z",
         "latest_release_at": "2026-07-07T13:26:15Z",
         "latest_version_at": "2026-07-07T13:26:15Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-11T04:27:29Z",
-        "commits_ahead_of_latest_prod_tag": 213
+        "last_commit_at": "2026-07-11T05:21:13Z",
+        "commits_ahead_of_latest_prod_tag": 214
       },
       "rollup": "green",
       "flags": [],
@@ -5471,8 +5471,8 @@
         {
           "file": "pages.yml",
           "conclusion": "success",
-          "created_at": "2026-07-11T04:27:33Z",
-          "head_sha": "6ec2d74b1f04fe1d4eb17730480c8e23ce6234c8"
+          "created_at": "2026-07-11T05:21:16Z",
+          "head_sha": "78d2da47a1f893d78344e0d21b462d1f4701b55a"
         }
       ],
       "issues": {
@@ -5489,7 +5489,7 @@
         "size_kb": 1114,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-11T04:27:31Z",
+        "pushed_at": "2026-07-11T05:21:14Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -6031,7 +6031,7 @@
     "stars": 157,
     "forks": 0,
     "watchers": 3,
-    "open_issues": 1,
+    "open_issues": 0,
     "loc_code": 1826310,
     "loc_total": 2303643,
     "tests": 16728,
