@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-11T11:12:41.504557+00:00",
+  "generated_at": "2026-07-11T11:29:26.565999+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
@@ -15,13 +15,13 @@
         "latest_prod_tag": "0.11.0",
         "latest_any_tag": "0.11.0",
         "expected_prod_version": "0.11.0",
-        "commit": "f9686aa1b7072bac971be98bfd427862050754c4",
+        "commit": "f7bbdb01f045cd1e984d845fdde60cdd9d871f84",
         "latest_prod_tag_at": "2026-07-11T09:55:38Z",
         "latest_release_at": "2026-07-11T09:56:04Z",
         "latest_version_at": "2026-07-11T09:56:04Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-11T09:55:38Z",
-        "commits_ahead_of_latest_prod_tag": 0
+        "last_commit_at": "2026-07-11T11:22:00Z",
+        "commits_ahead_of_latest_prod_tag": 1
       },
       "rollup": "green",
       "flags": [],
@@ -137,7 +137,7 @@
         "size_kb": 181073,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-11T11:12:30Z",
+        "pushed_at": "2026-07-11T11:22:11Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -163,13 +163,13 @@
       },
       "actions_stats": {
         "workflows": 13,
-        "total_runs": 815,
+        "total_runs": 821,
         "recent_total": 100,
-        "recent_success": 77,
-        "recent_failure": 18,
-        "success_rate": 81.1,
+        "recent_success": 81,
+        "recent_failure": 17,
+        "success_rate": 82.7,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-11T11:12:33Z"
+        "last_created_at": "2026-07-11T11:22:12Z"
       }
     },
     {
@@ -233,11 +233,11 @@
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": 775,
+            "total": 776,
             "source": "github-release-assets",
             "by_version": [],
             "windows": {
-              "total": 775
+              "total": 776
             }
           },
           "evidence": {
@@ -5428,13 +5428,13 @@
         "latest_prod_tag": "v0.1.7",
         "latest_any_tag": "v0.1.7",
         "expected_prod_version": "v0.1.7",
-        "commit": "67d6215f5a14ac3598c69ac834e7c6cb5b098b39",
+        "commit": "6d44d433df800f59d5feb14485b7577b272702b4",
         "latest_prod_tag_at": "2026-07-07T13:26:02Z",
         "latest_release_at": "2026-07-07T13:26:15Z",
         "latest_version_at": "2026-07-07T13:26:15Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-07-11T09:40:47Z",
-        "commits_ahead_of_latest_prod_tag": 220
+        "last_commit_at": "2026-07-11T11:20:43Z",
+        "commits_ahead_of_latest_prod_tag": 221
       },
       "rollup": "green",
       "flags": [],
@@ -5471,8 +5471,8 @@
         {
           "file": "pages.yml",
           "conclusion": "success",
-          "created_at": "2026-07-11T09:40:50Z",
-          "head_sha": "67d6215f5a14ac3598c69ac834e7c6cb5b098b39"
+          "created_at": "2026-07-11T11:20:46Z",
+          "head_sha": "6d44d433df800f59d5feb14485b7577b272702b4"
         }
       ],
       "issues": {
@@ -5489,7 +5489,7 @@
         "size_kb": 1127,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-07-11T09:40:48Z",
+        "pushed_at": "2026-07-11T11:20:44Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -5516,13 +5516,13 @@
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 948,
+        "total_runs": 951,
         "recent_total": 100,
         "recent_success": 100,
         "recent_failure": 0,
         "success_rate": 100.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-07-11T09:40:50Z"
+        "last_created_at": "2026-07-11T11:20:46Z"
       }
     },
     {
@@ -6036,7 +6036,7 @@
     "loc_total": 2304043,
     "tests": 16738,
     "files": 7060,
-    "workflow_runs": 8204,
+    "workflow_runs": 8213,
     "downloads_last_month": 46230
   },
   "visits": {
