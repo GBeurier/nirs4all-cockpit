@@ -130,7 +130,7 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
         if target.registry == "github-release"
     )
     studio_release_reason = studio_release_target.reason or ""
-    assert "n4a-v1-rc2-2026.07-studio-main-installer" in studio_release_reason
+    assert "workflow run 29138360308" in studio_release_reason
     assert "n4a-v1-rc8-2026.07-refactor" not in studio_release_reason
     assert studio_release_target.workflow is not None
     assert studio_release_target.workflow.file == "release-unified.yml"
@@ -416,7 +416,7 @@ def test_studio_windows_rc_smoke_is_tracked_as_manual_blocker() -> None:
     assert action.status == "todo"
     assert action.severity == "blocker"
     assert "Windows RC installer" in action.title
-    assert action.manual_url == "https://github.com/GBeurier/nirs4all-studio/releases/tag/n4a-v1-rc2-2026.07-studio-main-installer"
+    assert action.manual_url == "https://github.com/GBeurier/nirs4all-studio/actions/runs/29138360308"
     assert "nirs4all-studio:release-unified.yml" in action.affects
     assert "nirs4all-studio:github-release" in action.affects
 
