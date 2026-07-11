@@ -20,8 +20,8 @@ actions:
   - id: studio-windows-rc-smoke
     status: todo
     severity: blocker
-    title: "Studio — manually smoke-test the published Windows RC installer before any production switch"
-    manual_url: "https://github.com/GBeurier/nirs4all-studio/releases/tag/n4a-v1-rc2-2026.07-studio-main-installer"
+    title: "Studio — manually smoke-test the current Windows RC installer artifact before any production switch"
+    manual_url: "https://github.com/GBeurier/nirs4all-studio/actions/runs/29138360308"
     affects:
       - "nirs4all-studio:release-unified.yml"
       - "nirs4all-studio:github-release"
