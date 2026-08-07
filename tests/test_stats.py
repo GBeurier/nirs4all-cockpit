@@ -384,6 +384,36 @@ def test_actions_stats_skips_in_progress_newest_run(monkeypatch) -> None:
     assert out["success_rate"] == 50.0
 
 
+def test_actions_stats_selects_latest_concluded_run_when_api_order_is_unstable(monkeypatch) -> None:
+    """A historical failure must not mask a later successful default-branch run."""
+    workflows = (200, {"total_count": 2}, None)
+    runs = (
+        200,
+        {
+            "total_count": 2,
+            "workflow_runs": [
+                {"conclusion": "failure", "created_at": "2026-08-03T09:21:23Z"},
+                {"conclusion": "success", "created_at": "2026-08-07T15:34:18Z"},
+            ],
+        },
+        None,
+    )
+    repo = (200, {"default_branch": "main"}, None)
+
+    def _fake(url, headers=None, *, accept="application/json"):  # noqa: ARG001
+        if "actions/workflows" in url:
+            return workflows
+        if "actions/runs" in url:
+            return runs
+        return repo
+
+    monkeypatch.setattr(github, "get_json", _fake)
+    out = github.actions_stats("GBeurier", "nirs4all-papers")
+
+    assert out["last_conclusion"] == "success"
+    assert out["last_created_at"] == "2026-08-07T15:34:18Z"
+
+
 def test_workflow_last_run_uses_latest_concluded_run_across_refs(monkeypatch) -> None:
     seen_urls: list[str] = []
 

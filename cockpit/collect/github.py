@@ -599,7 +599,11 @@ def actions_stats(owner: str, repo: str) -> dict[str, Any]:
         # this list while it is itself the newest run on ``main``. Report the
         # newest *concluded* run so the health badge reflects the last finished
         # CI result instead of a transient null.
-        concluded = next((r for r in runs if r.get("conclusion") is not None), None)
+        # GitHub normally returns descending creation order, but that ordering is
+        # not part of this collector's contract. Select explicitly so a delayed
+        # Dependabot failure cannot mask a newer successful default-branch run.
+        concluded_runs = [r for r in runs if r.get("conclusion") is not None]
+        concluded = max(concluded_runs, key=lambda r: str(r.get("created_at") or ""), default=None)
         if concluded is not None:
             out["last_conclusion"] = concluded.get("conclusion")
             out["last_created_at"] = concluded.get("created_at")
