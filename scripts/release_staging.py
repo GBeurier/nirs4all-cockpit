@@ -4,10 +4,23 @@
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from pathlib import Path
 
-from cockpit.release_staging import StagingError, build_from_files, validate_projection, write_projection
+# A direct ``python path/to/scripts/release_staging.py`` invocation must import
+# the package beside this script, not an unrelated editable install that happens
+# to be active in the interpreter.  Resolve the checkout before the import so
+# clean and detached checkouts behave identically.
+CHECKOUT_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, os.fspath(CHECKOUT_ROOT))
+
+from cockpit.release_staging import (  # noqa: E402
+    StagingError,
+    build_from_files,
+    validate_projection,
+    write_projection,
+)
 
 
 def parser() -> argparse.ArgumentParser:

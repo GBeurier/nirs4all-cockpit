@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -157,6 +158,11 @@ def test_validator_requires_exact_deterministic_projection(tmp_path: Path) -> No
 def test_cli_build_and_validate_require_explicit_inputs(tmp_path: Path) -> None:
     projection_path = tmp_path / "projection.json"
     command = [sys.executable, str(ROOT / "scripts" / "release_staging.py")]
+    clean_env = {
+        "PATH": os.environ.get("PATH", ""),
+        "PYTHONNOUSERSITE": "1",
+        "PYTHONPATH": "",
+    }
     built = subprocess.run(
         [
             *command,
@@ -168,7 +174,8 @@ def test_cli_build_and_validate_require_explicit_inputs(tmp_path: Path) -> None:
             "--out",
             str(projection_path),
         ],
-        cwd=ROOT,
+        cwd=tmp_path,
+        env=clean_env,
         text=True,
         capture_output=True,
         check=False,
@@ -187,14 +194,22 @@ def test_cli_build_and_validate_require_explicit_inputs(tmp_path: Path) -> None:
             "--projection",
             str(projection_path),
         ],
-        cwd=ROOT,
+        cwd=tmp_path,
+        env=clean_env,
         text=True,
         capture_output=True,
         check=False,
     )
     assert validated.returncode == 0, validated.stderr
 
-    missing = subprocess.run([*command, "build"], cwd=ROOT, text=True, capture_output=True, check=False)
+    missing = subprocess.run(
+        [*command, "build"],
+        cwd=tmp_path,
+        env=clean_env,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
     assert missing.returncode != 0
 
 
@@ -204,6 +219,34 @@ def test_committed_public_projection_matches_staging_inputs() -> None:
         ROOT / "ops" / "release-staging" / "public-lock.json",
         ROOT / "data" / "release-staging.json",
     )
+
+
+def test_direct_cli_ignores_stale_package_outside_checkout(tmp_path: Path) -> None:
+    stale = tmp_path / "stale-site"
+    stale_package = stale / "cockpit"
+    stale_package.mkdir(parents=True)
+    (stale_package / "__init__.py").write_text("", encoding="utf-8")
+    (stale_package / "release_staging.py").write_text(
+        'raise RuntimeError("stale cockpit package imported")\n',
+        encoding="utf-8",
+    )
+    environment = {
+        "PATH": os.environ.get("PATH", ""),
+        "PYTHONNOUSERSITE": "1",
+        "PYTHONPATH": str(stale),
+    }
+
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "release_staging.py"), "--help"],
+        cwd=tmp_path,
+        env=environment,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert "stale cockpit package imported" not in result.stderr
 
 
 def test_json_loader_rejects_duplicate_keys(tmp_path: Path) -> None:
