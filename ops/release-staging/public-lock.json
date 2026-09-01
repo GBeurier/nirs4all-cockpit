@@ -1,0 +1,268 @@
+{
+  "aggregation_lock_version": 1,
+  "derived_from": {
+    "ecosystem_lock_sha256": "sha256:e6baf0c1cdff75e5a83a59b9d500d047e0b4aaa76fd7cbf642341cb1a62ae684"
+  },
+  "manifest_digest": "sha256:8e237215dfb522ca85d136f22695b42289b30952f49fe9fbc969547e3ef3340f",
+  "members": {
+    "core": {
+      "optional": false,
+      "private": false,
+      "repo_path": "nirs4all-core",
+      "repo_url": "GBeurier/nirs4all-core",
+      "state": {
+        "commit": "983ad05e8174b799c7b1578e37401f542c6772d3",
+        "dirty": false,
+        "exact_tag": "v0.3.14"
+      },
+      "versions": {
+        "npm": {
+          "kind": "json",
+          "read_from": "tracked_worktree",
+          "source": "bindings/wasm/package.json",
+          "value": "0.3.14"
+        },
+        "python": {
+          "kind": "toml",
+          "read_from": "tracked_worktree",
+          "source": "bindings/python/pyproject.toml",
+          "value": "0.3.14"
+        },
+        "r": {
+          "kind": "description",
+          "read_from": "tracked_worktree",
+          "source": "bindings/r/DESCRIPTION",
+          "value": "0.3.14"
+        },
+        "rust": {
+          "kind": "toml",
+          "read_from": "tracked_worktree",
+          "source": "bindings/rust/nirs4all/Cargo.toml",
+          "value": "0.3.14"
+        }
+      }
+    },
+    "dag_ml": {
+      "optional": false,
+      "private": false,
+      "repo_path": "dag-ml",
+      "repo_url": "GBeurier/dag-ml",
+      "state": {
+        "commit": "3bedd72059c92f99a58ae18765a2dc2bd52193e2",
+        "dirty": false,
+        "exact_tag": "v0.3.1"
+      },
+      "versions": {
+        "abi_snapshot": {
+          "kind": "json",
+          "read_from": "tracked_worktree",
+          "source": "docs/contracts/abi_snapshot.v1.json",
+          "value": "0.3.1"
+        },
+        "python": {
+          "kind": "toml",
+          "read_from": "tracked_worktree",
+          "source": "crates/dag-ml-py/pyproject.toml",
+          "value": "0.3.1"
+        },
+        "rust_workspace": {
+          "kind": "toml",
+          "read_from": "tracked_worktree",
+          "source": "Cargo.toml",
+          "value": "0.3.1"
+        }
+      }
+    },
+    "dag_ml_data": {
+      "optional": false,
+      "private": false,
+      "repo_path": "dag-ml-data",
+      "repo_url": "GBeurier/dag-ml-data",
+      "state": {
+        "commit": "df49fe953e28426e74b3170fe733e28c62efaf7a",
+        "dirty": false,
+        "exact_tag": null
+      },
+      "versions": {
+        "abi_snapshot": {
+          "kind": "json",
+          "read_from": "tracked_worktree",
+          "source": "docs/contracts/abi_snapshot.v1.json",
+          "value": "0.2.9"
+        },
+        "python": {
+          "kind": "toml",
+          "read_from": "tracked_worktree",
+          "source": "crates/dag-ml-data-py/pyproject.toml",
+          "value": "0.2.9"
+        },
+        "r": {
+          "kind": "description",
+          "read_from": "tracked_worktree",
+          "source": "crates/dag-ml-data-r/DESCRIPTION",
+          "value": "0.2.9"
+        },
+        "rust_workspace": {
+          "kind": "toml",
+          "read_from": "tracked_worktree",
+          "source": "Cargo.toml",
+          "value": "0.2.9"
+        }
+      }
+    },
+    "datasets": {
+      "optional": true,
+      "private": false,
+      "repo_path": "nirs4all-datasets",
+      "repo_url": "GBeurier/nirs4all-datasets",
+      "state": {
+        "commit": "a650d54432b1367bf80d8d5320d163ba93bdf40d",
+        "dirty": false,
+        "exact_tag": null
+      },
+      "versions": {
+        "python": {
+          "kind": "toml",
+          "read_from": "tracked_worktree",
+          "source": "pyproject.toml",
+          "value": "0.3.8"
+        },
+        "r": {
+          "kind": "description",
+          "read_from": "tracked_worktree",
+          "source": "bindings/r/nirs4alldatasets/DESCRIPTION",
+          "value": "0.3.8"
+        },
+        "rust_workspace": {
+          "kind": "toml",
+          "read_from": "tracked_worktree",
+          "source": "Cargo.toml",
+          "value": "0.3.8"
+        }
+      }
+    },
+    "formats": {
+      "optional": false,
+      "private": false,
+      "repo_path": "nirs4all-formats",
+      "repo_url": "GBeurier/nirs4all-formats",
+      "state": {
+        "commit": "7f384bbf6e4ccf70af8ab3da288078fc5caea7be",
+        "dirty": false,
+        "exact_tag": null
+      },
+      "versions": {
+        "python": {
+          "kind": "toml",
+          "read_from": "tracked_worktree",
+          "source": "bindings/python/Cargo.toml",
+          "value": "0.2.7"
+        },
+        "r": {
+          "kind": "description",
+          "read_from": "tracked_worktree",
+          "source": "bindings/r/nirs4allformats/DESCRIPTION",
+          "value": "0.2.7"
+        },
+        "rust_workspace": {
+          "kind": "toml",
+          "read_from": "tracked_worktree",
+          "source": "Cargo.toml",
+          "value": "0.2.7"
+        }
+      }
+    },
+    "io": {
+      "optional": false,
+      "private": false,
+      "repo_path": "nirs4all-io",
+      "repo_url": "GBeurier/nirs4all-io",
+      "state": {
+        "commit": "98aca515d83369f1b61538ce31a5d2b1f519d4e9",
+        "dirty": false,
+        "exact_tag": null
+      },
+      "versions": {
+        "python": {
+          "kind": "toml",
+          "read_from": "tracked_worktree",
+          "source": "bindings/python/Cargo.toml",
+          "value": "0.1.11"
+        },
+        "r": {
+          "kind": "description",
+          "read_from": "tracked_worktree",
+          "source": "bindings/r/DESCRIPTION",
+          "value": "0.1.11"
+        },
+        "rust_workspace": {
+          "kind": "toml",
+          "read_from": "tracked_worktree",
+          "source": "Cargo.toml",
+          "value": "0.1.11"
+        }
+      }
+    },
+    "methods": {
+      "optional": false,
+      "private": false,
+      "repo_path": "nirs4all-methods",
+      "repo_url": "GBeurier/nirs4all-methods",
+      "state": {
+        "commit": "0ef355e6f74573ed07a6920bdeed1a052a6e8312",
+        "dirty": false,
+        "exact_tag": null
+      },
+      "versions": {
+        "c_header": {
+          "kind": "c_header_macros",
+          "read_from": "tracked_worktree",
+          "source": "cpp/include/n4m/n4m_version.h",
+          "value": {
+            "abi_version": "2.2.0",
+            "abi_version_int": null,
+            "project_version": "1.0.9",
+            "serialization_format_version": 1,
+            "serialization_magic": "N4MM",
+            "source_sha256": "sha256:615566c8be77892e595a1873cbd9f0c16bcec5939954ccc1dbed44ed4b8f91d9"
+          }
+        },
+        "python_nirs4all_methods": {
+          "distribution": "nirs4all-methods",
+          "generated_by": "bindings/python/scripts/make_python_package.py",
+          "generated_output_path": "bindings/python_nirs4all_methods/pyproject.toml",
+          "kind": "toml",
+          "metadata_source": "tracked source metadata for generated package",
+          "module": "n4m",
+          "read_from": "tracked_worktree",
+          "source": "bindings/python/pyproject.toml",
+          "value": "1.0.9"
+        },
+        "python_pls4all": {
+          "distribution": "pls4all",
+          "generated_by": "bindings/python/scripts/make_python_package.py",
+          "generated_output_path": "bindings/python_pls4all/pyproject.toml",
+          "kind": "toml",
+          "metadata_source": "tracked source metadata for generated package",
+          "module": "pls4all",
+          "read_from": "tracked_worktree",
+          "source": "bindings/python/pyproject.toml",
+          "value": "1.0.9"
+        },
+        "r_n4m": {
+          "kind": "description",
+          "read_from": "tracked_worktree",
+          "source": "bindings/r/n4m/DESCRIPTION",
+          "value": "1.0.9"
+        }
+      }
+    }
+  },
+  "release_train": "2026.07-refactor",
+  "schema_version": "n4a.aggregation-lock/v1",
+  "status": "candidate",
+  "verification": {
+    "all_lockstep_groups_valid": true,
+    "private_repos_present": false
+  }
+}
