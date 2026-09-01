@@ -1,0 +1,59 @@
+{
+  "components": [
+    {
+      "key": "dag_ml",
+      "optional": false,
+      "private": false,
+      "repo_path": "dag-ml",
+      "repo_url": "GBeurier/dag-ml"
+    },
+    {
+      "key": "dag_ml_data",
+      "optional": false,
+      "private": false,
+      "repo_path": "dag-ml-data",
+      "repo_url": "GBeurier/dag-ml-data"
+    },
+    {
+      "key": "methods",
+      "optional": false,
+      "private": false,
+      "repo_path": "nirs4all-methods",
+      "repo_url": "GBeurier/nirs4all-methods"
+    },
+    {
+      "key": "formats",
+      "optional": false,
+      "private": false,
+      "repo_path": "nirs4all-formats",
+      "repo_url": "GBeurier/nirs4all-formats"
+    },
+    {
+      "key": "io",
+      "optional": false,
+      "private": false,
+      "repo_path": "nirs4all-io",
+      "repo_url": "GBeurier/nirs4all-io"
+    },
+    {
+      "key": "core",
+      "optional": false,
+      "private": false,
+      "repo_path": "nirs4all-core",
+      "repo_url": "GBeurier/nirs4all-core"
+    },
+    {
+      "key": "datasets",
+      "optional": true,
+      "private": false,
+      "repo_path": "nirs4all-datasets",
+      "repo_url": "GBeurier/nirs4all-datasets"
+    }
+  ],
+  "derived_from": {
+    "ecosystem_manifest_sha256": "sha256:27595d11c3ac9f1219e405e2888931ec9122f55fdd4c3968a2535615802ee34e"
+  },
+  "release_train": "2026.07-refactor",
+  "schema_version": "n4a.aggregation-manifest/v1",
+  "status": "candidate"
+}

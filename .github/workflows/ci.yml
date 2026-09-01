@@ -28,7 +28,20 @@ jobs:
         run: |
           ruff check .
           pytest -q
+          mypy --ignore-missing-imports cockpit/release_staging.py scripts/release_staging.py
           n4a-cockpit validate-targets ops/targets.yaml
+
+      - name: Deterministic public R2 staging projection smoke
+        run: |
+          python scripts/release_staging.py build \
+            --manifest ops/release-staging/public-manifest.json \
+            --lock ops/release-staging/public-lock.json \
+            --out "${RUNNER_TEMP}/release-staging.json"
+          cmp "${RUNNER_TEMP}/release-staging.json" data/release-staging.json
+          python scripts/release_staging.py validate \
+            --manifest ops/release-staging/public-manifest.json \
+            --lock ops/release-staging/public-lock.json \
+            --projection data/release-staging.json
 
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v2

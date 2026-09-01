@@ -21,7 +21,7 @@ dependencies = [
 
 [project.optional-dependencies]
 collect = ["rich"]
-dev = ["ruff", "pytest"]
+dev = ["ruff", "pytest", "mypy"]
 
 [project.scripts]
 n4a-cockpit = "cockpit.cli:app"

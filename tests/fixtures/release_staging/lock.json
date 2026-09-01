@@ -1,0 +1,39 @@
+{
+  "aggregation_lock_version": 1,
+  "manifest_digest": "sha256:4ea8d930ecb9e36ba108bf7acf4e3b652225e8a64e53a06bd546e8fd884b242a",
+  "members": {
+    "core": {
+      "optional": false,
+      "private": false,
+      "repo_path": "nirs4all-core",
+      "repo_url": "GBeurier/nirs4all-core",
+      "selected_workspace_path": "nirs4all-core",
+      "state": {
+        "commit": "0123456789abcdef0123456789abcdef01234567",
+        "dirty": false,
+        "exact_tag": null
+      },
+      "versions": {
+        "python": {
+          "kind": "toml",
+          "read_from": "tracked_worktree",
+          "source": "bindings/python/pyproject.toml",
+          "value": "1.0.0rc1"
+        },
+        "rust": {
+          "kind": "toml",
+          "read_from": "tracked_worktree",
+          "source": "bindings/rust/nirs4all/Cargo.toml",
+          "value": "1.0.0rc1"
+        }
+      }
+    }
+  },
+  "release_train": "2026.09-native-v1",
+  "schema_version": "n4a.aggregation-lock/v1",
+  "status": "candidate",
+  "verification": {
+    "all_lockstep_groups_valid": true,
+    "private_repos_present": false
+  }
+}
