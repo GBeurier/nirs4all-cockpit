@@ -39,7 +39,7 @@ deploy from this branch or CI gate, and this change adds no deployment step.
 
 `data/native-candidate-staging.json` is a separate, deterministic view of the
 local native-backend candidate recorded by governance commit
-`cd1627f60a0fba6acaa22b7b1d726846a2da40dc`. It is not derived from, and does
+`e9d60c3a43dcf74d6318c5d165ff413452c49b1d`. It is not derived from, and does
 not modify, the canonical release lock. Its schema cannot carry download or
 registry links: every component is `unavailable`, the train is `no_go`, and the
 dashboard labels it staging-only.
@@ -49,7 +49,7 @@ From the ecosystem workspace, reproduce it with:
 ```console
 python scripts/native_candidate_staging.py build \
   --governance-repo ../nirs4all-ecosystem \
-  --governance-commit cd1627f60a0fba6acaa22b7b1d726846a2da40dc \
+  --governance-commit e9d60c3a43dcf74d6318c5d165ff413452c49b1d \
   --workspace-root .. \
   --out data/native-candidate-staging.json
 ```
@@ -65,5 +65,8 @@ counter, and one real four-surface WSL performance campaign. Performance data
 is explicitly record-only: the reference budgets are not frozen, no threshold
 is claimed passed, and the evidence does not make the candidate release-eligible.
 It also exposes the bounded local closures for API-004/005, CAP-001, DAG-001,
-DOC-001 and REL-003 separately from SEC-001, SOAK-001 and PERF-002, whose local
-evidence advanced without closing those release lots.
+DOC-001, GATE-001, REL-003, STU-006, UI-001 and WEB-001 separately from SEC-001,
+SOAK-001 and PERF-002, whose local evidence advanced without closing those
+release lots. UI 0.1.13 is represented only as an unavailable local source
+identity; the observed public registry remains at 0.1.12 and no tarball or
+registry URL is exposed by this snapshot.

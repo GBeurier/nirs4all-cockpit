@@ -166,18 +166,25 @@ function isNativeCandidate(candidate) {
   const governance = candidate.governance || {};
   if (!governance.ownership || !governance.capability_inventory) return false;
   const expectedWorkItems = {
+    "API-001": "complete_local_code_release_hold",
     "API-004": "complete_local_native_full_transfer_plugin_finetune_refused",
     "API-005": "complete_local_by_executable_preflight_refusal",
     "CAP-001": "complete",
     "DAG-001": "complete_local_code_release_hold",
     "DOC-001": "complete_local_docs_release_hold",
+    "GATE-001": "complete_local_linux_functional_release_hold",
     "PERF-002": "advanced_local_evidence_not_closed",
     "REL-003": "complete_local_code_release_hold",
     "SEC-001": "advanced_local_evidence_not_closed",
     "SOAK-001": "advanced_local_evidence_not_closed",
+    "STU-006": "complete_local_code_external_release_hold",
+    "UI-001": "complete_local_code_registry_publication_hold",
+    "WEB-001": "complete_local_code_release_hold",
   };
   if (JSON.stringify(candidate.work_item_states || {}) !== JSON.stringify(expectedWorkItems)) return false;
   if (!Array.isArray(candidate.components) || !candidate.components.length || !Array.isArray(candidate.capabilities)) return false;
+  const componentKeys = candidate.components.map((component) => component && component.key).sort();
+  if (JSON.stringify(componentKeys) !== JSON.stringify(["benchmarks", "core", "dag_ml", "dag_ml_data", "datasets", "formats", "io", "methods", "python", "studio", "tools", "ui", "web"])) return false;
   return candidate.components.every((component) =>
     component && /^[0-9a-f]{40}$/.test(component.commit || "") && /^[0-9a-f]{40}$/.test(component.tree || "") &&
     component.publication === "unavailable" && Array.isArray(component.artifacts) && !component.artifacts.length &&
