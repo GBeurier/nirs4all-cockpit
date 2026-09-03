@@ -26,15 +26,35 @@ TREE_RE = COMMIT_RE
 SHA256_RE = re.compile(r"sha256:[0-9a-f]{64}")
 VERSION_RE = re.compile(r"[0-9]+\.[0-9]+\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?")
 PROJECTED_WORK_ITEM_STATES = {
+    "API-001": "complete_local_code_release_hold",
     "API-004": "complete_local_native_full_transfer_plugin_finetune_refused",
     "API-005": "complete_local_by_executable_preflight_refusal",
     "CAP-001": "complete",
     "DAG-001": "complete_local_code_release_hold",
     "DOC-001": "complete_local_docs_release_hold",
+    "GATE-001": "complete_local_linux_functional_release_hold",
     "PERF-002": "advanced_local_evidence_not_closed",
     "REL-003": "complete_local_code_release_hold",
     "SEC-001": "advanced_local_evidence_not_closed",
     "SOAK-001": "advanced_local_evidence_not_closed",
+    "STU-006": "complete_local_code_external_release_hold",
+    "UI-001": "complete_local_code_registry_publication_hold",
+    "WEB-001": "complete_local_code_release_hold",
+}
+PROJECTED_COMPONENT_KEYS = {
+    "benchmarks",
+    "core",
+    "dag_ml",
+    "dag_ml_data",
+    "datasets",
+    "formats",
+    "io",
+    "methods",
+    "python",
+    "studio",
+    "tools",
+    "ui",
+    "web",
 }
 
 
@@ -160,6 +180,7 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
     python = evidence["python_strict_profile"]
     studio = evidence["studio"]
     web = evidence["web"]
+    ui = evidence["ui"]
     benchmarks = evidence["benchmarks"]
     capability_governance = evidence["capability_governance"]
     ownership_governance = evidence["ownership_governance"]
@@ -182,6 +203,23 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
         "web-app/package.json",
         r'^\s*"version"\s*:\s*"([^"]+)"',
     )
+    ui_version = _version_at(
+        workspace_root / "nirs4all-ui",
+        ui["commit"],
+        "package.json",
+        r'^\s*"version"\s*:\s*"([^"]+)"',
+    )
+    if ui_version != ui.get("version"):
+        raise CandidateError("ui: ledger version differs from the selected source")
+    if ui.get("studio_consumer_commit") != studio.get("candidate_commit"):
+        raise CandidateError("ui: Studio consumer does not match the selected candidate")
+    if ui.get("web_consumer_commit") != web.get("candidate_commit"):
+        raise CandidateError("ui: Web consumer does not match the selected candidate")
+    if not re.fullmatch(r"[0-9a-f]{64}", ui.get("tarball_sha256", "")):
+        raise CandidateError("ui: local tarball evidence is incomplete")
+    registry_ui_version = ui.get("registry_latest_version")
+    if not isinstance(registry_ui_version, str) or not VERSION_RE.fullmatch(registry_ui_version):
+        raise CandidateError("ui: observed registry version is invalid")
     benchmarks_version = _version_at(
         workspace_root / "nirs4all-benchmarks",
         benchmarks["commit"],
@@ -233,6 +271,14 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             commit_field="candidate_commit",
             tree_field="candidate_tree",
             version=web_version,
+        ),
+        _identity(
+            ui,
+            key="ui",
+            name="nirs4all-ui",
+            repository="nirs4all-ui",
+            version=ui_version,
+            detail_versions={"registry_latest_observed": registry_ui_version},
         ),
         _identity(
             benchmarks,
@@ -349,7 +395,8 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "status": "record_only",
             "surfaces": ["benchmarks"],
             "limits": (
-                "Mesure local_real WSL 4/4 enregistrée sans seuil; budgets non gelés et aucune qualification release."
+                "Mesure local_real WSL 4/4 enregistrée sans seuil; harness de soak borné prêt mais sans "
+                "campagne soutenue, budgets gelés ni qualification release."
             ),
         },
     ]
@@ -546,6 +593,8 @@ def validate_projection(projection: Any) -> None:
         url = component.get("repository_url", "")
         if not re.fullmatch(r"https://github\.com/GBeurier/[A-Za-z0-9_.-]+", url):
             raise CandidateError(f"{key}: unsafe repository URL")
+    if keys != PROJECTED_COMPONENT_KEYS:
+        raise CandidateError("candidate component membership is incomplete")
     capabilities = projection.get("capabilities")
     performance_capabilities = [
         capability
