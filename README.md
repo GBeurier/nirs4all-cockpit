@@ -210,7 +210,7 @@ falls back across `../data`, `./`, and `./data`.
 
 The dashboard also reads `data/native-candidate-staging.json`, the same bytes
 staged in `nirs4all-org`. It is generated from governance commit
-`0502c64cf4c562fa21bdcd326f89270f0d4ac505` and exact component Git objects.
+`ff7dfc568d0862268393c187f4e1c4eebcade4b9` and exact component Git objects.
 This is deliberately separate from registry health and from the canonical
 release lock: it is `no_go`, `unpublished`, exposes no artifact or registry URL,
 and labels every component unavailable. The page therefore cannot be read as a
@@ -220,8 +220,10 @@ opt-in process-local counter, and the real four-surface WSL timings. Those
 timings are record-only: budgets are not frozen and no threshold or release
 qualification is claimed.
 The selected work-item projection distinguishes local bounded closures from
-INST-001 and RC-001, which are prepared but not closed, and from SEC-001,
-SOAK-001 and PERF-002, whose evidence remains advanced but open.
+INST-001 and RC-001, which are prepared but not closed. SEC-001 records three
+bounded native harnesses over canonical APIs, but remains prepared—not closed—
+because no fuzz campaign has run and the Studio Store target is absent. SOAK-001
+and PERF-002 remain advanced but open.
 
 ---
 

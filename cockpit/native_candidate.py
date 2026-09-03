@@ -37,7 +37,7 @@ PROJECTED_WORK_ITEM_STATES = {
     "PERF-002": "advanced_local_evidence_not_closed",
     "RC-001": "prepared_local_triage_external_evidence_hold",
     "REL-003": "complete_local_code_release_hold",
-    "SEC-001": "advanced_local_evidence_not_closed",
+    "SEC-001": "prepared_local_native_fuzz_harnesses_campaign_not_closed",
     "SOAK-001": "advanced_local_evidence_not_closed",
     "STU-006": "complete_local_code_external_release_hold",
     "UI-001": "complete_local_code_registry_publication_hold",
@@ -148,6 +148,56 @@ def _project_work_item_states(ledger: dict[str, Any]) -> dict[str, str]:
     if observed != PROJECTED_WORK_ITEM_STATES:
         raise CandidateError("selected final work-item states diverge")
     return dict(sorted(observed.items()))
+
+
+def _project_security_harnesses(evidence: dict[str, Any]) -> dict[str, Any]:
+    """Project bounded SEC-001 harness metadata without implying qualification."""
+    security = evidence.get("security_harnesses")
+    if not isinstance(security, dict):
+        raise CandidateError("SEC-001 harness evidence is missing")
+    if security.get("evidence_status") != "three_native_targets_prepared_campaign_not_run":
+        raise CandidateError("SEC-001 must remain prepared with no fuzz campaign")
+
+    harnesses: list[dict[str, Any]] = []
+    for surface in ("formats", "core", "methods"):
+        raw = security.get(surface)
+        if not isinstance(raw, dict):
+            raise CandidateError(f"SEC-001 {surface} harness is missing")
+        commit = raw.get("commit")
+        tree = raw.get("tree")
+        target = raw.get("target")
+        input_limit = raw.get("input_limit_bytes")
+        entrypoint = raw.get("canonical_entrypoint")
+        if not isinstance(commit, str) or not COMMIT_RE.fullmatch(commit):
+            raise CandidateError(f"SEC-001 {surface} harness commit is invalid")
+        if not isinstance(tree, str) or not TREE_RE.fullmatch(tree):
+            raise CandidateError(f"SEC-001 {surface} harness tree is invalid")
+        if not isinstance(target, str) or not target:
+            raise CandidateError(f"SEC-001 {surface} harness target is invalid")
+        if not isinstance(input_limit, int) or input_limit <= 0 or input_limit > 2 * 1024 * 1024:
+            raise CandidateError(f"SEC-001 {surface} harness input bound is invalid")
+        if not isinstance(entrypoint, str) or not entrypoint:
+            raise CandidateError(f"SEC-001 {surface} canonical entrypoint is invalid")
+        harnesses.append(
+            {
+                "surface": surface,
+                "commit": commit,
+                "tree": tree,
+                "target": target,
+                "input_limit_bytes": input_limit,
+                "canonical_entrypoint": entrypoint,
+            }
+        )
+
+    release_limit = security.get("release_limit")
+    if not isinstance(release_limit, str) or not release_limit:
+        raise CandidateError("SEC-001 release limit is missing")
+    return {
+        "work_item": "SEC-001",
+        "evidence_status": security["evidence_status"],
+        "harnesses": harnesses,
+        "release_limit": release_limit,
+    }
 
 
 def build_projection(governance_repo: Path, governance_commit: str, workspace_root: Path) -> dict[str, Any]:
@@ -459,6 +509,7 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "threshold_passed": None,
             "release_eligible": benchmarks["release_eligible"],
         },
+        "security_harnesses": _project_security_harnesses(evidence),
         "work_item_states": _project_work_item_states(ledger),
         "migration": {
             "tool": "nirs4all-tools",
@@ -573,6 +624,36 @@ def validate_projection(projection: Any) -> None:
             raise CandidateError(f"{surface}: malformed performance timings")
     if projection.get("work_item_states") != PROJECTED_WORK_ITEM_STATES:
         raise CandidateError("selected work-item states are incomplete or overclaimed")
+    security = projection.get("security_harnesses")
+    if (
+        not isinstance(security, dict)
+        or security.get("work_item") != "SEC-001"
+        or security.get("evidence_status") != "three_native_targets_prepared_campaign_not_run"
+        or not isinstance(security.get("release_limit"), str)
+        or "no fuzz campaign has run" not in security["release_limit"]
+        or "Studio Store target is not implemented" not in security["release_limit"]
+    ):
+        raise CandidateError("SEC-001 harness evidence is incomplete or overclaimed")
+    harnesses = security.get("harnesses")
+    if not isinstance(harnesses, list) or [item.get("surface") for item in harnesses if isinstance(item, dict)] != [
+        "formats",
+        "core",
+        "methods",
+    ]:
+        raise CandidateError("SEC-001 must expose exactly three prepared native harnesses")
+    for harness in harnesses:
+        if (
+            not COMMIT_RE.fullmatch(harness.get("commit", ""))
+            or not TREE_RE.fullmatch(harness.get("tree", ""))
+            or not isinstance(harness.get("target"), str)
+            or not harness["target"]
+            or not isinstance(harness.get("canonical_entrypoint"), str)
+            or not harness["canonical_entrypoint"]
+            or not isinstance(harness.get("input_limit_bytes"), int)
+            or harness["input_limit_bytes"] <= 0
+            or harness["input_limit_bytes"] > 2 * 1024 * 1024
+        ):
+            raise CandidateError("SEC-001 harness metadata is malformed")
     components = projection.get("components")
     if not isinstance(components, list) or not components:
         raise CandidateError("candidate projection has no components")
