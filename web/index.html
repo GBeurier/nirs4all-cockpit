@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>nirs4all · cockpit — release & health</title>
-    <meta name="description" content="Read-only release & health cockpit for the nirs4all ecosystem: package × registry status, downloads, code & CI stats." />
+    <meta name="description" content="Read-only nirs4all release cockpit: public registry health plus the unpublished R4/V1 native candidate, its exact source identities and qualified capability limits." />
     <link rel="canonical" href="https://cockpit.nirs4all.org/" />
     <link rel="sitemap" type="application/xml" title="Sitemap" href="https://cockpit.nirs4all.org/sitemap.xml" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -15,7 +15,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://cockpit.nirs4all.org/" />
     <meta property="og:title" content="nirs4all · cockpit — release & health" />
-    <meta property="og:description" content="Read-only release & health cockpit for the nirs4all ecosystem: package × registry status, downloads, code & CI stats." />
+    <meta property="og:description" content="Public registry health and the explicit NO-GO staging view of the unpublished nirs4all native-backend candidate." />
     <meta property="og:image" content="https://cockpit.nirs4all.org/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -28,14 +28,14 @@
       "name": "nirs4all cockpit",
       "url": "https://cockpit.nirs4all.org/",
       "applicationCategory": "DeveloperApplication",
-      "description": "Release and health dashboard for the nirs4all ecosystem.",
+      "description": "Release and health dashboard for the nirs4all ecosystem, including an explicitly unpublished NO-GO native candidate staging view.",
       "isPartOf": {"@type": "WebSite", "name": "nirs4all", "url": "https://nirs4all.org/"}
     }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./style.css?v=20260710-current-only-2" />
+    <link rel="stylesheet" href="./style.css?v=20260710-current-only-3-native-candidate" />
   </head>
   <body>
     <a class="skip-link" href="#matrix">Skip to the matrix</a>
@@ -60,7 +60,7 @@
 
       <div class="hero-inner">
         <div>
-          <span class="brand"><span class="dot"></span>nirs4all<b>·</b>cockpit</span>
+          <h1 class="brand"><span class="dot"></span>nirs4all<b>·</b>cockpit</h1>
           <p class="tagline">Release &amp; health of the whole ecosystem at a glance — which package is current on which registry, its downloads, code size, tests and CI. Read-only aggregation; it never reimplements a repo's logic.</p>
           <div class="meta" id="generated"><span>loading…</span></div>
         </div>
@@ -72,8 +72,44 @@
       </div>
     </header>
 
-    <div class="wrap">
+    <main class="wrap">
       <section class="chips" id="summary" aria-label="Status totals" hidden></section>
+
+      <section class="block candidate" id="native-candidate" aria-labelledby="candidate-h">
+        <h2 id="candidate-h" class="section-h">Native R4/V1 candidate <span class="muted">— staging only · not a stable release</span></h2>
+        <div class="card panel candidate-state" role="status" aria-live="polite" aria-atomic="true">
+          <strong id="candidate-notice">Publication in progress — candidate data unavailable; no download is exposed.</strong>
+          <p id="candidate-source">The canonical release lock remains authoritative and unchanged.</p>
+        </div>
+        <div id="candidate-content" hidden>
+          <div class="candidate-columns">
+            <section class="card panel" aria-labelledby="architecture-h">
+              <h3 id="architecture-h">Runtime boundary</h3>
+              <ul id="candidate-architecture"></ul>
+            </section>
+            <section class="card panel" aria-labelledby="migration-h">
+              <h3 id="migration-h">Legacy migration</h3>
+              <div id="candidate-migration"></div>
+            </section>
+            <section class="card panel" aria-labelledby="methods-docs-h">
+              <h3 id="methods-docs-h">Methods scientific documentation</h3>
+              <div id="candidate-methods-docs"></div>
+            </section>
+          </div>
+          <section class="card panel candidate-table" aria-labelledby="capabilities-h">
+            <h3 id="capabilities-h">Qualified capability matrix</h3>
+            <div id="candidate-capabilities"></div>
+          </section>
+          <section class="card panel candidate-table" aria-labelledby="components-h">
+            <h3 id="components-h">Exact local candidate identities</h3>
+            <div id="candidate-components"></div>
+          </section>
+          <section class="card panel" aria-labelledby="holds-h">
+            <h3 id="holds-h">Release holds</h3>
+            <ul id="candidate-holds"></ul>
+          </section>
+        </div>
+      </section>
 
       <section class="block" id="matrix" aria-labelledby="mx-h">
         <h2 id="mx-h" class="section-h">Release matrix <span class="muted">— one LED per registry · click to open the package page</span></h2>
@@ -127,11 +163,11 @@
         <span>nirs4all-cockpit · aggregates &amp; orchestrates, never reimplements</span>
         <span><a href="https://nirs4all.org">ecosystem</a> · <a href="https://benchmarks.nirs4all.org">benchmarks (prototype)</a> · <a href="https://github.com/GBeurier/nirs4all-cockpit">source</a> · <span id="schema"></span></span>
       </footer>
-    </div>
+    </main>
 
     <div class="tooltip" id="tooltip" hidden></div>
-    <script src="./icons.js?v=20260710-current-only-2"></script>
-    <script src="./app.js?v=20260710-current-only-2"></script>
+    <script src="./icons.js?v=20260710-current-only-3-native-candidate"></script>
+    <script src="./app.js?v=20260710-current-only-3-native-candidate"></script>
     <!-- GoatCounter privacy-friendly analytics (no cookies); one site for the whole ecosystem -->
     <script data-goatcounter="https://nirs4all.goatcounter.com/count" data-goatcounter-settings='{"path": "/cockpit"}' async src="//gc.zgo.at/count.js"></script>
   </body>

@@ -92,6 +92,7 @@ async function loadJSON(cands) {
   throw err || new Error("not found");
 }
 const loadSnapshot = () => loadJSON(["../data/current.json", "./current.json", "./data/current.json"]);
+const loadNativeCandidate = () => loadJSON(["../data/native-candidate-staging.json", "./native-candidate-staging.json", "./data/native-candidate-staging.json"]);
 async function loadManualActions() { try { return await loadJSON(["../data/manual-actions.json", "./data/manual-actions.json", "./manual-actions.json"]); } catch { return null; } }
 async function loadAdmin() { try { return await loadJSON(["../data/admin/snapshot.admin.json", "./data/admin/snapshot.admin.json"]); } catch { return null; } }
 
@@ -150,6 +151,97 @@ function renderLegend(snap) {
     item.append(led(st), el("b", { class: "leg-n", text: String(s[st] || 0) }), el("span", { class: "leg-l", text: st }));
     box.appendChild(item);
   }
+}
+
+// ---- unpublished native candidate -----------------------------------------
+
+function isNativeCandidate(candidate) {
+  if (!candidate || candidate.schema_version !== "n4a.native-candidate-staging/v1") return false;
+  const r = candidate.release || {};
+  if (r.status !== "no_go" || r.publication !== "unpublished" || r.canonical_lock_updated !== false || r.downloads_enabled !== false || r.registry_links_enabled !== false) return false;
+  if (!Array.isArray(candidate.components) || !candidate.components.length || !Array.isArray(candidate.capabilities)) return false;
+  return candidate.components.every((component) =>
+    component && /^[0-9a-f]{40}$/.test(component.commit || "") && /^[0-9a-f]{40}$/.test(component.tree || "") &&
+    component.publication === "unavailable" && Array.isArray(component.artifacts) && !component.artifacts.length &&
+    Array.isArray(component.registry_urls) && !component.registry_urls.length);
+}
+
+function candidateTable(headers, caption) {
+  const table = el("table", { class: "stats candidate-stats" });
+  table.appendChild(el("caption", { class: "sr-only", text: caption }));
+  const head = el("thead"), row = el("tr");
+  headers.forEach((header) => row.appendChild(el("th", { text: header })));
+  head.appendChild(row); table.appendChild(head);
+  const body = el("tbody"); table.appendChild(body);
+  return [table, body];
+}
+
+function renderNativeCandidate(candidate) {
+  const notice = document.getElementById("candidate-notice");
+  const source = document.getElementById("candidate-source");
+  if (!isNativeCandidate(candidate)) {
+    notice.textContent = "Publication in progress — invalid candidate data; no download is exposed.";
+    return;
+  }
+  notice.textContent = candidate.release.notice;
+  const sourceLink = el("a", { text: candidate.source.commit.slice(0, 12), attrs: { href: `${candidate.source.repository_url}/commit/${candidate.source.commit}`, target: "_blank", rel: "noopener" } });
+  source.replaceChildren("Governance ledger ", sourceLink, ` · tree ${candidate.source.tree.slice(0, 12)} · ${candidate.source.ledger_sha256}. Canonical release lock unchanged.`);
+
+  const architecture = document.getElementById("candidate-architecture");
+  architecture.replaceChildren();
+  [
+    "Studio HTTP, control, store, jobs, scheduler and WebSocket: Rust only.",
+    "Embedded CPython: bounded attested stdio library/plugin host.",
+    "No Python HTTP server, scheduler, store, listener or fallback.",
+    "Web: client-side WASM only; legacy engine remains explicit and unreachable from strict product paths.",
+  ].forEach((line) => architecture.appendChild(el("li", { text: line })));
+
+  const migration = candidate.migration;
+  const migrationBox = document.getElementById("candidate-migration");
+  migrationBox.replaceChildren(el("p", { text: `${migration.tool} ${migration.version} · copy-on-write · dry-run · resume · verify` }));
+  const codes = el("dl", { class: "migration-codes" });
+  migration.exit_codes.forEach((item) => codes.append(el("dt", { text: String(item.code) }), el("dd", { text: item.meaning })));
+  migrationBox.appendChild(codes);
+
+  const docs = candidate.methods_documentation;
+  document.getElementById("candidate-methods-docs").replaceChildren(
+    el("p", { text: `${docs.mapped_pages} pages mapped · ${docs.bibliography_entries} bibliography entries (${docs.historical_entries_preserved} preserved + ${docs.reviewed_entries_added} reviewed).` }),
+    el("p", { class: "mono", text: `docs ${docs.commit.slice(0, 12)} · tree ${docs.tree.slice(0, 12)} · publication pending` }),
+  );
+
+  const [capTable, capBody] = candidateTable(["capability", "status", "qualified surfaces", "limits"], "Qualified and explicitly limited native candidate capabilities");
+  candidate.capabilities.forEach((capability) => {
+    const row = el("tr");
+    row.append(
+      el("th", { class: "s-repo", attrs: { scope: "row" }, text: capability.label }),
+      el("td", {}, [el("span", { class: `candidate-badge candidate-badge--${capability.status}`, text: capability.status.replaceAll("_", " ") })]),
+      el("td", { class: "mono", text: capability.surfaces.join(" · ") }),
+      el("td", { text: capability.limits }),
+    );
+    capBody.appendChild(row);
+  });
+  document.getElementById("candidate-capabilities").replaceChildren(capTable);
+
+  const [componentTable, componentBody] = candidateTable(["component", "version", "commit", "tree", "publication"], "Exact unpublished local candidate component identities");
+  candidate.components.forEach((component) => {
+    const row = el("tr");
+    const repo = el("a", { text: component.name, attrs: { href: component.repository_url, target: "_blank", rel: "noopener" } });
+    const commit = el("a", { text: component.commit.slice(0, 12), attrs: { href: `${component.repository_url}/commit/${component.commit}`, target: "_blank", rel: "noopener" } });
+    row.append(
+      el("th", { class: "s-repo", attrs: { scope: "row" } }, [repo]),
+      el("td", { class: "mono", text: component.version }),
+      el("td", { class: "mono" }, [commit]),
+      el("td", { class: "mono", text: component.tree.slice(0, 12) }),
+      el("td", {}, [el("span", { class: "candidate-badge candidate-badge--unavailable", text: "unavailable" })]),
+    );
+    componentBody.appendChild(row);
+  });
+  document.getElementById("candidate-components").replaceChildren(componentTable);
+
+  const holds = document.getElementById("candidate-holds");
+  holds.replaceChildren();
+  candidate.holds.forEach((hold) => holds.appendChild(el("li", { text: hold })));
+  document.getElementById("candidate-content").hidden = false;
 }
 
 function isManualActionPending(action) {
@@ -766,6 +858,7 @@ function startWave() {
 async function main() {
   const errBox = document.getElementById("error");
   startWave();
+  try { renderNativeCandidate(await loadNativeCandidate()); } catch { renderNativeCandidate(null); }
   try {
     const snap = await loadSnapshot();
     if (snap.generator && snap.generator.repo) OWNER = snap.generator.repo.split("/")[0];
