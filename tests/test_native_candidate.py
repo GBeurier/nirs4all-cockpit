@@ -10,6 +10,7 @@ from cockpit.native_candidate import CandidateError, render, validate_projection
 
 ROOT = Path(__file__).resolve().parents[1]
 SNAPSHOT = ROOT / "data" / "native-candidate-staging.json"
+CURRENT = ROOT / "data" / "current.json"
 
 
 def candidate() -> dict:
@@ -91,6 +92,37 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
         "WEB-001": "complete_local_code_release_hold",
         "WEBREL-001": "complete_local_staging_publication_hold",
     }
+
+
+def test_public_surfaces_match_the_published_r1_and_web_receipts() -> None:
+    value = candidate()
+    r1_version = value["release_train"]["milestones"]["r1"]["python_version"]
+    web_version = next(item["version"] for item in value["components"] if item["key"] == "web")
+    current = json.loads(CURRENT.read_text(encoding="utf-8"))
+    packages = {item["id"]: item for item in current["packages"]}
+
+    assert value["release_train"]["publication"] == "r1_published_r2_r3_unpublished"
+    assert current["generator"]["snapshot_status"] == "historical_obsolete"
+    assert packages["nirs4all"]["source"]["expected_prod_version"] == r1_version
+    assert {
+        target["published_version"]
+        for target in packages["nirs4all"]["targets"]
+        if target["registry"] in {"pypi", "github-release"}
+    } == {r1_version}
+    assert packages["nirs4all-web"]["source"]["expected_prod_version"] == f"v{web_version}"
+    web_targets = {target["registry"]: target for target in packages["nirs4all-web"]["targets"]}
+    assert web_targets["pages"]["status"] == "green"
+    assert web_targets["github-release"]["published_version"] == "0.1.8"
+    assert web_targets["github-release"]["status"] == "stale"
+
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    index = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+    browser_validator = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
+    assert f"R1 {r1_version} and Web {web_version} are published" in readme
+    assert f"R1 {r1_version} and nirs4all-web {web_version} are published" in index
+    assert 'releaseTrain.publication !== "r1_published_r2_r3_unpublished"' in browser_validator
+    assert "Web 0.1.9" not in readme
+    assert "nirs4all-web 0.1.9" not in index
 
 
 def test_candidate_refuses_publication_or_fabricated_artifacts() -> None:

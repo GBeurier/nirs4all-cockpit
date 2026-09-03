@@ -14,10 +14,10 @@ papers, benchmarks, and release dashboards for near-infrared spectroscopy.
 logic.** Every verdict is derived from public, read-only registry/CI/issue
 signals declared in `ops/targets.yaml`.
 
-Current transition note: the native foundations are available and Web 0.1.9 is
-deployed. R1 is still in progress and keeps the legacy engine as its default;
-Studio R3 0.11.0 remains unpublished and unsigned. `LOCK-RELEASE` therefore
-remains NO-GO and this is not a stable V1 announcement.
+Current transition note: R1 0.13.0 and Web 0.1.10 are published, with Web
+deployed. R1 keeps the legacy engine as its default; R2, R3 and Studio R3
+0.11.0 remain unpublished, and Studio remains unsigned. `LOCK-RELEASE`
+therefore remains NO-GO and this is not a stable V1 announcement.
 
 ---
 
@@ -215,13 +215,15 @@ falls back across `../data`, `./`, and `./data`.
 
 The dashboard also reads `data/native-candidate-staging.json`, the same bytes
 staged in `nirs4all-org`. It is generated from governance commit
-`da42879f1dfbca784d1bd1b31abd18fcf437dbcf` and exact component Git objects.
+`091b8a0f3069e7a90167f78c81bb9d414c50ade5` and exact component Git objects.
 This is deliberately separate from registry health and from the canonical
-release lock: it is `no_go`, `unpublished`, exposes no artifact or registry URL,
-and labels every component unavailable. The page therefore cannot be read as a
-stable V1 announcement. The projection also carries the exact ownership and
-capability-governance witnesses, CUT-002's explicit-only structured warning and
-opt-in process-local counter. The retained four-surface WSL report predates the
+release lock: the global candidate remains `no_go` and `unpublished`, exposes
+no candidate artifact or registry URL, and labels every projected component
+unavailable. Its release-train receipt records R1 0.13.0 and Web 0.1.10 as
+published while R2, R3 and Studio remain unpublished. The page therefore
+cannot be read as a stable V1 announcement. The projection also carries the
+exact ownership and capability-governance witnesses, CUT-002's explicit-only
+structured warning and opt-in process-local counter. The retained four-surface WSL report predates the
 distinct R1/R2/R3 candidates and is stale, not current release evidence; a fresh
 run, frozen budgets and soak are still required.
 The selected work-item projection distinguishes local bounded closures from

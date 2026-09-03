@@ -161,7 +161,7 @@ function isNativeCandidate(candidate) {
   if (r.status !== "no_go" || r.publication !== "unpublished" || r.canonical_lock_updated !== false || r.downloads_enabled !== false || r.registry_links_enabled !== false) return false;
   const releaseTrain = candidate.release_train || {};
   const milestones = releaseTrain.milestones || {};
-  if (releaseTrain.status !== "r1_r2_r3_distinct_candidates_r4_held" || releaseTrain.publication !== "unpublished") return false;
+  if (releaseTrain.status !== "r1_r2_r3_distinct_candidates_r4_held" || releaseTrain.publication !== "r1_published_r2_r3_unpublished") return false;
   if (milestones.r1?.default_engine !== "legacy" || milestones.r2?.default_engine !== "native_with_explicit_legacy_opt_in" || milestones.r3?.default_engine !== "native_fail_closed_rust_only" || milestones.r4?.status !== "not_created_until_stable_gates_are_green") return false;
   const cutover = candidate.cutover_observability || {};
   if (cutover.work_item !== "CUT-002" || cutover.legacy_activation !== "explicit_legacy_or_dual_only" || cutover.warning_format !== "stable_structured_json" || cutover.counter_opt_in !== true || cutover.counter_scope !== "opt_in_process_local_non_persistent_intentional" || cutover.strict_paths_silent !== true || cutover.implicit_fallback !== false) return false;
