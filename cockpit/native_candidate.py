@@ -33,13 +33,16 @@ PROJECTED_WORK_ITEM_STATES = {
     "DAG-001": "complete_local_code_release_hold",
     "DOC-001": "complete_local_docs_release_hold",
     "GATE-001": "complete_local_linux_functional_release_hold",
+    "INST-001": "prepared_local_linux_harness_external_matrix_hold",
     "PERF-002": "advanced_local_evidence_not_closed",
+    "RC-001": "prepared_local_triage_external_evidence_hold",
     "REL-003": "complete_local_code_release_hold",
     "SEC-001": "advanced_local_evidence_not_closed",
     "SOAK-001": "advanced_local_evidence_not_closed",
     "STU-006": "complete_local_code_external_release_hold",
     "UI-001": "complete_local_code_registry_publication_hold",
     "WEB-001": "complete_local_code_release_hold",
+    "WEBREL-001": "complete_local_staging_publication_hold",
 }
 PROJECTED_COMPONENT_KEYS = {
     "benchmarks",
@@ -338,6 +341,7 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "surfaces": ["studio"],
             "limits": (
                 "HTTP, contrôle, store, jobs, scheduler et WebSocket en Rust; "
+                "harness AppImage local préparé sans exécution d’artefact réel; "
                 "qualification externe Windows/Docker/installers en attente."
             ),
         },
