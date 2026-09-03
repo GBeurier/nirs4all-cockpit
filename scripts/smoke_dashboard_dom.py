@@ -18,9 +18,81 @@ import socketserver
 import subprocess
 import sys
 import threading
+import xml.etree.ElementTree as ET
+from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+class StaticPageParser(HTMLParser):
+    """Collect the small static contract needed before the browser smoke."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.lang: str | None = None
+        self.tags: list[tuple[str, dict[str, str]]] = []
+        self.links: list[str] = []
+        self.json_ld: list[list[str]] = []
+        self._active_json_ld: list[str] | None = None
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = {key: value or "" for key, value in attrs}
+        self.tags.append((tag, values))
+        if tag == "html":
+            self.lang = values.get("lang")
+        for key in ("href", "src"):
+            if values.get(key):
+                self.links.append(values[key])
+        if tag == "script" and values.get("type") == "application/ld+json":
+            self._active_json_ld = []
+            self.json_ld.append(self._active_json_ld)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "script" and self._active_json_ld is not None:
+            self._active_json_ld = None
+
+    def handle_data(self, data: str) -> None:
+        if self._active_json_ld is not None:
+            self._active_json_ld.append(data)
+
+
+def _validate_static_site() -> None:
+    page = ROOT / "web" / "index.html"
+    parser = StaticPageParser()
+    parser.feed(page.read_text(encoding="utf-8"))
+    parser.close()
+    if parser.lang != "en":
+        raise RuntimeError("dashboard html[lang] must be en")
+    if sum(tag == "h1" for tag, _ in parser.tags) != 1 or sum(tag == "main" for tag, _ in parser.tags) != 1:
+        raise RuntimeError("dashboard requires exactly one h1 and one main")
+    descriptions = [
+        attrs.get("content") for tag, attrs in parser.tags if tag == "meta" and attrs.get("name") == "description"
+    ]
+    canonicals = [attrs.get("href") for tag, attrs in parser.tags if tag == "link" and attrs.get("rel") == "canonical"]
+    if len(descriptions) != 1 or not descriptions[0] or canonicals != ["https://cockpit.nirs4all.org/"]:
+        raise RuntimeError("dashboard SEO description/canonical contract failed")
+    if not parser.json_ld:
+        raise RuntimeError("dashboard JSON-LD is missing")
+    for payload in parser.json_ld:
+        value = json.loads("".join(payload))
+        if value.get("@context") != "https://schema.org":
+            raise RuntimeError("dashboard JSON-LD must use schema.org")
+    for raw_url in parser.links:
+        parsed = urlsplit(raw_url)
+        if parsed.scheme or parsed.netloc or raw_url.startswith("#") or raw_url.startswith("//"):
+            continue
+        relative = parsed.path.removeprefix("./")
+        if not relative:
+            continue
+        if not (ROOT / "web" / relative).is_file():
+            raise RuntimeError(f"missing dashboard asset: {raw_url}")
+    sitemap = ET.parse(ROOT / "web" / "sitemap.xml")
+    namespace = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+    urls = {node.text for node in sitemap.findall(".//sm:loc", namespace)}
+    if "https://cockpit.nirs4all.org/" not in urls:
+        raise RuntimeError("dashboard sitemap omits canonical URL")
 
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -41,9 +113,7 @@ def _find_chrome(explicit: str | None) -> str:
     for candidate in candidates:
         if candidate and shutil.which(candidate):
             return candidate
-    raise RuntimeError(
-        "Chrome/Chromium not found. Install a browser or pass --chrome /path/to/chrome."
-    )
+    raise RuntimeError("Chrome/Chromium not found. Install a browser or pass --chrome /path/to/chrome.")
 
 
 def _timeout_seconds(explicit: int | None) -> int:
@@ -88,6 +158,8 @@ def main() -> int:
     )
     args = parser.parse_args()
 
+    _validate_static_site()
+
     chrome = _find_chrome(args.chrome)
     timeout = _timeout_seconds(args.timeout)
     with socketserver.TCPServer(("127.0.0.1", 0), QuietHandler) as server:
@@ -97,9 +169,7 @@ def main() -> int:
         dom = _dump_dom(chrome, f"http://127.0.0.1:{port}/web/index.html", timeout=timeout)
 
     manual_actions = json.loads((ROOT / "data" / "manual-actions.json").read_text(encoding="utf-8"))
-    unresolved_action_ids = [
-        action["id"] for action in manual_actions.get("actions", []) if not action.get("resolved")
-    ]
+    unresolved_action_ids = [action["id"] for action in manual_actions.get("actions", []) if not action.get("resolved")]
 
     required = [
         "nirs4all<b>·</b>cockpit",
@@ -108,6 +178,11 @@ def main() -> int:
         "nirs4all-ecosystem",
         "schema v1",
         "Release matrix",
+        "Native R4/V1 candidate",
+        "candidat local NO-GO",
+        "SNV → Savitzky–Golay → PLS",
+        "nirs4all-tools 0.0.7",
+        "2ad862aeab40",
         "Downloads",
         "Code &amp; Actions",
         *unresolved_action_ids,

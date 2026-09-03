@@ -34,3 +34,27 @@ continues to read the independently collected, timestamped health snapshot in
 `data/current.json`; `data/release-staging.json` is staged as public data but is
 not rendered until a separate UI contract is reviewed. GitHub Pages does not
 deploy from this branch or CI gate, and this change adds no deployment step.
+
+## Local native R4/V1 candidate
+
+`data/native-candidate-staging.json` is a separate, deterministic view of the
+local native-backend candidate recorded by governance commit
+`a3ea904799b84977bc3e5661a27799e7078f8430`. It is not derived from, and does
+not modify, the canonical release lock. Its schema cannot carry download or
+registry links: every component is `unavailable`, the train is `no_go`, and the
+dashboard labels it staging-only.
+
+From the ecosystem workspace, reproduce it with:
+
+```console
+python scripts/native_candidate_staging.py build \
+  --governance-repo ../nirs4all-ecosystem \
+  --governance-commit a3ea904799b84977bc3e5661a27799e7078f8430 \
+  --workspace-root .. \
+  --out data/native-candidate-staging.json
+```
+
+The projector reads the ledger from that exact Git object, resolves package
+versions from each exact candidate commit, and records the ledger digest. The
+same output bytes are staged in nirs4all-org; publication remains a separate,
+lock-authorized operation.

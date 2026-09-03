@@ -28,8 +28,10 @@ jobs:
         run: |
           ruff check .
           pytest -q
-          mypy --ignore-missing-imports cockpit/release_staging.py scripts/release_staging.py
+          mypy --ignore-missing-imports cockpit/release_staging.py cockpit/native_candidate.py scripts/release_staging.py scripts/native_candidate_staging.py
           n4a-cockpit validate-targets ops/targets.yaml
+          python scripts/native_candidate_staging.py validate \
+            --projection data/native-candidate-staging.json
 
       - name: Deterministic public R2 staging projection smoke
         run: |
