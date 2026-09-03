@@ -215,15 +215,15 @@ falls back across `../data`, `./`, and `./data`.
 
 The dashboard also reads `data/native-candidate-staging.json`, the same bytes
 staged in `nirs4all-org`. It is generated from governance commit
-`8aa4540a6b97b9e6cb8facf2f3a189f0d62f1e1b` and exact component Git objects.
+`da42879f1dfbca784d1bd1b31abd18fcf437dbcf` and exact component Git objects.
 This is deliberately separate from registry health and from the canonical
 release lock: it is `no_go`, `unpublished`, exposes no artifact or registry URL,
 and labels every component unavailable. The page therefore cannot be read as a
 stable V1 announcement. The projection also carries the exact ownership and
 capability-governance witnesses, CUT-002's explicit-only structured warning and
-opt-in process-local counter, and the real four-surface WSL timings. Those
-timings are record-only: budgets are not frozen and no threshold or release
-qualification is claimed.
+opt-in process-local counter. The retained four-surface WSL report predates the
+distinct R1/R2/R3 candidates and is stale, not current release evidence; a fresh
+run, frozen budgets and soak are still required.
 The selected work-item projection distinguishes local bounded closures from
 INST-001 and RC-001, which are prepared but not closed. SEC-001 records four
 bounded native harnesses over canonical APIs, but remains prepared—not closed—
