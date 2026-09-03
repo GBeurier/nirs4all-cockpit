@@ -14,6 +14,11 @@ papers, benchmarks, and release dashboards for near-infrared spectroscopy.
 logic.** Every verdict is derived from public, read-only registry/CI/issue
 signals declared in `ops/targets.yaml`.
 
+Current transition note: the native foundations are available and Web 0.1.9 is
+deployed. R1 is still in progress and keeps the legacy engine as its default;
+Studio R3 0.11.0 remains unpublished and unsigned. `LOCK-RELEASE` therefore
+remains NO-GO and this is not a stable V1 announcement.
+
 ---
 
 ## Quickstart
