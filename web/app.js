@@ -173,13 +173,16 @@ function isNativeCandidate(candidate) {
     "DAG-001": "complete_local_code_release_hold",
     "DOC-001": "complete_local_docs_release_hold",
     "GATE-001": "complete_local_linux_functional_release_hold",
+    "INST-001": "prepared_local_linux_harness_external_matrix_hold",
     "PERF-002": "advanced_local_evidence_not_closed",
+    "RC-001": "prepared_local_triage_external_evidence_hold",
     "REL-003": "complete_local_code_release_hold",
     "SEC-001": "advanced_local_evidence_not_closed",
     "SOAK-001": "advanced_local_evidence_not_closed",
     "STU-006": "complete_local_code_external_release_hold",
     "UI-001": "complete_local_code_registry_publication_hold",
     "WEB-001": "complete_local_code_release_hold",
+    "WEBREL-001": "complete_local_staging_publication_hold",
   };
   if (JSON.stringify(candidate.work_item_states || {}) !== JSON.stringify(expectedWorkItems)) return false;
   if (!Array.isArray(candidate.components) || !candidate.components.length || !Array.isArray(candidate.capabilities)) return false;
@@ -259,10 +262,12 @@ function renderNativeCandidate(candidate) {
   );
 
   const workItems = candidate.work_item_states;
-  const closed = Object.entries(workItems).filter(([, state]) => !state.includes("not_closed"));
+  const closed = Object.entries(workItems).filter(([, state]) => state.startsWith("complete"));
+  const prepared = Object.entries(workItems).filter(([, state]) => state.startsWith("prepared"));
   const advanced = Object.entries(workItems).filter(([, state]) => state.includes("not_closed"));
   document.getElementById("candidate-work-items").replaceChildren(
     el("p", { text: `Closed locally, release held: ${closed.map(([id]) => id).join(", ")}.` }),
+    el("p", { text: `Prepared but not closed: ${prepared.map(([id]) => id).join(", ")}.` }),
     el("p", { text: `Advanced but not closed: ${advanced.map(([id]) => id).join(", ")}.` }),
     el("p", { text: "These states do not change the canonical lock or the global NO-GO." }),
   );

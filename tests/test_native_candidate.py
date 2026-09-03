@@ -20,7 +20,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     value = candidate()
     validate_projection(value)
     assert SNAPSHOT.read_text(encoding="utf-8") == render(value)
-    assert value["source"]["commit"] == "e9d60c3a43dcf74d6318c5d165ff413452c49b1d"
+    assert value["source"]["commit"] == "0502c64cf4c562fa21bdcd326f89270f0d4ac505"
     assert value["architecture"]["studio_control_plane"] == "rust_only"
     assert [item["code"] for item in value["migration"]["exit_codes"]] == [0, 10, 20]
     assert value["methods_documentation"]["mapped_pages"] == "209/209"
@@ -52,7 +52,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
         },
     }
     components = {item["key"]: item for item in value["components"]}
-    assert components["studio"]["commit"] == "a6688f53994b4bf9f612057a86b17a25f04401c3"
+    assert components["studio"]["commit"] == "e027cbf8dea9fc2297ac91b9cd983346a44fb34f"
     assert components["web"]["commit"] == "e7b9a6384050c2c1a92dcec6aab41e9f0430be43"
     assert components["benchmarks"]["commit"] == "24751ea97a3e12d48ffb9f0438a4355b024e15d8"
     assert components["ui"] == {
@@ -76,13 +76,16 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
         "DAG-001": "complete_local_code_release_hold",
         "DOC-001": "complete_local_docs_release_hold",
         "GATE-001": "complete_local_linux_functional_release_hold",
+        "INST-001": "prepared_local_linux_harness_external_matrix_hold",
         "PERF-002": "advanced_local_evidence_not_closed",
+        "RC-001": "prepared_local_triage_external_evidence_hold",
         "REL-003": "complete_local_code_release_hold",
         "SEC-001": "advanced_local_evidence_not_closed",
         "SOAK-001": "advanced_local_evidence_not_closed",
         "STU-006": "complete_local_code_external_release_hold",
         "UI-001": "complete_local_code_registry_publication_hold",
         "WEB-001": "complete_local_code_release_hold",
+        "WEBREL-001": "complete_local_staging_publication_hold",
     }
 
 
