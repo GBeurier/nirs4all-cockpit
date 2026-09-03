@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>nirs4all · cockpit — release & health</title>
-    <meta name="description" content="Read-only nirs4all release cockpit: public registry health plus the unpublished R4/V1 native candidate, its exact source identities and qualified capability limits." />
+    <meta name="description" content="Read-only nirs4all release cockpit: public registry health plus the unpublished R1/R2/R3 native candidates, their exact source identities and qualified capability limits." />
     <link rel="canonical" href="https://cockpit.nirs4all.org/" />
     <link rel="sitemap" type="application/xml" title="Sitemap" href="https://cockpit.nirs4all.org/sitemap.xml" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -75,8 +75,16 @@
     <main class="wrap">
       <section class="chips" id="summary" aria-label="Status totals" hidden></section>
 
+      <section class="block" aria-labelledby="transition-h">
+        <h2 id="transition-h" class="section-h">R1 transition <span class="muted">— in progress · legacy remains the default</span></h2>
+        <div class="card panel candidate-state" role="status">
+          <strong>Native foundations are available; nirs4all-web 0.1.9 is deployed.</strong>
+          <p>Studio R3 0.11.0 remains unpublished and unsigned. LOCK-RELEASE remains NO-GO; no stable V1 is announced.</p>
+        </div>
+      </section>
+
       <section class="block candidate" id="native-candidate" aria-labelledby="candidate-h">
-        <h2 id="candidate-h" class="section-h">Native R4/V1 candidate <span class="muted">— staging only · not a stable release</span></h2>
+        <h2 id="candidate-h" class="section-h">Native R1/R2/R3 candidates <span class="muted">— staging only · not a stable release</span></h2>
         <div class="card panel candidate-state" role="status" aria-live="polite" aria-atomic="true">
           <strong id="candidate-notice">Candidate data unavailable — NO-GO; no download is exposed.</strong>
           <p id="candidate-source">The canonical release lock remains authoritative and unchanged.</p>
