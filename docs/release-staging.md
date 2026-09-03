@@ -39,7 +39,7 @@ deploy from this branch or CI gate, and this change adds no deployment step.
 
 `data/native-candidate-staging.json` is a separate, deterministic view of the
 local native-backend candidate recorded by governance commit
-`0502c64cf4c562fa21bdcd326f89270f0d4ac505`. It is not derived from, and does
+`ff7dfc568d0862268393c187f4e1c4eebcade4b9`. It is not derived from, and does
 not modify, the canonical release lock. Its schema cannot carry download or
 registry links: every component is `unavailable`, the train is `no_go`, and the
 dashboard labels it staging-only.
@@ -49,7 +49,7 @@ From the ecosystem workspace, reproduce it with:
 ```console
 python scripts/native_candidate_staging.py build \
   --governance-repo ../nirs4all-ecosystem \
-  --governance-commit 0502c64cf4c562fa21bdcd326f89270f0d4ac505 \
+  --governance-commit ff7dfc568d0862268393c187f4e1c4eebcade4b9 \
   --workspace-root .. \
   --out data/native-candidate-staging.json
 ```
@@ -66,7 +66,9 @@ is explicitly record-only: the reference budgets are not frozen, no threshold
 is claimed passed, and the evidence does not make the candidate release-eligible.
 It also exposes the bounded local closures for API-001/004/005, CAP-001,
 DAG-001, DOC-001, GATE-001, REL-003, STU-006, UI-001, WEB-001 and WEBREL-001.
-INST-001 and RC-001 are explicitly prepared but not closed; SEC-001, SOAK-001
-and PERF-002 remain advanced but open. UI 0.1.13 is represented only as an unavailable local source
+INST-001 and RC-001 are explicitly prepared but not closed. SEC-001 now records
+three bounded native harnesses over canonical APIs, but remains prepared—not
+closed—because no fuzz campaign has run and the Studio Store target is absent.
+SOAK-001 and PERF-002 remain advanced but open. UI 0.1.13 is represented only as an unavailable local source
 identity; the observed public registry remains at 0.1.12 and no tarball or
 registry URL is exposed by this snapshot.

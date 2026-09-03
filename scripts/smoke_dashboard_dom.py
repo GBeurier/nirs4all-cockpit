@@ -190,9 +190,13 @@ def main() -> int:
         "WSL local_real 4/4",
         "python: startup 1067.573 ms",
         "Record-only",
-        "Closed locally, release held: API-001, API-004, API-005, CAP-001, DAG-001, DOC-001, GATE-001, REL-003, STU-006, UI-001, WEB-001, WEBREL-001",
-        "Prepared but not closed: INST-001, RC-001",
-        "Advanced but not closed: PERF-002, SEC-001, SOAK-001",
+        (
+            "Closed locally, release held: API-001, API-004, API-005, CAP-001, DAG-001, DOC-001, "
+            "GATE-001, REL-003, STU-006, UI-001, WEB-001, WEBREL-001"
+        ),
+        "Prepared but not closed: INST-001, RC-001, SEC-001",
+        "Advanced but not closed: PERF-002, SOAK-001",
+        "SEC-001: 3 bounded native harnesses prepared",
         "Downloads",
         "Code &amp; Actions",
         *unresolved_action_ids,

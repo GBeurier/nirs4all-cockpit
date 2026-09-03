@@ -177,7 +177,7 @@ function isNativeCandidate(candidate) {
     "PERF-002": "advanced_local_evidence_not_closed",
     "RC-001": "prepared_local_triage_external_evidence_hold",
     "REL-003": "complete_local_code_release_hold",
-    "SEC-001": "advanced_local_evidence_not_closed",
+    "SEC-001": "prepared_local_native_fuzz_harnesses_campaign_not_closed",
     "SOAK-001": "advanced_local_evidence_not_closed",
     "STU-006": "complete_local_code_external_release_hold",
     "UI-001": "complete_local_code_registry_publication_hold",
@@ -185,6 +185,9 @@ function isNativeCandidate(candidate) {
     "WEBREL-001": "complete_local_staging_publication_hold",
   };
   if (JSON.stringify(candidate.work_item_states || {}) !== JSON.stringify(expectedWorkItems)) return false;
+  const security = candidate.security_harnesses || {};
+  if (security.work_item !== "SEC-001" || security.evidence_status !== "three_native_targets_prepared_campaign_not_run" || !Array.isArray(security.harnesses) || security.harnesses.length !== 3) return false;
+  if (JSON.stringify(security.harnesses.map((item) => item && item.surface)) !== JSON.stringify(["formats", "core", "methods"])) return false;
   if (!Array.isArray(candidate.components) || !candidate.components.length || !Array.isArray(candidate.capabilities)) return false;
   const componentKeys = candidate.components.map((component) => component && component.key).sort();
   if (JSON.stringify(componentKeys) !== JSON.stringify(["benchmarks", "core", "dag_ml", "dag_ml_data", "datasets", "formats", "io", "methods", "python", "studio", "tools", "ui", "web"])) return false;
@@ -264,11 +267,14 @@ function renderNativeCandidate(candidate) {
   const workItems = candidate.work_item_states;
   const closed = Object.entries(workItems).filter(([, state]) => state.startsWith("complete"));
   const prepared = Object.entries(workItems).filter(([, state]) => state.startsWith("prepared"));
-  const advanced = Object.entries(workItems).filter(([, state]) => state.includes("not_closed"));
+  const advanced = Object.entries(workItems).filter(([, state]) => state.startsWith("advanced"));
+  const security = candidate.security_harnesses;
+  const securityTargets = security.harnesses.map((item) => `${item.surface}:${item.target}@${item.commit.slice(0, 12)}`).join(" · ");
   document.getElementById("candidate-work-items").replaceChildren(
     el("p", { text: `Closed locally, release held: ${closed.map(([id]) => id).join(", ")}.` }),
     el("p", { text: `Prepared but not closed: ${prepared.map(([id]) => id).join(", ")}.` }),
     el("p", { text: `Advanced but not closed: ${advanced.map(([id]) => id).join(", ")}.` }),
+    el("p", { text: `SEC-001: 3 bounded native harnesses prepared (${securityTargets}); no fuzz campaign has run and the Studio Store target is absent.` }),
     el("p", { text: "These states do not change the canonical lock or the global NO-GO." }),
   );
 

@@ -20,7 +20,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     value = candidate()
     validate_projection(value)
     assert SNAPSHOT.read_text(encoding="utf-8") == render(value)
-    assert value["source"]["commit"] == "0502c64cf4c562fa21bdcd326f89270f0d4ac505"
+    assert value["source"]["commit"] == "ff7dfc568d0862268393c187f4e1c4eebcade4b9"
     assert value["architecture"]["studio_control_plane"] == "rust_only"
     assert [item["code"] for item in value["migration"]["exit_codes"]] == [0, 10, 20]
     assert value["methods_documentation"]["mapped_pages"] == "209/209"
@@ -51,6 +51,13 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
             "web": {"startup": 97.81, "steady": 4.713},
         },
     }
+    assert value["security_harnesses"]["evidence_status"] == "three_native_targets_prepared_campaign_not_run"
+    assert [item["surface"] for item in value["security_harnesses"]["harnesses"]] == [
+        "formats",
+        "core",
+        "methods",
+    ]
+    assert "Studio Store target is not implemented" in value["security_harnesses"]["release_limit"]
     components = {item["key"]: item for item in value["components"]}
     assert components["studio"]["commit"] == "e027cbf8dea9fc2297ac91b9cd983346a44fb34f"
     assert components["web"]["commit"] == "e7b9a6384050c2c1a92dcec6aab41e9f0430be43"
@@ -80,7 +87,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
         "PERF-002": "advanced_local_evidence_not_closed",
         "RC-001": "prepared_local_triage_external_evidence_hold",
         "REL-003": "complete_local_code_release_hold",
-        "SEC-001": "advanced_local_evidence_not_closed",
+        "SEC-001": "prepared_local_native_fuzz_harnesses_campaign_not_closed",
         "SOAK-001": "advanced_local_evidence_not_closed",
         "STU-006": "complete_local_code_external_release_hold",
         "UI-001": "complete_local_code_registry_publication_hold",
@@ -109,6 +116,7 @@ def test_candidate_refuses_publication_or_fabricated_artifacts() -> None:
         (("performance", "evidence_mode"), "qualified", "record-only"),
         (("performance", "threshold_passed"), True, "record-only"),
         (("work_item_states", "SEC-001"), "complete", "work-item states"),
+        (("security_harnesses", "evidence_status"), "qualified", "SEC-001"),
     ],
 )
 def test_candidate_refuses_incomplete_or_overclaimed_final_evidence(
