@@ -24,7 +24,7 @@ GOVERNANCE_REPOSITORY_URL = "https://github.com/GBeurier/nirs4all-ecosystem"
 COMMIT_RE = re.compile(r"[0-9a-f]{40}")
 TREE_RE = COMMIT_RE
 SHA256_RE = re.compile(r"sha256:[0-9a-f]{64}")
-VERSION_RE = re.compile(r"[0-9]+\.[0-9]+\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?")
+VERSION_RE = re.compile(r"[0-9]+\.[0-9]+\.[0-9]+(?:(?:a|b|rc)[0-9]+|[-+][0-9A-Za-z.-]+)?")
 PROJECTED_WORK_ITEM_STATES = {
     "API-001": "complete_local_code_release_hold",
     "API-004": "complete_local_native_full_transfer_plugin_finetune_refused",
@@ -155,11 +155,11 @@ def _project_security_harnesses(evidence: dict[str, Any]) -> dict[str, Any]:
     security = evidence.get("security_harnesses")
     if not isinstance(security, dict):
         raise CandidateError("SEC-001 harness evidence is missing")
-    if security.get("evidence_status") != "three_native_targets_prepared_campaign_not_run":
+    if security.get("evidence_status") != "four_native_targets_prepared_campaign_not_run":
         raise CandidateError("SEC-001 must remain prepared with no fuzz campaign")
 
     harnesses: list[dict[str, Any]] = []
-    for surface in ("formats", "core", "methods"):
+    for surface in ("formats", "core", "methods", "studio_store"):
         raw = security.get(surface)
         if not isinstance(raw, dict):
             raise CandidateError(f"SEC-001 {surface} harness is missing")
@@ -628,10 +628,9 @@ def validate_projection(projection: Any) -> None:
     if (
         not isinstance(security, dict)
         or security.get("work_item") != "SEC-001"
-        or security.get("evidence_status") != "three_native_targets_prepared_campaign_not_run"
+        or security.get("evidence_status") != "four_native_targets_prepared_campaign_not_run"
         or not isinstance(security.get("release_limit"), str)
         or "no fuzz campaign has run" not in security["release_limit"]
-        or "Studio Store target is not implemented" not in security["release_limit"]
     ):
         raise CandidateError("SEC-001 harness evidence is incomplete or overclaimed")
     harnesses = security.get("harnesses")
@@ -639,8 +638,9 @@ def validate_projection(projection: Any) -> None:
         "formats",
         "core",
         "methods",
+        "studio_store",
     ]:
-        raise CandidateError("SEC-001 must expose exactly three prepared native harnesses")
+        raise CandidateError("SEC-001 must expose exactly four prepared native harnesses")
     for harness in harnesses:
         if (
             not COMMIT_RE.fullmatch(harness.get("commit", ""))

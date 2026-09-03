@@ -20,7 +20,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     value = candidate()
     validate_projection(value)
     assert SNAPSHOT.read_text(encoding="utf-8") == render(value)
-    assert value["source"]["commit"] == "ff7dfc568d0862268393c187f4e1c4eebcade4b9"
+    assert value["source"]["commit"] == "8aa4540a6b97b9e6cb8facf2f3a189f0d62f1e1b"
     assert value["architecture"]["studio_control_plane"] == "rust_only"
     assert [item["code"] for item in value["migration"]["exit_codes"]] == [0, 10, 20]
     assert value["methods_documentation"]["mapped_pages"] == "209/209"
@@ -51,17 +51,18 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
             "web": {"startup": 97.81, "steady": 4.713},
         },
     }
-    assert value["security_harnesses"]["evidence_status"] == "three_native_targets_prepared_campaign_not_run"
+    assert value["security_harnesses"]["evidence_status"] == "four_native_targets_prepared_campaign_not_run"
     assert [item["surface"] for item in value["security_harnesses"]["harnesses"]] == [
         "formats",
         "core",
         "methods",
+        "studio_store",
     ]
-    assert "Studio Store target is not implemented" in value["security_harnesses"]["release_limit"]
+    assert "no fuzz campaign has run" in value["security_harnesses"]["release_limit"]
     components = {item["key"]: item for item in value["components"]}
-    assert components["studio"]["commit"] == "e027cbf8dea9fc2297ac91b9cd983346a44fb34f"
-    assert components["web"]["commit"] == "e7b9a6384050c2c1a92dcec6aab41e9f0430be43"
-    assert components["benchmarks"]["commit"] == "24751ea97a3e12d48ffb9f0438a4355b024e15d8"
+    assert components["studio"]["commit"] == "bb66016cf4f7578543cdc294713011881b884969"
+    assert components["web"]["commit"] == "dbbbcaeaf5f0d0da35a5242f21e234ba92c67cf8"
+    assert components["benchmarks"]["commit"] == "9aab2e13513b4e0a5a699a11ebc70f2bd00f10fb"
     assert components["ui"] == {
         "artifacts": [],
         "commit": "406d94d70004f27459ef12347af1e6f0079ab6ac",
