@@ -252,12 +252,26 @@ def _project_release_train(evidence: dict[str, Any]) -> dict[str, Any]:
         }
 
     r1 = raw_milestones["r1"]
-    if r1.get("publication_status") != "publication_in_progress_repair_candidate_prepared":
-        raise CandidateError("R1 publication must remain explicitly in progress")
+    if r1.get("publication_status") != "published_pypi_and_ghcr_release_workflow_green":
+        raise CandidateError("R1 publication receipt is incomplete")
     if not COMMIT_RE.fullmatch(r1.get("publication_repair_commit", "")) or not TREE_RE.fullmatch(
         r1.get("publication_repair_tree", "")
     ):
         raise CandidateError("R1 publication repair identity is incomplete")
+    if (
+        r1.get("publication_run") != 33753479548
+        or r1.get("pypi_published") is not True
+        or r1.get("ghcr_published") is not True
+    ):
+        raise CandidateError("R1 PyPI/GHCR publication receipt is incomplete")
+    milestones["r1"].update(
+        {
+            "publication": "pypi_and_ghcr",
+            "publication_repair_commit": r1["publication_repair_commit"],
+            "publication_repair_tree": r1["publication_repair_tree"],
+            "publication_workflow_run": r1["publication_run"],
+        }
+    )
     r4 = raw_milestones["r4"]
     if r4 != {"version": "1.0.0", "status": "not_created_until_all_stable_gates_are_green"}:
         raise CandidateError("R4 must remain absent until all stable gates are green")
@@ -267,7 +281,7 @@ def _project_release_train(evidence: dict[str, Any]) -> dict[str, Any]:
     }
     return {
         "status": "r1_r2_r3_distinct_candidates_r4_held",
-        "publication": "unpublished",
+        "publication": "r1_published_r2_r3_unpublished",
         "milestones": milestones,
     }
 
@@ -446,7 +460,7 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "label": "DatasetPackage Rust vers plan de données",
             "status": "qualified_local",
             "surfaces": ["io"],
-            "limits": "IO 0.1.13 et dag-ml-data 0.2.10 sont publiés; les matrices externes restent requises.",
+            "limits": "IO 0.1.14 et dag-ml-data 0.2.10 sont publiés; les matrices externes restent requises.",
         },
         {
             "key": "conformal",
@@ -465,8 +479,8 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "surfaces": ["studio"],
             "limits": (
                 "HTTP, contrôle, store, jobs, scheduler et WebSocket en Rust; "
-                "harness AppImage local préparé sans exécution d’artefact réel; "
-                "qualification externe Windows/Docker/installers en attente."
+                "matrice unsigned Linux/Windows/macOS verte; publication, signatures, "
+                "soak hostile et verrou canonique restent en attente."
             ),
         },
         {
@@ -546,8 +560,8 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "downloads_enabled": False,
             "registry_links_enabled": False,
             "notice": (
-                "Candidat produit strictement NO-GO; les composants natifs et Web 0.1.9 sont publiés, "
-                "mais R1 reste en cours, Studio reste non publié et aucune V1 stable n’est annoncée."
+                "Candidat produit strictement NO-GO; les composants natifs, R1 0.13.0 et Web 0.1.10 "
+                "sont publiés, mais R2, R3 et Studio restent non publiés et aucune V1 stable n’est annoncée."
             ),
         },
         "release_train": _project_release_train(evidence),
@@ -635,8 +649,8 @@ def validate_projection(projection: Any) -> None:
         "downloads_enabled": False,
         "registry_links_enabled": False,
         "notice": (
-            "Candidat produit strictement NO-GO; les composants natifs et Web 0.1.9 sont publiés, "
-            "mais R1 reste en cours, Studio reste non publié et aucune V1 stable n’est annoncée."
+            "Candidat produit strictement NO-GO; les composants natifs, R1 0.13.0 et Web 0.1.10 "
+            "sont publiés, mais R2, R3 et Studio restent non publiés et aucune V1 stable n’est annoncée."
         ),
     }
     if release != expected_release:
@@ -644,8 +658,8 @@ def validate_projection(projection: Any) -> None:
     release_train = projection.get("release_train")
     if not isinstance(release_train, dict) or release_train.get("status") != (
         "r1_r2_r3_distinct_candidates_r4_held"
-    ) or release_train.get("publication") != "unpublished":
-        raise CandidateError("candidate release train must remain distinct and unpublished")
+    ) or release_train.get("publication") != "r1_published_r2_r3_unpublished":
+        raise CandidateError("candidate release train must retain only the published R1 receipt")
     milestones = release_train.get("milestones")
     if not isinstance(milestones, dict) or set(milestones) != {"r1", "r2", "r3", "r4"}:
         raise CandidateError("candidate release milestones are incomplete")
@@ -664,6 +678,14 @@ def validate_projection(projection: Any) -> None:
             "python_version", "studio_version"
         )):
             raise CandidateError(f"{key}: candidate release identity is malformed")
+    r1 = milestones["r1"]
+    if (
+        r1.get("publication") != "pypi_and_ghcr"
+        or not COMMIT_RE.fullmatch(r1.get("publication_repair_commit", ""))
+        or not TREE_RE.fullmatch(r1.get("publication_repair_tree", ""))
+        or r1.get("publication_workflow_run") != 33753479548
+    ):
+        raise CandidateError("R1 candidate publication receipt diverges")
     if milestones.get("r4") != {
         "python_version": "1.0.0",
         "status": "not_created_until_stable_gates_are_green",
