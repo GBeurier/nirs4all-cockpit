@@ -20,7 +20,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     value = candidate()
     validate_projection(value)
     assert SNAPSHOT.read_text(encoding="utf-8") == render(value)
-    assert value["source"]["commit"] == "a3ea904799b84977bc3e5661a27799e7078f8430"
+    assert value["source"]["commit"] == "e2d17cc80622894ba78e97fdd2bebf8c9970f3cb"
     assert value["architecture"]["studio_control_plane"] == "rust_only"
     assert [item["code"] for item in value["migration"]["exit_codes"]] == [0, 10, 20]
     assert value["methods_documentation"]["mapped_pages"] == "209/209"
@@ -28,7 +28,28 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
         "qualified_local",
         "qualified_bounded",
         "not_qualified",
-        "fixture_only",
+        "record_only",
+    }
+    assert value["governance"]["ownership"]["commit"] == "fe17a3f939f9fb95c8ed1e068138c72ceac92890"
+    assert value["governance"]["capability_inventory"]["commit"] == "cf6cd1d96c12d7043134ab0a7b4f593e19ec553b"
+    assert value["cutover_observability"]["implicit_fallback"] is False
+    assert value["cutover_observability"]["counter_scope"] == "opt_in_process_local_non_persistent_intentional"
+    assert value["performance"] == {
+        "budgets_frozen": False,
+        "contract": "archive_v2_same_matrix_four_surfaces",
+        "environment": "wsl_local",
+        "evidence_mode": "local_real_record_only",
+        "fallback_observed": False,
+        "maximum_prediction_delta": 0,
+        "release_eligible": False,
+        "surfaces_passed": "4/4",
+        "threshold_passed": None,
+        "timings_ms": {
+            "python": {"startup": 1067.573, "steady": 28.026},
+            "rust": {"startup": 38.148, "steady": 18.244},
+            "studio": {"startup": 75.621, "steady": 24.771},
+            "web": {"startup": 97.81, "steady": 4.713},
+        },
     }
 
 
@@ -41,4 +62,25 @@ def test_candidate_refuses_publication_or_fabricated_artifacts() -> None:
     value = copy.deepcopy(candidate())
     value["components"][0]["artifacts"] = [{"url": "https://example.invalid/fake.zip"}]
     with pytest.raises(CandidateError, match="cannot expose"):
+        validate_projection(value)
+
+
+@pytest.mark.parametrize(
+    ("path", "replacement", "message"),
+    [
+        (("governance", "ownership", "commit"), "unknown", "governance identity"),
+        (("cutover_observability", "implicit_fallback"), True, "CUT-002"),
+        (("performance", "evidence_mode"), "qualified", "record-only"),
+        (("performance", "threshold_passed"), True, "record-only"),
+    ],
+)
+def test_candidate_refuses_incomplete_or_overclaimed_final_evidence(
+    path: tuple[str, ...], replacement: object, message: str
+) -> None:
+    value = copy.deepcopy(candidate())
+    target = value
+    for key in path[:-1]:
+        target = target[key]
+    target[path[-1]] = replacement
+    with pytest.raises(CandidateError, match=message):
         validate_projection(value)

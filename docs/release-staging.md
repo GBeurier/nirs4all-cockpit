@@ -39,7 +39,7 @@ deploy from this branch or CI gate, and this change adds no deployment step.
 
 `data/native-candidate-staging.json` is a separate, deterministic view of the
 local native-backend candidate recorded by governance commit
-`a3ea904799b84977bc3e5661a27799e7078f8430`. It is not derived from, and does
+`e2d17cc80622894ba78e97fdd2bebf8c9970f3cb`. It is not derived from, and does
 not modify, the canonical release lock. Its schema cannot carry download or
 registry links: every component is `unavailable`, the train is `no_go`, and the
 dashboard labels it staging-only.
@@ -49,7 +49,7 @@ From the ecosystem workspace, reproduce it with:
 ```console
 python scripts/native_candidate_staging.py build \
   --governance-repo ../nirs4all-ecosystem \
-  --governance-commit a3ea904799b84977bc3e5661a27799e7078f8430 \
+  --governance-commit e2d17cc80622894ba78e97fdd2bebf8c9970f3cb \
   --workspace-root .. \
   --out data/native-candidate-staging.json
 ```
@@ -58,3 +58,9 @@ The projector reads the ledger from that exact Git object, resolves package
 versions from each exact candidate commit, and records the ledger digest. The
 same output bytes are staged in nirs4all-org; publication remains a separate,
 lock-authorized operation.
+
+The final projection records the exact ownership and capability-governance
+witnesses, CUT-002's structured warning plus intentionally process-local opt-in
+counter, and one real four-surface WSL performance campaign. Performance data
+is explicitly record-only: the reference budgets are not frozen, no threshold
+is claimed passed, and the evidence does not make the candidate release-eligible.
