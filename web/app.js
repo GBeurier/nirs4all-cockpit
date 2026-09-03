@@ -165,6 +165,18 @@ function isNativeCandidate(candidate) {
   if (performance.evidence_mode !== "local_real_record_only" || performance.environment !== "wsl_local" || performance.surfaces_passed !== "4/4" || performance.fallback_observed !== false || performance.budgets_frozen !== false || performance.threshold_passed !== null || performance.release_eligible !== false) return false;
   const governance = candidate.governance || {};
   if (!governance.ownership || !governance.capability_inventory) return false;
+  const expectedWorkItems = {
+    "API-004": "complete_local_native_full_transfer_plugin_finetune_refused",
+    "API-005": "complete_local_by_executable_preflight_refusal",
+    "CAP-001": "complete",
+    "DAG-001": "complete_local_code_release_hold",
+    "DOC-001": "complete_local_docs_release_hold",
+    "PERF-002": "advanced_local_evidence_not_closed",
+    "REL-003": "complete_local_code_release_hold",
+    "SEC-001": "advanced_local_evidence_not_closed",
+    "SOAK-001": "advanced_local_evidence_not_closed",
+  };
+  if (JSON.stringify(candidate.work_item_states || {}) !== JSON.stringify(expectedWorkItems)) return false;
   if (!Array.isArray(candidate.components) || !candidate.components.length || !Array.isArray(candidate.capabilities)) return false;
   return candidate.components.every((component) =>
     component && /^[0-9a-f]{40}$/.test(component.commit || "") && /^[0-9a-f]{40}$/.test(component.tree || "") &&
@@ -237,6 +249,15 @@ function renderNativeCandidate(candidate) {
     el("p", { text: `WSL local_real ${performance.surfaces_passed} · max prediction delta ${performance.maximum_prediction_delta} · fallback false.` }),
     el("p", { text: "Record-only: budgets are not frozen, no threshold is claimed passed and this is not release evidence." }),
     el("p", { class: "mono", text: performanceRows.join(" | ") }),
+  );
+
+  const workItems = candidate.work_item_states;
+  const closed = Object.entries(workItems).filter(([, state]) => !state.includes("not_closed"));
+  const advanced = Object.entries(workItems).filter(([, state]) => state.includes("not_closed"));
+  document.getElementById("candidate-work-items").replaceChildren(
+    el("p", { text: `Closed locally, release held: ${closed.map(([id]) => id).join(", ")}.` }),
+    el("p", { text: `Advanced but not closed: ${advanced.map(([id]) => id).join(", ")}.` }),
+    el("p", { text: "These states do not change the canonical lock or the global NO-GO." }),
   );
 
   const [capTable, capBody] = candidateTable(["capability", "status", "qualified surfaces", "limits"], "Qualified and explicitly limited native candidate capabilities");

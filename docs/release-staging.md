@@ -39,7 +39,7 @@ deploy from this branch or CI gate, and this change adds no deployment step.
 
 `data/native-candidate-staging.json` is a separate, deterministic view of the
 local native-backend candidate recorded by governance commit
-`e2d17cc80622894ba78e97fdd2bebf8c9970f3cb`. It is not derived from, and does
+`cd1627f60a0fba6acaa22b7b1d726846a2da40dc`. It is not derived from, and does
 not modify, the canonical release lock. Its schema cannot carry download or
 registry links: every component is `unavailable`, the train is `no_go`, and the
 dashboard labels it staging-only.
@@ -49,7 +49,7 @@ From the ecosystem workspace, reproduce it with:
 ```console
 python scripts/native_candidate_staging.py build \
   --governance-repo ../nirs4all-ecosystem \
-  --governance-commit e2d17cc80622894ba78e97fdd2bebf8c9970f3cb \
+  --governance-commit cd1627f60a0fba6acaa22b7b1d726846a2da40dc \
   --workspace-root .. \
   --out data/native-candidate-staging.json
 ```
@@ -64,3 +64,6 @@ witnesses, CUT-002's structured warning plus intentionally process-local opt-in
 counter, and one real four-surface WSL performance campaign. Performance data
 is explicitly record-only: the reference budgets are not frozen, no threshold
 is claimed passed, and the evidence does not make the candidate release-eligible.
+It also exposes the bounded local closures for API-004/005, CAP-001, DAG-001,
+DOC-001 and REL-003 separately from SEC-001, SOAK-001 and PERF-002, whose local
+evidence advanced without closing those release lots.
