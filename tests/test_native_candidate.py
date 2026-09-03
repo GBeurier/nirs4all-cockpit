@@ -20,7 +20,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     value = candidate()
     validate_projection(value)
     assert SNAPSHOT.read_text(encoding="utf-8") == render(value)
-    assert value["source"]["commit"] == "da42879f1dfbca784d1bd1b31abd18fcf437dbcf"
+    assert value["source"]["commit"] == "091b8a0f3069e7a90167f78c81bb9d414c50ade5"
     assert value["architecture"]["studio_control_plane"] == "rust_only"
     assert [item["code"] for item in value["migration"]["exit_codes"]] == [0, 10, 20]
     assert value["methods_documentation"]["mapped_pages"] == "209/209"
@@ -32,7 +32,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     }
     assert value["release_train"]["milestones"]["r1"]["default_engine"] == "legacy"
     assert value["release_train"]["milestones"]["r3"]["studio_commit"] == (
-        "aa84efc02cf89df6f87278777dc8df9b43ee8df3"
+        "ca4ee2afbb7596b2e4ba4b00f6d5797e553dfa39"
     )
     assert value["governance"]["ownership"]["commit"] == "fe17a3f939f9fb95c8ed1e068138c72ceac92890"
     assert value["governance"]["capability_inventory"]["commit"] == "cf6cd1d96c12d7043134ab0a7b4f593e19ec553b"
@@ -56,8 +56,8 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     ]
     assert "no fuzz campaign has run" in value["security_harnesses"]["release_limit"]
     components = {item["key"]: item for item in value["components"]}
-    assert components["studio"]["commit"] == "aa84efc02cf89df6f87278777dc8df9b43ee8df3"
-    assert components["web"]["commit"] == "146e3e4632807d28c81031070fb1523b2ff13359"
+    assert components["studio"]["commit"] == "ca4ee2afbb7596b2e4ba4b00f6d5797e553dfa39"
+    assert components["web"]["commit"] == "051bf636d7c1729087e5d40061b18bd690cd33b7"
     assert components["benchmarks"]["commit"] == "9ff889a5be1bbc48a16d69a27ab743c23598f7da"
     assert components["ui"] == {
         "artifacts": [],
