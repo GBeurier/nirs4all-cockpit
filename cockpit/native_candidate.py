@@ -25,6 +25,17 @@ COMMIT_RE = re.compile(r"[0-9a-f]{40}")
 TREE_RE = COMMIT_RE
 SHA256_RE = re.compile(r"sha256:[0-9a-f]{64}")
 VERSION_RE = re.compile(r"[0-9]+\.[0-9]+\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?")
+PROJECTED_WORK_ITEM_STATES = {
+    "API-004": "complete_local_native_full_transfer_plugin_finetune_refused",
+    "API-005": "complete_local_by_executable_preflight_refusal",
+    "CAP-001": "complete",
+    "DAG-001": "complete_local_code_release_hold",
+    "DOC-001": "complete_local_docs_release_hold",
+    "PERF-002": "advanced_local_evidence_not_closed",
+    "REL-003": "complete_local_code_release_hold",
+    "SEC-001": "advanced_local_evidence_not_closed",
+    "SOAK-001": "advanced_local_evidence_not_closed",
+}
 
 
 class CandidateError(RuntimeError):
@@ -99,6 +110,21 @@ def _governance_identity(evidence: dict[str, Any], *, key: str) -> dict[str, str
     if not isinstance(status, str) or not status:
         raise CandidateError(f"{key}: missing governance evidence status")
     return {"commit": commit, "tree": tree, "status": status}
+
+
+def _project_work_item_states(ledger: dict[str, Any]) -> dict[str, str]:
+    """Expose only selected final states, without leaking local ledger details."""
+    work_items = ledger.get("work_items")
+    if not isinstance(work_items, list):
+        raise CandidateError("migration work items are missing")
+    observed = {
+        item.get("id"): item.get("state")
+        for item in work_items
+        if isinstance(item, dict) and item.get("id") in PROJECTED_WORK_ITEM_STATES
+    }
+    if observed != PROJECTED_WORK_ITEM_STATES:
+        raise CandidateError("selected final work-item states diverge")
+    return dict(sorted(observed.items()))
 
 
 def build_projection(governance_repo: Path, governance_commit: str, workspace_root: Path) -> dict[str, Any]:
@@ -287,13 +313,34 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "limits": "Rejeu Archive V1/V2 qualifié sur les WASM finaux; aucune UI conformal n’est annoncée.",
         },
         {
+            "key": "python_retrain_modes",
+            "label": "Retrain Python R2",
+            "status": "qualified_bounded",
+            "surfaces": ["python"],
+            "limits": (
+                "Full omis route vers DAG-ML natif; transfer exige le plugin Python déclaré; "
+                "finetune et options inconnues sont refusés avant accès aux données."
+            ),
+        },
+        {
+            "key": "python_explain_generate",
+            "label": "Explain et generate Python",
+            "status": "qualified_bounded",
+            "surfaces": ["python"],
+            "limits": (
+                "Préflight exécutable qualifié: native et plugin non installé refusent sans effet; "
+                "implémentations historiques accessibles seulement par engine=legacy explicite."
+            ),
+        },
+        {
             "key": "full_python_api",
             "label": "Matrice complète API Python R2",
             "status": "not_qualified",
             "surfaces": ["python"],
             "limits": (
-                "run/predict/session/cache/retrain/finetune/conformal/robustness/"
-                "explain/generate et dual-Methods restent incomplets comme ensemble."
+                "run/predict/session/cache/conformal/robustness et les chemins dual-Methods "
+                "restent incomplets comme ensemble; les dispositions retrain/explain/generate "
+                "bornées sont listées séparément."
             ),
         },
         {
@@ -361,6 +408,7 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "threshold_passed": None,
             "release_eligible": benchmarks["release_eligible"],
         },
+        "work_item_states": _project_work_item_states(ledger),
         "migration": {
             "tool": "nirs4all-tools",
             "version": tools["version"],
@@ -472,6 +520,8 @@ def validate_projection(projection: Any) -> None:
             not isinstance(value, (int, float)) or value < 0 for value in values.values()
         ):
             raise CandidateError(f"{surface}: malformed performance timings")
+    if projection.get("work_item_states") != PROJECTED_WORK_ITEM_STATES:
+        raise CandidateError("selected work-item states are incomplete or overclaimed")
     components = projection.get("components")
     if not isinstance(components, list) or not components:
         raise CandidateError("candidate projection has no components")

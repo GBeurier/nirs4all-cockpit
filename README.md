@@ -210,7 +210,7 @@ falls back across `../data`, `./`, and `./data`.
 
 The dashboard also reads `data/native-candidate-staging.json`, the same bytes
 staged in `nirs4all-org`. It is generated from governance commit
-`e2d17cc80622894ba78e97fdd2bebf8c9970f3cb` and exact component Git objects.
+`cd1627f60a0fba6acaa22b7b1d726846a2da40dc` and exact component Git objects.
 This is deliberately separate from registry health and from the canonical
 release lock: it is `no_go`, `unpublished`, exposes no artifact or registry URL,
 and labels every component unavailable. The page therefore cannot be read as a
@@ -219,6 +219,8 @@ capability-governance witnesses, CUT-002's explicit-only structured warning and
 opt-in process-local counter, and the real four-surface WSL timings. Those
 timings are record-only: budgets are not frozen and no threshold or release
 qualification is claimed.
+The selected work-item projection distinguishes local bounded closures from
+SEC-001, SOAK-001 and PERF-002, which have advanced evidence but remain open.
 
 ---
 

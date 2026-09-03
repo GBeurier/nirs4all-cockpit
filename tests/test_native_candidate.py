@@ -20,7 +20,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     value = candidate()
     validate_projection(value)
     assert SNAPSHOT.read_text(encoding="utf-8") == render(value)
-    assert value["source"]["commit"] == "e2d17cc80622894ba78e97fdd2bebf8c9970f3cb"
+    assert value["source"]["commit"] == "cd1627f60a0fba6acaa22b7b1d726846a2da40dc"
     assert value["architecture"]["studio_control_plane"] == "rust_only"
     assert [item["code"] for item in value["migration"]["exit_codes"]] == [0, 10, 20]
     assert value["methods_documentation"]["mapped_pages"] == "209/209"
@@ -51,6 +51,17 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
             "web": {"startup": 97.81, "steady": 4.713},
         },
     }
+    assert value["work_item_states"] == {
+        "API-004": "complete_local_native_full_transfer_plugin_finetune_refused",
+        "API-005": "complete_local_by_executable_preflight_refusal",
+        "CAP-001": "complete",
+        "DAG-001": "complete_local_code_release_hold",
+        "DOC-001": "complete_local_docs_release_hold",
+        "PERF-002": "advanced_local_evidence_not_closed",
+        "REL-003": "complete_local_code_release_hold",
+        "SEC-001": "advanced_local_evidence_not_closed",
+        "SOAK-001": "advanced_local_evidence_not_closed",
+    }
 
 
 def test_candidate_refuses_publication_or_fabricated_artifacts() -> None:
@@ -72,6 +83,7 @@ def test_candidate_refuses_publication_or_fabricated_artifacts() -> None:
         (("cutover_observability", "implicit_fallback"), True, "CUT-002"),
         (("performance", "evidence_mode"), "qualified", "record-only"),
         (("performance", "threshold_passed"), True, "record-only"),
+        (("work_item_states", "SEC-001"), "complete", "work-item states"),
     ],
 )
 def test_candidate_refuses_incomplete_or_overclaimed_final_evidence(
