@@ -159,10 +159,14 @@ function isNativeCandidate(candidate) {
   if (!candidate || candidate.schema_version !== "n4a.native-candidate-staging/v1") return false;
   const r = candidate.release || {};
   if (r.status !== "no_go" || r.publication !== "unpublished" || r.canonical_lock_updated !== false || r.downloads_enabled !== false || r.registry_links_enabled !== false) return false;
+  const releaseTrain = candidate.release_train || {};
+  const milestones = releaseTrain.milestones || {};
+  if (releaseTrain.status !== "r1_r2_r3_distinct_candidates_r4_held" || releaseTrain.publication !== "unpublished") return false;
+  if (milestones.r1?.default_engine !== "legacy" || milestones.r2?.default_engine !== "native_with_explicit_legacy_opt_in" || milestones.r3?.default_engine !== "native_fail_closed_rust_only" || milestones.r4?.status !== "not_created_until_stable_gates_are_green") return false;
   const cutover = candidate.cutover_observability || {};
   if (cutover.work_item !== "CUT-002" || cutover.legacy_activation !== "explicit_legacy_or_dual_only" || cutover.warning_format !== "stable_structured_json" || cutover.counter_opt_in !== true || cutover.counter_scope !== "opt_in_process_local_non_persistent_intentional" || cutover.strict_paths_silent !== true || cutover.implicit_fallback !== false) return false;
   const performance = candidate.performance || {};
-  if (performance.evidence_mode !== "local_real_record_only" || performance.environment !== "wsl_local" || performance.surfaces_passed !== "4/4" || performance.fallback_observed !== false || performance.budgets_frozen !== false || performance.threshold_passed !== null || performance.release_eligible !== false) return false;
+  if (performance.evidence_mode !== "stale_not_current_evidence" || performance.report_scope !== "predates_distinct_r1_r2_r3_candidates" || performance.refresh_required !== true || performance.timings_ms !== null || performance.budgets_frozen !== false || performance.release_eligible !== false) return false;
   const governance = candidate.governance || {};
   if (!governance.ownership || !governance.capability_inventory) return false;
   const expectedWorkItems = {
@@ -180,14 +184,14 @@ function isNativeCandidate(candidate) {
     "SEC-001": "prepared_local_native_fuzz_harnesses_campaign_not_closed",
     "SOAK-001": "advanced_local_evidence_not_closed",
     "STU-006": "complete_local_code_external_release_hold",
-    "UI-001": "complete_local_code_registry_publication_hold",
+    "UI-001": "complete_registry_publication_downstream_product_hold",
     "WEB-001": "complete_local_code_release_hold",
     "WEBREL-001": "complete_local_staging_publication_hold",
   };
   if (JSON.stringify(candidate.work_item_states || {}) !== JSON.stringify(expectedWorkItems)) return false;
   const security = candidate.security_harnesses || {};
-  if (security.work_item !== "SEC-001" || security.evidence_status !== "three_native_targets_prepared_campaign_not_run" || !Array.isArray(security.harnesses) || security.harnesses.length !== 3) return false;
-  if (JSON.stringify(security.harnesses.map((item) => item && item.surface)) !== JSON.stringify(["formats", "core", "methods"])) return false;
+  if (security.work_item !== "SEC-001" || security.evidence_status !== "four_native_targets_prepared_campaign_not_run" || !Array.isArray(security.harnesses) || security.harnesses.length !== 4) return false;
+  if (JSON.stringify(security.harnesses.map((item) => item && item.surface)) !== JSON.stringify(["formats", "core", "methods", "studio_store"])) return false;
   if (!Array.isArray(candidate.components) || !candidate.components.length || !Array.isArray(candidate.capabilities)) return false;
   const componentKeys = candidate.components.map((component) => component && component.key).sort();
   if (JSON.stringify(componentKeys) !== JSON.stringify(["benchmarks", "core", "dag_ml", "dag_ml_data", "datasets", "formats", "io", "methods", "python", "studio", "tools", "ui", "web"])) return false;
@@ -216,6 +220,17 @@ function renderNativeCandidate(candidate) {
   }
   notice.textContent = candidate.release.notice;
   source.replaceChildren(`Governance ledger ${candidate.source.commit.slice(0, 12)} · tree ${candidate.source.tree.slice(0, 12)} · ${candidate.source.ledger_sha256}. Canonical release lock unchanged; no candidate commit link is implied published.`);
+
+  const releaseTrain = candidate.release_train;
+  const releaseTrainBox = document.getElementById("candidate-release-train");
+  releaseTrainBox.replaceChildren();
+  ["r1", "r2", "r3"].forEach((key) => {
+    const milestone = releaseTrain.milestones[key];
+    releaseTrainBox.appendChild(el("p", {
+      text: `${key.toUpperCase()}: Python ${milestone.python_version} @ ${milestone.python_commit.slice(0, 12)} · Studio ${milestone.studio_version} @ ${milestone.studio_commit.slice(0, 12)} · ${milestone.default_engine}.`,
+    }));
+  });
+  releaseTrainBox.appendChild(el("p", { text: "R4/V1 stable is not created until all stable gates are green." }));
 
   const architecture = document.getElementById("candidate-architecture");
   architecture.replaceChildren();
@@ -255,13 +270,9 @@ function renderNativeCandidate(candidate) {
   );
 
   const performance = candidate.performance;
-  const performanceRows = Object.entries(performance.timings_ms).map(([surface, timings]) =>
-    `${surface}: startup ${timings.startup.toFixed(3)} ms · steady ${timings.steady.toFixed(3)} ms`
-  );
   document.getElementById("candidate-performance").replaceChildren(
-    el("p", { text: `WSL local_real ${performance.surfaces_passed} · max prediction delta ${performance.maximum_prediction_delta} · fallback false.` }),
-    el("p", { text: "Record-only: budgets are not frozen, no threshold is claimed passed and this is not release evidence." }),
-    el("p", { class: "mono", text: performanceRows.join(" | ") }),
+    el("p", { text: "The available Bench report predates the distinct R1/R2/R3 candidates and is not current release evidence." }),
+    el("p", { text: "A fresh four-runtime measurement, frozen budgets and soak remain required." }),
   );
 
   const workItems = candidate.work_item_states;
@@ -274,7 +285,7 @@ function renderNativeCandidate(candidate) {
     el("p", { text: `Closed locally, release held: ${closed.map(([id]) => id).join(", ")}.` }),
     el("p", { text: `Prepared but not closed: ${prepared.map(([id]) => id).join(", ")}.` }),
     el("p", { text: `Advanced but not closed: ${advanced.map(([id]) => id).join(", ")}.` }),
-    el("p", { text: `SEC-001: 3 bounded native harnesses prepared (${securityTargets}); no fuzz campaign has run and the Studio Store target is absent.` }),
+    el("p", { text: `SEC-001: 4 bounded native harnesses prepared (${securityTargets}); no fuzz campaign has run.` }),
     el("p", { text: "These states do not change the canonical lock or the global NO-GO." }),
   );
 

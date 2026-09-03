@@ -20,7 +20,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     value = candidate()
     validate_projection(value)
     assert SNAPSHOT.read_text(encoding="utf-8") == render(value)
-    assert value["source"]["commit"] == "8aa4540a6b97b9e6cb8facf2f3a189f0d62f1e1b"
+    assert value["source"]["commit"] == "da42879f1dfbca784d1bd1b31abd18fcf437dbcf"
     assert value["architecture"]["studio_control_plane"] == "rust_only"
     assert [item["code"] for item in value["migration"]["exit_codes"]] == [0, 10, 20]
     assert value["methods_documentation"]["mapped_pages"] == "209/209"
@@ -28,8 +28,12 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
         "qualified_local",
         "qualified_bounded",
         "not_qualified",
-        "record_only",
+        "stale_not_current_evidence",
     }
+    assert value["release_train"]["milestones"]["r1"]["default_engine"] == "legacy"
+    assert value["release_train"]["milestones"]["r3"]["studio_commit"] == (
+        "aa84efc02cf89df6f87278777dc8df9b43ee8df3"
+    )
     assert value["governance"]["ownership"]["commit"] == "fe17a3f939f9fb95c8ed1e068138c72ceac92890"
     assert value["governance"]["capability_inventory"]["commit"] == "cf6cd1d96c12d7043134ab0a7b4f593e19ec553b"
     assert value["cutover_observability"]["implicit_fallback"] is False
@@ -37,19 +41,11 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     assert value["performance"] == {
         "budgets_frozen": False,
         "contract": "archive_v2_same_matrix_four_surfaces",
-        "environment": "wsl_local",
-        "evidence_mode": "local_real_record_only",
-        "fallback_observed": False,
-        "maximum_prediction_delta": 0,
+        "evidence_mode": "stale_not_current_evidence",
+        "refresh_required": True,
         "release_eligible": False,
-        "surfaces_passed": "4/4",
-        "threshold_passed": None,
-        "timings_ms": {
-            "python": {"startup": 1067.573, "steady": 28.026},
-            "rust": {"startup": 38.148, "steady": 18.244},
-            "studio": {"startup": 75.621, "steady": 24.771},
-            "web": {"startup": 97.81, "steady": 4.713},
-        },
+        "report_scope": "predates_distinct_r1_r2_r3_candidates",
+        "timings_ms": None,
     }
     assert value["security_harnesses"]["evidence_status"] == "four_native_targets_prepared_campaign_not_run"
     assert [item["surface"] for item in value["security_harnesses"]["harnesses"]] == [
@@ -60,17 +56,17 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     ]
     assert "no fuzz campaign has run" in value["security_harnesses"]["release_limit"]
     components = {item["key"]: item for item in value["components"]}
-    assert components["studio"]["commit"] == "bb66016cf4f7578543cdc294713011881b884969"
-    assert components["web"]["commit"] == "dbbbcaeaf5f0d0da35a5242f21e234ba92c67cf8"
-    assert components["benchmarks"]["commit"] == "9aab2e13513b4e0a5a699a11ebc70f2bd00f10fb"
+    assert components["studio"]["commit"] == "aa84efc02cf89df6f87278777dc8df9b43ee8df3"
+    assert components["web"]["commit"] == "146e3e4632807d28c81031070fb1523b2ff13359"
+    assert components["benchmarks"]["commit"] == "9ff889a5be1bbc48a16d69a27ab743c23598f7da"
     assert components["ui"] == {
         "artifacts": [],
         "commit": "406d94d70004f27459ef12347af1e6f0079ab6ac",
-        "detail_versions": {"registry_latest_observed": "0.1.12"},
+        "detail_versions": {"registry_latest_observed": "0.1.13"},
         "key": "ui",
         "name": "nirs4all-ui",
         "publication": "unavailable",
-        "qualification": "locally_qualified_shared_tarball_registry_publication_hold",
+        "qualification": "published_0_1_13_downstream_product_release_hold",
         "registry_urls": [],
         "repository_url": "https://github.com/GBeurier/nirs4all-ui",
         "tree": "377722160bbf188c474aacfecc8a6825095be2ca",
@@ -91,7 +87,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
         "SEC-001": "prepared_local_native_fuzz_harnesses_campaign_not_closed",
         "SOAK-001": "advanced_local_evidence_not_closed",
         "STU-006": "complete_local_code_external_release_hold",
-        "UI-001": "complete_local_code_registry_publication_hold",
+        "UI-001": "complete_registry_publication_downstream_product_hold",
         "WEB-001": "complete_local_code_release_hold",
         "WEBREL-001": "complete_local_staging_publication_hold",
     }
@@ -114,8 +110,8 @@ def test_candidate_refuses_publication_or_fabricated_artifacts() -> None:
     [
         (("governance", "ownership", "commit"), "unknown", "governance identity"),
         (("cutover_observability", "implicit_fallback"), True, "CUT-002"),
-        (("performance", "evidence_mode"), "qualified", "record-only"),
-        (("performance", "threshold_passed"), True, "record-only"),
+        (("performance", "evidence_mode"), "qualified", "stale"),
+        (("performance", "refresh_required"), False, "stale"),
         (("work_item_states", "SEC-001"), "complete", "work-item states"),
         (("security_harnesses", "evidence_status"), "qualified", "SEC-001"),
     ],

@@ -40,7 +40,7 @@ PROJECTED_WORK_ITEM_STATES = {
     "SEC-001": "prepared_local_native_fuzz_harnesses_campaign_not_closed",
     "SOAK-001": "advanced_local_evidence_not_closed",
     "STU-006": "complete_local_code_external_release_hold",
-    "UI-001": "complete_local_code_registry_publication_hold",
+    "UI-001": "complete_registry_publication_downstream_product_hold",
     "WEB-001": "complete_local_code_release_hold",
     "WEBREL-001": "complete_local_staging_publication_hold",
 }
@@ -200,6 +200,78 @@ def _project_security_harnesses(evidence: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _project_release_train(evidence: dict[str, Any]) -> dict[str, Any]:
+    """Project the distinct product candidates without implying a stable release."""
+    sequence = evidence.get("product_release_sequence")
+    if not isinstance(sequence, dict):
+        raise CandidateError("product release sequence is missing")
+    if sequence.get("status") != "r1_r2_r3_distinct_remote_candidates_r4_held":
+        raise CandidateError("product release sequence is not the held R1/R2/R3 train")
+    if sequence.get("required_order") != (
+        "r1_0_13_0_then_r2_1_0_0_rc_1_then_r3_1_0_0_rc_2_then_r4_1_0_0"
+    ):
+        raise CandidateError("product release order diverges")
+
+    raw_milestones = sequence.get("milestones")
+    if not isinstance(raw_milestones, dict) or set(raw_milestones) != {"r1", "r2", "r3", "r4"}:
+        raise CandidateError("product release milestones are incomplete")
+    engine_profiles = {
+        "r1": ("legacy", "fastapi_desktop_with_explicit_rust_sidecar_qualification", "legacy"),
+        "r2": (
+            "native",
+            "dag_ml_default_explicit_opt_in_legacy_fallback_packaged",
+            "native_with_explicit_legacy_opt_in",
+        ),
+        "r3": (
+            "native_fail_closed",
+            "rust_only_fail_closed_cpython_plugin_host_only",
+            "native_fail_closed_rust_only",
+        ),
+    }
+    milestones: dict[str, Any] = {}
+    for key, (default_engine, control_plane, public_engine) in engine_profiles.items():
+        raw = raw_milestones.get(key)
+        if not isinstance(raw, dict):
+            raise CandidateError(f"{key}: product milestone is missing")
+        if raw.get("default_engine") != default_engine or raw.get("studio_control_plane") != control_plane:
+            raise CandidateError(f"{key}: product runtime profile diverges")
+        for field in ("commit", "tree", "studio_commit", "studio_tree"):
+            if not COMMIT_RE.fullmatch(raw.get(field, "")):
+                raise CandidateError(f"{key}: malformed {field}")
+        for field in ("version", "studio_version"):
+            if not VERSION_RE.fullmatch(raw.get(field, "")):
+                raise CandidateError(f"{key}: malformed {field}")
+        milestones[key] = {
+            "python_version": raw["version"],
+            "python_commit": raw["commit"],
+            "python_tree": raw["tree"],
+            "studio_version": raw["studio_version"],
+            "studio_commit": raw["studio_commit"],
+            "studio_tree": raw["studio_tree"],
+            "default_engine": public_engine,
+        }
+
+    r1 = raw_milestones["r1"]
+    if r1.get("publication_status") != "publication_in_progress_repair_candidate_prepared":
+        raise CandidateError("R1 publication must remain explicitly in progress")
+    if not COMMIT_RE.fullmatch(r1.get("publication_repair_commit", "")) or not TREE_RE.fullmatch(
+        r1.get("publication_repair_tree", "")
+    ):
+        raise CandidateError("R1 publication repair identity is incomplete")
+    r4 = raw_milestones["r4"]
+    if r4 != {"version": "1.0.0", "status": "not_created_until_all_stable_gates_are_green"}:
+        raise CandidateError("R4 must remain absent until all stable gates are green")
+    milestones["r4"] = {
+        "python_version": "1.0.0",
+        "status": "not_created_until_stable_gates_are_green",
+    }
+    return {
+        "status": "r1_r2_r3_distinct_candidates_r4_held",
+        "publication": "unpublished",
+        "milestones": milestones,
+    }
+
+
 def build_projection(governance_repo: Path, governance_commit: str, workspace_root: Path) -> dict[str, Any]:
     """Build a deterministic staging projection from one exact ledger commit."""
     if not COMMIT_RE.fullmatch(governance_commit):
@@ -214,8 +286,10 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
     evidence = ledger.get("current_candidate_evidence")
     if not isinstance(evidence, dict):
         raise CandidateError("candidate evidence block is missing")
-    if any(
-        evidence.get(field) != "no_go" for field in ("promotion_status", "publication_status", "release_gate_status")
+    if (
+        evidence.get("promotion_status") != "no_go"
+        or evidence.get("publication_status") != "component_train_published_product_train_incomplete_no_go"
+        or evidence.get("release_gate_status") != "no_go"
     ):
         raise CandidateError("candidate must remain NO-GO in staging")
     canonical_lock = evidence.get("canonical_release_lock")
@@ -372,7 +446,7 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "label": "DatasetPackage Rust vers plan de données",
             "status": "qualified_local",
             "surfaces": ["io"],
-            "limits": "Candidat local résolu sur le patch dag-ml-data 0.2.10 encore publish=false.",
+            "limits": "IO 0.1.13 et dag-ml-data 0.2.10 sont publiés; les matrices externes restent requises.",
         },
         {
             "key": "conformal",
@@ -445,12 +519,12 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
         },
         {
             "key": "four_surface_performance",
-            "label": "Performance sur quatre surfaces",
-            "status": "record_only",
+            "label": "Performance sur le train courant",
+            "status": "stale_not_current_evidence",
             "surfaces": ["benchmarks"],
             "limits": (
-                "Mesure local_real WSL 4/4 enregistrée sans seuil; harness de soak borné prêt mais sans "
-                "campagne soutenue, budgets gelés ni qualification release."
+                "Le rapport Bench disponible précède les candidats R1/R2/R3 distincts. Il reste historique "
+                "et ne constitue pas une preuve courante; nouvelle mesure et soak requis."
             ),
         },
     ]
@@ -472,10 +546,11 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "downloads_enabled": False,
             "registry_links_enabled": False,
             "notice": (
-                "Candidat local strictement NO-GO et non publié; "
-                "aucune V1 stable ni aucun artefact n’est publié."
+                "Candidat produit strictement NO-GO; les composants natifs et Web 0.1.9 sont publiés, "
+                "mais R1 reste en cours, Studio reste non publié et aucune V1 stable n’est annoncée."
             ),
         },
+        "release_train": _project_release_train(evidence),
         "architecture": {
             "studio_control_plane": "rust_only",
             "embedded_cpython": "bounded_attested_stdio_library_plugin_host",
@@ -498,15 +573,12 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "ownership": _governance_identity(ownership_governance, key="ownership_governance"),
         },
         "performance": {
-            "evidence_mode": "local_real_record_only",
-            "environment": "wsl_local",
+            "evidence_mode": "stale_not_current_evidence",
             "contract": benchmarks["performance_contract"],
-            "surfaces_passed": benchmarks["local_real_surfaces_passed"],
-            "maximum_prediction_delta": benchmarks["maximum_prediction_delta"],
-            "fallback_observed": benchmarks["fallback_observed"],
-            "timings_ms": benchmarks["timings_ms"],
+            "report_scope": "predates_distinct_r1_r2_r3_candidates",
+            "refresh_required": True,
+            "timings_ms": None,
             "budgets_frozen": False,
-            "threshold_passed": None,
             "release_eligible": benchmarks["release_eligible"],
         },
         "security_harnesses": _project_security_harnesses(evidence),
@@ -562,10 +634,41 @@ def validate_projection(projection: Any) -> None:
         "canonical_lock_updated": False,
         "downloads_enabled": False,
         "registry_links_enabled": False,
-        "notice": "Candidat local strictement NO-GO et non publié; aucune V1 stable ni aucun artefact n’est publié.",
+        "notice": (
+            "Candidat produit strictement NO-GO; les composants natifs et Web 0.1.9 sont publiés, "
+            "mais R1 reste en cours, Studio reste non publié et aucune V1 stable n’est annoncée."
+        ),
     }
     if release != expected_release:
         raise CandidateError("candidate projection must remain unpublished and NO-GO")
+    release_train = projection.get("release_train")
+    if not isinstance(release_train, dict) or release_train.get("status") != (
+        "r1_r2_r3_distinct_candidates_r4_held"
+    ) or release_train.get("publication") != "unpublished":
+        raise CandidateError("candidate release train must remain distinct and unpublished")
+    milestones = release_train.get("milestones")
+    if not isinstance(milestones, dict) or set(milestones) != {"r1", "r2", "r3", "r4"}:
+        raise CandidateError("candidate release milestones are incomplete")
+    expected_engines = {
+        "r1": "legacy",
+        "r2": "native_with_explicit_legacy_opt_in",
+        "r3": "native_fail_closed_rust_only",
+    }
+    for key, expected_engine in expected_engines.items():
+        milestone = milestones.get(key)
+        if not isinstance(milestone, dict) or milestone.get("default_engine") != expected_engine:
+            raise CandidateError(f"{key}: candidate runtime profile diverges")
+        if any(not COMMIT_RE.fullmatch(milestone.get(field, "")) for field in (
+            "python_commit", "python_tree", "studio_commit", "studio_tree"
+        )) or any(not VERSION_RE.fullmatch(milestone.get(field, "")) for field in (
+            "python_version", "studio_version"
+        )):
+            raise CandidateError(f"{key}: candidate release identity is malformed")
+    if milestones.get("r4") != {
+        "python_version": "1.0.0",
+        "status": "not_created_until_stable_gates_are_green",
+    }:
+        raise CandidateError("R4 must remain absent until stable gates are green")
     governance = projection.get("governance")
     expected_governance_statuses = {
         "capability_inventory": "exhaustive_candidate_inventory_complete_no_go",
@@ -598,30 +701,15 @@ def validate_projection(projection: Any) -> None:
     if not isinstance(performance, dict):
         raise CandidateError("performance evidence is missing")
     if (
-        performance.get("evidence_mode") != "local_real_record_only"
-        or performance.get("environment") != "wsl_local"
+        performance.get("evidence_mode") != "stale_not_current_evidence"
         or performance.get("contract") != "archive_v2_same_matrix_four_surfaces"
-        or performance.get("surfaces_passed") != "4/4"
-        or performance.get("fallback_observed") is not False
+        or performance.get("report_scope") != "predates_distinct_r1_r2_r3_candidates"
+        or performance.get("refresh_required") is not True
+        or performance.get("timings_ms") is not None
         or performance.get("budgets_frozen") is not False
-        or performance.get("threshold_passed") is not None
         or performance.get("release_eligible") is not False
     ):
-        raise CandidateError("performance evidence must remain WSL-local, record-only and release-ineligible")
-    delta = performance.get("maximum_prediction_delta")
-    timings = performance.get("timings_ms")
-    if not isinstance(delta, (int, float)) or delta < 0 or not isinstance(timings, dict) or set(timings) != {
-        "python",
-        "rust",
-        "studio",
-        "web",
-    }:
-        raise CandidateError("performance measurement is incomplete")
-    for surface, values in timings.items():
-        if not isinstance(values, dict) or set(values) != {"startup", "steady"} or any(
-            not isinstance(value, (int, float)) or value < 0 for value in values.values()
-        ):
-            raise CandidateError(f"{surface}: malformed performance timings")
+        raise CandidateError("performance evidence must remain stale, refresh-required and release-ineligible")
     if projection.get("work_item_states") != PROJECTED_WORK_ITEM_STATES:
         raise CandidateError("selected work-item states are incomplete or overclaimed")
     security = projection.get("security_harnesses")
@@ -686,8 +774,10 @@ def validate_projection(projection: Any) -> None:
         for capability in capabilities or []
         if isinstance(capability, dict) and capability.get("key") == "four_surface_performance"
     ]
-    if len(performance_capabilities) != 1 or performance_capabilities[0].get("status") != "record_only":
-        raise CandidateError("performance capability must remain record-only")
+    if len(performance_capabilities) != 1 or performance_capabilities[0].get("status") != (
+        "stale_not_current_evidence"
+    ):
+        raise CandidateError("performance capability must remain stale and non-current")
     serialized = render(projection).lower()
     for fragment in ("/home/", "/dev/shm/", "_worktrees", "localhost", "browser_download_url"):
         if fragment in serialized:
