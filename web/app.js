@@ -159,6 +159,12 @@ function isNativeCandidate(candidate) {
   if (!candidate || candidate.schema_version !== "n4a.native-candidate-staging/v1") return false;
   const r = candidate.release || {};
   if (r.status !== "no_go" || r.publication !== "unpublished" || r.canonical_lock_updated !== false || r.downloads_enabled !== false || r.registry_links_enabled !== false) return false;
+  const cutover = candidate.cutover_observability || {};
+  if (cutover.work_item !== "CUT-002" || cutover.legacy_activation !== "explicit_legacy_or_dual_only" || cutover.warning_format !== "stable_structured_json" || cutover.counter_opt_in !== true || cutover.counter_scope !== "opt_in_process_local_non_persistent_intentional" || cutover.strict_paths_silent !== true || cutover.implicit_fallback !== false) return false;
+  const performance = candidate.performance || {};
+  if (performance.evidence_mode !== "local_real_record_only" || performance.environment !== "wsl_local" || performance.surfaces_passed !== "4/4" || performance.fallback_observed !== false || performance.budgets_frozen !== false || performance.threshold_passed !== null || performance.release_eligible !== false) return false;
+  const governance = candidate.governance || {};
+  if (!governance.ownership || !governance.capability_inventory) return false;
   if (!Array.isArray(candidate.components) || !candidate.components.length || !Array.isArray(candidate.capabilities)) return false;
   return candidate.components.every((component) =>
     component && /^[0-9a-f]{40}$/.test(component.commit || "") && /^[0-9a-f]{40}$/.test(component.tree || "") &&
@@ -180,12 +186,11 @@ function renderNativeCandidate(candidate) {
   const notice = document.getElementById("candidate-notice");
   const source = document.getElementById("candidate-source");
   if (!isNativeCandidate(candidate)) {
-    notice.textContent = "Publication in progress — invalid candidate data; no download is exposed.";
+    notice.textContent = "Invalid candidate data — NO-GO; no download is exposed.";
     return;
   }
   notice.textContent = candidate.release.notice;
-  const sourceLink = el("a", { text: candidate.source.commit.slice(0, 12), attrs: { href: `${candidate.source.repository_url}/commit/${candidate.source.commit}`, target: "_blank", rel: "noopener" } });
-  source.replaceChildren("Governance ledger ", sourceLink, ` · tree ${candidate.source.tree.slice(0, 12)} · ${candidate.source.ledger_sha256}. Canonical release lock unchanged.`);
+  source.replaceChildren(`Governance ledger ${candidate.source.commit.slice(0, 12)} · tree ${candidate.source.tree.slice(0, 12)} · ${candidate.source.ledger_sha256}. Canonical release lock unchanged; no candidate commit link is implied published.`);
 
   const architecture = document.getElementById("candidate-architecture");
   architecture.replaceChildren();
@@ -209,6 +214,31 @@ function renderNativeCandidate(candidate) {
     el("p", { class: "mono", text: `docs ${docs.commit.slice(0, 12)} · tree ${docs.tree.slice(0, 12)} · publication pending` }),
   );
 
+  const cutover = candidate.cutover_observability;
+  document.getElementById("candidate-cutover").replaceChildren(
+    el("p", { text: "Explicit legacy/dual activation emits a stable structured JSON warning; default/native/strict paths stay silent." }),
+    el("p", { text: "The usage counter is opt-in, process-local and intentionally non-persistent. No exception fallback exists." }),
+    el("p", { class: "mono", text: `evidence ${cutover.evidence_commit.slice(0, 12)}` }),
+  );
+
+  const governance = candidate.governance;
+  document.getElementById("candidate-governance").replaceChildren(
+    el("p", { text: `Ownership lanes: ${governance.ownership.status}.` }),
+    el("p", { class: "mono", text: `${governance.ownership.commit.slice(0, 12)} · tree ${governance.ownership.tree.slice(0, 12)}` }),
+    el("p", { text: `Capability inventory: ${governance.capability_inventory.status}.` }),
+    el("p", { class: "mono", text: `${governance.capability_inventory.commit.slice(0, 12)} · tree ${governance.capability_inventory.tree.slice(0, 12)}` }),
+  );
+
+  const performance = candidate.performance;
+  const performanceRows = Object.entries(performance.timings_ms).map(([surface, timings]) =>
+    `${surface}: startup ${timings.startup.toFixed(3)} ms · steady ${timings.steady.toFixed(3)} ms`
+  );
+  document.getElementById("candidate-performance").replaceChildren(
+    el("p", { text: `WSL local_real ${performance.surfaces_passed} · max prediction delta ${performance.maximum_prediction_delta} · fallback false.` }),
+    el("p", { text: "Record-only: budgets are not frozen, no threshold is claimed passed and this is not release evidence." }),
+    el("p", { class: "mono", text: performanceRows.join(" | ") }),
+  );
+
   const [capTable, capBody] = candidateTable(["capability", "status", "qualified surfaces", "limits"], "Qualified and explicitly limited native candidate capabilities");
   candidate.capabilities.forEach((capability) => {
     const row = el("tr");
@@ -226,11 +256,10 @@ function renderNativeCandidate(candidate) {
   candidate.components.forEach((component) => {
     const row = el("tr");
     const repo = el("a", { text: component.name, attrs: { href: component.repository_url, target: "_blank", rel: "noopener" } });
-    const commit = el("a", { text: component.commit.slice(0, 12), attrs: { href: `${component.repository_url}/commit/${component.commit}`, target: "_blank", rel: "noopener" } });
     row.append(
       el("th", { class: "s-repo", attrs: { scope: "row" } }, [repo]),
       el("td", { class: "mono", text: component.version }),
-      el("td", { class: "mono" }, [commit]),
+      el("td", { class: "mono", text: component.commit.slice(0, 12) }),
       el("td", { class: "mono", text: component.tree.slice(0, 12) }),
       el("td", {}, [el("span", { class: "candidate-badge candidate-badge--unavailable", text: "unavailable" })]),
     );

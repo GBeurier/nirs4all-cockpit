@@ -87,6 +87,20 @@ def _identity(
     }
 
 
+def _governance_identity(evidence: dict[str, Any], *, key: str) -> dict[str, str]:
+    """Project one local governance witness without implying publication."""
+    commit = evidence.get("commit")
+    tree = evidence.get("tree")
+    status = evidence.get("evidence_status")
+    if not isinstance(commit, str) or not COMMIT_RE.fullmatch(commit):
+        raise CandidateError(f"{key}: missing exact governance commit")
+    if not isinstance(tree, str) or not TREE_RE.fullmatch(tree):
+        raise CandidateError(f"{key}: missing exact governance tree")
+    if not isinstance(status, str) or not status:
+        raise CandidateError(f"{key}: missing governance evidence status")
+    return {"commit": commit, "tree": tree, "status": status}
+
+
 def build_projection(governance_repo: Path, governance_commit: str, workspace_root: Path) -> dict[str, Any]:
     """Build a deterministic staging projection from one exact ledger commit."""
     if not COMMIT_RE.fullmatch(governance_commit):
@@ -121,6 +135,8 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
     studio = evidence["studio"]
     web = evidence["web"]
     benchmarks = evidence["benchmarks"]
+    capability_governance = evidence["capability_governance"]
+    ownership_governance = evidence["ownership_governance"]
 
     python_version = _version_at(
         workspace_root / "nirs4all",
@@ -283,9 +299,11 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
         {
             "key": "four_surface_performance",
             "label": "Performance sur quatre surfaces",
-            "status": "fixture_only",
+            "status": "record_only",
             "surfaces": ["benchmarks"],
-            "limits": "Contrat fixture 4/4 seulement; aucune qualification performance ou budget non-WSL.",
+            "limits": (
+                "Mesure local_real WSL 4/4 enregistrée sans seuil; budgets non gelés et aucune qualification release."
+            ),
         },
     ]
 
@@ -305,7 +323,10 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "canonical_lock_updated": False,
             "downloads_enabled": False,
             "registry_links_enabled": False,
-            "notice": "Publication en cours — candidat local NO-GO; aucune V1 stable ni aucun artefact n’est publié.",
+            "notice": (
+                "Candidat local strictement NO-GO et non publié; "
+                "aucune V1 stable ni aucun artefact n’est publié."
+            ),
         },
         "architecture": {
             "studio_control_plane": "rust_only",
@@ -313,6 +334,32 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "python_forbidden_roles": ["http_server", "scheduler", "store", "listener", "fallback"],
             "web_runtime": "client_side_wasm_only",
             "legacy_profile": "explicit_engine_legacy_through_r4_unreachable_from_strict_product_paths",
+        },
+        "cutover_observability": {
+            "work_item": "CUT-002",
+            "legacy_activation": "explicit_legacy_or_dual_only",
+            "warning_format": "stable_structured_json",
+            "counter_scope": python["legacy_usage_counter_scope"],
+            "counter_opt_in": True,
+            "strict_paths_silent": True,
+            "implicit_fallback": False,
+            "evidence_commit": python["legacy_usage_observability_commit"],
+        },
+        "governance": {
+            "capability_inventory": _governance_identity(capability_governance, key="capability_governance"),
+            "ownership": _governance_identity(ownership_governance, key="ownership_governance"),
+        },
+        "performance": {
+            "evidence_mode": "local_real_record_only",
+            "environment": "wsl_local",
+            "contract": benchmarks["performance_contract"],
+            "surfaces_passed": benchmarks["local_real_surfaces_passed"],
+            "maximum_prediction_delta": benchmarks["maximum_prediction_delta"],
+            "fallback_observed": benchmarks["fallback_observed"],
+            "timings_ms": benchmarks["timings_ms"],
+            "budgets_frozen": False,
+            "threshold_passed": None,
+            "release_eligible": benchmarks["release_eligible"],
         },
         "migration": {
             "tool": "nirs4all-tools",
@@ -365,10 +412,66 @@ def validate_projection(projection: Any) -> None:
         "canonical_lock_updated": False,
         "downloads_enabled": False,
         "registry_links_enabled": False,
-        "notice": "Publication en cours — candidat local NO-GO; aucune V1 stable ni aucun artefact n’est publié.",
+        "notice": "Candidat local strictement NO-GO et non publié; aucune V1 stable ni aucun artefact n’est publié.",
     }
     if release != expected_release:
         raise CandidateError("candidate projection must remain unpublished and NO-GO")
+    governance = projection.get("governance")
+    expected_governance_statuses = {
+        "capability_inventory": "exhaustive_candidate_inventory_complete_no_go",
+        "ownership": "lanes_and_handoffs_complete_local",
+    }
+    if not isinstance(governance, dict) or set(governance) != set(expected_governance_statuses):
+        raise CandidateError("candidate governance evidence is incomplete")
+    for key, witness in governance.items():
+        if not isinstance(witness, dict):
+            raise CandidateError(f"{key}: malformed governance evidence")
+        if not COMMIT_RE.fullmatch(witness.get("commit", "")) or not TREE_RE.fullmatch(witness.get("tree", "")):
+            raise CandidateError(f"{key}: malformed governance identity")
+        if witness.get("status") != expected_governance_statuses[key]:
+            raise CandidateError(f"{key}: unsafe governance status")
+    expected_cutover = {
+        "work_item": "CUT-002",
+        "legacy_activation": "explicit_legacy_or_dual_only",
+        "warning_format": "stable_structured_json",
+        "counter_scope": "opt_in_process_local_non_persistent_intentional",
+        "counter_opt_in": True,
+        "strict_paths_silent": True,
+        "implicit_fallback": False,
+    }
+    cutover = projection.get("cutover_observability")
+    if not isinstance(cutover, dict) or {
+        key: cutover.get(key) for key in expected_cutover
+    } != expected_cutover or not COMMIT_RE.fullmatch(cutover.get("evidence_commit", "")):
+        raise CandidateError("CUT-002 observability evidence is incomplete or unsafe")
+    performance = projection.get("performance")
+    if not isinstance(performance, dict):
+        raise CandidateError("performance evidence is missing")
+    if (
+        performance.get("evidence_mode") != "local_real_record_only"
+        or performance.get("environment") != "wsl_local"
+        or performance.get("contract") != "archive_v2_same_matrix_four_surfaces"
+        or performance.get("surfaces_passed") != "4/4"
+        or performance.get("fallback_observed") is not False
+        or performance.get("budgets_frozen") is not False
+        or performance.get("threshold_passed") is not None
+        or performance.get("release_eligible") is not False
+    ):
+        raise CandidateError("performance evidence must remain WSL-local, record-only and release-ineligible")
+    delta = performance.get("maximum_prediction_delta")
+    timings = performance.get("timings_ms")
+    if not isinstance(delta, (int, float)) or delta < 0 or not isinstance(timings, dict) or set(timings) != {
+        "python",
+        "rust",
+        "studio",
+        "web",
+    }:
+        raise CandidateError("performance measurement is incomplete")
+    for surface, values in timings.items():
+        if not isinstance(values, dict) or set(values) != {"startup", "steady"} or any(
+            not isinstance(value, (int, float)) or value < 0 for value in values.values()
+        ):
+            raise CandidateError(f"{surface}: malformed performance timings")
     components = projection.get("components")
     if not isinstance(components, list) or not components:
         raise CandidateError("candidate projection has no components")
@@ -393,6 +496,14 @@ def validate_projection(projection: Any) -> None:
         url = component.get("repository_url", "")
         if not re.fullmatch(r"https://github\.com/GBeurier/[A-Za-z0-9_.-]+", url):
             raise CandidateError(f"{key}: unsafe repository URL")
+    capabilities = projection.get("capabilities")
+    performance_capabilities = [
+        capability
+        for capability in capabilities or []
+        if isinstance(capability, dict) and capability.get("key") == "four_surface_performance"
+    ]
+    if len(performance_capabilities) != 1 or performance_capabilities[0].get("status") != "record_only":
+        raise CandidateError("performance capability must remain record-only")
     serialized = render(projection).lower()
     for fragment in ("/home/", "/dev/shm/", "_worktrees", "localhost", "browser_download_url"):
         if fragment in serialized:
