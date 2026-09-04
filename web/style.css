@@ -289,7 +289,7 @@ section.block { margin: 0 0 34px; }
 .migration-codes dt { font: 700 .78rem var(--mono); color: var(--text); }
 .migration-codes dd { margin: 0; font-size: .78rem; color: var(--muted); }
 .candidate-badge { display: inline-flex; padding: 3px 7px; border-radius: 999px; font: 700 .64rem var(--mono); white-space: nowrap; color: #065f46; background: #d1fae5; }
-.candidate-badge--partial, .candidate-badge--qualified_bounded, .candidate-badge--fixture_only, .candidate-badge--record_only, .candidate-badge--stale_not_current_evidence { color: #854d0e; background: #fef3c7; }
+.candidate-badge--partial, .candidate-badge--qualified_bounded, .candidate-badge--fixture_only, .candidate-badge--record_only, .candidate-badge--bounded_current_not_release_evidence { color: #854d0e; background: #fef3c7; }
 .candidate-badge--not_qualified, .candidate-badge--unavailable { color: #991b1b; background: #fee2e2; }
 @media (max-width: 900px) { .candidate-columns { grid-template-columns: 1fr; } }
 .stats { width: 100%; border-collapse: collapse; font-size: 0.82rem; }

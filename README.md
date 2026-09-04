@@ -15,7 +15,7 @@ logic.** Every verdict is derived from public, read-only registry/CI/issue
 signals declared in `ops/targets.yaml`.
 
 Current transition note: R1 0.13.0 and Web 0.1.10 are published, with Web
-deployed. R1 keeps the legacy engine as its default; R2, R3 and Studio R3
+deployed. R1 keeps the legacy engine as its default; R2, R3, R4 and Studio R3
 0.11.0 remain unpublished, and Studio remains unsigned. `LOCK-RELEASE`
 therefore remains NO-GO and this is not a stable V1 announcement.
 
@@ -215,22 +215,21 @@ falls back across `../data`, `./`, and `./data`.
 
 The dashboard also reads `data/native-candidate-staging.json`, the same bytes
 staged in `nirs4all-org`. It is generated from governance commit
-`091b8a0f3069e7a90167f78c81bb9d414c50ade5` and exact component Git objects.
+`2d6ae20855b6eb960df07106b00d9b879238229e` and exact component Git objects.
 This is deliberately separate from registry health and from the canonical
 release lock: the global candidate remains `no_go` and `unpublished`, exposes
 no candidate artifact or registry URL, and labels every projected component
 unavailable. Its release-train receipt records R1 0.13.0 and Web 0.1.10 as
-published while R2, R3 and Studio remain unpublished. The page therefore
+published while R2, R3, R4 and Studio remain unpublished. The page therefore
 cannot be read as a stable V1 announcement. The projection also carries the
 exact ownership and capability-governance witnesses, CUT-002's explicit-only
-structured warning and opt-in process-local counter. The retained four-surface WSL report predates the
-distinct R1/R2/R3 candidates and is stale, not current release evidence; a fresh
-run, frozen budgets and soak are still required.
+structured warning and opt-in process-local counter. The bounded current-head
+four-surface replay passes without fallback but is not release evidence;
+representative sustained soak, frozen budgets and external matrices remain required.
 The selected work-item projection distinguishes local bounded closures from
-INST-001 and RC-001, which are prepared but not closed. SEC-001 records four
-bounded native harnesses over canonical APIs, but remains prepared—not closed—
-because no fuzz campaign, sanitizer run or external matrix has completed. SOAK-001
-and PERF-002 remain advanced but open.
+INST-001 and RC-001, which remain open. ROB-001 records ordinary functional
+invalid-input and non-crash coverage as locally complete and non-blocking.
+SOAK-001 and PERF-002 remain advanced but open.
 
 ---
 
