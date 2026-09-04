@@ -216,11 +216,11 @@ falls back across `../data`, `./`, and `./data`.
 
 The dashboard also reads `data/native-candidate-staging.json`, the same bytes
 staged in `nirs4all-org`. It is generated from governance commit
-`8edd28e7428f9492387e537329fe3167eb6babbf` and exact component Git objects.
+`a8d787323bef726f3400c13a9bd74f252926e820` and exact component Git objects.
 This is deliberately separate from registry health and from the canonical
 release lock: the global candidate remains `no_go` and `unpublished`, exposes
 no R4 or Studio download, and labels those candidates unavailable. Repository
-0.1.12 and Providers 0.2.11 expose only their immutable published wheel/sdist
+0.1.12, Providers 0.2.11 and Methods 1.0.16 expose their immutable published
 receipt metadata. Its release-train receipt records Python R1 0.13.0, R2 and R3
 plus Web 0.1.10 as published while R4 and Studio remain unpublished. The page therefore
 cannot be read as a stable V1 announcement. The projection also carries the
