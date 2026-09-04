@@ -14,11 +14,11 @@ papers, benchmarks, and release dashboards for near-infrared spectroscopy.
 logic.** Every verdict is derived from public, read-only registry/CI/issue
 signals declared in `ops/targets.yaml`.
 
-Current transition note: Python R1 0.13.0, R2 and R3 plus Web 0.1.10,
-Repository 0.1.12 and Providers 0.2.11 are published, with Web deployed. R1
-keeps the legacy engine as its default; R4 and Studio R3 0.11.0 remain
-unpublished, and Studio remains unsigned. `LOCK-RELEASE`
-therefore remains NO-GO and this is not a stable V1 announcement.
+Current transition note: Python R1 0.13.0, R2, R3 and stable R4 1.0.0 plus
+Studio 0.11.0, Web 0.1.10, Repository 0.1.12 and Providers 0.2.11 are
+published. R1 keeps the legacy engine as its default. Studio is intentionally
+unsigned and non-notarized under an explicit bounded waiver; exact SHA-256
+receipts and the Windows installed-path limitation remain public.
 
 ---
 
@@ -216,14 +216,12 @@ falls back across `../data`, `./`, and `./data`.
 
 The dashboard also reads `data/native-candidate-staging.json`, the same bytes
 staged in `nirs4all-org`. It is generated from governance commit
-`a8d787323bef726f3400c13a9bd74f252926e820` and exact component Git objects.
-This is deliberately separate from registry health and from the canonical
-release lock: the global candidate remains `no_go` and `unpublished`, exposes
-no R4 or Studio download, and labels those candidates unavailable. Repository
+`d7d62825e5aa5ab5554ec7d084fab29be66acd74` and exact component Git objects.
+This is deliberately separate from registry health and is governed by the
+canonical release lock. Repository
 0.1.12, Providers 0.2.11 and Methods 1.0.16 expose their immutable published
-receipt metadata. Its release-train receipt records Python R1 0.13.0, R2 and R3
-plus Web 0.1.10 as published while R4 and Studio remain unpublished. The page therefore
-cannot be read as a stable V1 announcement. The projection also carries the
+receipt metadata. Its release-train receipt records Python R1 0.13.0, R2, R3,
+stable R4 1.0.0, Studio 0.11.0 and Web 0.1.10 as published. The projection also carries the
 exact ownership and capability-governance witnesses, CUT-002's explicit-only
 structured warning and opt-in process-local counter. The bounded current-head
 four-surface replay passes without fallback but is not release evidence;

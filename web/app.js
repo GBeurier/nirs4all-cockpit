@@ -153,22 +153,22 @@ function renderLegend(snap) {
   }
 }
 
-// ---- unpublished native candidate -----------------------------------------
+// ---- native V1 release projection -----------------------------------------
 
 function isNativeCandidate(candidate) {
   if (!candidate || candidate.schema_version !== "n4a.native-candidate-staging/v1") return false;
   const r = candidate.release || {};
-  if (r.status !== "no_go" || r.publication !== "unpublished" || r.canonical_lock_updated !== false || r.downloads_enabled !== false || r.registry_links_enabled !== false) return false;
+  if (r.status !== "go" || r.publication !== "published" || r.downloads_enabled !== true || r.registry_links_enabled !== true) return false;
   const releaseTrain = candidate.release_train || {};
   const milestones = releaseTrain.milestones || {};
-  if (releaseTrain.status !== "r1_r2_r3_distinct_published_releases_r4_candidate_held" || releaseTrain.publication !== "python_r1_r2_r3_published_r4_and_studio_unpublished") return false;
-  if (milestones.r1?.default_engine !== "legacy" || milestones.r2?.default_engine !== "native_with_explicit_legacy_opt_in" || milestones.r3?.default_engine !== "native_fail_closed_rust_only" || milestones.r4?.status !== "unpublished_candidate_no_public_receipt") return false;
+  if (releaseTrain.status !== "r1_r2_r3_r4_distinct_published_releases" || releaseTrain.publication !== "python_r1_r2_r3_r4_and_studio_published") return false;
+  if (milestones.r1?.default_engine !== "legacy" || milestones.r2?.default_engine !== "native_with_explicit_legacy_opt_in" || milestones.r3?.default_engine !== "native_fail_closed_rust_only" || milestones.r4?.status !== "published_pypi_and_ghcr_release_workflow_green") return false;
   if (milestones.r2?.publication !== "pypi_and_ghcr" || milestones.r2?.publication_workflow_run !== 33868949671 || milestones.r3?.publication !== "pypi_and_ghcr" || milestones.r3?.publication_workflow_run !== 33873060692) return false;
   if (!/^[0-9a-f]{40}$/.test(milestones.r4?.python_commit || "") || !/^[0-9a-f]{40}$/.test(milestones.r4?.python_tree || "") || !/^[0-9a-f]{40}$/.test(milestones.r4?.documentation_commit || "") || !/^[0-9a-f]{40}$/.test(milestones.r4?.documentation_tree || "")) return false;
   const cutover = candidate.cutover_observability || {};
   if (cutover.work_item !== "CUT-002" || cutover.legacy_activation !== "explicit_legacy_or_dual_only" || cutover.warning_format !== "stable_structured_json" || cutover.counter_opt_in !== true || cutover.counter_scope !== "opt_in_process_local_non_persistent_intentional" || cutover.strict_paths_silent !== true || cutover.implicit_fallback !== false) return false;
   const performance = candidate.performance || {};
-  if (performance.evidence_mode !== "current_heads_bounded_synthetic_not_release_evidence" || performance.report_scope !== "current_selected_heads_local_four_surface_replay" || performance.representative_soak_required !== true || performance.timings_ms !== null || performance.budgets_frozen !== false || performance.release_eligible !== false) return false;
+  if (performance.evidence_mode !== "v1_bounded_functional_soak_passed_sustained_budgets_deferred" || performance.report_scope !== "python_3_cycles_and_studio_30_readiness_repetitions" || performance.representative_soak_required !== false || performance.budgets_frozen !== false || performance.sustained_campaign_deferred_post_v1 !== true || performance.release_eligible !== true) return false;
   const governance = candidate.governance || {};
   if (!governance.ownership || !governance.capability_inventory) return false;
   const expectedWorkItems = {
@@ -222,11 +222,11 @@ function renderNativeCandidate(candidate) {
   const notice = document.getElementById("candidate-notice");
   const source = document.getElementById("candidate-source");
   if (!isNativeCandidate(candidate)) {
-    notice.textContent = "Invalid candidate data — NO-GO; no download is exposed.";
+    notice.textContent = "Invalid release receipt data.";
     return;
   }
   notice.textContent = candidate.release.notice;
-  source.replaceChildren(`Governance ledger ${candidate.source.commit.slice(0, 12)} · tree ${candidate.source.tree.slice(0, 12)} · ${candidate.source.ledger_sha256}. Canonical release lock unchanged; no candidate commit link is implied published.`);
+  source.replaceChildren(`Governance ledger ${candidate.source.commit.slice(0, 12)} · tree ${candidate.source.tree.slice(0, 12)} · ${candidate.source.ledger_sha256}. The immutable governance lock remains authoritative.`);
 
   const releaseTrain = candidate.release_train;
   const releaseTrainBox = document.getElementById("candidate-release-train");
@@ -238,7 +238,7 @@ function renderNativeCandidate(candidate) {
     }));
   });
   const r4 = releaseTrain.milestones.r4;
-  releaseTrainBox.appendChild(el("p", { text: `R4: Python ${r4.python_version} @ ${r4.python_commit.slice(0, 12)} · docs ${r4.documentation_commit.slice(0, 12)} · unpublished candidate.` }));
+  releaseTrainBox.appendChild(el("p", { text: `R4: Python ${r4.python_version} @ ${r4.python_commit.slice(0, 12)} · docs ${r4.documentation_commit.slice(0, 12)} · published from workflow ${r4.publication_workflow_run}.` }));
 
   const architecture = document.getElementById("candidate-architecture");
   architecture.replaceChildren();
@@ -259,7 +259,7 @@ function renderNativeCandidate(candidate) {
   const docs = candidate.methods_documentation;
   document.getElementById("candidate-methods-docs").replaceChildren(
     el("p", { text: `${docs.mapped_pages} pages mapped · ${docs.bibliography_entries} bibliography entries (${docs.historical_entries_preserved} preserved + ${docs.reviewed_entries_added} reviewed).` }),
-    el("p", { class: "mono", text: `docs ${docs.commit.slice(0, 12)} · tree ${docs.tree.slice(0, 12)} · publication pending` }),
+    el("p", { class: "mono", text: `docs ${docs.commit.slice(0, 12)} · tree ${docs.tree.slice(0, 12)} · published` }),
   );
 
   const cutover = candidate.cutover_observability;
@@ -279,8 +279,8 @@ function renderNativeCandidate(candidate) {
 
   const performance = candidate.performance;
   document.getElementById("candidate-performance").replaceChildren(
-    el("p", { text: "The current bounded synthetic replay passes on four product surfaces without fallback; it is not release evidence." }),
-    el("p", { text: "Representative sustained soak, frozen budgets and external matrices remain required." }),
+    el("p", { text: "The bounded V1 soak passed on the exact selected Python and Studio heads without fallback." }),
+    el("p", { text: "Bounded V1 soak passed; sustained budgets and longer cross-platform performance campaigns are deferred post-V1." }),
   );
 
   const workItems = candidate.work_item_states;
@@ -293,7 +293,7 @@ function renderNativeCandidate(candidate) {
     el("p", { text: `Prepared but not closed: ${prepared.map(([id]) => id).join(", ")}.` }),
     el("p", { text: `Advanced but not closed: ${advanced.map(([id]) => id).join(", ")}.` }),
     el("p", { text: "ROB-001: ordinary functional invalid-input checks are complete locally and remain non-blocking; covered failures stay explicit and actionable." }),
-    el("p", { text: "These states do not change the canonical lock or the global NO-GO." }),
+    el("p", { text: "The immutable governance lock remains the release authority." }),
   );
 
   const [capTable, capBody] = candidateTable(["capability", "status", "qualified surfaces", "limits"], "Qualified and explicitly limited native candidate capabilities");

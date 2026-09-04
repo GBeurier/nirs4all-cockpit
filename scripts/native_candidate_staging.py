@@ -37,13 +37,13 @@ def main(argv: list[str] | None = None) -> int:
             projection = build_projection(args.governance_repo, args.governance_commit, args.workspace_root)
             args.out.parent.mkdir(parents=True, exist_ok=True)
             args.out.write_text(render(projection), encoding="utf-8", newline="\n")
-            print(f"wrote unpublished NO-GO candidate projection: {args.out}")
+            print(f"wrote native release projection: {args.out}")
         else:
             raw = json.loads(args.projection.read_text(encoding="utf-8"))
             validate_projection(raw)
             if args.projection.read_text(encoding="utf-8") != render(raw):
                 raise CandidateError("candidate projection is not canonical")
-            print(f"valid unpublished NO-GO candidate projection: {args.projection}")
+            print(f"valid native release projection: {args.projection}")
     except (CandidateError, OSError, json.JSONDecodeError) as exc:
         print(f"candidate staging refused: {exc}", file=sys.stderr)
         return 2
