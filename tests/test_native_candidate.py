@@ -141,8 +141,10 @@ def test_public_surfaces_match_the_published_train_and_web_receipts() -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     index = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
     browser_validator = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
-    assert f"Python R1 {r1_version}, R2, R3 and stable R4 1.0.0" in readme
-    assert f"Python R1 {r1_version}, R2, R3 and stable R4 1.0.0" in index
+    assert "daily collector" in readme
+    assert "Latest news" in index
+    assert "Exact local candidate identities" not in index
+    assert "title.textContent = `nirs4all ${r4.python_version} is available`" in browser_validator
     assert 'releaseTrain.publication !== "python_r1_r2_r3_r4_and_studio_published"' in browser_validator
     assert "Web 0.1.9" not in readme
     assert "nirs4all-web 0.1.9" not in index

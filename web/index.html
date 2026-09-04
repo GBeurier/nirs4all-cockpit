@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>nirs4all · cockpit — release & health</title>
-    <meta name="description" content="Read-only nirs4all release cockpit: public registry health and the published R1/R2/R3/R4 native V1 train, with exact source identities and qualified capability limits." />
+    <meta name="description" content="Read-only nirs4all release cockpit: ecosystem news, public registry health and the verified scope of the V1 release." />
     <link rel="canonical" href="https://cockpit.nirs4all.org/" />
     <link rel="sitemap" type="application/xml" title="Sitemap" href="https://cockpit.nirs4all.org/sitemap.xml" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -35,7 +35,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./style.css?v=20260710-current-only-3-native-candidate" />
+    <link rel="stylesheet" href="./style.css?v=20260905-public-release-news" />
   </head>
   <body>
     <a class="skip-link" href="#matrix">Skip to the matrix</a>
@@ -75,68 +75,14 @@
     <main class="wrap">
       <section class="chips" id="summary" aria-label="Status totals" hidden></section>
 
-      <section class="block" aria-labelledby="transition-h">
-        <h2 id="transition-h" class="section-h">R1 transition <span class="muted">— 0.13.0 published · legacy remains the default</span></h2>
-        <div class="card panel candidate-state" role="status">
-          <strong>Python R1 0.13.0, R2, R3 and stable R4 1.0.0 plus Studio 0.11.0, Web 0.1.10, Repository 0.1.12 and Providers 0.2.11 are published.</strong>
-          <p>The bounded V1 train is receipt-complete. Studio is intentionally unsigned and non-notarized under an explicit waiver; SHA-256 receipts and platform limitations remain visible.</p>
-        </div>
-      </section>
-
-      <section class="block candidate" id="native-candidate" aria-labelledby="candidate-h">
-        <h2 id="candidate-h" class="section-h">Native R1/R2/R3/R4 release <span class="muted">— stable V1 receipts</span></h2>
-        <div class="card panel candidate-state" role="status" aria-live="polite" aria-atomic="true">
-          <strong id="candidate-notice">Release receipt data unavailable.</strong>
-          <p id="candidate-source">The governance release lock remains authoritative.</p>
-        </div>
-        <div id="candidate-content" hidden>
-          <div class="candidate-columns">
-            <section class="card panel" aria-labelledby="release-train-h">
-              <h3 id="release-train-h">Distinct R1/R2/R3/R4 train</h3>
-              <div id="candidate-release-train"></div>
-            </section>
-            <section class="card panel" aria-labelledby="architecture-h">
-              <h3 id="architecture-h">Runtime boundary</h3>
-              <ul id="candidate-architecture"></ul>
-            </section>
-            <section class="card panel" aria-labelledby="migration-h">
-              <h3 id="migration-h">Legacy migration</h3>
-              <div id="candidate-migration"></div>
-              <p><a href="https://nirs4all.org/v1-migration-support.html">Candidate migration, contract and reader-support guide</a></p>
-            </section>
-            <section class="card panel" aria-labelledby="methods-docs-h">
-              <h3 id="methods-docs-h">Methods scientific documentation</h3>
-              <div id="candidate-methods-docs"></div>
-            </section>
-            <section class="card panel" aria-labelledby="cutover-h">
-              <h3 id="cutover-h">CUT-002 observability</h3>
-              <div id="candidate-cutover"></div>
-            </section>
-            <section class="card panel" aria-labelledby="governance-h">
-              <h3 id="governance-h">Candidate governance</h3>
-              <div id="candidate-governance"></div>
-            </section>
-            <section class="card panel" aria-labelledby="performance-h">
-              <h3 id="performance-h">Current-train performance evidence</h3>
-              <div id="candidate-performance"></div>
-            </section>
-            <section class="card panel" aria-labelledby="work-items-h">
-              <h3 id="work-items-h">Final local work-item states</h3>
-              <div id="candidate-work-items"></div>
-            </section>
-          </div>
-          <section class="card panel candidate-table" aria-labelledby="capabilities-h">
-            <h3 id="capabilities-h">Qualified capability matrix</h3>
-            <div id="candidate-capabilities"></div>
-          </section>
-          <section class="card panel candidate-table" aria-labelledby="components-h">
-            <h3 id="components-h">Exact local candidate identities</h3>
-            <div id="candidate-components"></div>
-          </section>
-          <section class="card panel" aria-labelledby="holds-h">
-            <h3 id="holds-h">Release holds</h3>
-            <ul id="candidate-holds"></ul>
-          </section>
+      <section class="block" id="release-news" aria-labelledby="release-news-h">
+        <h2 id="release-news-h" class="section-h">Latest news <span class="muted">— September 2026</span></h2>
+        <div class="card panel release-news" role="status" aria-live="polite" aria-atomic="true">
+          <strong id="release-news-title">Release news unavailable.</strong>
+          <p id="release-news-summary">The public release receipt could not be loaded.</p>
+          <ul id="release-news-highlights"></ul>
+          <p class="release-news-note" id="release-news-note"></p>
+          <p><a href="https://nirs4all.org/v1-migration-support.html">Read the V1 migration and compatibility guide</a></p>
         </div>
       </section>
 
@@ -186,6 +132,14 @@
         <div class="card panel" id="manual-actions"></div>
       </section>
 
+      <section class="block" id="capabilities" aria-labelledby="capabilities-h">
+        <h2 id="capabilities-h" class="section-h">Qualified capabilities <span class="muted">— verified V1 scope and limits</span></h2>
+        <div class="card panel">
+          <p class="capability-summary">This is not a version matrix. It summarizes which V1 features were exercised, where they were verified, and any limits that still apply. “Verified, limited scope” means only the stated scenario was checked.</p>
+          <div class="candidate-table" id="candidate-capabilities" role="region" aria-label="Qualified V1 capabilities" tabindex="0"></div>
+        </div>
+      </section>
+
       <p id="error" class="error" role="alert" hidden></p>
 
       <footer class="foot">
@@ -195,8 +149,8 @@
     </main>
 
     <div class="tooltip" id="tooltip" hidden></div>
-    <script src="./icons.js?v=20260710-current-only-3-native-candidate"></script>
-    <script src="./app.js?v=20260710-current-only-3-native-candidate"></script>
+    <script src="./icons.js?v=20260905-public-release-news"></script>
+    <script src="./app.js?v=20260905-public-release-news"></script>
     <!-- GoatCounter privacy-friendly analytics (no cookies); one site for the whole ecosystem -->
     <script data-goatcounter="https://nirs4all.goatcounter.com/count" data-goatcounter-settings='{"path": "/cockpit"}' async src="//gc.zgo.at/count.js"></script>
   </body>
