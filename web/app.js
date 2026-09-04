@@ -213,122 +213,69 @@ function candidateTable(headers, caption) {
   const table = el("table", { class: "stats candidate-stats" });
   table.appendChild(el("caption", { class: "sr-only", text: caption }));
   const head = el("thead"), row = el("tr");
-  headers.forEach((header) => row.appendChild(el("th", { text: header })));
+  headers.forEach((header) => row.appendChild(el("th", { attrs: { scope: "col" }, text: header })));
   head.appendChild(row); table.appendChild(head);
   const body = el("tbody"); table.appendChild(body);
   return [table, body];
 }
 
-function renderNativeCandidate(candidate) {
-  const notice = document.getElementById("candidate-notice");
-  const source = document.getElementById("candidate-source");
+const CAPABILITY_STATUS_LABEL = {
+  qualified_local: "Verified for V1",
+  qualified_bounded: "Verified, limited scope",
+  bounded_v1_functional_soak_passed: "Functional soak passed",
+};
+
+const CAPABILITY_SURFACE_LABEL = {
+  benchmarks: "Benchmarks",
+  core: "Core",
+  dag_ml: "DAG-ML",
+  io: "IO",
+  methods: "Methods",
+  python: "Python",
+  studio: "Studio",
+  web: "Web",
+};
+
+function renderNativeRelease(candidate) {
+  const title = document.getElementById("release-news-title");
+  const summary = document.getElementById("release-news-summary");
+  const highlights = document.getElementById("release-news-highlights");
+  const note = document.getElementById("release-news-note");
+  const capabilities = document.getElementById("candidate-capabilities");
   if (!isNativeCandidate(candidate)) {
-    notice.textContent = "Invalid release receipt data.";
+    title.textContent = "Release news unavailable.";
+    summary.textContent = "The public V1 release receipt is missing or invalid.";
+    highlights.replaceChildren();
+    note.textContent = "The registry matrix below remains available from its separate daily snapshot.";
+    capabilities.replaceChildren(el("p", { text: "Capability evidence is unavailable." }));
     return;
   }
-  notice.textContent = candidate.release.notice;
-  source.replaceChildren(`Governance ledger ${candidate.source.commit.slice(0, 12)} · tree ${candidate.source.tree.slice(0, 12)} · ${candidate.source.ledger_sha256}. The immutable governance lock remains authoritative.`);
 
-  const releaseTrain = candidate.release_train;
-  const releaseTrainBox = document.getElementById("candidate-release-train");
-  releaseTrainBox.replaceChildren();
-  ["r1", "r2", "r3"].forEach((key) => {
-    const milestone = releaseTrain.milestones[key];
-    releaseTrainBox.appendChild(el("p", {
-      text: `${key.toUpperCase()}: Python ${milestone.python_version} @ ${milestone.python_commit.slice(0, 12)} · Studio ${milestone.studio_version} @ ${milestone.studio_commit.slice(0, 12)} · ${milestone.default_engine}.`,
-    }));
-  });
-  const r4 = releaseTrain.milestones.r4;
-  releaseTrainBox.appendChild(el("p", { text: `R4: Python ${r4.python_version} @ ${r4.python_commit.slice(0, 12)} · docs ${r4.documentation_commit.slice(0, 12)} · published from workflow ${r4.publication_workflow_run}.` }));
-
-  const architecture = document.getElementById("candidate-architecture");
-  architecture.replaceChildren();
+  const r4 = candidate.release_train.milestones.r4;
+  const versionOf = (key) => candidate.components.find((component) => component.key === key)?.version || "?";
+  title.textContent = `nirs4all ${r4.python_version} is available`;
+  summary.textContent = "The stable native V1 train has been published across the Python library, Studio and the browser application.";
+  highlights.replaceChildren();
   [
-    "Studio HTTP, control, store, jobs, scheduler and WebSocket: Rust only.",
-    "Embedded CPython: bounded attested stdio library/plugin host.",
-    "No Python HTTP server, scheduler, store, listener or fallback.",
-    "Web: client-side WASM only; legacy engine remains explicit and unreachable from strict product paths.",
-  ].forEach((line) => architecture.appendChild(el("li", { text: line })));
+    `Python ${r4.python_version}, Studio ${versionOf("studio")} and Web ${versionOf("web")} are published.`,
+    "The native engine is the stable path; Python libraries remain available through Studio's embedded Python host.",
+    "Earlier releases remain accessible for existing projects and migration.",
+  ].forEach((line) => highlights.appendChild(el("li", { text: line })));
+  note.textContent = "Studio installers are currently unsigned and not notarized, so operating systems may show a warning. The release matrix is collected separately each day and can briefly show older versions after a publication.";
 
-  const migration = candidate.migration;
-  const migrationBox = document.getElementById("candidate-migration");
-  migrationBox.replaceChildren(el("p", { text: `${migration.tool} ${migration.version} · copy-on-write · dry-run · resume · verify` }));
-  const codes = el("dl", { class: "migration-codes" });
-  migration.exit_codes.forEach((item) => codes.append(el("dt", { text: String(item.code) }), el("dd", { text: item.meaning })));
-  migrationBox.appendChild(codes);
-
-  const docs = candidate.methods_documentation;
-  document.getElementById("candidate-methods-docs").replaceChildren(
-    el("p", { text: `${docs.mapped_pages} pages mapped · ${docs.bibliography_entries} bibliography entries (${docs.historical_entries_preserved} preserved + ${docs.reviewed_entries_added} reviewed).` }),
-    el("p", { class: "mono", text: `docs ${docs.commit.slice(0, 12)} · tree ${docs.tree.slice(0, 12)} · published` }),
-  );
-
-  const cutover = candidate.cutover_observability;
-  document.getElementById("candidate-cutover").replaceChildren(
-    el("p", { text: "Explicit legacy/dual activation emits a stable structured JSON warning; default/native/strict paths stay silent." }),
-    el("p", { text: "The usage counter is opt-in, process-local and intentionally non-persistent. No exception fallback exists." }),
-    el("p", { class: "mono", text: `evidence ${cutover.evidence_commit.slice(0, 12)}` }),
-  );
-
-  const governance = candidate.governance;
-  document.getElementById("candidate-governance").replaceChildren(
-    el("p", { text: `Ownership lanes: ${governance.ownership.status}.` }),
-    el("p", { class: "mono", text: `${governance.ownership.commit.slice(0, 12)} · tree ${governance.ownership.tree.slice(0, 12)}` }),
-    el("p", { text: `Capability inventory: ${governance.capability_inventory.status}.` }),
-    el("p", { class: "mono", text: `${governance.capability_inventory.commit.slice(0, 12)} · tree ${governance.capability_inventory.tree.slice(0, 12)}` }),
-  );
-
-  const performance = candidate.performance;
-  document.getElementById("candidate-performance").replaceChildren(
-    el("p", { text: "The bounded V1 soak passed on the exact selected Python and Studio heads without fallback." }),
-    el("p", { text: "Bounded V1 soak passed; sustained budgets and longer cross-platform performance campaigns are deferred post-V1." }),
-  );
-
-  const workItems = candidate.work_item_states;
-  const currentWorkItems = Object.entries(workItems);
-  const closed = currentWorkItems.filter(([, state]) => state.startsWith("complete"));
-  const prepared = currentWorkItems.filter(([, state]) => state.startsWith("prepared"));
-  const advanced = currentWorkItems.filter(([, state]) => state.startsWith("advanced"));
-  document.getElementById("candidate-work-items").replaceChildren(
-    el("p", { text: `Closed for the bounded V1 scope: ${closed.map(([id]) => id).join(", ")}.` }),
-    el("p", { text: `Prepared but not closed: ${prepared.length ? prepared.map(([id]) => id).join(", ") : "none"}.` }),
-    el("p", { text: `Advanced but not closed: ${advanced.length ? advanced.map(([id]) => id).join(", ") : "none"}.` }),
-    el("p", { text: "ROB-001: ordinary functional invalid-input checks are complete locally and remain non-blocking; covered failures stay explicit and actionable." }),
-    el("p", { text: "The immutable governance lock remains the release authority." }),
-  );
-
-  const [capTable, capBody] = candidateTable(["capability", "status", "qualified surfaces", "limits"], "Qualified and explicitly limited native candidate capabilities");
+  const [capTable, capBody] = candidateTable(["Capability", "Evidence", "Available in", "Limit"], "Verified and explicitly limited V1 capabilities");
   candidate.capabilities.forEach((capability) => {
     const row = el("tr");
+    const badgeTone = capability.status === "qualified_bounded" ? "limited" : "verified";
     row.append(
       el("th", { class: "s-repo", attrs: { scope: "row" }, text: capability.label }),
-      el("td", {}, [el("span", { class: `candidate-badge candidate-badge--${capability.status}`, text: capability.status.replaceAll("_", " ") })]),
-      el("td", { class: "mono", text: capability.surfaces.join(" · ") }),
+      el("td", {}, [el("span", { class: `candidate-badge candidate-badge--${badgeTone}`, text: CAPABILITY_STATUS_LABEL[capability.status] || capability.status.replaceAll("_", " ") })]),
+      el("td", { text: capability.surfaces.map((surface) => CAPABILITY_SURFACE_LABEL[surface] || surface).join(" · ") }),
       el("td", { text: capability.limits }),
     );
     capBody.appendChild(row);
   });
-  document.getElementById("candidate-capabilities").replaceChildren(capTable);
-
-  const [componentTable, componentBody] = candidateTable(["component", "version", "commit", "tree", "publication"], "Exact candidate identities and scoped publication receipts");
-  candidate.components.forEach((component) => {
-    const row = el("tr");
-    const repo = el("a", { text: component.name, attrs: { href: component.repository_url, target: "_blank", rel: "noopener" } });
-    row.append(
-      el("th", { class: "s-repo", attrs: { scope: "row" } }, [repo]),
-      el("td", { class: "mono", text: component.version }),
-      el("td", { class: "mono", text: component.commit.slice(0, 12) }),
-      el("td", { class: "mono", text: component.tree.slice(0, 12) }),
-      el("td", {}, [el("span", { class: `candidate-badge candidate-badge--${component.publication}`, text: component.publication })]),
-    );
-    componentBody.appendChild(row);
-  });
-  document.getElementById("candidate-components").replaceChildren(componentTable);
-
-  const holds = document.getElementById("candidate-holds");
-  holds.replaceChildren();
-  candidate.holds.forEach((hold) => holds.appendChild(el("li", { text: hold })));
-  document.getElementById("candidate-content").hidden = false;
+  capabilities.replaceChildren(capTable);
 }
 
 function isManualActionPending(action) {
@@ -945,7 +892,7 @@ function startWave() {
 async function main() {
   const errBox = document.getElementById("error");
   startWave();
-  try { renderNativeCandidate(await loadNativeCandidate()); } catch { renderNativeCandidate(null); }
+  try { renderNativeRelease(await loadNativeCandidate()); } catch { renderNativeRelease(null); }
   try {
     const snap = await loadSnapshot();
     if (snap.generator && snap.generator.repo) OWNER = snap.generator.repo.split("/")[0];

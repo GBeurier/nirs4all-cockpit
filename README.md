@@ -214,24 +214,21 @@ to `_site/data/`, so the dashboard *is* the site root and reads
 expose a directory listing at `/`) and needs no path rewrite — `app.js` already
 falls back across `../data`, `./`, and `./data`.
 
-### Native candidate staging
+### Native V1 release receipt
 
-The dashboard also reads `data/native-candidate-staging.json`, the same bytes
-staged in `nirs4all-org`. It is generated from governance commit
-`d7d62825e5aa5ab5554ec7d084fab29be66acd74` and exact component Git objects.
-This is deliberately separate from registry health and is governed by the
-canonical release lock. Repository
-0.1.12, Providers 0.2.11 and Methods 1.0.16 expose their immutable published
-receipt metadata. Its release-train receipt records Python R1 0.13.0, R2, R3,
-stable R4 1.0.0, Studio 0.11.0 and Web 0.1.10 as published. The projection also carries the
-exact ownership and capability-governance witnesses, CUT-002's explicit-only
-structured warning and opt-in process-local counter. The bounded current-head
-four-surface replay passes without fallback but is not release evidence;
-representative sustained soak, frozen budgets and external matrices remain required.
-The selected work-item projection distinguishes local bounded closures from
-INST-001 and RC-001, which remain open. ROB-001 records ordinary functional
-invalid-input and non-crash coverage as locally complete and non-blocking.
-SOAK-001 and PERF-002 remain advanced but open.
+The dashboard also reads `data/native-candidate-staging.json`, the machine-readable
+V1 release receipt shared with `nirs4all-org`. Despite its historical filename,
+it describes the published train. It contains public Git object IDs and artifact
+checksums—not machine paths or private local data—so the exact release can be
+audited. Those identities remain in the receipt but are intentionally not shown
+in the public UI: the page uses the file only for concise release news and the
+bottom capability appendix.
+
+This receipt is deliberately separate from registry health. The release matrix
+comes from `data/current.json`, which is produced by the daily collector. A new
+publication can therefore appear in the release receipt before it reaches the
+matrix; the matrix's displayed `updated` timestamp identifies the snapshot in
+use, and the next successful collection reconciles the versions.
 
 ---
 

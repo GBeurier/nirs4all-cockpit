@@ -336,8 +336,8 @@ def test_dashboard_keeps_release_matrix_without_bundle_or_channel_chips() -> Non
     assert "production held" not in app_js
     assert "production held" not in index
     assert "tt-reason" not in app_js
-    assert "app.js?v=20260710-current-only" in index
-    assert "style.css?v=20260710-current-only" in index
+    assert "app.js?v=20260905-public-release-news" in index
+    assert "style.css?v=20260905-public-release-news" in index
 
 
 def test_dashboard_marks_missing_visit_rows_untracked() -> None:
