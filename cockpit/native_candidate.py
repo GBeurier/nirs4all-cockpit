@@ -1,9 +1,9 @@
 """Deterministic public-safe projection of the local native-backend candidate.
 
 Unlike the canonical aggregation lock, this document is explicitly not release
-authority.  It exposes only the exact local candidate identities and qualified
-capability evidence recorded by the migration ledger.  Publication URLs and
-artifacts are intentionally impossible to represent in this schema.
+authority.  It exposes exact candidate identities, qualified capability
+evidence and narrowly scoped immutable publication receipts recorded by the
+migration ledger.
 """
 
 from __future__ import annotations
@@ -108,6 +108,9 @@ def _identity(
     tree_field: str = "tree",
     version: str,
     detail_versions: dict[str, str] | None = None,
+    publication: str = "unavailable",
+    artifacts: list[dict[str, Any]] | None = None,
+    registry_urls: list[str] | None = None,
 ) -> dict[str, Any]:
     commit = evidence.get(commit_field)
     tree = evidence.get(tree_field)
@@ -126,9 +129,9 @@ def _identity(
         "version": version,
         "detail_versions": detail_versions or {},
         "qualification": evidence.get("evidence_status"),
-        "publication": "unavailable",
-        "artifacts": [],
-        "registry_urls": [],
+        "publication": publication,
+        "artifacts": artifacts or [],
+        "registry_urls": registry_urls or [],
     }
 
 
@@ -166,8 +169,8 @@ def _project_release_train(evidence: dict[str, Any]) -> dict[str, Any]:
     sequence = evidence.get("product_release_sequence")
     if not isinstance(sequence, dict):
         raise CandidateError("product release sequence is missing")
-    if sequence.get("status") != "r1_r2_r3_distinct_remote_candidates_r4_candidate_held":
-        raise CandidateError("product release sequence is not the held R1/R2/R3 train")
+    if sequence.get("status") != "r1_r2_r3_distinct_published_releases_r4_candidate_held":
+        raise CandidateError("product release sequence does not record the published Python R1/R2/R3 train")
     if sequence.get("required_order") != (
         "r1_0_13_0_then_r2_1_0_0_rc_1_then_r3_1_0_0_rc_2_then_r4_1_0_0"
     ):
@@ -233,6 +236,39 @@ def _project_release_train(evidence: dict[str, Any]) -> dict[str, Any]:
             "publication_workflow_run": r1["publication_run"],
         }
     )
+    expected_runs = {"r2": 33868949671, "r3": 33873060692}
+    for key, expected_run in expected_runs.items():
+        raw = raw_milestones[key]
+        required = {
+            "publication_workflow_run": raw.get("publication_run"),
+            "release_id": raw.get("release_id"),
+            "release_url": raw.get("release_url"),
+            "tag_object": raw.get("release_tag_object"),
+            "wheel_sha256": raw.get("wheel_sha256"),
+            "sdist_sha256": raw.get("sdist_sha256"),
+            "record_sha256": raw.get("record_sha256"),
+            "installed_manifest_sha256": raw.get("installed_manifest_sha256"),
+            "ghcr_oci_index": raw.get("ghcr_oci_index"),
+        }
+        if (
+            raw.get("artifact_status") != "published_pypi_and_ghcr_release_workflow_green"
+            or raw.get("publication_run") != expected_run
+            or raw.get("pypi_published") is not True
+            or raw.get("ghcr_published") is not True
+            or not isinstance(required["release_id"], int)
+            or not re.fullmatch(
+                r"https://github\.com/GBeurier/nirs4all/releases/tag/[0-9A-Za-z.-]+",
+                required["release_url"] or "",
+            )
+            or not COMMIT_RE.fullmatch(required["tag_object"] or "")
+            or any(
+                not re.fullmatch(r"[0-9a-f]{64}", required[field] or "")
+                for field in ("wheel_sha256", "sdist_sha256", "record_sha256", "installed_manifest_sha256")
+            )
+            or not SHA256_RE.fullmatch(required["ghcr_oci_index"] or "")
+        ):
+            raise CandidateError(f"{key.upper()} PyPI/GHCR publication receipt is incomplete")
+        milestones[key].update({"publication": "pypi_and_ghcr", **required})
     r4 = raw_milestones["r4"]
     python = evidence.get("python_strict_profile")
     expected_r4_status = "unpublished_candidate_no_public_receipt"
@@ -256,8 +292,8 @@ def _project_release_train(evidence: dict[str, Any]) -> dict[str, Any]:
         "status": expected_r4_status,
     }
     return {
-        "status": "r1_r2_r3_distinct_candidates_r4_candidate_held",
-        "publication": "r1_published_r2_r3_r4_unpublished",
+        "status": "r1_r2_r3_distinct_published_releases_r4_candidate_held",
+        "publication": "python_r1_r2_r3_published_r4_and_studio_unpublished",
         "milestones": milestones,
     }
 
@@ -279,7 +315,7 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
     if (
         evidence.get("promotion_status") != "no_go"
         or evidence.get("publication_status")
-        != "repository_0_1_11_published_providers_and_product_train_incomplete_no_go"
+        != "repository_0_1_12_providers_0_2_11_r1_r2_r3_published_r4_studio_incomplete_no_go"
         or evidence.get("release_gate_status") != "no_go"
     ):
         raise CandidateError("candidate must remain NO-GO in staging")
@@ -398,6 +434,22 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             commit_field="qualification_commit",
             tree_field="qualification_tree",
             version=providers_version,
+            publication="published",
+            artifacts=[
+                {
+                    "id": "wheel",
+                    "filename": "nirs4all_providers-0.2.11-py3-none-any.whl",
+                    "sha256": providers["wheel_sha256"],
+                    "size": providers["wheel_size"],
+                },
+                {
+                    "id": "sdist",
+                    "filename": "nirs4all_providers-0.2.11.tar.gz",
+                    "sha256": providers["sdist_sha256"],
+                    "size": providers["sdist_size"],
+                },
+            ],
+            registry_urls=[providers["release_url"], providers["pypi_url"]],
         ),
         _identity(
             repository,
@@ -407,6 +459,22 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             commit_field="qualification_commit",
             tree_field="qualification_tree",
             version=repository_version,
+            publication="published",
+            artifacts=[
+                {
+                    "id": "wheel",
+                    "filename": "nirs4all_repository-0.1.12-py3-none-any.whl",
+                    "sha256": repository["wheel_sha256"],
+                    "size": repository["wheel_size"],
+                },
+                {
+                    "id": "sdist",
+                    "filename": "nirs4all_repository-0.1.12.tar.gz",
+                    "sha256": repository["sdist_sha256"],
+                    "size": repository["sdist_size"],
+                },
+            ],
+            registry_urls=[repository["release_url"], repository["pypi_url"]],
         ),
         _identity(
             studio,
@@ -572,8 +640,9 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "downloads_enabled": False,
             "registry_links_enabled": False,
             "notice": (
-                "Candidat produit strictement NO-GO; les composants natifs, R1 0.13.0 et Web 0.1.10 "
-                "sont publiés, mais R2, R3, R4 et Studio restent non publiés et aucune V1 stable n’est annoncée."
+                "Candidat produit strictement NO-GO; les composants natifs, Python R1/R2/R3, Web 0.1.10, "
+                "Repository 0.1.12 et Providers 0.2.11 sont publiés; R4 et Studio restent non publiés "
+                "et aucune V1 stable n’est annoncée."
             ),
         },
         "release_train": _project_release_train(evidence),
@@ -637,8 +706,8 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
         "capabilities": capabilities,
         "holds": [
             (
-                "Product HOLD: R1 and Web are published; Repository 0.1.12, Providers 0.2.11, "
-                "R2, R3, R4 and Studio 0.11.0 remain unpublished."
+                "Product HOLD: Python R1/R2/R3, Web, Repository 0.1.12 and Providers 0.2.11 "
+                "are published; R4 and Studio 0.11.0 remain unpublished."
             ),
             (
                 "Release-artifact HOLD: the canonical lock is unchanged; final artifact digests, "
@@ -679,17 +748,18 @@ def validate_projection(projection: Any) -> None:
         "downloads_enabled": False,
         "registry_links_enabled": False,
         "notice": (
-            "Candidat produit strictement NO-GO; les composants natifs, R1 0.13.0 et Web 0.1.10 "
-            "sont publiés, mais R2, R3, R4 et Studio restent non publiés et aucune V1 stable n’est annoncée."
+            "Candidat produit strictement NO-GO; les composants natifs, Python R1/R2/R3, Web 0.1.10, "
+            "Repository 0.1.12 et Providers 0.2.11 sont publiés; R4 et Studio restent non publiés "
+            "et aucune V1 stable n’est annoncée."
         ),
     }
     if release != expected_release:
         raise CandidateError("candidate projection must remain unpublished and NO-GO")
     release_train = projection.get("release_train")
     if not isinstance(release_train, dict) or release_train.get("status") != (
-        "r1_r2_r3_distinct_candidates_r4_candidate_held"
-    ) or release_train.get("publication") != "r1_published_r2_r3_r4_unpublished":
-        raise CandidateError("candidate release train must retain only the published R1 receipt")
+        "r1_r2_r3_distinct_published_releases_r4_candidate_held"
+    ) or release_train.get("publication") != "python_r1_r2_r3_published_r4_and_studio_unpublished":
+        raise CandidateError("candidate release train must retain the published Python R1/R2/R3 receipts")
     milestones = release_train.get("milestones")
     if not isinstance(milestones, dict) or set(milestones) != {"r1", "r2", "r3", "r4"}:
         raise CandidateError("candidate release milestones are incomplete")
@@ -716,6 +786,21 @@ def validate_projection(projection: Any) -> None:
         or r1.get("publication_workflow_run") != 33753479548
     ):
         raise CandidateError("R1 candidate publication receipt diverges")
+    expected_runs = {"r2": 33868949671, "r3": 33873060692}
+    for key, expected_run in expected_runs.items():
+        milestone = milestones[key]
+        if (
+            milestone.get("publication") != "pypi_and_ghcr"
+            or milestone.get("publication_workflow_run") != expected_run
+            or not isinstance(milestone.get("release_id"), int)
+            or not COMMIT_RE.fullmatch(milestone.get("tag_object", ""))
+            or any(
+                not re.fullmatch(r"[0-9a-f]{64}", milestone.get(field, ""))
+                for field in ("wheel_sha256", "sdist_sha256", "record_sha256", "installed_manifest_sha256")
+            )
+            or not SHA256_RE.fullmatch(milestone.get("ghcr_oci_index", ""))
+        ):
+            raise CandidateError(f"{key.upper()} publication receipt diverges")
     r4 = milestones.get("r4")
     if (
         not isinstance(r4, dict)
@@ -792,7 +877,27 @@ def validate_projection(projection: Any) -> None:
             raise CandidateError(f"{component_key}: malformed source identity")
         if not VERSION_RE.fullmatch(component.get("version", "")):
             raise CandidateError(f"{component_key}: malformed version")
-        if (
+        if component_key in {"providers", "repository"}:
+            if component.get("publication") != "published" or len(component.get("artifacts", [])) != 2:
+                raise CandidateError(f"{component_key}: published receipt is incomplete")
+            for artifact in component["artifacts"]:
+                if (
+                    artifact.get("id") not in {"wheel", "sdist"}
+                    or not isinstance(artifact.get("filename"), str)
+                    or not re.fullmatch(r"[0-9a-f]{64}", artifact.get("sha256", ""))
+                    or not isinstance(artifact.get("size"), int)
+                    or artifact["size"] <= 0
+                ):
+                    raise CandidateError(f"{component_key}: malformed artifact receipt")
+            if len(component.get("registry_urls", [])) != 2 or any(
+                not re.fullmatch(
+                    r"https://(?:github\.com/GBeurier/[A-Za-z0-9_.-]+/releases/tag/[A-Za-z0-9_.-]+|pypi\.org/project/[A-Za-z0-9_.-]+/[0-9A-Za-z.-]+/)",
+                    registry_url,
+                )
+                for registry_url in component["registry_urls"]
+            ):
+                raise CandidateError(f"{component_key}: malformed registry receipt URL")
+        elif (
             component.get("publication") != "unavailable"
             or component.get("artifacts") != []
             or component.get("registry_urls") != []

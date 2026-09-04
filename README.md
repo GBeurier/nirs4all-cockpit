@@ -14,9 +14,10 @@ papers, benchmarks, and release dashboards for near-infrared spectroscopy.
 logic.** Every verdict is derived from public, read-only registry/CI/issue
 signals declared in `ops/targets.yaml`.
 
-Current transition note: R1 0.13.0 and Web 0.1.10 are published, with Web
-deployed. R1 keeps the legacy engine as its default; R2, R3, R4 and Studio R3
-0.11.0 remain unpublished, and Studio remains unsigned. `LOCK-RELEASE`
+Current transition note: Python R1 0.13.0, R2 and R3 plus Web 0.1.10,
+Repository 0.1.12 and Providers 0.2.11 are published, with Web deployed. R1
+keeps the legacy engine as its default; R4 and Studio R3 0.11.0 remain
+unpublished, and Studio remains unsigned. `LOCK-RELEASE`
 therefore remains NO-GO and this is not a stable V1 announcement.
 
 ---
@@ -215,12 +216,13 @@ falls back across `../data`, `./`, and `./data`.
 
 The dashboard also reads `data/native-candidate-staging.json`, the same bytes
 staged in `nirs4all-org`. It is generated from governance commit
-`8f47f16b11231daefecd1fb2ad8f1aeefb2ff039` and exact component Git objects.
+`f568f2cd3269616ae6820b9a3b6aa232e54ac97f` and exact component Git objects.
 This is deliberately separate from registry health and from the canonical
 release lock: the global candidate remains `no_go` and `unpublished`, exposes
-no candidate artifact or registry URL, and labels every projected component
-unavailable. Its release-train receipt records R1 0.13.0 and Web 0.1.10 as
-published while R2, R3, R4 and Studio remain unpublished. The page therefore
+no R4 or Studio download, and labels those candidates unavailable. Repository
+0.1.12 and Providers 0.2.11 expose only their immutable published wheel/sdist
+receipt metadata. Its release-train receipt records Python R1 0.13.0, R2 and R3
+plus Web 0.1.10 as published while R4 and Studio remain unpublished. The page therefore
 cannot be read as a stable V1 announcement. The projection also carries the
 exact ownership and capability-governance witnesses, CUT-002's explicit-only
 structured warning and opt-in process-local counter. The bounded current-head
