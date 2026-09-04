@@ -189,9 +189,11 @@ function isNativeCandidate(candidate) {
     "WEBREL-001": "complete_local_staging_publication_hold",
   };
   if (JSON.stringify(candidate.work_item_states || {}) !== JSON.stringify(expectedWorkItems)) return false;
-  const security = candidate.security_harnesses || {};
-  if (security.work_item !== "SEC-001" || security.evidence_status !== "four_native_targets_prepared_campaign_not_run" || !Array.isArray(security.harnesses) || security.harnesses.length !== 4) return false;
-  if (JSON.stringify(security.harnesses.map((item) => item && item.surface)) !== JSON.stringify(["formats", "core", "methods", "studio_store"])) return false;
+  // The committed projection predates ROB-001. Keep validating its historical
+  // shape, but do not present those old harnesses as current release evidence.
+  const historicalSecurity = candidate.security_harnesses || {};
+  if (historicalSecurity.work_item !== "SEC-001" || historicalSecurity.evidence_status !== "four_native_targets_prepared_campaign_not_run" || !Array.isArray(historicalSecurity.harnesses) || historicalSecurity.harnesses.length !== 4) return false;
+  if (JSON.stringify(historicalSecurity.harnesses.map((item) => item && item.surface)) !== JSON.stringify(["formats", "core", "methods", "studio_store"])) return false;
   if (!Array.isArray(candidate.components) || !candidate.components.length || !Array.isArray(candidate.capabilities)) return false;
   const componentKeys = candidate.components.map((component) => component && component.key).sort();
   if (JSON.stringify(componentKeys) !== JSON.stringify(["benchmarks", "core", "dag_ml", "dag_ml_data", "datasets", "formats", "io", "methods", "python", "studio", "tools", "ui", "web"])) return false;
@@ -276,16 +278,15 @@ function renderNativeCandidate(candidate) {
   );
 
   const workItems = candidate.work_item_states;
-  const closed = Object.entries(workItems).filter(([, state]) => state.startsWith("complete"));
-  const prepared = Object.entries(workItems).filter(([, state]) => state.startsWith("prepared"));
-  const advanced = Object.entries(workItems).filter(([, state]) => state.startsWith("advanced"));
-  const security = candidate.security_harnesses;
-  const securityTargets = security.harnesses.map((item) => `${item.surface}:${item.target}@${item.commit.slice(0, 12)}`).join(" · ");
+  const currentWorkItems = Object.entries(workItems).filter(([id]) => id !== "SEC-001");
+  const closed = currentWorkItems.filter(([, state]) => state.startsWith("complete"));
+  const prepared = currentWorkItems.filter(([, state]) => state.startsWith("prepared"));
+  const advanced = currentWorkItems.filter(([, state]) => state.startsWith("advanced"));
   document.getElementById("candidate-work-items").replaceChildren(
     el("p", { text: `Closed locally, release held: ${closed.map(([id]) => id).join(", ")}.` }),
     el("p", { text: `Prepared but not closed: ${prepared.map(([id]) => id).join(", ")}.` }),
     el("p", { text: `Advanced but not closed: ${advanced.map(([id]) => id).join(", ")}.` }),
-    el("p", { text: `SEC-001: 4 bounded native harnesses prepared (${securityTargets}); no fuzz campaign has run.` }),
+    el("p", { text: "ROB-001: functional invalid-input and non-crash checks await final receipts; covered failures must remain explicit and actionable." }),
     el("p", { text: "These states do not change the canonical lock or the global NO-GO." }),
   );
 

@@ -771,23 +771,23 @@ def validate_projection(projection: Any) -> None:
     for component in components:
         if not isinstance(component, dict):
             raise CandidateError("candidate component must be an object")
-        key = component.get("key")
-        if not isinstance(key, str) or key in keys:
+        component_key = component.get("key")
+        if not isinstance(component_key, str) or component_key in keys:
             raise CandidateError("candidate component keys must be unique")
-        keys.add(key)
+        keys.add(component_key)
         if not COMMIT_RE.fullmatch(component.get("commit", "")) or not TREE_RE.fullmatch(component.get("tree", "")):
-            raise CandidateError(f"{key}: malformed source identity")
+            raise CandidateError(f"{component_key}: malformed source identity")
         if not VERSION_RE.fullmatch(component.get("version", "")):
-            raise CandidateError(f"{key}: malformed version")
+            raise CandidateError(f"{component_key}: malformed version")
         if (
             component.get("publication") != "unavailable"
             or component.get("artifacts") != []
             or component.get("registry_urls") != []
         ):
-            raise CandidateError(f"{key}: unpublished candidate cannot expose artifacts or registries")
+            raise CandidateError(f"{component_key}: unpublished candidate cannot expose artifacts or registries")
         url = component.get("repository_url", "")
         if not re.fullmatch(r"https://github\.com/GBeurier/[A-Za-z0-9_.-]+", url):
-            raise CandidateError(f"{key}: unsafe repository URL")
+            raise CandidateError(f"{component_key}: unsafe repository URL")
     if keys != PROJECTED_COMPONENT_KEYS:
         raise CandidateError("candidate component membership is incomplete")
     capabilities = projection.get("capabilities")
