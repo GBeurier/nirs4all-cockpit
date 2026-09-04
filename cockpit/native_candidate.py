@@ -877,7 +877,25 @@ def validate_projection(projection: Any) -> None:
             raise CandidateError(f"{component_key}: malformed source identity")
         if not VERSION_RE.fullmatch(component.get("version", "")):
             raise CandidateError(f"{component_key}: malformed version")
-        if component_key in {"providers", "repository"}:
+        if component_key == "methods":
+            expected_artifact_ids = {"source_tarball", "sbom", "matlab_octave", "r_n4m", "r_pls4all"}
+            if (
+                component.get("publication") != "published"
+                or {artifact.get("id") for artifact in component.get("artifacts", [])} != expected_artifact_ids
+                or len(component.get("registry_urls", [])) != 4
+            ):
+                raise CandidateError("methods: published multi-registry receipt is incomplete")
+            for artifact in component["artifacts"]:
+                if (
+                    not isinstance(artifact.get("filename"), str)
+                    or not re.fullmatch(r"[0-9a-f]{64}", artifact.get("sha256", ""))
+                    or not isinstance(artifact.get("size"), int)
+                    or artifact["size"] <= 0
+                ):
+                    raise CandidateError("methods: malformed artifact receipt")
+            if any(not registry_url.startswith("https://") for registry_url in component["registry_urls"]):
+                raise CandidateError("methods: malformed registry receipt URL")
+        elif component_key in {"providers", "repository"}:
             if component.get("publication") != "published" or len(component.get("artifacts", [])) != 2:
                 raise CandidateError(f"{component_key}: published receipt is incomplete")
             for artifact in component["artifacts"]:

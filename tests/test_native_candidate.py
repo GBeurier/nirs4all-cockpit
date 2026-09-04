@@ -21,7 +21,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     value = candidate()
     validate_projection(value)
     assert SNAPSHOT.read_text(encoding="utf-8") == render(value)
-    assert value["source"]["commit"] == "8edd28e7428f9492387e537329fe3167eb6babbf"
+    assert value["source"]["commit"] == "a8d787323bef726f3400c13a9bd74f252926e820"
     assert value["architecture"]["studio_control_plane"] == "rust_only"
     assert [item["code"] for item in value["migration"]["exit_codes"]] == [0, 10, 20]
     assert value["methods_documentation"]["mapped_pages"] == "209/209"
@@ -75,6 +75,9 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     assert components["providers"]["commit"] == "b2210ec717c0de0055fc8b9424b115a933efdb4e"
     assert components["repository"]["publication"] == "published"
     assert components["providers"]["publication"] == "published"
+    assert components["methods"]["commit"] == "49aa40e90afef676f25809db1bd2a523e9582a49"
+    assert components["methods"]["publication"] == "published"
+    assert components["methods"]["version"] == "1.0.16"
     assert {artifact["id"] for artifact in components["repository"]["artifacts"]} == {"wheel", "sdist"}
     assert {artifact["id"] for artifact in components["providers"]["artifacts"]} == {"wheel", "sdist"}
     assert components["web"]["commit"] == "051bf636d7c1729087e5d40061b18bd690cd33b7"
