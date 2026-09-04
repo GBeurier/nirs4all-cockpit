@@ -178,20 +178,15 @@ def main() -> int:
         "nirs4all-ecosystem",
         "schema v1",
         "Release matrix",
-        "Native R1/R2/R3/R4 release",
-        "Train V1 natif publié",
+        "Latest news",
+        "nirs4all 1.0.0 is available",
+        "Earlier releases remain accessible",
+        "Qualified capabilities",
+        "This is not a version matrix",
+        "Verified for V1",
+        "Verified, limited scope",
+        "Functional soak passed",
         "SNV → Savitzky–Golay → PLS",
-        "nirs4all-tools 0.0.7",
-        "CUT-002 observability",
-        "process-local and intentionally non-persistent",
-        (
-            "Closed for the bounded V1 scope: API-001, API-004, API-005, CAP-001, DAG-001, DOC-001, "
-            "GATE-001, INST-001, PERF-002, RC-001, REL-003, ROB-001, SOAK-001, STU-006, UI-001, "
-            "WEB-001, WEBREL-001"
-        ),
-        "Prepared but not closed: none",
-        "Advanced but not closed: none",
-        "ROB-001: ordinary functional invalid-input checks are complete locally",
         "Downloads",
         "Code &amp; Actions",
         *unresolved_action_ids,
@@ -201,6 +196,24 @@ def main() -> int:
         print("dashboard smoke failed; missing rendered fragments:", file=sys.stderr)
         for fragment in missing:
             print(f"  - {fragment}", file=sys.stderr)
+        return 1
+
+    forbidden = [
+        "Exact local candidate identities",
+        "Final local work-item states",
+        "Candidate governance",
+        "CUT-002 observability",
+        "qualified_local",
+    ]
+    present = [fragment for fragment in forbidden if fragment in dom]
+    if present:
+        print("dashboard smoke failed; obsolete technical content is still rendered:", file=sys.stderr)
+        for fragment in present:
+            print(f"  - {fragment}", file=sys.stderr)
+        return 1
+
+    if dom.index("Qualified capabilities") < dom.index("Code &amp; Actions"):
+        print("dashboard smoke failed; capabilities must remain the final dashboard section", file=sys.stderr)
         return 1
 
     print(f"dashboard smoke OK via {Path(chrome).name}")

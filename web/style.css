@@ -274,24 +274,21 @@ section.block { margin: 0 0 34px; }
 
 .panels { display: grid; grid-template-columns: 1fr; gap: 18px; }
 .panel { padding: 16px 20px; }
-.candidate-state { border-color: #e0950c; background: #fff9e8; }
-.candidate-state strong { color: #8b5700; }
-.candidate-state p { margin-bottom: 0; color: var(--muted); overflow-wrap: anywhere; }
-.candidate-columns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 12px 0; }
-.candidate-columns h3, .candidate-table h3, #native-candidate > .card h3 { margin: 0 0 10px; font-family: var(--display); font-size: .9rem; }
-.candidate-columns p { margin: 7px 0; }
-.candidate-columns ul, #candidate-holds { margin: 0; padding-left: 20px; }
-.candidate-table { margin: 12px 0; overflow-x: auto; }
+.release-news { border-color: color-mix(in srgb, var(--teal) 34%, var(--line)); background: color-mix(in srgb, var(--teal) 4%, var(--surface)); }
+.release-news strong { color: var(--teal-d); font-family: var(--display); font-size: 1rem; }
+.release-news p { color: var(--text-2); overflow-wrap: anywhere; }
+.release-news ul { margin: 10px 0; padding-left: 20px; color: var(--text-2); }
+.release-news li + li { margin-top: 5px; }
+.release-news .release-news-note { color: var(--muted); font-size: .8rem; }
+.capability-summary { max-width: 900px; margin: 0 0 12px; color: var(--text-2); }
+.candidate-table { overflow-x: auto; }
+.candidate-table:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
 .candidate-stats { min-width: 800px; }
-.candidate-stats td { vertical-align: top; }
+.candidate-stats th, .candidate-stats td { vertical-align: top; white-space: normal; }
 .mono { font-family: var(--mono); font-size: .72rem; overflow-wrap: anywhere; }
-.migration-codes { display: grid; grid-template-columns: auto 1fr; gap: 5px 10px; margin: 10px 0 0; }
-.migration-codes dt { font: 700 .78rem var(--mono); color: var(--text); }
-.migration-codes dd { margin: 0; font-size: .78rem; color: var(--muted); }
 .candidate-badge { display: inline-flex; padding: 3px 7px; border-radius: 999px; font: 700 .64rem var(--mono); white-space: nowrap; color: #065f46; background: #d1fae5; }
-.candidate-badge--partial, .candidate-badge--qualified_bounded, .candidate-badge--fixture_only, .candidate-badge--record_only, .candidate-badge--bounded_current_not_release_evidence { color: #854d0e; background: #fef3c7; }
+.candidate-badge--limited { color: #854d0e; background: #fef3c7; }
 .candidate-badge--not_qualified, .candidate-badge--unavailable { color: #991b1b; background: #fee2e2; }
-@media (max-width: 900px) { .candidate-columns { grid-template-columns: 1fr; } }
 .stats { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
 .stats th, .stats td { padding: 8px 12px; border-bottom: 1px solid var(--line-2); text-align: right; white-space: nowrap; }
 .stats tbody tr:last-child th, .stats tbody tr:last-child td { border-bottom: none; }
