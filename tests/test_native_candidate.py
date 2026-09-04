@@ -21,7 +21,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     value = candidate()
     validate_projection(value)
     assert SNAPSHOT.read_text(encoding="utf-8") == render(value)
-    assert value["source"]["commit"] == "aae89519d4c807dab17a540328b97556c97307d3"
+    assert value["source"]["commit"] == "8edd28e7428f9492387e537329fe3167eb6babbf"
     assert value["architecture"]["studio_control_plane"] == "rust_only"
     assert [item["code"] for item in value["migration"]["exit_codes"]] == [0, 10, 20]
     assert value["methods_documentation"]["mapped_pages"] == "209/209"
@@ -32,7 +32,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     }
     assert value["release_train"]["milestones"]["r1"]["default_engine"] == "legacy"
     assert value["release_train"]["milestones"]["r3"]["studio_commit"] == (
-        "bea06a555f49c886ab0d02f626c347570f1127d3"
+        "1c905e4c51a146dcc85e017454557a7eace7209b"
     )
     assert value["release_train"]["milestones"]["r2"]["python_commit"] == (
         "d351785dbc17290cdc85a797ead299ffce58f257"
@@ -70,7 +70,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
         "work_item": "ROB-001",
     }
     components = {item["key"]: item for item in value["components"]}
-    assert components["studio"]["commit"] == "bea06a555f49c886ab0d02f626c347570f1127d3"
+    assert components["studio"]["commit"] == "1c905e4c51a146dcc85e017454557a7eace7209b"
     assert components["repository"]["commit"] == "dbd9dae1205e1905692decd9fc7243f4fbda3068"
     assert components["providers"]["commit"] == "b2210ec717c0de0055fc8b9424b115a933efdb4e"
     assert components["repository"]["publication"] == "published"
