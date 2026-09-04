@@ -21,7 +21,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     value = candidate()
     validate_projection(value)
     assert SNAPSHOT.read_text(encoding="utf-8") == render(value)
-    assert value["source"]["commit"] == "2d6ae20855b6eb960df07106b00d9b879238229e"
+    assert value["source"]["commit"] == "2b08a0da0be8952b38cfc28090d757cb7a314b50"
     assert value["architecture"]["studio_control_plane"] == "rust_only"
     assert [item["code"] for item in value["migration"]["exit_codes"]] == [0, 10, 20]
     assert value["methods_documentation"]["mapped_pages"] == "209/209"
