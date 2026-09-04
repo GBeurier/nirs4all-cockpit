@@ -19,6 +19,8 @@ Studio 0.11.0, Web 0.1.10, Repository 0.1.12 and Providers 0.2.11 are
 published. R1 keeps the legacy engine as its default. Studio is intentionally
 unsigned and non-notarized under an explicit bounded waiver; exact SHA-256
 receipts and the Windows installed-path limitation remain public.
+The Cockpit projection is sealed by the annotated `v0.1.8` and
+`n4a-v1-2026.09-native-release` tags.
 
 ---
 
