@@ -161,12 +161,13 @@ function isNativeCandidate(candidate) {
   if (r.status !== "no_go" || r.publication !== "unpublished" || r.canonical_lock_updated !== false || r.downloads_enabled !== false || r.registry_links_enabled !== false) return false;
   const releaseTrain = candidate.release_train || {};
   const milestones = releaseTrain.milestones || {};
-  if (releaseTrain.status !== "r1_r2_r3_distinct_candidates_r4_held" || releaseTrain.publication !== "r1_published_r2_r3_unpublished") return false;
-  if (milestones.r1?.default_engine !== "legacy" || milestones.r2?.default_engine !== "native_with_explicit_legacy_opt_in" || milestones.r3?.default_engine !== "native_fail_closed_rust_only" || milestones.r4?.status !== "not_created_until_stable_gates_are_green") return false;
+  if (releaseTrain.status !== "r1_r2_r3_distinct_candidates_r4_candidate_held" || releaseTrain.publication !== "r1_published_r2_r3_r4_unpublished") return false;
+  if (milestones.r1?.default_engine !== "legacy" || milestones.r2?.default_engine !== "native_with_explicit_legacy_opt_in" || milestones.r3?.default_engine !== "native_fail_closed_rust_only" || milestones.r4?.status !== "unpublished_candidate_no_public_receipt") return false;
+  if (!/^[0-9a-f]{40}$/.test(milestones.r4?.python_commit || "") || !/^[0-9a-f]{40}$/.test(milestones.r4?.python_tree || "") || !/^[0-9a-f]{40}$/.test(milestones.r4?.documentation_commit || "") || !/^[0-9a-f]{40}$/.test(milestones.r4?.documentation_tree || "")) return false;
   const cutover = candidate.cutover_observability || {};
   if (cutover.work_item !== "CUT-002" || cutover.legacy_activation !== "explicit_legacy_or_dual_only" || cutover.warning_format !== "stable_structured_json" || cutover.counter_opt_in !== true || cutover.counter_scope !== "opt_in_process_local_non_persistent_intentional" || cutover.strict_paths_silent !== true || cutover.implicit_fallback !== false) return false;
   const performance = candidate.performance || {};
-  if (performance.evidence_mode !== "stale_not_current_evidence" || performance.report_scope !== "predates_distinct_r1_r2_r3_candidates" || performance.refresh_required !== true || performance.timings_ms !== null || performance.budgets_frozen !== false || performance.release_eligible !== false) return false;
+  if (performance.evidence_mode !== "current_heads_bounded_synthetic_not_release_evidence" || performance.report_scope !== "current_selected_heads_local_four_surface_replay" || performance.representative_soak_required !== true || performance.timings_ms !== null || performance.budgets_frozen !== false || performance.release_eligible !== false) return false;
   const governance = candidate.governance || {};
   if (!governance.ownership || !governance.capability_inventory) return false;
   const expectedWorkItems = {
@@ -177,11 +178,11 @@ function isNativeCandidate(candidate) {
     "DAG-001": "complete_local_code_release_hold",
     "DOC-001": "complete_local_docs_release_hold",
     "GATE-001": "complete_local_linux_functional_release_hold",
-    "INST-001": "prepared_local_linux_harness_external_matrix_hold",
+    "INST-001": "advanced_local_linux_appimage_lifecycle_complete_macos_windows_hold",
     "PERF-002": "advanced_local_evidence_not_closed",
     "RC-001": "prepared_local_triage_external_evidence_hold",
     "REL-003": "complete_local_code_release_hold",
-    "SEC-001": "prepared_local_native_fuzz_harnesses_campaign_not_closed",
+    "ROB-001": "complete_local_functional_non_crash_non_blocking",
     "SOAK-001": "advanced_local_evidence_not_closed",
     "STU-006": "complete_local_code_external_release_hold",
     "UI-001": "complete_registry_publication_downstream_product_hold",
@@ -189,14 +190,11 @@ function isNativeCandidate(candidate) {
     "WEBREL-001": "complete_local_staging_publication_hold",
   };
   if (JSON.stringify(candidate.work_item_states || {}) !== JSON.stringify(expectedWorkItems)) return false;
-  // The committed projection predates ROB-001. Keep validating its historical
-  // shape, but do not present those old harnesses as current release evidence.
-  const historicalSecurity = candidate.security_harnesses || {};
-  if (historicalSecurity.work_item !== "SEC-001" || historicalSecurity.evidence_status !== "four_native_targets_prepared_campaign_not_run" || !Array.isArray(historicalSecurity.harnesses) || historicalSecurity.harnesses.length !== 4) return false;
-  if (JSON.stringify(historicalSecurity.harnesses.map((item) => item && item.surface)) !== JSON.stringify(["formats", "core", "methods", "studio_store"])) return false;
+  const functional = candidate.functional_non_crash || {};
+  if (functional.work_item !== "ROB-001" || functional.status !== "complete_local_functional_non_crash_non_blocking" || functional.scope !== "ordinary_component_suites_supported_invalid_inputs" || functional.release_gate !== false) return false;
   if (!Array.isArray(candidate.components) || !candidate.components.length || !Array.isArray(candidate.capabilities)) return false;
   const componentKeys = candidate.components.map((component) => component && component.key).sort();
-  if (JSON.stringify(componentKeys) !== JSON.stringify(["benchmarks", "core", "dag_ml", "dag_ml_data", "datasets", "formats", "io", "methods", "python", "studio", "tools", "ui", "web"])) return false;
+  if (JSON.stringify(componentKeys) !== JSON.stringify(["benchmarks", "core", "dag_ml", "dag_ml_data", "datasets", "formats", "io", "methods", "providers", "python", "repository", "studio", "tools", "ui", "web"])) return false;
   return candidate.components.every((component) =>
     component && /^[0-9a-f]{40}$/.test(component.commit || "") && /^[0-9a-f]{40}$/.test(component.tree || "") &&
     component.publication === "unavailable" && Array.isArray(component.artifacts) && !component.artifacts.length &&
@@ -232,7 +230,8 @@ function renderNativeCandidate(candidate) {
       text: `${key.toUpperCase()}: Python ${milestone.python_version} @ ${milestone.python_commit.slice(0, 12)} · Studio ${milestone.studio_version} @ ${milestone.studio_commit.slice(0, 12)} · ${milestone.default_engine}.`,
     }));
   });
-  releaseTrainBox.appendChild(el("p", { text: "R4/V1 stable is not created until all stable gates are green." }));
+  const r4 = releaseTrain.milestones.r4;
+  releaseTrainBox.appendChild(el("p", { text: `R4: Python ${r4.python_version} @ ${r4.python_commit.slice(0, 12)} · docs ${r4.documentation_commit.slice(0, 12)} · unpublished candidate.` }));
 
   const architecture = document.getElementById("candidate-architecture");
   architecture.replaceChildren();
@@ -273,12 +272,12 @@ function renderNativeCandidate(candidate) {
 
   const performance = candidate.performance;
   document.getElementById("candidate-performance").replaceChildren(
-    el("p", { text: "The available Bench report predates the distinct R1/R2/R3 candidates and is not current release evidence." }),
-    el("p", { text: "A fresh four-runtime measurement, frozen budgets and soak remain required." }),
+    el("p", { text: "The current bounded synthetic replay passes on four product surfaces without fallback; it is not release evidence." }),
+    el("p", { text: "Representative sustained soak, frozen budgets and external matrices remain required." }),
   );
 
   const workItems = candidate.work_item_states;
-  const currentWorkItems = Object.entries(workItems).filter(([id]) => id !== "SEC-001");
+  const currentWorkItems = Object.entries(workItems);
   const closed = currentWorkItems.filter(([, state]) => state.startsWith("complete"));
   const prepared = currentWorkItems.filter(([, state]) => state.startsWith("prepared"));
   const advanced = currentWorkItems.filter(([, state]) => state.startsWith("advanced"));
@@ -286,7 +285,7 @@ function renderNativeCandidate(candidate) {
     el("p", { text: `Closed locally, release held: ${closed.map(([id]) => id).join(", ")}.` }),
     el("p", { text: `Prepared but not closed: ${prepared.map(([id]) => id).join(", ")}.` }),
     el("p", { text: `Advanced but not closed: ${advanced.map(([id]) => id).join(", ")}.` }),
-    el("p", { text: "ROB-001: functional invalid-input and non-crash checks await final receipts; covered failures must remain explicit and actionable." }),
+    el("p", { text: "ROB-001: ordinary functional invalid-input checks are complete locally and remain non-blocking; covered failures stay explicit and actionable." }),
     el("p", { text: "These states do not change the canonical lock or the global NO-GO." }),
   );
 

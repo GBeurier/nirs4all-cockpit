@@ -21,20 +21,33 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     value = candidate()
     validate_projection(value)
     assert SNAPSHOT.read_text(encoding="utf-8") == render(value)
-    assert value["source"]["commit"] == "091b8a0f3069e7a90167f78c81bb9d414c50ade5"
+    assert value["source"]["commit"] == "2d6ae20855b6eb960df07106b00d9b879238229e"
     assert value["architecture"]["studio_control_plane"] == "rust_only"
     assert [item["code"] for item in value["migration"]["exit_codes"]] == [0, 10, 20]
     assert value["methods_documentation"]["mapped_pages"] == "209/209"
     assert {row["status"] for row in value["capabilities"]} >= {
         "qualified_local",
         "qualified_bounded",
-        "not_qualified",
-        "stale_not_current_evidence",
+        "bounded_current_not_release_evidence",
     }
     assert value["release_train"]["milestones"]["r1"]["default_engine"] == "legacy"
     assert value["release_train"]["milestones"]["r3"]["studio_commit"] == (
-        "ca4ee2afbb7596b2e4ba4b00f6d5797e553dfa39"
+        "89b5278a47ae4d38d6b508fabdd6e712f96942c0"
     )
+    assert value["release_train"]["milestones"]["r2"]["python_commit"] == (
+        "d351785dbc17290cdc85a797ead299ffce58f257"
+    )
+    assert value["release_train"]["milestones"]["r3"]["python_commit"] == (
+        "3567bd4abcaa64443a1946748a579f0803e91889"
+    )
+    assert value["release_train"]["milestones"]["r4"] == {
+        "documentation_commit": "ef39f1a53dd120b9ce28907dc372d755dd621430",
+        "documentation_tree": "126dfe87557a265d2a6c7894885c7772604d5311",
+        "python_commit": "a5e5f93b8b1336bc58c0a23814066e5e14678d12",
+        "python_tree": "1f566f81f5309ed0b73872fbc01db00a40d4e3e2",
+        "python_version": "1.0.0",
+        "status": "unpublished_candidate_no_public_receipt",
+    }
     assert value["governance"]["ownership"]["commit"] == "fe17a3f939f9fb95c8ed1e068138c72ceac92890"
     assert value["governance"]["capability_inventory"]["commit"] == "cf6cd1d96c12d7043134ab0a7b4f593e19ec553b"
     assert value["cutover_observability"]["implicit_fallback"] is False
@@ -42,24 +55,24 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     assert value["performance"] == {
         "budgets_frozen": False,
         "contract": "archive_v2_same_matrix_four_surfaces",
-        "evidence_mode": "stale_not_current_evidence",
-        "refresh_required": True,
+        "evidence_mode": "current_heads_bounded_synthetic_not_release_evidence",
         "release_eligible": False,
-        "report_scope": "predates_distinct_r1_r2_r3_candidates",
+        "report_scope": "current_selected_heads_local_four_surface_replay",
+        "representative_soak_required": True,
         "timings_ms": None,
     }
-    assert value["security_harnesses"]["evidence_status"] == "four_native_targets_prepared_campaign_not_run"
-    assert [item["surface"] for item in value["security_harnesses"]["harnesses"]] == [
-        "formats",
-        "core",
-        "methods",
-        "studio_store",
-    ]
-    assert "no fuzz campaign has run" in value["security_harnesses"]["release_limit"]
+    assert value["functional_non_crash"] == {
+        "release_gate": False,
+        "scope": "ordinary_component_suites_supported_invalid_inputs",
+        "status": "complete_local_functional_non_crash_non_blocking",
+        "work_item": "ROB-001",
+    }
     components = {item["key"]: item for item in value["components"]}
-    assert components["studio"]["commit"] == "ca4ee2afbb7596b2e4ba4b00f6d5797e553dfa39"
+    assert components["studio"]["commit"] == "89b5278a47ae4d38d6b508fabdd6e712f96942c0"
+    assert components["repository"]["commit"] == "dbd9dae1205e1905692decd9fc7243f4fbda3068"
+    assert components["providers"]["commit"] == "b2210ec717c0de0055fc8b9424b115a933efdb4e"
     assert components["web"]["commit"] == "051bf636d7c1729087e5d40061b18bd690cd33b7"
-    assert components["benchmarks"]["commit"] == "9ff889a5be1bbc48a16d69a27ab743c23598f7da"
+    assert components["benchmarks"]["commit"] == "17f8196b26457fbd300a46d6520c3d1845d0de05"
     assert components["ui"] == {
         "artifacts": [],
         "commit": "406d94d70004f27459ef12347af1e6f0079ab6ac",
@@ -81,11 +94,11 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
         "DAG-001": "complete_local_code_release_hold",
         "DOC-001": "complete_local_docs_release_hold",
         "GATE-001": "complete_local_linux_functional_release_hold",
-        "INST-001": "prepared_local_linux_harness_external_matrix_hold",
+        "INST-001": "advanced_local_linux_appimage_lifecycle_complete_macos_windows_hold",
         "PERF-002": "advanced_local_evidence_not_closed",
         "RC-001": "prepared_local_triage_external_evidence_hold",
         "REL-003": "complete_local_code_release_hold",
-        "SEC-001": "prepared_local_native_fuzz_harnesses_campaign_not_closed",
+        "ROB-001": "complete_local_functional_non_crash_non_blocking",
         "SOAK-001": "advanced_local_evidence_not_closed",
         "STU-006": "complete_local_code_external_release_hold",
         "UI-001": "complete_registry_publication_downstream_product_hold",
@@ -101,7 +114,7 @@ def test_public_surfaces_match_the_published_r1_and_web_receipts() -> None:
     current = json.loads(CURRENT.read_text(encoding="utf-8"))
     packages = {item["id"]: item for item in current["packages"]}
 
-    assert value["release_train"]["publication"] == "r1_published_r2_r3_unpublished"
+    assert value["release_train"]["publication"] == "r1_published_r2_r3_r4_unpublished"
     assert current["generator"]["snapshot_status"] == "historical_obsolete"
     assert packages["nirs4all"]["source"]["expected_prod_version"] == r1_version
     assert {
@@ -120,7 +133,7 @@ def test_public_surfaces_match_the_published_r1_and_web_receipts() -> None:
     browser_validator = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
     assert f"R1 {r1_version} and Web {web_version} are published" in readme
     assert f"R1 {r1_version} and nirs4all-web {web_version} are published" in index
-    assert 'releaseTrain.publication !== "r1_published_r2_r3_unpublished"' in browser_validator
+    assert 'releaseTrain.publication !== "r1_published_r2_r3_r4_unpublished"' in browser_validator
     assert "Web 0.1.9" not in readme
     assert "nirs4all-web 0.1.9" not in index
 
@@ -142,10 +155,10 @@ def test_candidate_refuses_publication_or_fabricated_artifacts() -> None:
     [
         (("governance", "ownership", "commit"), "unknown", "governance identity"),
         (("cutover_observability", "implicit_fallback"), True, "CUT-002"),
-        (("performance", "evidence_mode"), "qualified", "stale"),
-        (("performance", "refresh_required"), False, "stale"),
-        (("work_item_states", "SEC-001"), "complete", "work-item states"),
-        (("security_harnesses", "evidence_status"), "qualified", "SEC-001"),
+        (("performance", "evidence_mode"), "qualified", "bounded"),
+        (("performance", "representative_soak_required"), False, "bounded"),
+        (("work_item_states", "ROB-001"), "pending", "work-item states"),
+        (("functional_non_crash", "release_gate"), True, "ROB-001"),
     ],
 )
 def test_candidate_refuses_incomplete_or_overclaimed_final_evidence(

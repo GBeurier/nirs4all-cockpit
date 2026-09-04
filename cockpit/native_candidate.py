@@ -33,11 +33,11 @@ PROJECTED_WORK_ITEM_STATES = {
     "DAG-001": "complete_local_code_release_hold",
     "DOC-001": "complete_local_docs_release_hold",
     "GATE-001": "complete_local_linux_functional_release_hold",
-    "INST-001": "prepared_local_linux_harness_external_matrix_hold",
+    "INST-001": "advanced_local_linux_appimage_lifecycle_complete_macos_windows_hold",
     "PERF-002": "advanced_local_evidence_not_closed",
     "RC-001": "prepared_local_triage_external_evidence_hold",
     "REL-003": "complete_local_code_release_hold",
-    "SEC-001": "prepared_local_native_fuzz_harnesses_campaign_not_closed",
+    "ROB-001": "complete_local_functional_non_crash_non_blocking",
     "SOAK-001": "advanced_local_evidence_not_closed",
     "STU-006": "complete_local_code_external_release_hold",
     "UI-001": "complete_registry_publication_downstream_product_hold",
@@ -54,6 +54,8 @@ PROJECTED_COMPONENT_KEYS = {
     "io",
     "methods",
     "python",
+    "providers",
+    "repository",
     "studio",
     "tools",
     "ui",
@@ -78,6 +80,15 @@ def _git(repo: Path, *args: str) -> bytes:
 
 def _text_at(repo: Path, commit: str, path: str) -> str:
     return _git(repo, "show", f"{commit}:{path}").decode("utf-8")
+
+
+def _is_ancestor(repo: Path, ancestor: str, descendant: str) -> bool:
+    result = subprocess.run(
+        ["git", "-C", str(repo), "merge-base", "--is-ancestor", ancestor, descendant],
+        check=False,
+        capture_output=True,
+    )
+    return result.returncode == 0
 
 
 def _version_at(repo: Path, commit: str, path: str, pattern: str) -> str:
@@ -150,62 +161,12 @@ def _project_work_item_states(ledger: dict[str, Any]) -> dict[str, str]:
     return dict(sorted(observed.items()))
 
 
-def _project_security_harnesses(evidence: dict[str, Any]) -> dict[str, Any]:
-    """Project bounded SEC-001 harness metadata without implying qualification."""
-    security = evidence.get("security_harnesses")
-    if not isinstance(security, dict):
-        raise CandidateError("SEC-001 harness evidence is missing")
-    if security.get("evidence_status") != "four_native_targets_prepared_campaign_not_run":
-        raise CandidateError("SEC-001 must remain prepared with no fuzz campaign")
-
-    harnesses: list[dict[str, Any]] = []
-    for surface in ("formats", "core", "methods", "studio_store"):
-        raw = security.get(surface)
-        if not isinstance(raw, dict):
-            raise CandidateError(f"SEC-001 {surface} harness is missing")
-        commit = raw.get("commit")
-        tree = raw.get("tree")
-        target = raw.get("target")
-        input_limit = raw.get("input_limit_bytes")
-        entrypoint = raw.get("canonical_entrypoint")
-        if not isinstance(commit, str) or not COMMIT_RE.fullmatch(commit):
-            raise CandidateError(f"SEC-001 {surface} harness commit is invalid")
-        if not isinstance(tree, str) or not TREE_RE.fullmatch(tree):
-            raise CandidateError(f"SEC-001 {surface} harness tree is invalid")
-        if not isinstance(target, str) or not target:
-            raise CandidateError(f"SEC-001 {surface} harness target is invalid")
-        if not isinstance(input_limit, int) or input_limit <= 0 or input_limit > 2 * 1024 * 1024:
-            raise CandidateError(f"SEC-001 {surface} harness input bound is invalid")
-        if not isinstance(entrypoint, str) or not entrypoint:
-            raise CandidateError(f"SEC-001 {surface} canonical entrypoint is invalid")
-        harnesses.append(
-            {
-                "surface": surface,
-                "commit": commit,
-                "tree": tree,
-                "target": target,
-                "input_limit_bytes": input_limit,
-                "canonical_entrypoint": entrypoint,
-            }
-        )
-
-    release_limit = security.get("release_limit")
-    if not isinstance(release_limit, str) or not release_limit:
-        raise CandidateError("SEC-001 release limit is missing")
-    return {
-        "work_item": "SEC-001",
-        "evidence_status": security["evidence_status"],
-        "harnesses": harnesses,
-        "release_limit": release_limit,
-    }
-
-
 def _project_release_train(evidence: dict[str, Any]) -> dict[str, Any]:
     """Project the distinct product candidates without implying a stable release."""
     sequence = evidence.get("product_release_sequence")
     if not isinstance(sequence, dict):
         raise CandidateError("product release sequence is missing")
-    if sequence.get("status") != "r1_r2_r3_distinct_remote_candidates_r4_held":
+    if sequence.get("status") != "r1_r2_r3_distinct_remote_candidates_r4_candidate_held":
         raise CandidateError("product release sequence is not the held R1/R2/R3 train")
     if sequence.get("required_order") != (
         "r1_0_13_0_then_r2_1_0_0_rc_1_then_r3_1_0_0_rc_2_then_r4_1_0_0"
@@ -273,15 +234,30 @@ def _project_release_train(evidence: dict[str, Any]) -> dict[str, Any]:
         }
     )
     r4 = raw_milestones["r4"]
-    if r4 != {"version": "1.0.0", "status": "not_created_until_all_stable_gates_are_green"}:
-        raise CandidateError("R4 must remain absent until all stable gates are green")
+    python = evidence.get("python_strict_profile")
+    expected_r4_status = "unpublished_candidate_no_public_receipt"
+    for field in ("commit", "tree", "direct_parent_documentation_commit"):
+        if not COMMIT_RE.fullmatch(r4.get(field, "")):
+            raise CandidateError(f"r4: malformed {field}")
+    if r4.get("version") != "1.0.0" or r4.get("status") != expected_r4_status:
+        raise CandidateError("R4 must remain an unpublished held candidate")
+    if (
+        not isinstance(python, dict)
+        or python.get("r4_documentation_commit") != r4["direct_parent_documentation_commit"]
+        or not TREE_RE.fullmatch(python.get("r4_documentation_tree", ""))
+    ):
+        raise CandidateError("R4 documentation identity diverges")
     milestones["r4"] = {
         "python_version": "1.0.0",
-        "status": "not_created_until_stable_gates_are_green",
+        "python_commit": r4["commit"],
+        "python_tree": r4["tree"],
+        "documentation_commit": r4["direct_parent_documentation_commit"],
+        "documentation_tree": python["r4_documentation_tree"],
+        "status": expected_r4_status,
     }
     return {
-        "status": "r1_r2_r3_distinct_candidates_r4_held",
-        "publication": "r1_published_r2_r3_unpublished",
+        "status": "r1_r2_r3_distinct_candidates_r4_candidate_held",
+        "publication": "r1_published_r2_r3_r4_unpublished",
         "milestones": milestones,
     }
 
@@ -302,7 +278,8 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
         raise CandidateError("candidate evidence block is missing")
     if (
         evidence.get("promotion_status") != "no_go"
-        or evidence.get("publication_status") != "component_train_published_product_train_incomplete_no_go"
+        or evidence.get("publication_status")
+        != "repository_0_1_11_published_providers_and_product_train_incomplete_no_go"
         or evidence.get("release_gate_status") != "no_go"
     ):
         raise CandidateError("candidate must remain NO-GO in staging")
@@ -323,6 +300,8 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
     web = evidence["web"]
     ui = evidence["ui"]
     benchmarks = evidence["benchmarks"]
+    providers = evidence["providers"]
+    repository = evidence["repository"]
     capability_governance = evidence["capability_governance"]
     ownership_governance = evidence["ownership_governance"]
 
@@ -352,8 +331,12 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
     )
     if ui_version != ui.get("version"):
         raise CandidateError("ui: ledger version differs from the selected source")
-    if ui.get("studio_consumer_commit") != studio.get("candidate_commit"):
-        raise CandidateError("ui: Studio consumer does not match the selected candidate")
+    if not _is_ancestor(
+        workspace_root / "nirs4all-studio",
+        ui.get("studio_consumer_commit", ""),
+        studio.get("candidate_commit", ""),
+    ):
+        raise CandidateError("ui: Studio candidate does not descend from the qualified UI consumer")
     if ui.get("web_consumer_commit") != web.get("candidate_commit"):
         raise CandidateError("ui: Web consumer does not match the selected candidate")
     if not re.fullmatch(r"[0-9a-f]{64}", ui.get("tarball_sha256", "")):
@@ -365,6 +348,18 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
         workspace_root / "nirs4all-benchmarks",
         benchmarks["commit"],
         "src/nirs4all_benchmarks/version.py",
+        r'^__version__\s*=\s*"([^"]+)"',
+    )
+    providers_version = _version_at(
+        workspace_root / "nirs4all-providers",
+        providers["qualification_commit"],
+        "src/nirs4all_providers/__init__.py",
+        r'^__version__\s*=\s*"([^"]+)"',
+    )
+    repository_version = _version_at(
+        workspace_root / "nirs4all-repository",
+        repository["qualification_commit"],
+        "src/nirs4all_repository/_version.py",
         r'^__version__\s*=\s*"([^"]+)"',
     )
 
@@ -395,6 +390,24 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
         ),
         _identity(tools, key="tools", name="nirs4all-tools", repository="nirs4all-tools", version=tools["version"]),
         _identity(python, key="python", name="nirs4all", repository="nirs4all", version=python_version),
+        _identity(
+            providers,
+            key="providers",
+            name="nirs4all-providers",
+            repository="nirs4all-providers",
+            commit_field="qualification_commit",
+            tree_field="qualification_tree",
+            version=providers_version,
+        ),
+        _identity(
+            repository,
+            key="repository",
+            name="nirs4all-repository",
+            repository="nirs4all-repository",
+            commit_field="qualification_commit",
+            tree_field="qualification_tree",
+            version=repository_version,
+        ),
         _identity(
             studio,
             key="studio",
@@ -479,8 +492,8 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "surfaces": ["studio"],
             "limits": (
                 "HTTP, contrôle, store, jobs, scheduler et WebSocket en Rust; "
-                "matrice unsigned Linux/Windows/macOS verte; publication, signatures, "
-                "soak hostile et verrou canonique restent en attente."
+                "candidat final épinglé sur Python R3; sa matrice finale, la publication, "
+                "les signatures et le soak représentatif restent en attente."
             ),
         },
         {
@@ -522,23 +535,22 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
         },
         {
             "key": "full_python_api",
-            "label": "Matrice complète API Python R2",
-            "status": "not_qualified",
+            "label": "Matrice API Python bornée",
+            "status": "qualified_bounded",
             "surfaces": ["python"],
             "limits": (
-                "run/predict/session/cache/conformal/robustness et les chemins dual-Methods "
-                "restent incomplets comme ensemble; les dispositions retrain/explain/generate "
-                "bornées sont listées séparément."
+                "Les surfaces promises run/predict/session/cache/conformal/robustness et orchestration "
+                "sont qualifiées localement; transfer reste lié au plugin, et les capacités absentes refusent."
             ),
         },
         {
             "key": "four_surface_performance",
             "label": "Performance sur le train courant",
-            "status": "stale_not_current_evidence",
+            "status": "bounded_current_not_release_evidence",
             "surfaces": ["benchmarks"],
             "limits": (
-                "Le rapport Bench disponible précède les candidats R1/R2/R3 distincts. Il reste historique "
-                "et ne constitue pas une preuve courante; nouvelle mesure et soak requis."
+                "Le rejeu synthétique courant passe sur quatre surfaces sans fallback; il ne remplace pas "
+                "le soak représentatif, les budgets figés ni les matrices externes."
             ),
         },
     ]
@@ -561,7 +573,7 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "registry_links_enabled": False,
             "notice": (
                 "Candidat produit strictement NO-GO; les composants natifs, R1 0.13.0 et Web 0.1.10 "
-                "sont publiés, mais R2, R3 et Studio restent non publiés et aucune V1 stable n’est annoncée."
+                "sont publiés, mais R2, R3, R4 et Studio restent non publiés et aucune V1 stable n’est annoncée."
             ),
         },
         "release_train": _project_release_train(evidence),
@@ -587,15 +599,20 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
             "ownership": _governance_identity(ownership_governance, key="ownership_governance"),
         },
         "performance": {
-            "evidence_mode": "stale_not_current_evidence",
+            "evidence_mode": "current_heads_bounded_synthetic_not_release_evidence",
             "contract": benchmarks["performance_contract"],
-            "report_scope": "predates_distinct_r1_r2_r3_candidates",
-            "refresh_required": True,
+            "report_scope": "current_selected_heads_local_four_surface_replay",
+            "representative_soak_required": True,
             "timings_ms": None,
             "budgets_frozen": False,
             "release_eligible": benchmarks["release_eligible"],
         },
-        "security_harnesses": _project_security_harnesses(evidence),
+        "functional_non_crash": {
+            "work_item": "ROB-001",
+            "status": "complete_local_functional_non_crash_non_blocking",
+            "scope": "ordinary_component_suites_supported_invalid_inputs",
+            "release_gate": False,
+        },
         "work_item_states": _project_work_item_states(ledger),
         "migration": {
             "tool": "nirs4all-tools",
@@ -618,7 +635,20 @@ def build_projection(governance_repo: Path, governance_commit: str, workspace_ro
         },
         "components": sorted(components, key=lambda item: item["key"]),
         "capabilities": capabilities,
-        "holds": list(evidence.get("blockers", [])),
+        "holds": [
+            (
+                "Product HOLD: R1 and Web are published; Repository 0.1.12, Providers 0.2.11, "
+                "R2, R3, R4 and Studio 0.11.0 remain unpublished."
+            ),
+            (
+                "Release-artifact HOLD: the canonical lock is unchanged; final artifact digests, "
+                "signatures and SBOM/provenance receipts remain incomplete where applicable."
+            ),
+            (
+                "Qualification HOLD: final-head external matrices, signed installers, representative "
+                "sustained soak and frozen reference-host performance budgets remain incomplete."
+            ),
+        ],
     }
     validate_projection(projection)
     return projection
@@ -650,15 +680,15 @@ def validate_projection(projection: Any) -> None:
         "registry_links_enabled": False,
         "notice": (
             "Candidat produit strictement NO-GO; les composants natifs, R1 0.13.0 et Web 0.1.10 "
-            "sont publiés, mais R2, R3 et Studio restent non publiés et aucune V1 stable n’est annoncée."
+            "sont publiés, mais R2, R3, R4 et Studio restent non publiés et aucune V1 stable n’est annoncée."
         ),
     }
     if release != expected_release:
         raise CandidateError("candidate projection must remain unpublished and NO-GO")
     release_train = projection.get("release_train")
     if not isinstance(release_train, dict) or release_train.get("status") != (
-        "r1_r2_r3_distinct_candidates_r4_held"
-    ) or release_train.get("publication") != "r1_published_r2_r3_unpublished":
+        "r1_r2_r3_distinct_candidates_r4_candidate_held"
+    ) or release_train.get("publication") != "r1_published_r2_r3_r4_unpublished":
         raise CandidateError("candidate release train must retain only the published R1 receipt")
     milestones = release_train.get("milestones")
     if not isinstance(milestones, dict) or set(milestones) != {"r1", "r2", "r3", "r4"}:
@@ -686,11 +716,16 @@ def validate_projection(projection: Any) -> None:
         or r1.get("publication_workflow_run") != 33753479548
     ):
         raise CandidateError("R1 candidate publication receipt diverges")
-    if milestones.get("r4") != {
-        "python_version": "1.0.0",
-        "status": "not_created_until_stable_gates_are_green",
-    }:
-        raise CandidateError("R4 must remain absent until stable gates are green")
+    r4 = milestones.get("r4")
+    if (
+        not isinstance(r4, dict)
+        or r4.get("python_version") != "1.0.0"
+        or r4.get("status") != "unpublished_candidate_no_public_receipt"
+        or any(not COMMIT_RE.fullmatch(r4.get(field, "")) for field in (
+            "python_commit", "python_tree", "documentation_commit", "documentation_tree"
+        ))
+    ):
+        raise CandidateError("R4 must remain an exact unpublished held candidate")
     governance = projection.get("governance")
     expected_governance_statuses = {
         "capability_inventory": "exhaustive_candidate_inventory_complete_no_go",
@@ -723,47 +758,25 @@ def validate_projection(projection: Any) -> None:
     if not isinstance(performance, dict):
         raise CandidateError("performance evidence is missing")
     if (
-        performance.get("evidence_mode") != "stale_not_current_evidence"
+        performance.get("evidence_mode") != "current_heads_bounded_synthetic_not_release_evidence"
         or performance.get("contract") != "archive_v2_same_matrix_four_surfaces"
-        or performance.get("report_scope") != "predates_distinct_r1_r2_r3_candidates"
-        or performance.get("refresh_required") is not True
+        or performance.get("report_scope") != "current_selected_heads_local_four_surface_replay"
+        or performance.get("representative_soak_required") is not True
         or performance.get("timings_ms") is not None
         or performance.get("budgets_frozen") is not False
         or performance.get("release_eligible") is not False
     ):
-        raise CandidateError("performance evidence must remain stale, refresh-required and release-ineligible")
+        raise CandidateError("performance evidence must remain bounded and release-ineligible")
     if projection.get("work_item_states") != PROJECTED_WORK_ITEM_STATES:
         raise CandidateError("selected work-item states are incomplete or overclaimed")
-    security = projection.get("security_harnesses")
-    if (
-        not isinstance(security, dict)
-        or security.get("work_item") != "SEC-001"
-        or security.get("evidence_status") != "four_native_targets_prepared_campaign_not_run"
-        or not isinstance(security.get("release_limit"), str)
-        or "no fuzz campaign has run" not in security["release_limit"]
-    ):
-        raise CandidateError("SEC-001 harness evidence is incomplete or overclaimed")
-    harnesses = security.get("harnesses")
-    if not isinstance(harnesses, list) or [item.get("surface") for item in harnesses if isinstance(item, dict)] != [
-        "formats",
-        "core",
-        "methods",
-        "studio_store",
-    ]:
-        raise CandidateError("SEC-001 must expose exactly four prepared native harnesses")
-    for harness in harnesses:
-        if (
-            not COMMIT_RE.fullmatch(harness.get("commit", ""))
-            or not TREE_RE.fullmatch(harness.get("tree", ""))
-            or not isinstance(harness.get("target"), str)
-            or not harness["target"]
-            or not isinstance(harness.get("canonical_entrypoint"), str)
-            or not harness["canonical_entrypoint"]
-            or not isinstance(harness.get("input_limit_bytes"), int)
-            or harness["input_limit_bytes"] <= 0
-            or harness["input_limit_bytes"] > 2 * 1024 * 1024
-        ):
-            raise CandidateError("SEC-001 harness metadata is malformed")
+    functional = projection.get("functional_non_crash")
+    if functional != {
+        "work_item": "ROB-001",
+        "status": "complete_local_functional_non_crash_non_blocking",
+        "scope": "ordinary_component_suites_supported_invalid_inputs",
+        "release_gate": False,
+    }:
+        raise CandidateError("ROB-001 functional non-crash scope diverges")
     components = projection.get("components")
     if not isinstance(components, list) or not components:
         raise CandidateError("candidate projection has no components")
@@ -797,9 +810,9 @@ def validate_projection(projection: Any) -> None:
         if isinstance(capability, dict) and capability.get("key") == "four_surface_performance"
     ]
     if len(performance_capabilities) != 1 or performance_capabilities[0].get("status") != (
-        "stale_not_current_evidence"
+        "bounded_current_not_release_evidence"
     ):
-        raise CandidateError("performance capability must remain stale and non-current")
+        raise CandidateError("performance capability must remain bounded and non-promotional")
     serialized = render(projection).lower()
     for fragment in ("/home/", "/dev/shm/", "_worktrees", "localhost", "browser_download_url"):
         if fragment in serialized:
