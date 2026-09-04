@@ -125,7 +125,7 @@ def test_public_surfaces_match_the_published_train_and_web_receipts() -> None:
     packages = {item["id"]: item for item in current["packages"]}
 
     assert value["release_train"]["publication"] == "python_r1_r2_r3_r4_and_studio_published"
-    assert current["generator"]["snapshot_status"] == "historical_obsolete"
+    assert current["generator"]["run_id"] == "33823982288"
     assert packages["nirs4all"]["source"]["expected_prod_version"] == r1_version
     assert {
         target["published_version"]
