@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>nirs4all · cockpit — release & health</title>
-    <meta name="description" content="Read-only nirs4all release cockpit: public registry health plus the unpublished R1/R2/R3/R4 native candidates, their exact source identities and qualified capability limits." />
+    <meta name="description" content="Read-only nirs4all release cockpit: public registry health and the published R1/R2/R3/R4 native V1 train, with exact source identities and qualified capability limits." />
     <link rel="canonical" href="https://cockpit.nirs4all.org/" />
     <link rel="sitemap" type="application/xml" title="Sitemap" href="https://cockpit.nirs4all.org/sitemap.xml" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -15,7 +15,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://cockpit.nirs4all.org/" />
     <meta property="og:title" content="nirs4all · cockpit — release & health" />
-    <meta property="og:description" content="Public registry health and the explicit NO-GO staging view of the unpublished nirs4all native-backend candidate." />
+    <meta property="og:description" content="Public registry health and the receipt-backed nirs4all native V1 release view." />
     <meta property="og:image" content="https://cockpit.nirs4all.org/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -28,7 +28,7 @@
       "name": "nirs4all cockpit",
       "url": "https://cockpit.nirs4all.org/",
       "applicationCategory": "DeveloperApplication",
-      "description": "Release and health dashboard for the nirs4all ecosystem, including an explicitly unpublished NO-GO native candidate staging view.",
+      "description": "Release and health dashboard for the nirs4all ecosystem, including the receipt-backed native V1 release view.",
       "isPartOf": {"@type": "WebSite", "name": "nirs4all", "url": "https://nirs4all.org/"}
     }
     </script>
@@ -78,16 +78,16 @@
       <section class="block" aria-labelledby="transition-h">
         <h2 id="transition-h" class="section-h">R1 transition <span class="muted">— 0.13.0 published · legacy remains the default</span></h2>
         <div class="card panel candidate-state" role="status">
-          <strong>Python R1 0.13.0, R2 and R3 plus nirs4all-web 0.1.10, Repository 0.1.12 and Providers 0.2.11 are published; Web is deployed.</strong>
-          <p>R4 and Studio R3 0.11.0 remain unpublished, and Studio remains unsigned. LOCK-RELEASE remains NO-GO; no stable V1 is announced.</p>
+          <strong>Python R1 0.13.0, R2, R3 and stable R4 1.0.0 plus Studio 0.11.0, Web 0.1.10, Repository 0.1.12 and Providers 0.2.11 are published.</strong>
+          <p>The bounded V1 train is receipt-complete. Studio is intentionally unsigned and non-notarized under an explicit waiver; SHA-256 receipts and platform limitations remain visible.</p>
         </div>
       </section>
 
       <section class="block candidate" id="native-candidate" aria-labelledby="candidate-h">
-        <h2 id="candidate-h" class="section-h">Native R1/R2/R3/R4 candidates <span class="muted">— staging only · not a stable release</span></h2>
+        <h2 id="candidate-h" class="section-h">Native R1/R2/R3/R4 release <span class="muted">— stable V1 receipts</span></h2>
         <div class="card panel candidate-state" role="status" aria-live="polite" aria-atomic="true">
-          <strong id="candidate-notice">Candidate data unavailable — NO-GO; no download is exposed.</strong>
-          <p id="candidate-source">The canonical release lock remains authoritative and unchanged.</p>
+          <strong id="candidate-notice">Release receipt data unavailable.</strong>
+          <p id="candidate-source">The governance release lock remains authoritative.</p>
         </div>
         <div id="candidate-content" hidden>
           <div class="candidate-columns">
