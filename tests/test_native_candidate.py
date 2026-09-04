@@ -32,7 +32,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     }
     assert value["release_train"]["milestones"]["r1"]["default_engine"] == "legacy"
     assert value["release_train"]["milestones"]["r3"]["studio_commit"] == (
-        "89b5278a47ae4d38d6b508fabdd6e712f96942c0"
+        "6cfc807d63b0f4b9a1bf00324c00dd83471f4ba2"
     )
     assert value["release_train"]["milestones"]["r2"]["python_commit"] == (
         "d351785dbc17290cdc85a797ead299ffce58f257"
@@ -68,7 +68,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
         "work_item": "ROB-001",
     }
     components = {item["key"]: item for item in value["components"]}
-    assert components["studio"]["commit"] == "89b5278a47ae4d38d6b508fabdd6e712f96942c0"
+    assert components["studio"]["commit"] == "6cfc807d63b0f4b9a1bf00324c00dd83471f4ba2"
     assert components["repository"]["commit"] == "dbd9dae1205e1905692decd9fc7243f4fbda3068"
     assert components["providers"]["commit"] == "b2210ec717c0de0055fc8b9424b115a933efdb4e"
     assert components["web"]["commit"] == "051bf636d7c1729087e5d40061b18bd690cd33b7"
