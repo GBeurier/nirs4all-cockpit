@@ -215,7 +215,7 @@ falls back across `../data`, `./`, and `./data`.
 
 The dashboard also reads `data/native-candidate-staging.json`, the same bytes
 staged in `nirs4all-org`. It is generated from governance commit
-`2d6ae20855b6eb960df07106b00d9b879238229e` and exact component Git objects.
+`2b08a0da0be8952b38cfc28090d757cb7a314b50` and exact component Git objects.
 This is deliberately separate from registry health and from the canonical
 release lock: the global candidate remains `no_go` and `unpublished`, exposes
 no candidate artifact or registry URL, and labels every projected component
