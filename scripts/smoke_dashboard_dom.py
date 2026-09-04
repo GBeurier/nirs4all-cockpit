@@ -178,19 +178,20 @@ def main() -> int:
         "nirs4all-ecosystem",
         "schema v1",
         "Release matrix",
-        "Native R1/R2/R3 candidates",
-        "Candidat produit strictement NO-GO",
+        "Native R1/R2/R3/R4 release",
+        "Train V1 natif publié",
         "SNV → Savitzky–Golay → PLS",
         "nirs4all-tools 0.0.7",
         "CUT-002 observability",
         "process-local and intentionally non-persistent",
         (
-            "Closed locally, release held: API-001, API-004, API-005, CAP-001, DAG-001, DOC-001, "
-            "GATE-001, REL-003, STU-006, UI-001, WEB-001, WEBREL-001"
+            "Closed for the bounded V1 scope: API-001, API-004, API-005, CAP-001, DAG-001, DOC-001, "
+            "GATE-001, INST-001, PERF-002, RC-001, REL-003, ROB-001, SOAK-001, STU-006, UI-001, "
+            "WEB-001, WEBREL-001"
         ),
-        "Prepared but not closed: INST-001, RC-001",
-        "Advanced but not closed: PERF-002, SOAK-001",
-        "ROB-001: functional invalid-input and non-crash checks await final receipts",
+        "Prepared but not closed: none",
+        "Advanced but not closed: none",
+        "ROB-001: ordinary functional invalid-input checks are complete locally",
         "Downloads",
         "Code &amp; Actions",
         *unresolved_action_ids,

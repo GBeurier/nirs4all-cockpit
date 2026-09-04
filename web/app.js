@@ -179,12 +179,12 @@ function isNativeCandidate(candidate) {
     "DAG-001": "complete_local_code_release_hold",
     "DOC-001": "complete_local_docs_release_hold",
     "GATE-001": "complete_local_linux_functional_release_hold",
-    "INST-001": "advanced_local_linux_appimage_lifecycle_complete_macos_windows_hold",
-    "PERF-002": "advanced_local_evidence_not_closed",
-    "RC-001": "prepared_local_triage_external_evidence_hold",
+    "INST-001": "complete_with_bounded_windows_installed_path_waiver",
+    "PERF-002": "complete_v1_bounded_measurement_sustained_budgets_deferred_post_v1",
+    "RC-001": "complete_existing_evidence_reconciled",
     "REL-003": "complete_local_code_release_hold",
     "ROB-001": "complete_local_functional_non_crash_non_blocking",
-    "SOAK-001": "advanced_local_evidence_not_closed",
+    "SOAK-001": "complete_functional_campaign_passed",
     "STU-006": "complete_local_code_external_release_hold",
     "UI-001": "complete_registry_publication_downstream_product_hold",
     "WEB-001": "complete_local_code_release_hold",
@@ -192,7 +192,7 @@ function isNativeCandidate(candidate) {
   };
   if (JSON.stringify(candidate.work_item_states || {}) !== JSON.stringify(expectedWorkItems)) return false;
   const functional = candidate.functional_non_crash || {};
-  if (functional.work_item !== "ROB-001" || functional.status !== "complete_local_functional_non_crash_non_blocking" || functional.scope !== "ordinary_component_suites_supported_invalid_inputs" || functional.release_gate !== false) return false;
+  if (functional.work_item !== "SOAK-001" || functional.status !== "complete_functional_campaign_passed" || functional.scope !== "python_21_of_21_and_studio_90_of_90_checks" || functional.release_gate !== true) return false;
   if (!Array.isArray(candidate.components) || !candidate.components.length || !Array.isArray(candidate.capabilities)) return false;
   const componentKeys = candidate.components.map((component) => component && component.key).sort();
   if (JSON.stringify(componentKeys) !== JSON.stringify(["benchmarks", "core", "dag_ml", "dag_ml_data", "datasets", "formats", "io", "methods", "providers", "python", "repository", "studio", "tools", "ui", "web"])) return false;
@@ -203,8 +203,9 @@ function isNativeCandidate(candidate) {
         component.artifacts.every((artifact) => /^[0-9a-f]{64}$/.test(artifact.sha256 || "") && Number.isInteger(artifact.size) && artifact.size > 0) &&
         Array.isArray(component.registry_urls) && component.registry_urls.length === 2;
     }
-    return component.publication === "unavailable" && Array.isArray(component.artifacts) && !component.artifacts.length &&
-      Array.isArray(component.registry_urls) && !component.registry_urls.length;
+    return component.publication === "published" && Array.isArray(component.artifacts) &&
+      component.artifacts.every((artifact) => /^[0-9a-f]{64}$/.test(artifact.sha256 || "")) &&
+      Array.isArray(component.registry_urls);
   });
 }
 
@@ -289,9 +290,9 @@ function renderNativeCandidate(candidate) {
   const prepared = currentWorkItems.filter(([, state]) => state.startsWith("prepared"));
   const advanced = currentWorkItems.filter(([, state]) => state.startsWith("advanced"));
   document.getElementById("candidate-work-items").replaceChildren(
-    el("p", { text: `Closed locally, release held: ${closed.map(([id]) => id).join(", ")}.` }),
-    el("p", { text: `Prepared but not closed: ${prepared.map(([id]) => id).join(", ")}.` }),
-    el("p", { text: `Advanced but not closed: ${advanced.map(([id]) => id).join(", ")}.` }),
+    el("p", { text: `Closed for the bounded V1 scope: ${closed.map(([id]) => id).join(", ")}.` }),
+    el("p", { text: `Prepared but not closed: ${prepared.length ? prepared.map(([id]) => id).join(", ") : "none"}.` }),
+    el("p", { text: `Advanced but not closed: ${advanced.length ? advanced.map(([id]) => id).join(", ") : "none"}.` }),
     el("p", { text: "ROB-001: ordinary functional invalid-input checks are complete locally and remain non-blocking; covered failures stay explicit and actionable." }),
     el("p", { text: "The immutable governance lock remains the release authority." }),
   );
