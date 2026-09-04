@@ -21,7 +21,7 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     value = candidate()
     validate_projection(value)
     assert SNAPSHOT.read_text(encoding="utf-8") == render(value)
-    assert value["source"]["commit"] == "8f47f16b11231daefecd1fb2ad8f1aeefb2ff039"
+    assert value["source"]["commit"] == "f568f2cd3269616ae6820b9a3b6aa232e54ac97f"
     assert value["architecture"]["studio_control_plane"] == "rust_only"
     assert [item["code"] for item in value["migration"]["exit_codes"]] == [0, 10, 20]
     assert value["methods_documentation"]["mapped_pages"] == "209/209"
@@ -40,6 +40,8 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     assert value["release_train"]["milestones"]["r3"]["python_commit"] == (
         "3567bd4abcaa64443a1946748a579f0803e91889"
     )
+    assert value["release_train"]["milestones"]["r2"]["publication_workflow_run"] == 33868949671
+    assert value["release_train"]["milestones"]["r3"]["publication_workflow_run"] == 33873060692
     assert value["release_train"]["milestones"]["r4"] == {
         "documentation_commit": "ef39f1a53dd120b9ce28907dc372d755dd621430",
         "documentation_tree": "126dfe87557a265d2a6c7894885c7772604d5311",
@@ -71,6 +73,10 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     assert components["studio"]["commit"] == "6d249ce69d5ddf2f0c4a831f33e70e9dda905471"
     assert components["repository"]["commit"] == "dbd9dae1205e1905692decd9fc7243f4fbda3068"
     assert components["providers"]["commit"] == "b2210ec717c0de0055fc8b9424b115a933efdb4e"
+    assert components["repository"]["publication"] == "published"
+    assert components["providers"]["publication"] == "published"
+    assert {artifact["id"] for artifact in components["repository"]["artifacts"]} == {"wheel", "sdist"}
+    assert {artifact["id"] for artifact in components["providers"]["artifacts"]} == {"wheel", "sdist"}
     assert components["web"]["commit"] == "051bf636d7c1729087e5d40061b18bd690cd33b7"
     assert components["benchmarks"]["commit"] == "17f8196b26457fbd300a46d6520c3d1845d0de05"
     assert components["ui"] == {
@@ -107,14 +113,14 @@ def test_committed_candidate_is_canonical_unpublished_and_precise() -> None:
     }
 
 
-def test_public_surfaces_match_the_published_r1_and_web_receipts() -> None:
+def test_public_surfaces_match_the_published_train_and_web_receipts() -> None:
     value = candidate()
     r1_version = value["release_train"]["milestones"]["r1"]["python_version"]
     web_version = next(item["version"] for item in value["components"] if item["key"] == "web")
     current = json.loads(CURRENT.read_text(encoding="utf-8"))
     packages = {item["id"]: item for item in current["packages"]}
 
-    assert value["release_train"]["publication"] == "r1_published_r2_r3_r4_unpublished"
+    assert value["release_train"]["publication"] == "python_r1_r2_r3_published_r4_and_studio_unpublished"
     assert current["generator"]["snapshot_status"] == "historical_obsolete"
     assert packages["nirs4all"]["source"]["expected_prod_version"] == r1_version
     assert {
@@ -131,9 +137,9 @@ def test_public_surfaces_match_the_published_r1_and_web_receipts() -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     index = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
     browser_validator = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
-    assert f"R1 {r1_version} and Web {web_version} are published" in readme
-    assert f"R1 {r1_version} and nirs4all-web {web_version} are published" in index
-    assert 'releaseTrain.publication !== "r1_published_r2_r3_r4_unpublished"' in browser_validator
+    assert f"Python R1 {r1_version}, R2 and R3 plus Web {web_version}" in readme
+    assert f"Python R1 {r1_version}, R2 and R3 plus nirs4all-web {web_version}" in index
+    assert 'releaseTrain.publication !== "python_r1_r2_r3_published_r4_and_studio_unpublished"' in browser_validator
     assert "Web 0.1.9" not in readme
     assert "nirs4all-web 0.1.9" not in index
 

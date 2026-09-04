@@ -161,8 +161,9 @@ function isNativeCandidate(candidate) {
   if (r.status !== "no_go" || r.publication !== "unpublished" || r.canonical_lock_updated !== false || r.downloads_enabled !== false || r.registry_links_enabled !== false) return false;
   const releaseTrain = candidate.release_train || {};
   const milestones = releaseTrain.milestones || {};
-  if (releaseTrain.status !== "r1_r2_r3_distinct_candidates_r4_candidate_held" || releaseTrain.publication !== "r1_published_r2_r3_r4_unpublished") return false;
+  if (releaseTrain.status !== "r1_r2_r3_distinct_published_releases_r4_candidate_held" || releaseTrain.publication !== "python_r1_r2_r3_published_r4_and_studio_unpublished") return false;
   if (milestones.r1?.default_engine !== "legacy" || milestones.r2?.default_engine !== "native_with_explicit_legacy_opt_in" || milestones.r3?.default_engine !== "native_fail_closed_rust_only" || milestones.r4?.status !== "unpublished_candidate_no_public_receipt") return false;
+  if (milestones.r2?.publication !== "pypi_and_ghcr" || milestones.r2?.publication_workflow_run !== 33868949671 || milestones.r3?.publication !== "pypi_and_ghcr" || milestones.r3?.publication_workflow_run !== 33873060692) return false;
   if (!/^[0-9a-f]{40}$/.test(milestones.r4?.python_commit || "") || !/^[0-9a-f]{40}$/.test(milestones.r4?.python_tree || "") || !/^[0-9a-f]{40}$/.test(milestones.r4?.documentation_commit || "") || !/^[0-9a-f]{40}$/.test(milestones.r4?.documentation_tree || "")) return false;
   const cutover = candidate.cutover_observability || {};
   if (cutover.work_item !== "CUT-002" || cutover.legacy_activation !== "explicit_legacy_or_dual_only" || cutover.warning_format !== "stable_structured_json" || cutover.counter_opt_in !== true || cutover.counter_scope !== "opt_in_process_local_non_persistent_intentional" || cutover.strict_paths_silent !== true || cutover.implicit_fallback !== false) return false;
@@ -195,10 +196,16 @@ function isNativeCandidate(candidate) {
   if (!Array.isArray(candidate.components) || !candidate.components.length || !Array.isArray(candidate.capabilities)) return false;
   const componentKeys = candidate.components.map((component) => component && component.key).sort();
   if (JSON.stringify(componentKeys) !== JSON.stringify(["benchmarks", "core", "dag_ml", "dag_ml_data", "datasets", "formats", "io", "methods", "providers", "python", "repository", "studio", "tools", "ui", "web"])) return false;
-  return candidate.components.every((component) =>
-    component && /^[0-9a-f]{40}$/.test(component.commit || "") && /^[0-9a-f]{40}$/.test(component.tree || "") &&
-    component.publication === "unavailable" && Array.isArray(component.artifacts) && !component.artifacts.length &&
-    Array.isArray(component.registry_urls) && !component.registry_urls.length);
+  return candidate.components.every((component) => {
+    if (!component || !/^[0-9a-f]{40}$/.test(component.commit || "") || !/^[0-9a-f]{40}$/.test(component.tree || "")) return false;
+    if (["providers", "repository"].includes(component.key)) {
+      return component.publication === "published" && Array.isArray(component.artifacts) && component.artifacts.length === 2 &&
+        component.artifacts.every((artifact) => /^[0-9a-f]{64}$/.test(artifact.sha256 || "") && Number.isInteger(artifact.size) && artifact.size > 0) &&
+        Array.isArray(component.registry_urls) && component.registry_urls.length === 2;
+    }
+    return component.publication === "unavailable" && Array.isArray(component.artifacts) && !component.artifacts.length &&
+      Array.isArray(component.registry_urls) && !component.registry_urls.length;
+  });
 }
 
 function candidateTable(headers, caption) {
@@ -302,7 +309,7 @@ function renderNativeCandidate(candidate) {
   });
   document.getElementById("candidate-capabilities").replaceChildren(capTable);
 
-  const [componentTable, componentBody] = candidateTable(["component", "version", "commit", "tree", "publication"], "Exact unpublished local candidate component identities");
+  const [componentTable, componentBody] = candidateTable(["component", "version", "commit", "tree", "publication"], "Exact candidate identities and scoped publication receipts");
   candidate.components.forEach((component) => {
     const row = el("tr");
     const repo = el("a", { text: component.name, attrs: { href: component.repository_url, target: "_blank", rel: "noopener" } });
@@ -311,7 +318,7 @@ function renderNativeCandidate(candidate) {
       el("td", { class: "mono", text: component.version }),
       el("td", { class: "mono", text: component.commit.slice(0, 12) }),
       el("td", { class: "mono", text: component.tree.slice(0, 12) }),
-      el("td", {}, [el("span", { class: "candidate-badge candidate-badge--unavailable", text: "unavailable" })]),
+      el("td", {}, [el("span", { class: `candidate-badge candidate-badge--${component.publication}`, text: component.publication })]),
     );
     componentBody.appendChild(row);
   });
