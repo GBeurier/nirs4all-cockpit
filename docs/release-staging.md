@@ -59,6 +59,13 @@ versions from each exact candidate commit, and records the ledger digest. The
 same output bytes are staged in nirs4all-org; publication remains a separate,
 lock-authorized operation.
 
+The candidate dashboard links to the staged migration and support guide at
+`https://nirs4all.org/v1-migration-support.html`. That guide documents the
+read/write/migrate matrix, the Tools 0.x reader commitment through end of R4,
+the explicit direct-Python legacy rollback, and Studio's Rust control-plane
+boundary. The link is candidate documentation only: neither this branch nor
+the Cockpit workflow publishes the page or announces stable V1 availability.
+
 The final projection records the exact ownership and capability-governance
 witnesses, CUT-002's structured warning plus intentionally process-local opt-in
 counter, and the exact distinct R1/R2/R3 product candidates. The retained Bench
@@ -66,8 +73,6 @@ report predates those heads and is explicitly stale: a fresh four-runtime run,
 frozen budgets and soak are still required before it can become release evidence.
 It also exposes the bounded local closures for API-001/004/005, CAP-001,
 DAG-001, DOC-001, GATE-001, REL-003, STU-006, UI-001, WEB-001 and WEBREL-001.
-INST-001 and RC-001 are explicitly prepared but not closed. SEC-001 now records
-four bounded native harnesses over canonical APIs, but remains prepared—not
-closed—because no fuzz campaign, sanitizer run or external matrix has completed.
-SOAK-001 and PERF-002 remain advanced but open. UI 0.1.13 is published, while
+INST-001 and RC-001 are explicitly prepared but not closed. SOAK-001 and
+PERF-002 remain advanced but open. UI 0.1.13 is published, while
 the candidate identity layer deliberately exposes no tarball or registry URL.
