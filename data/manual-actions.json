@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-09-04T01:00:15.400627+00:00",
+  "snapshot_generated_at": "2026-09-05T00:59:18.984282+00:00",
   "counts": {
     "total": 24,
-    "pending": 11,
-    "resolved": 13,
+    "pending": 13,
+    "resolved": 11,
     "blockers": 1,
-    "important": 10,
+    "important": 12,
     "info": 0
   },
   "actions": [
@@ -65,7 +65,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "npm:@nirs4all/methods published 1.0.13 (status=green)"
+      "check_note": "npm:@nirs4all/methods published 1.0.16 (status=green)"
     },
     {
       "id": "pypi-publisher-pls4all",
@@ -93,7 +93,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:pls4all published 1.0.13 (status=green)"
+      "check_note": "pypi:pls4all published 1.0.16 (status=green)"
     },
     {
       "id": "pypi-publisher-io",
@@ -183,8 +183,8 @@
         "name": "n4m",
         "expect": "green"
       },
-      "resolved": true,
-      "check_note": "r-universe:n4m current 1.0.13 (status=green)"
+      "resolved": false,
+      "check_note": "r-universe:n4m status=stale version=1.0.13"
     },
     {
       "id": "runiverse-methods-pls4all-rebuild",
@@ -203,8 +203,8 @@
         "name": "pls4all",
         "expect": "green"
       },
-      "resolved": true,
-      "check_note": "r-universe:pls4all current 1.0.13 (status=green)"
+      "resolved": false,
+      "check_note": "r-universe:pls4all status=stale version=1.0.13"
     },
     {
       "id": "runiverse-formats-rebuild",
@@ -316,7 +316,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-providers published 0.2.10 (status=green)"
+      "check_note": "pypi:nirs4all-providers published 0.2.11 (status=green)"
     },
     {
       "id": "pypi-publisher-tools",
@@ -406,7 +406,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-repository published 0.1.10 (status=green)"
+      "check_note": "pypi:nirs4all-repository published 0.1.12 (status=green)"
     },
     {
       "id": "pypi-publisher-dag-ml",
