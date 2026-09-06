@@ -209,45 +209,16 @@ function isNativeCandidate(candidate) {
   });
 }
 
-function candidateTable(headers, caption) {
-  const table = el("table", { class: "stats candidate-stats" });
-  table.appendChild(el("caption", { class: "sr-only", text: caption }));
-  const head = el("thead"), row = el("tr");
-  headers.forEach((header) => row.appendChild(el("th", { attrs: { scope: "col" }, text: header })));
-  head.appendChild(row); table.appendChild(head);
-  const body = el("tbody"); table.appendChild(body);
-  return [table, body];
-}
-
-const CAPABILITY_STATUS_LABEL = {
-  qualified_local: "Verified for V1",
-  qualified_bounded: "Verified, limited scope",
-  bounded_v1_functional_soak_passed: "Functional soak passed",
-};
-
-const CAPABILITY_SURFACE_LABEL = {
-  benchmarks: "Benchmarks",
-  core: "Core",
-  dag_ml: "DAG-ML",
-  io: "IO",
-  methods: "Methods",
-  python: "Python",
-  studio: "Studio",
-  web: "Web",
-};
-
 function renderNativeRelease(candidate) {
   const title = document.getElementById("release-news-title");
   const summary = document.getElementById("release-news-summary");
   const highlights = document.getElementById("release-news-highlights");
   const note = document.getElementById("release-news-note");
-  const capabilities = document.getElementById("candidate-capabilities");
   if (!isNativeCandidate(candidate)) {
     title.textContent = "Release news unavailable.";
     summary.textContent = "The public V1 release receipt is missing or invalid.";
     highlights.replaceChildren();
     note.textContent = "The registry matrix below remains available from its separate daily snapshot.";
-    capabilities.replaceChildren(el("p", { text: "Capability evidence is unavailable." }));
     return;
   }
 
@@ -262,20 +233,6 @@ function renderNativeRelease(candidate) {
     "Earlier releases remain accessible for existing projects and migration.",
   ].forEach((line) => highlights.appendChild(el("li", { text: line })));
   note.textContent = "Studio installers are currently unsigned and not notarized, so operating systems may show a warning. The release matrix is collected separately each day and can briefly show older versions after a publication.";
-
-  const [capTable, capBody] = candidateTable(["Capability", "Evidence", "Available in", "Limit"], "Verified and explicitly limited V1 capabilities");
-  candidate.capabilities.forEach((capability) => {
-    const row = el("tr");
-    const badgeTone = capability.status === "qualified_bounded" ? "limited" : "verified";
-    row.append(
-      el("th", { class: "s-repo", attrs: { scope: "row" }, text: capability.label }),
-      el("td", {}, [el("span", { class: `candidate-badge candidate-badge--${badgeTone}`, text: CAPABILITY_STATUS_LABEL[capability.status] || capability.status.replaceAll("_", " ") })]),
-      el("td", { text: capability.surfaces.map((surface) => CAPABILITY_SURFACE_LABEL[surface] || surface).join(" · ") }),
-      el("td", { text: capability.limits }),
-    );
-    capBody.appendChild(row);
-  });
-  capabilities.replaceChildren(capTable);
 }
 
 function isManualActionPending(action) {

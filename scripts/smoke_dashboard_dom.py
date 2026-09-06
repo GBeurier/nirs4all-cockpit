@@ -181,12 +181,6 @@ def main() -> int:
         "Latest news",
         "nirs4all 1.0.0 is available",
         "Earlier releases remain accessible",
-        "Qualified capabilities",
-        "This is not a version matrix",
-        "Verified for V1",
-        "Verified, limited scope",
-        "Functional soak passed",
-        "SNV → Savitzky–Golay → PLS",
         "Downloads",
         "Code &amp; Actions",
         *unresolved_action_ids,
@@ -203,6 +197,11 @@ def main() -> int:
         "Final local work-item states",
         "Candidate governance",
         "CUT-002 observability",
+        "Qualified capabilities",
+        "This is not a version matrix",
+        "Verified for V1",
+        "Verified, limited scope",
+        "Functional soak passed",
         "qualified_local",
     ]
     present = [fragment for fragment in forbidden if fragment in dom]
@@ -210,10 +209,6 @@ def main() -> int:
         print("dashboard smoke failed; obsolete technical content is still rendered:", file=sys.stderr)
         for fragment in present:
             print(f"  - {fragment}", file=sys.stderr)
-        return 1
-
-    if dom.index("Qualified capabilities") < dom.index("Code &amp; Actions"):
-        print("dashboard smoke failed; capabilities must remain the final dashboard section", file=sys.stderr)
         return 1
 
     print(f"dashboard smoke OK via {Path(chrome).name}")
