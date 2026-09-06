@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 from cockpit.native_candidate import CandidateError, render, validate_projection
-from cockpit.version import compare, normalize
+from cockpit.version import classify, compare, is_version, normalize
 
 ROOT = Path(__file__).resolve().parents[1]
 SNAPSHOT = ROOT / "data" / "native-candidate-staging.json"
@@ -16,6 +16,27 @@ CURRENT = ROOT / "data" / "current.json"
 
 def candidate() -> dict:
     return json.loads(SNAPSHOT.read_text(encoding="utf-8"))
+
+
+def assert_web_release_target_consistent(current: dict, receipt_version: str) -> None:
+    """Assert that the rolling Web release signal agrees with production reconciliation."""
+    package = next(item for item in current["packages"] if item["id"] == "nirs4all-web")
+    target = next(item for item in package["targets"] if item["registry"] == "github-release")
+    expected = package["source"]["expected_prod_version"]
+    published = target["published_version"]
+
+    assert isinstance(receipt_version, str) and is_version(receipt_version)
+    assert isinstance(expected, str) and is_version(expected)
+    assert isinstance(published, str) and is_version(published)
+    assert compare(expected, receipt_version) >= 0
+    assert target["status"] == classify(
+        expected,
+        published,
+        http_status=200,
+        transient_error=False,
+        excluded=False,
+        planned=False,
+    )
 
 
 def test_committed_release_projection_is_canonical_and_precise() -> None:
@@ -138,12 +159,9 @@ def test_public_surfaces_match_the_published_train_and_web_receipts() -> None:
         if target["registry"] in {"pypi", "github-release"}
     } == {normalize(nirs4all_expected)}
 
-    web_expected = packages["nirs4all-web"]["source"]["expected_prod_version"]
-    assert compare(web_expected, web_version) >= 0
     web_targets = {target["registry"]: target for target in packages["nirs4all-web"]["targets"]}
     assert web_targets["pages"]["status"] == "green"
-    assert web_targets["github-release"]["published_version"]
-    assert web_targets["github-release"]["status"] in {"green", "stale"}
+    assert_web_release_target_consistent(current, web_version)
 
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     index = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
@@ -156,6 +174,28 @@ def test_public_surfaces_match_the_published_train_and_web_receipts() -> None:
     assert 'releaseTrain.publication !== "python_r1_r2_r3_r4_and_studio_published"' in browser_validator
     assert "Web 0.1.9" not in readme
     assert "nirs4all-web 0.1.9" not in index
+
+
+def test_web_release_target_rejects_invalid_published_version() -> None:
+    current = json.loads(CURRENT.read_text(encoding="utf-8"))
+    web_version = next(item["version"] for item in candidate()["components"] if item["key"] == "web")
+    web_package = next(item for item in current["packages"] if item["id"] == "nirs4all-web")
+    release_target = next(item for item in web_package["targets"] if item["registry"] == "github-release")
+    release_target["published_version"] = "not-a-version"
+
+    with pytest.raises(AssertionError):
+        assert_web_release_target_consistent(current, web_version)
+
+
+def test_web_release_target_rejects_status_mismatch() -> None:
+    current = json.loads(CURRENT.read_text(encoding="utf-8"))
+    web_version = next(item["version"] for item in candidate()["components"] if item["key"] == "web")
+    web_package = next(item for item in current["packages"] if item["id"] == "nirs4all-web")
+    release_target = next(item for item in web_package["targets"] if item["registry"] == "github-release")
+    release_target["status"] = "green" if release_target["status"] == "stale" else "stale"
+
+    with pytest.raises(AssertionError):
+        assert_web_release_target_consistent(current, web_version)
 
 
 def test_release_projection_refuses_state_downgrade_or_fabricated_artifacts() -> None:
