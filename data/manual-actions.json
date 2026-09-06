@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-09-05T00:59:18.984282+00:00",
+  "snapshot_generated_at": "2026-09-06T01:07:41.550497+00:00",
   "counts": {
     "total": 24,
-    "pending": 13,
-    "resolved": 11,
+    "pending": 8,
+    "resolved": 16,
     "blockers": 1,
-    "important": 12,
+    "important": 7,
     "info": 0
   },
   "actions": [
@@ -65,7 +65,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "npm:@nirs4all/methods published 1.0.16 (status=green)"
+      "check_note": "npm:@nirs4all/methods published 1.0.18 (status=green)"
     },
     {
       "id": "pypi-publisher-pls4all",
@@ -93,7 +93,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:pls4all published 1.0.16 (status=green)"
+      "check_note": "pypi:pls4all published 1.0.18 (status=green)"
     },
     {
       "id": "pypi-publisher-io",
@@ -123,7 +123,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-io published 0.1.14 (status=green)"
+      "check_note": "pypi:nirs4all-io published 0.1.18 (status=green)"
     },
     {
       "id": "pypi-publisher-core",
@@ -142,7 +142,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-core published 0.3.28 (status=green)"
+      "check_note": "pypi:nirs4all-core published 0.3.30 (status=green)"
     },
     {
       "id": "runiverse-core-rebuild",
@@ -163,8 +163,8 @@
         "name": "nirs4all",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4all status=stale version=0.3.22"
+      "resolved": true,
+      "check_note": "r-universe:nirs4all current 0.3.30 (status=green)"
     },
     {
       "id": "runiverse-methods-n4m-rebuild",
@@ -183,8 +183,8 @@
         "name": "n4m",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:n4m status=stale version=1.0.13"
+      "resolved": true,
+      "check_note": "r-universe:n4m current 1.0.18 (status=green)"
     },
     {
       "id": "runiverse-methods-pls4all-rebuild",
@@ -203,8 +203,8 @@
         "name": "pls4all",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:pls4all status=stale version=1.0.13"
+      "resolved": true,
+      "check_note": "r-universe:pls4all current 1.0.18 (status=green)"
     },
     {
       "id": "runiverse-formats-rebuild",
@@ -243,8 +243,8 @@
         "name": "nirs4allio",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4allio status=stale version=0.1.11"
+      "resolved": true,
+      "check_note": "r-universe:nirs4allio current 0.1.18 (status=green)"
     },
     {
       "id": "runiverse-dagml-data-rebuild",
@@ -263,8 +263,8 @@
         "name": "dagmldata",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:dagmldata status=stale version=0.2.9"
+      "resolved": true,
+      "check_note": "r-universe:dagmldata current 0.2.11 (status=green)"
     },
     {
       "id": "runiverse-datasets-rebuild",
@@ -436,7 +436,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:dag-ml published 0.3.23 (status=green)"
+      "check_note": "pypi:dag-ml published 0.3.25 (status=green)"
     },
     {
       "id": "pypi-publisher-dag-ml-data",
@@ -466,7 +466,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:dag-ml-data published 0.2.10 (status=green)"
+      "check_note": "pypi:dag-ml-data published 0.2.11 (status=green)"
     },
     {
       "id": "crates-verify-email",
