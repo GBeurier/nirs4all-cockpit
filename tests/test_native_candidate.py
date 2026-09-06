@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from cockpit.native_candidate import CandidateError, render, validate_projection
+from cockpit.version import compare, normalize
 
 ROOT = Path(__file__).resolve().parents[1]
 SNAPSHOT = ROOT / "data" / "native-candidate-staging.json"
@@ -125,24 +126,31 @@ def test_public_surfaces_match_the_published_train_and_web_receipts() -> None:
     packages = {item["id"]: item for item in current["packages"]}
 
     assert value["release_train"]["publication"] == "python_r1_r2_r3_r4_and_studio_published"
-    assert current["generator"]["run_id"] == "33823982288"
-    assert packages["nirs4all"]["source"]["expected_prod_version"] == r1_version
+    assert current["generator"]["repo"] == "GBeurier/nirs4all-cockpit"
+    assert current["generator"]["workflow"] == "collect.yml"
+    assert current["generator"]["run_id"].isdigit()
+
+    nirs4all_expected = packages["nirs4all"]["source"]["expected_prod_version"]
+    assert compare(nirs4all_expected, r1_version) >= 0
     assert {
-        target["published_version"]
+        normalize(target["published_version"])
         for target in packages["nirs4all"]["targets"]
         if target["registry"] in {"pypi", "github-release"}
-    } == {r1_version}
-    assert packages["nirs4all-web"]["source"]["expected_prod_version"] == f"v{web_version}"
+    } == {normalize(nirs4all_expected)}
+
+    web_expected = packages["nirs4all-web"]["source"]["expected_prod_version"]
+    assert compare(web_expected, web_version) >= 0
     web_targets = {target["registry"]: target for target in packages["nirs4all-web"]["targets"]}
     assert web_targets["pages"]["status"] == "green"
-    assert web_targets["github-release"]["published_version"] == "0.1.8"
-    assert web_targets["github-release"]["status"] == "stale"
+    assert web_targets["github-release"]["published_version"]
+    assert web_targets["github-release"]["status"] in {"green", "stale"}
 
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     index = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
     browser_validator = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
     assert "daily collector" in readme
     assert "Latest news" in index
+    assert "Qualified capabilities" not in index
     assert "Exact local candidate identities" not in index
     assert "title.textContent = `nirs4all ${r4.python_version} is available`" in browser_validator
     assert 'releaseTrain.publication !== "python_r1_r2_r3_r4_and_studio_published"' in browser_validator

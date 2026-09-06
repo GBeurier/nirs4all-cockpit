@@ -221,8 +221,7 @@ V1 release receipt shared with `nirs4all-org`. Despite its historical filename,
 it describes the published train. It contains public Git object IDs and artifact
 checksums—not machine paths or private local data—so the exact release can be
 audited. Those identities remain in the receipt but are intentionally not shown
-in the public UI: the page uses the file only for concise release news and the
-bottom capability appendix.
+in the public UI: the page uses the file only for concise release news.
 
 This receipt is deliberately separate from registry health. The release matrix
 comes from `data/current.json`, which is produced by the daily collector. A new
