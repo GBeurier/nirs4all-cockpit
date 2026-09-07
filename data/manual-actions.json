@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-09-06T17:18:26.572560+00:00",
+  "snapshot_generated_at": "2026-09-07T01:06:41.177922+00:00",
   "counts": {
     "total": 24,
-    "pending": 10,
-    "resolved": 14,
+    "pending": 8,
+    "resolved": 16,
     "blockers": 1,
-    "important": 9,
+    "important": 7,
     "info": 0
   },
   "actions": [
@@ -183,8 +183,8 @@
         "name": "n4m",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:n4m status=stale version=1.0.18"
+      "resolved": true,
+      "check_note": "r-universe:n4m current 1.0.19 (status=green)"
     },
     {
       "id": "runiverse-methods-pls4all-rebuild",
@@ -203,8 +203,8 @@
         "name": "pls4all",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:pls4all status=stale version=1.0.18"
+      "resolved": true,
+      "check_note": "r-universe:pls4all current 1.0.19 (status=green)"
     },
     {
       "id": "runiverse-formats-rebuild",
