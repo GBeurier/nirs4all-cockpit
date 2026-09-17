@@ -290,6 +290,7 @@ class SentryStatus(BaseModel):
     available: bool = False
     org: str | None = None
     project: str | None = None
+    stats_period: str | None = None  # Absent in legacy snapshots with no event-activity filter.
     unresolved: int | None = None
     resolved: int | None = None
     events: int | None = None
