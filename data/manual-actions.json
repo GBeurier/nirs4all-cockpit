@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-09-17T09:30:31.049362+00:00",
+  "snapshot_generated_at": "2026-09-17T14:25:44.864001+00:00",
   "counts": {
     "total": 24,
-    "pending": 8,
-    "resolved": 16,
+    "pending": 7,
+    "resolved": 17,
     "blockers": 1,
-    "important": 7,
+    "important": 6,
     "info": 0
   },
   "actions": [
@@ -223,8 +223,8 @@
         "name": "nirs4allformats",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4allformats status=stale version=0.2.9"
+      "resolved": true,
+      "check_note": "r-universe:nirs4allformats current 0.2.10 (status=green)"
     },
     {
       "id": "runiverse-io-rebuild",
