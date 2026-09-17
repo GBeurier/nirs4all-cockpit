@@ -178,6 +178,8 @@ class ActionsStats(BaseModel):
     recent_total: int = 0
     recent_success: int = 0
     recent_failure: int = 0
+    dependabot_recent_total: int = 0
+    dependabot_recent_failure: int = 0
     success_rate: float | None = None
     last_conclusion: str | None = None
     last_created_at: str | None = None

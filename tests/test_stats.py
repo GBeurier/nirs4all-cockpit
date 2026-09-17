@@ -6,6 +6,7 @@ import zipfile
 from io import BytesIO
 
 from cockpit.collect import code_stats, github
+from cockpit.model import ActionsStats
 
 
 def test_code_stats_counts_and_skips_vendored(monkeypatch, tmp_path) -> None:
@@ -366,6 +367,9 @@ def test_actions_stats_separates_dependabot_updates_from_build_health(monkeypatc
     assert out["last_created_at"] == "2026-09-12T13:51:22Z"
     assert out["dependabot_recent_total"] == 2
     assert out["dependabot_recent_failure"] == 1
+    snapshot = ActionsStats.model_validate(out).model_dump()
+    assert snapshot["dependabot_recent_total"] == 2
+    assert snapshot["dependabot_recent_failure"] == 1
 
 
 def test_actions_stats_skips_in_progress_newest_run(monkeypatch) -> None:
