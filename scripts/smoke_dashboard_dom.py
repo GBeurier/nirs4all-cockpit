@@ -21,7 +21,7 @@ import threading
 import xml.etree.ElementTree as ET
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -186,6 +186,21 @@ def main() -> int:
         *unresolved_action_ids,
     ]
     missing = [fragment for fragment in required if fragment not in dom]
+    sentry = json.loads((ROOT / "data" / "current.json").read_text(encoding="utf-8")).get("sentry", {})
+    if sentry.get("available") and sentry.get("stats_period"):
+        period = sentry["stats_period"]
+        if f"issues with events in the last {period}" not in dom:
+            missing.append("Sentry activity period")
+        rendered = StaticPageParser()
+        rendered.feed(dom)
+        expected_query = f"is:unresolved project:{sentry['project']}"
+        if not any(
+            urlsplit(link).netloc == f"{sentry['org']}.sentry.io"
+            and parse_qs(urlsplit(link).query).get("query") == [expected_query]
+            and parse_qs(urlsplit(link).query).get("statsPeriod") == [period]
+            for link in rendered.links
+        ):
+            missing.append("Sentry link matching the collected project and activity period")
     if missing:
         print("dashboard smoke failed; missing rendered fragments:", file=sys.stderr)
         for fragment in missing:

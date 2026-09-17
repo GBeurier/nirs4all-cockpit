@@ -713,9 +713,12 @@ function sentryStat(n, label, alert, accent, href) {
   return c;
 }
 
-// Org-scoped Sentry issue stream filtered to unresolved (the org has a single project).
+// Match the collector's project and event-activity window in Sentry's issue stream.
 function sentryUnresolvedUrl(s) {
-  return s && s.org ? `https://${s.org}.sentry.io/issues/?query=is%3Aunresolved&statsPeriod=90d` : null;
+  if (!s || !s.org) return null;
+  const query = s.project ? `is:unresolved project:${s.project}` : "is:unresolved";
+  const params = new URLSearchParams({ query, statsPeriod: s.stats_period || "90d" });
+  return `https://${s.org}.sentry.io/issues/?${params}`;
 }
 
 function renderSentry(snap) {
@@ -733,7 +736,8 @@ function renderSentry(snap) {
     sentryStat(s.users_affected, "users affected", false, "var(--amber)"),
   );
   box.appendChild(head);
-  box.appendChild(el("p", { class: "vcap", text: `${s.project || "nirs4all-studio"} · aggregate Sentry counters only` }));
+  const period = s.stats_period ? ` · issues with events in the last ${s.stats_period}` : "";
+  box.appendChild(el("p", { class: "vcap", text: `${s.project || "nirs4all-studio"}${period} · aggregate Sentry counters only` }));
 }
 
 // ---- admin (local) ---------------------------------------------------------
@@ -754,7 +758,8 @@ function renderAdmin(admin) {
       sentryStat(s.users_affected, "users affected", false),
     );
     sb.appendChild(head);
-    sb.appendChild(el("p", { class: "admin-note", text: "Aggregate Sentry counters only; issue titles and user details are not displayed." }));
+    const period = s.stats_period ? `Issues with events in the last ${s.stats_period}. ` : "";
+    sb.appendChild(el("p", { class: "admin-note", text: `${period}Aggregate Sentry counters only; issue titles and user details are not displayed.` }));
   } else sb.appendChild(el("p", { class: "admin-note", text: `unavailable — ${s.error || "set SENTRY_AUTH_TOKEN"}` }));
   body.appendChild(sb);
 
