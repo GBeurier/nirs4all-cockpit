@@ -2,7 +2,12 @@
 
 Reads the ``nirs4all-studio`` Sentry project so the cockpit can show a runtime-
 health panel: how many issues are unresolved vs resolved, how many events and
-users they hit.
+users they hit, for issues with searchable events in the requested period.
+
+Use the organization issue search, scoped to the project, just like Sentry's
+issue stream. The deprecated project endpoint can return orphaned groups with
+no retrievable events, and its ``statsPeriod`` only selects graph statistics;
+it does not filter the issue list by event activity.
 
 Coordinates (verified): org ``wwwciradfr`` on region ``https://de.sentry.io``,
 project ``nirs4all-studio``. All overridable via ``SENTRY_ORG`` / ``SENTRY_PROJECT``
@@ -20,6 +25,7 @@ from __future__ import annotations
 
 import os
 from typing import Any
+from urllib.parse import quote, urlencode
 
 from ..http import get_json
 
@@ -75,6 +81,7 @@ def collect(
         "available": False,
         "org": org,
         "project": project,
+        "stats_period": stats_period,
         "unresolved": None,
         "resolved": None,
         "events": None,
@@ -88,10 +95,11 @@ def collect(
         return out
 
     headers = {"Authorization": f"Bearer {token}"}
-    base = f"{region_url}/api/0/projects/{org}/{project}/issues/"
+    base = f"{region_url}/api/0/organizations/{quote(org, safe='')}/issues/"
 
     def _fetch(query: str, lim: int) -> tuple[list | None, str | None]:
-        url = f"{base}?query={query}&statsPeriod={stats_period}&limit={lim}"
+        params = urlencode({"project": project, "query": query, "statsPeriod": stats_period, "limit": lim})
+        url = f"{base}?{params}"
         status, body, error = get_json(url, headers=headers)
         if status != 200 or not isinstance(body, list):
             return None, (error or f"http {status}")

@@ -125,6 +125,11 @@ n4a-cockpit admin collect            # traffic + open PRs + security alerts + Se
 - **Sentry** aggregate counters for `nirs4all-studio` (org `wwwciradfr`,
   `de.sentry.io`) — set `SENTRY_AUTH_TOKEN` to enable; it degrades gracefully
   (`available=false`) otherwise.
+  Counters use the [organization issue search](https://docs.sentry.io/api/events/list-an-organizations-issues/),
+  scoped to the project and the last 14 days of event activity. The dashboard
+  displays that period and links to the same search. Unlike the deprecated
+  project endpoint, this excludes orphaned issue groups without searchable
+  events. It does not resolve or ignore any issue in Sentry.
 
 The dashboard renders these in an **Admin** section *only* when that local file
 is present, so the public site never shows them.
