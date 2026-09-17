@@ -344,6 +344,30 @@ def test_actions_stats_success_rate(monkeypatch) -> None:
     assert seen_run_urls and all("branch=main" in u for u in seen_run_urls)
 
 
+def test_actions_stats_separates_dependabot_updates_from_build_health(monkeypatch) -> None:
+    def fake(url, headers=None, *, accept="application/json"):
+        if "actions/workflows" in url:
+            return 200, {"total_count": 3}, None
+        if "actions/runs" in url:
+            return 200, {"total_count": 20, "workflow_runs": [
+                {"event": "dynamic", "conclusion": "failure", "created_at": "2026-09-14T13:34:32Z"},
+                {"event": "dynamic", "conclusion": "success", "created_at": "2026-09-14T13:34:31Z"},
+                {"event": "push", "conclusion": "success", "created_at": "2026-09-12T13:51:22Z"},
+            ]}, None
+        return 200, {"default_branch": "main"}, None
+
+    monkeypatch.setattr(github, "get_json", fake)
+    out = github.actions_stats("GBeurier", "nirs4all-benchmarks")
+    assert out["total_runs"] == 20
+    assert out["recent_total"] == 1
+    assert out["recent_failure"] == 0
+    assert out["success_rate"] == 100.0
+    assert out["last_conclusion"] == "success"
+    assert out["last_created_at"] == "2026-09-12T13:51:22Z"
+    assert out["dependabot_recent_total"] == 2
+    assert out["dependabot_recent_failure"] == 1
+
+
 def test_actions_stats_skips_in_progress_newest_run(monkeypatch) -> None:
     """The newest run on the branch can still be in progress — most visibly the
     cockpit's own ``collect`` run reading its run list while it is itself the
