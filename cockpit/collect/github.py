@@ -568,13 +568,15 @@ def actions_stats(owner: str, repo: str) -> dict[str, Any]:
 
     Runs are filtered to the repo's default branch so the figures track the
     branch that matters (e.g. ``main``) rather than transient pull-request or
-    Dependabot runs — a single failed PR run must not redden a green default
-    branch. The branch is read from the API, never hardcoded.
+    Dependabot PR runs. Internal Dependabot update jobs also use the default
+    branch with event ``dynamic``; count them separately from build health.
+    The branch is read from the API, never hardcoded.
     """
     out: dict[str, Any] = {
         "workflows": None, "total_runs": None, "recent_total": 0,
         "recent_success": 0, "recent_failure": 0, "success_rate": None,
         "last_conclusion": None, "last_created_at": None,
+        "dependabot_recent_total": 0, "dependabot_recent_failure": 0,
     }
 
     wstatus, wbody, _ = _get(f"{API}/repos/{owner}/{repo}/actions/workflows?per_page=100")
@@ -586,6 +588,10 @@ def actions_stats(owner: str, repo: str) -> dict[str, Any]:
     if rstatus == 200 and isinstance(rbody, dict):
         out["total_runs"] = rbody.get("total_count")
         runs = [r for r in (rbody.get("workflow_runs") or []) if isinstance(r, dict)]
+        updates = [r for r in runs if r.get("event") == "dynamic"]
+        out["dependabot_recent_total"] = len(updates)
+        out["dependabot_recent_failure"] = sum(r.get("conclusion") == "failure" for r in updates)
+        runs = [r for r in runs if r.get("event") != "dynamic"]
         out["recent_total"] = len(runs)
         success = sum(1 for r in runs if r.get("conclusion") == "success")
         failure = sum(1 for r in runs if r.get("conclusion") == "failure")
