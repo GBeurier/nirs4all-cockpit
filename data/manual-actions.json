@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-09-25T01:03:06.293420+00:00",
+  "snapshot_generated_at": "2026-09-26T01:01:45.518639+00:00",
   "counts": {
     "total": 24,
-    "pending": 7,
-    "resolved": 17,
+    "pending": 8,
+    "resolved": 16,
     "blockers": 1,
-    "important": 6,
+    "important": 7,
     "info": 0
   },
   "actions": [
@@ -164,7 +164,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:nirs4all current 0.3.31 (status=green)"
+      "check_note": "r-universe:nirs4all current 0.4.0.9030 (status=green)"
     },
     {
       "id": "runiverse-methods-n4m-rebuild",
@@ -183,8 +183,8 @@
         "name": "n4m",
         "expect": "green"
       },
-      "resolved": true,
-      "check_note": "r-universe:n4m current 1.0.21 (status=green)"
+      "resolved": false,
+      "check_note": "r-universe:n4m status=stale version=1.0.21.9003"
     },
     {
       "id": "runiverse-methods-pls4all-rebuild",
