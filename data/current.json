@@ -1,29 +1,29 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-26T01:01:45.518639+00:00",
+  "generated_at": "2026-09-27T01:11:06.766136+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": "collect.yml",
-    "run_id": "36206925451"
+    "run_id": "36284716780"
   },
   "packages": [
     {
       "id": "nirs4all",
       "repo": "nirs4all",
       "source": {
-        "manifest_version": "1.1.5",
-        "latest_prod_tag": "1.1.5",
-        "latest_any_tag": "1.1.5",
-        "expected_prod_version": "1.1.5",
-        "commit": "29d6bc2a4580eebd090b3f3ab3b21235c99c7bbd",
-        "latest_prod_tag_at": "2026-09-24T10:07:04Z",
-        "latest_release_at": "2026-09-24T10:07:20Z",
-        "latest_version_at": "2026-09-24T10:07:20Z",
+        "manifest_version": "1.2.0",
+        "latest_prod_tag": "1.2.0",
+        "latest_any_tag": "1.2.0",
+        "expected_prod_version": "1.2.0",
+        "commit": "7ab9e6a8064325c7624561d985084973119036b0",
+        "latest_prod_tag_at": "2026-09-27T01:00:28Z",
+        "latest_release_at": "2026-09-27T01:00:33Z",
+        "latest_version_at": "2026-09-27T01:00:33Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-09-25T22:29:01Z",
-        "commits_ahead_of_latest_prod_tag": 23
+        "last_commit_at": "2026-09-26T23:21:04Z",
+        "commits_ahead_of_latest_prod_tag": 0
       },
-      "rollup": "green",
+      "rollup": "stale",
       "flags": [],
       "targets": [
         {
@@ -58,7 +58,7 @@
           "name": "nirs4all",
           "reason": "Python transition package 0.12.0 keeps both legacy and dag-ml backends plus legacy workspace conversion",
           "published_version": "1.1.5",
-          "status": "green",
+          "status": "stale",
           "lifecycle": null,
           "lifecycle_reason": null,
           "former_version": null,
@@ -89,7 +89,7 @@
           "registry": "github-release",
           "name": "nirs4all",
           "reason": "Python transition release 0.12.0 remains tracked for existing users while portable V1 aggregate tracking is carried by nirs4all-core",
-          "published_version": "1.1.5",
+          "published_version": "1.2.0",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -131,13 +131,13 @@
         "stars": 39,
         "forks": 1,
         "watchers": 1,
-        "open_prs": 3,
+        "open_prs": 2,
         "closed_prs": 24,
         "merged_prs": 0,
-        "size_kb": 184570,
+        "size_kb": 184705,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-09-25T23:07:49Z",
+        "pushed_at": "2026-09-27T01:00:31Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -146,14 +146,14 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 342496,
-        "loc_comment": 114804,
-        "loc_blank": 86558,
-        "loc_total": 543858,
-        "files": 1404,
-        "tests": 9729,
+        "loc_code": 344376,
+        "loc_comment": 114911,
+        "loc_blank": 86826,
+        "loc_total": 546113,
+        "files": 1415,
+        "tests": 9780,
         "by_language": {
-          "Python": 341380,
+          "Python": 343260,
           "Shell": 1027,
           "CSS": 70,
           "JavaScript": 19
@@ -163,15 +163,15 @@
       },
       "actions_stats": {
         "workflows": 15,
-        "total_runs": 1380,
-        "recent_total": 96,
-        "recent_success": 95,
+        "total_runs": 1399,
+        "recent_total": 97,
+        "recent_success": 94,
         "recent_failure": 1,
-        "dependabot_recent_total": 4,
+        "dependabot_recent_total": 3,
         "dependabot_recent_failure": 0,
-        "success_rate": 99.0,
+        "success_rate": 98.9,
         "last_conclusion": "success",
-        "last_created_at": "2026-09-25T22:29:04Z"
+        "last_created_at": "2026-09-27T01:00:35Z"
       }
     },
     {
@@ -235,11 +235,11 @@
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": 1536,
+            "total": 1537,
             "source": "github-release-assets",
             "by_version": [],
             "windows": {
-              "total": 1536
+              "total": 1537
             }
           },
           "evidence": {
@@ -266,13 +266,13 @@
         "stars": 24,
         "forks": 0,
         "watchers": 1,
-        "open_prs": 0,
+        "open_prs": 1,
         "closed_prs": 8,
         "merged_prs": 0,
         "size_kb": 54022,
         "language": "TypeScript",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-09-25T04:13:14Z",
+        "pushed_at": "2026-09-27T01:01:03Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -316,17 +316,17 @@
       "id": "nirs4all-methods",
       "repo": "nirs4all-methods",
       "source": {
-        "manifest_version": "1.0.21",
-        "latest_prod_tag": "v1.0.21",
-        "latest_any_tag": "v1.0.21",
-        "expected_prod_version": "v1.0.21",
-        "commit": "e12c6b2fe86110c69abf7fe164ce612475f5d99a",
-        "latest_prod_tag_at": "2026-09-21T21:46:32Z",
-        "latest_release_at": "2026-09-21T21:46:58Z",
-        "latest_version_at": "2026-09-21T21:46:58Z",
+        "manifest_version": "1.1.0",
+        "latest_prod_tag": "v1.1.0",
+        "latest_any_tag": "v1.1.0",
+        "expected_prod_version": "v1.1.0",
+        "commit": "63e7709ac575bc1caaad3a0df0bc2130fc7c4bde",
+        "latest_prod_tag_at": "2026-09-26T23:19:55Z",
+        "latest_release_at": "2026-09-26T23:20:21Z",
+        "latest_version_at": "2026-09-26T23:20:21Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-09-25T23:06:10Z",
-        "commits_ahead_of_latest_prod_tag": 19
+        "last_commit_at": "2026-09-26T23:36:25Z",
+        "commits_ahead_of_latest_prod_tag": 1
       },
       "rollup": "stale",
       "flags": [],
@@ -362,7 +362,7 @@
           "registry": "pypi",
           "name": "nirs4all-methods",
           "reason": null,
-          "published_version": "1.0.21",
+          "published_version": "1.1.0",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -394,7 +394,7 @@
           "registry": "pypi",
           "name": "pls4all",
           "reason": null,
-          "published_version": "1.0.21",
+          "published_version": "1.1.0",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -402,15 +402,15 @@
           "planned": false,
           "manual": false,
           "downloads": {
-            "last_day": 49,
-            "last_week": 593,
-            "last_month": 3269,
+            "last_day": 6,
+            "last_week": 588,
+            "last_month": 2560,
             "total": null,
             "source": "pypistats",
             "by_version": [],
             "windows": {
-              "7d": 593,
-              "30d": 3269,
+              "7d": 588,
+              "30d": 2560,
               "90d": null,
               "total": null
             }
@@ -426,8 +426,8 @@
           "registry": "npm",
           "name": "@nirs4all/methods",
           "reason": null,
-          "published_version": "1.0.18",
-          "status": "stale",
+          "published_version": "1.1.0",
+          "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
           "former_version": null,
@@ -436,13 +436,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 777,
+            "last_month": 741,
             "total": null,
             "source": "npm",
             "by_version": [],
             "windows": {
               "7d": null,
-              "30d": 777,
+              "30d": 741,
               "90d": null,
               "total": null
             }
@@ -458,7 +458,7 @@
           "registry": "r-universe",
           "name": "n4m",
           "reason": null,
-          "published_version": "1.0.21.9003",
+          "published_version": "1.0.21.9006",
           "status": "stale",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -485,8 +485,8 @@
           "registry": "r-universe",
           "name": "pls4all",
           "reason": null,
-          "published_version": "1.0.21",
-          "status": "green",
+          "published_version": "1.0.21.9006",
+          "status": "stale",
           "lifecycle": null,
           "lifecycle_reason": null,
           "former_version": null,
@@ -576,7 +576,7 @@
           "registry": "github-release",
           "name": "nirs4all-methods",
           "reason": null,
-          "published_version": "1.0.21",
+          "published_version": "1.1.0",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -633,26 +633,26 @@
         {
           "file": "release-wheels.yml",
           "conclusion": "success",
-          "created_at": "2026-09-21T21:46:38Z",
-          "head_sha": "4bd8f2f049e0e45d50c31541e5e4bef6107566fc"
+          "created_at": "2026-09-26T23:20:01Z",
+          "head_sha": "9a157fbd07877bf57cce58b9cc31587f0a6571d7"
         },
         {
           "file": "release-python.yml",
           "conclusion": "success",
-          "created_at": "2026-09-25T22:57:54Z",
-          "head_sha": "eacb49004c0729be86d18387a7d13d324ed077bf"
+          "created_at": "2026-09-26T23:20:01Z",
+          "head_sha": "9a157fbd07877bf57cce58b9cc31587f0a6571d7"
         },
         {
           "file": "release-npm.yml",
-          "conclusion": "failure",
-          "created_at": "2026-09-21T21:46:38Z",
-          "head_sha": "4bd8f2f049e0e45d50c31541e5e4bef6107566fc"
+          "conclusion": "success",
+          "created_at": "2026-09-26T23:20:01Z",
+          "head_sha": "9a157fbd07877bf57cce58b9cc31587f0a6571d7"
         },
         {
           "file": "release-r.yml",
-          "conclusion": "success",
-          "created_at": "2026-09-21T21:46:38Z",
-          "head_sha": "4bd8f2f049e0e45d50c31541e5e4bef6107566fc"
+          "conclusion": "failure",
+          "created_at": "2026-09-26T23:20:01Z",
+          "head_sha": "9a157fbd07877bf57cce58b9cc31587f0a6571d7"
         }
       ],
       "issues": {
@@ -666,10 +666,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 494570,
+        "size_kb": 499247,
         "language": "C++",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-09-25T23:06:10Z",
+        "pushed_at": "2026-09-26T23:36:28Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -678,24 +678,24 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 252812,
-        "loc_comment": 40042,
-        "loc_blank": 27203,
-        "loc_total": 320057,
-        "files": 1135,
-        "tests": 479,
+        "loc_code": 290484,
+        "loc_comment": 43665,
+        "loc_blank": 31396,
+        "loc_total": 365545,
+        "files": 1226,
+        "tests": 551,
         "by_language": {
-          "Python": 98585,
-          "C++": 84110,
-          "C": 29406,
-          "C++ header": 12742,
-          "C/C++ header": 6765,
-          "R": 5950,
-          "MATLAB/Octave": 5064,
-          "Rust": 3501,
-          "JavaScript": 2218,
+          "Python": 108911,
+          "C++": 95443,
+          "C": 32078,
+          "C++ header": 13678,
+          "R": 9338,
+          "TypeScript": 7499,
+          "C/C++ header": 7179,
+          "Rust": 5293,
+          "MATLAB/Octave": 5068,
+          "JavaScript": 2824,
           "CSS": 1579,
-          "TypeScript": 1298,
           "Shell": 1296,
           "HTML": 298
         },
@@ -704,15 +704,15 @@
       },
       "actions_stats": {
         "workflows": 20,
-        "total_runs": 2135,
+        "total_runs": 2238,
         "recent_total": 100,
-        "recent_success": 91,
-        "recent_failure": 7,
+        "recent_success": 97,
+        "recent_failure": 1,
         "dependabot_recent_total": 0,
         "dependabot_recent_failure": 0,
-        "success_rate": 92.9,
+        "success_rate": 99.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-09-25T23:06:12Z"
+        "last_created_at": "2026-09-26T23:36:31Z"
       }
     },
     {
@@ -774,14 +774,14 @@
           "manual": false,
           "downloads": {
             "last_day": 1,
-            "last_week": 131,
-            "last_month": 513,
+            "last_week": 31,
+            "last_month": 515,
             "total": null,
             "source": "pypistats",
             "by_version": [],
             "windows": {
-              "7d": 131,
-              "30d": 513,
+              "7d": 31,
+              "30d": 515,
               "90d": null,
               "total": null
             }
@@ -807,8 +807,8 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 1624,
-            "total": 1680,
+            "last_month": 1639,
+            "total": 1731,
             "source": "crates.io",
             "by_version": [
               {
@@ -817,7 +817,7 @@
               },
               {
                 "version": "0.2.9",
-                "downloads": 1064
+                "downloads": 1115
               },
               {
                 "version": "0.2.8",
@@ -863,8 +863,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 1624,
-              "total": 1680
+              "90d": 1639,
+              "total": 1731
             }
           },
           "evidence": {
@@ -888,8 +888,8 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 1579,
-            "total": 1623,
+            "last_month": 1600,
+            "total": 1674,
             "source": "crates.io",
             "by_version": [
               {
@@ -898,7 +898,7 @@
               },
               {
                 "version": "0.2.9",
-                "downloads": 1061
+                "downloads": 1112
               },
               {
                 "version": "0.2.8",
@@ -944,8 +944,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 1579,
-              "total": 1623
+              "90d": 1600,
+              "total": 1674
             }
           },
           "evidence": {
@@ -969,7 +969,7 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 189,
+            "last_month": 179,
             "total": 216,
             "source": "crates.io",
             "by_version": [
@@ -1025,7 +1025,7 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 189,
+              "90d": 179,
               "total": 216
             }
           },
@@ -1050,7 +1050,7 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 190,
+            "last_month": 180,
             "total": 217,
             "source": "crates.io",
             "by_version": [
@@ -1106,7 +1106,7 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 190,
+              "90d": 180,
               "total": 217
             }
           },
@@ -1294,13 +1294,13 @@
         "stars": 24,
         "forks": 0,
         "watchers": 1,
-        "open_prs": 1,
+        "open_prs": 2,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 118650,
+        "size_kb": 118657,
         "language": "Rust",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-09-25T07:52:25Z",
+        "pushed_at": "2026-09-26T06:54:08Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -1330,7 +1330,7 @@
       },
       "actions_stats": {
         "workflows": 11,
-        "total_runs": 591,
+        "total_runs": 599,
         "recent_total": 35,
         "recent_success": 35,
         "recent_failure": 0,
@@ -1399,15 +1399,15 @@
           "planned": false,
           "manual": false,
           "downloads": {
-            "last_day": 339,
-            "last_week": 843,
-            "last_month": 2032,
+            "last_day": 137,
+            "last_week": 970,
+            "last_month": 2168,
             "total": null,
             "source": "pypistats",
             "by_version": [],
             "windows": {
-              "7d": 843,
-              "30d": 2032,
+              "7d": 970,
+              "30d": 2168,
               "90d": null,
               "total": null
             }
@@ -1433,8 +1433,8 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 2083,
-            "total": 2197,
+            "last_month": 2122,
+            "total": 2248,
             "source": "crates.io",
             "by_version": [
               {
@@ -1443,7 +1443,7 @@
               },
               {
                 "version": "0.1.18",
-                "downloads": 912
+                "downloads": 963
               },
               {
                 "version": "0.1.17",
@@ -1521,8 +1521,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 2083,
-              "total": 2197
+              "90d": 2122,
+              "total": 2248
             }
           },
           "evidence": {
@@ -1546,8 +1546,8 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 1999,
-            "total": 2095,
+            "last_month": 2039,
+            "total": 2146,
             "source": "crates.io",
             "by_version": [
               {
@@ -1556,7 +1556,7 @@
               },
               {
                 "version": "0.1.18",
-                "downloads": 895
+                "downloads": 946
               },
               {
                 "version": "0.1.17",
@@ -1634,8 +1634,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 1999,
-              "total": 2095
+              "90d": 2039,
+              "total": 2146
             }
           },
           "evidence": {
@@ -1885,13 +1885,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 652,
+            "last_month": 651,
             "total": null,
             "source": "npm",
             "by_version": [],
             "windows": {
               "7d": null,
-              "30d": 652,
+              "30d": 651,
               "90d": null,
               "total": null
             }
@@ -2195,7 +2195,7 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 365,
+            "last_month": 346,
             "total": 456,
             "source": "crates.io",
             "by_version": [
@@ -2263,7 +2263,7 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 365,
+              "90d": 346,
               "total": 456
             }
           },
@@ -2288,7 +2288,7 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 213,
+            "last_month": 203,
             "total": 268,
             "source": "crates.io",
             "by_version": [
@@ -2356,7 +2356,7 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 213,
+              "90d": 203,
               "total": 268
             }
           },
@@ -2381,7 +2381,7 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 214,
+            "last_month": 203,
             "total": 268,
             "source": "crates.io",
             "by_version": [
@@ -2449,7 +2449,7 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 214,
+              "90d": 203,
               "total": 268
             }
           },
@@ -2474,13 +2474,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 106,
+            "last_month": 107,
             "total": null,
             "source": "npm",
             "by_version": [],
             "windows": {
               "7d": null,
-              "30d": 106,
+              "30d": 107,
               "90d": null,
               "total": null
             }
@@ -2645,10 +2645,10 @@
         "open_prs": 1,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 253690,
+        "size_kb": 253693,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-09-19T16:04:40Z",
+        "pushed_at": "2026-09-26T16:06:05Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -2677,7 +2677,7 @@
       },
       "actions_stats": {
         "workflows": 13,
-        "total_runs": 448,
+        "total_runs": 452,
         "recent_total": 45,
         "recent_success": 43,
         "recent_failure": 0,
@@ -2933,13 +2933,13 @@
           "manual": false,
           "downloads": {
             "last_day": 0,
-            "last_week": 7,
+            "last_week": 5,
             "last_month": 154,
             "total": null,
             "source": "pypistats",
             "by_version": [],
             "windows": {
-              "7d": 7,
+              "7d": 5,
               "30d": 154,
               "90d": null,
               "total": null
@@ -3169,11 +3169,11 @@
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 66,
+        "total_runs": 68,
         "recent_total": 34,
         "recent_success": 32,
         "recent_failure": 2,
-        "dependabot_recent_total": 32,
+        "dependabot_recent_total": 34,
         "dependabot_recent_failure": 0,
         "success_rate": 94.1,
         "last_conclusion": "success",
@@ -3240,15 +3240,15 @@
           "planned": false,
           "manual": false,
           "downloads": {
-            "last_day": 101,
-            "last_week": 513,
-            "last_month": 3259,
+            "last_day": 149,
+            "last_week": 953,
+            "last_month": 3108,
             "total": null,
             "source": "pypistats",
             "by_version": [],
             "windows": {
-              "7d": 513,
-              "30d": 3259,
+              "7d": 953,
+              "30d": 3108,
               "90d": null,
               "total": null
             }
@@ -3274,17 +3274,17 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 3074,
-            "total": 3100,
+            "last_month": 3134,
+            "total": 3160,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.3.31",
-                "downloads": 245
+                "downloads": 246
               },
               {
                 "version": "0.3.30",
-                "downloads": 366
+                "downloads": 367
               },
               {
                 "version": "0.3.29",
@@ -3308,7 +3308,7 @@
               },
               {
                 "version": "0.3.22",
-                "downloads": 828
+                "downloads": 879
               },
               {
                 "version": "0.3.21",
@@ -3336,7 +3336,7 @@
               },
               {
                 "version": "0.3.15",
-                "downloads": 635
+                "downloads": 642
               },
               {
                 "version": "0.3.14",
@@ -3362,8 +3362,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 3074,
-              "total": 3100
+              "90d": 3134,
+              "total": 3160
             }
           },
           "evidence": {
@@ -3387,13 +3387,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 1820,
+            "last_month": 1559,
             "total": null,
             "source": "npm",
             "by_version": [],
             "windows": {
               "7d": null,
-              "30d": 1820,
+              "30d": 1559,
               "90d": null,
               "total": null
             }
@@ -3409,7 +3409,7 @@
           "registry": "r-universe",
           "name": "nirs4all",
           "reason": "GBeurier.r-universe.dev published nirs4all 0.3.11 from the nirs4all-core v0.3.11 rebuild at b478818; the R-universe target remains a manual registry surface tracked by auto-check",
-          "published_version": "0.4.0.9030",
+          "published_version": "0.4.0.9031",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -3534,13 +3534,13 @@
         "stars": 2,
         "forks": 0,
         "watchers": 0,
-        "open_prs": 0,
+        "open_prs": 1,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 1526,
+        "size_kb": 1647,
         "language": "Rust",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-09-25T13:31:01Z",
+        "pushed_at": "2026-09-26T14:51:41Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -3549,18 +3549,18 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 28009,
-        "loc_comment": 1516,
-        "loc_blank": 2433,
-        "loc_total": 31958,
+        "loc_code": 29131,
+        "loc_comment": 1519,
+        "loc_blank": 2473,
+        "loc_total": 33123,
         "files": 85,
-        "tests": 258,
+        "tests": 279,
         "by_language": {
           "Rust": 15356,
-          "Python": 7324,
-          "JavaScript": 3294,
+          "Python": 7356,
+          "JavaScript": 4372,
           "MATLAB/Octave": 1210,
-          "TypeScript": 539,
+          "TypeScript": 551,
           "Shell": 286
         },
         "coverage_pct": null,
@@ -3568,7 +3568,7 @@
       },
       "actions_stats": {
         "workflows": 7,
-        "total_runs": 245,
+        "total_runs": 249,
         "recent_total": 100,
         "recent_success": 94,
         "recent_failure": 4,
@@ -3576,7 +3576,7 @@
         "dependabot_recent_failure": 0,
         "success_rate": 95.9,
         "last_conclusion": "success",
-        "last_created_at": "2026-09-25T13:38:02Z"
+        "last_created_at": "2026-09-26T10:09:57Z"
       }
     },
     {
@@ -3835,13 +3835,13 @@
         "latest_prod_tag": "v0.3.27",
         "latest_any_tag": "v0.3.27",
         "expected_prod_version": "v0.3.27",
-        "commit": "104659fe8eca06111a9ae6140098b1c85753b1e8",
+        "commit": "7c64348b63703cef3081215850a1c4e79bf231c5",
         "latest_prod_tag_at": "2026-09-24T07:43:00Z",
         "latest_release_at": "2026-09-24T08:08:30Z",
         "latest_version_at": "2026-09-24T08:08:30Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-09-25T23:11:47Z",
-        "commits_ahead_of_latest_prod_tag": 19
+        "last_commit_at": "2026-09-26T10:32:10Z",
+        "commits_ahead_of_latest_prod_tag": 33
       },
       "rollup": "green",
       "flags": [],
@@ -3919,13 +3919,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 2989,
+            "last_month": 2302,
             "total": null,
             "source": "npm",
             "by_version": [],
             "windows": {
               "7d": null,
-              "30d": 2989,
+              "30d": 2302,
               "90d": null,
               "total": null
             }
@@ -3951,13 +3951,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 4072,
-            "total": 4144,
+            "last_month": 4181,
+            "total": 4254,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.3.27",
-                "downloads": 386
+                "downloads": 437
               },
               {
                 "version": "0.3.26",
@@ -3965,7 +3965,7 @@
               },
               {
                 "version": "0.3.25",
-                "downloads": 475
+                "downloads": 476
               },
               {
                 "version": "0.3.23",
@@ -4001,7 +4001,7 @@
               },
               {
                 "version": "0.3.15",
-                "downloads": 872
+                "downloads": 923
               },
               {
                 "version": "0.3.14",
@@ -4039,8 +4039,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 4072,
-              "total": 4144
+              "90d": 4181,
+              "total": 4254
             }
           },
           "evidence": {
@@ -4064,13 +4064,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 4831,
-            "total": 4960,
+            "last_month": 4939,
+            "total": 5074,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.3.27",
-                "downloads": 399
+                "downloads": 450
               },
               {
                 "version": "0.3.26",
@@ -4078,7 +4078,7 @@
               },
               {
                 "version": "0.3.25",
-                "downloads": 530
+                "downloads": 535
               },
               {
                 "version": "0.3.23",
@@ -4114,7 +4114,7 @@
               },
               {
                 "version": "0.3.15",
-                "downloads": 902
+                "downloads": 953
               },
               {
                 "version": "0.3.14",
@@ -4152,8 +4152,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 4831,
-              "total": 4960
+              "90d": 4939,
+              "total": 5074
             }
           },
           "evidence": {
@@ -4177,13 +4177,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 609,
-            "total": 651,
+            "last_month": 611,
+            "total": 653,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.3.27",
-                "downloads": 14
+                "downloads": 15
               },
               {
                 "version": "0.3.26",
@@ -4191,7 +4191,7 @@
               },
               {
                 "version": "0.3.25",
-                "downloads": 29
+                "downloads": 30
               },
               {
                 "version": "0.3.23",
@@ -4265,8 +4265,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 609,
-              "total": 651
+              "90d": 611,
+              "total": 653
             }
           },
           "evidence": {
@@ -4290,13 +4290,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 551,
-            "total": 593,
+            "last_month": 552,
+            "total": 594,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.3.27",
-                "downloads": 10
+                "downloads": 11
               },
               {
                 "version": "0.3.26",
@@ -4378,8 +4378,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 551,
-              "total": 593
+              "90d": 552,
+              "total": 594
             }
           },
           "evidence": {
@@ -4403,13 +4403,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 601,
-            "total": 644,
+            "last_month": 602,
+            "total": 645,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.3.27",
-                "downloads": 10
+                "downloads": 11
               },
               {
                 "version": "0.3.26",
@@ -4491,8 +4491,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 601,
-              "total": 644
+              "90d": 602,
+              "total": 645
             }
           },
           "evidence": {
@@ -4525,13 +4525,13 @@
         "stars": 4,
         "forks": 0,
         "watchers": 0,
-        "open_prs": 1,
+        "open_prs": 3,
         "closed_prs": 1,
         "merged_prs": 0,
-        "size_kb": 391197,
+        "size_kb": 391424,
         "language": "Rust",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-09-25T23:11:47Z",
+        "pushed_at": "2026-09-27T00:32:36Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4540,20 +4540,20 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 216462,
-        "loc_comment": 8830,
-        "loc_blank": 12288,
-        "loc_total": 237580,
-        "files": 207,
-        "tests": 1301,
+        "loc_code": 216682,
+        "loc_comment": 8851,
+        "loc_blank": 12310,
+        "loc_total": 237843,
+        "files": 208,
+        "tests": 1302,
         "by_language": {
-          "Rust": 158168,
-          "Python": 51735,
+          "Rust": 158311,
+          "Python": 51810,
           "R": 2455,
           "MATLAB/Octave": 1742,
           "C": 916,
           "JavaScript": 709,
-          "C/C++ header": 517,
+          "C/C++ header": 519,
           "HTML": 124,
           "Shell": 96
         },
@@ -4562,15 +4562,15 @@
       },
       "actions_stats": {
         "workflows": 7,
-        "total_runs": 643,
-        "recent_total": 72,
-        "recent_success": 70,
+        "total_runs": 652,
+        "recent_total": 74,
+        "recent_success": 72,
         "recent_failure": 2,
-        "dependabot_recent_total": 28,
+        "dependabot_recent_total": 26,
         "dependabot_recent_failure": 0,
-        "success_rate": 97.2,
+        "success_rate": 97.3,
         "last_conclusion": "success",
-        "last_created_at": "2026-09-25T23:11:50Z"
+        "last_created_at": "2026-09-26T10:32:13Z"
       }
     },
     {
@@ -4665,13 +4665,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 412,
+            "last_month": 427,
             "total": null,
             "source": "npm",
             "by_version": [],
             "windows": {
               "7d": null,
-              "30d": 412,
+              "30d": 427,
               "90d": null,
               "total": null
             }
@@ -4724,25 +4724,25 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 4202,
-            "total": 4390,
+            "last_month": 4320,
+            "total": 4509,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.12",
-                "downloads": 424
+                "downloads": 484
               },
               {
                 "version": "0.2.11",
-                "downloads": 585
+                "downloads": 586
               },
               {
                 "version": "0.2.10",
-                "downloads": 852
+                "downloads": 902
               },
               {
                 "version": "0.2.9",
-                "downloads": 1317
+                "downloads": 1325
               },
               {
                 "version": "0.2.8",
@@ -4788,8 +4788,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 4202,
-              "total": 4390
+              "90d": 4320,
+              "total": 4509
             }
           },
           "evidence": {
@@ -4813,25 +4813,25 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 4830,
-            "total": 5081,
+            "last_month": 4948,
+            "total": 5206,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.12",
-                "downloads": 454
+                "downloads": 514
               },
               {
                 "version": "0.2.11",
-                "downloads": 645
+                "downloads": 652
               },
               {
                 "version": "0.2.10",
-                "downloads": 874
+                "downloads": 924
               },
               {
                 "version": "0.2.9",
-                "downloads": 1572
+                "downloads": 1580
               },
               {
                 "version": "0.2.8",
@@ -4877,8 +4877,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 4830,
-              "total": 5081
+              "90d": 4948,
+              "total": 5206
             }
           },
           "evidence": {
@@ -4902,17 +4902,17 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 294,
-            "total": 342,
+            "last_month": 295,
+            "total": 344,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.12",
-                "downloads": 16
+                "downloads": 17
               },
               {
                 "version": "0.2.11",
-                "downloads": 21
+                "downloads": 22
               },
               {
                 "version": "0.2.10",
@@ -4966,8 +4966,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 294,
-              "total": 342
+              "90d": 295,
+              "total": 344
             }
           },
           "evidence": {
@@ -4991,13 +4991,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 253,
-            "total": 292,
+            "last_month": 254,
+            "total": 293,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.12",
-                "downloads": 10
+                "downloads": 11
               },
               {
                 "version": "0.2.11",
@@ -5055,8 +5055,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 253,
-              "total": 292
+              "90d": 254,
+              "total": 293
             }
           },
           "evidence": {
@@ -5080,13 +5080,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 261,
-            "total": 303,
+            "last_month": 262,
+            "total": 304,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.12",
-                "downloads": 10
+                "downloads": 11
               },
               {
                 "version": "0.2.11",
@@ -5144,8 +5144,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 261,
-              "total": 303
+              "90d": 262,
+              "total": 304
             }
           },
           "evidence": {
@@ -5169,17 +5169,17 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 1811,
-            "total": 1874,
+            "last_month": 1863,
+            "total": 1928,
             "source": "crates.io",
             "by_version": [
               {
                 "version": "0.2.12",
-                "downloads": 404
+                "downloads": 455
               },
               {
                 "version": "0.2.11",
-                "downloads": 591
+                "downloads": 594
               },
               {
                 "version": "0.2.10",
@@ -5233,8 +5233,8 @@
             "windows": {
               "7d": null,
               "30d": null,
-              "90d": 1811,
-              "total": 1874
+              "90d": 1863,
+              "total": 1928
             }
           },
           "evidence": {
@@ -5273,7 +5273,7 @@
         "size_kb": 9984,
         "language": "Rust",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-09-25T20:41:41Z",
+        "pushed_at": "2026-09-27T00:34:43Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -5398,13 +5398,13 @@
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 274,
-        "recent_total": 43,
-        "recent_success": 41,
+        "total_runs": 276,
+        "recent_total": 42,
+        "recent_success": 40,
         "recent_failure": 2,
-        "dependabot_recent_total": 57,
+        "dependabot_recent_total": 58,
         "dependabot_recent_failure": 0,
-        "success_rate": 95.3,
+        "success_rate": 95.2,
         "last_conclusion": "success",
         "last_created_at": "2026-09-22T15:04:35Z"
       }
@@ -5413,17 +5413,17 @@
       "id": "nirs4all-web",
       "repo": "nirs4all-web",
       "source": {
-        "manifest_version": "0.1.10",
-        "latest_prod_tag": "v0.1.10",
-        "latest_any_tag": "v0.1.10",
-        "expected_prod_version": "v0.1.10",
-        "commit": "d65c8912f707ee381556ddee0e38d850a987b060",
-        "latest_prod_tag_at": "2026-09-03T13:49:31Z",
+        "manifest_version": "0.2.0",
+        "latest_prod_tag": "v0.2.0",
+        "latest_any_tag": "v0.2.0",
+        "expected_prod_version": "v0.2.0",
+        "commit": "f396ad33eb60dd01dca97923a9f93e18614aad4d",
+        "latest_prod_tag_at": "2026-09-27T01:05:56Z",
         "latest_release_at": "2026-07-10T04:14:03Z",
-        "latest_version_at": "2026-09-03T13:49:31Z",
+        "latest_version_at": "2026-09-27T01:05:56Z",
         "latest_version_source": "tag",
-        "last_commit_at": "2026-09-25T13:58:10Z",
-        "commits_ahead_of_latest_prod_tag": 14
+        "last_commit_at": "2026-09-27T01:05:52Z",
+        "commits_ahead_of_latest_prod_tag": 0
       },
       "rollup": "stale",
       "flags": [],
@@ -5507,7 +5507,7 @@
         "size_kb": 32779,
         "language": "TypeScript",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-09-25T13:58:10Z",
+        "pushed_at": "2026-09-27T01:06:00Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -5516,15 +5516,15 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 35546,
-        "loc_comment": 3256,
-        "loc_blank": 2901,
-        "loc_total": 41703,
-        "files": 260,
-        "tests": 327,
+        "loc_code": 43856,
+        "loc_comment": 4844,
+        "loc_blank": 2936,
+        "loc_total": 51636,
+        "files": 278,
+        "tests": 334,
         "by_language": {
-          "TypeScript": 23622,
-          "JavaScript": 11471,
+          "TypeScript": 26840,
+          "JavaScript": 16563,
           "CSS": 259,
           "HTML": 130,
           "Shell": 64
@@ -5534,15 +5534,15 @@
       },
       "actions_stats": {
         "workflows": 3,
-        "total_runs": 396,
+        "total_runs": 399,
         "recent_total": 100,
-        "recent_success": 92,
-        "recent_failure": 7,
+        "recent_success": 93,
+        "recent_failure": 5,
         "dependabot_recent_total": 0,
         "dependabot_recent_failure": 0,
-        "success_rate": 92.9,
+        "success_rate": 94.9,
         "last_conclusion": "success",
-        "last_created_at": "2026-09-25T13:58:13Z"
+        "last_created_at": "2026-09-27T01:06:02Z"
       }
     },
     {
@@ -5784,16 +5784,16 @@
       "id": "nirs4all-ui",
       "repo": "nirs4all-ui",
       "source": {
-        "manifest_version": "0.1.12",
-        "latest_prod_tag": "v0.1.13",
-        "latest_any_tag": "v0.1.13",
-        "expected_prod_version": "v0.1.13",
-        "commit": "9f2b8033ea7698cd42f2d3c9aa15b55574e6facb",
-        "latest_prod_tag_at": "2026-09-03T10:44:52Z",
+        "manifest_version": "0.1.14",
+        "latest_prod_tag": "v0.1.14",
+        "latest_any_tag": "v0.1.14",
+        "expected_prod_version": "v0.1.14",
+        "commit": "eeeaad4297ca9c3e8dac0007f6e46a597691c72e",
+        "latest_prod_tag_at": "2026-09-26T23:06:53Z",
         "latest_release_at": "2026-07-10T07:29:47Z",
-        "latest_version_at": "2026-09-03T10:44:52Z",
+        "latest_version_at": "2026-09-26T23:06:53Z",
         "latest_version_source": "tag",
-        "last_commit_at": "2026-08-26T09:28:26Z",
+        "last_commit_at": "2026-09-26T23:06:17Z",
         "commits_ahead_of_latest_prod_tag": 0
       },
       "rollup": "stale",
@@ -5832,7 +5832,7 @@
           "registry": "npm",
           "name": "nirs4all-ui",
           "reason": "RC V1 shared React/TS package of reusable components, status helpers, and brand assets; outside nirs4all-core aggregation lock",
-          "published_version": "0.1.13",
+          "published_version": "0.1.14",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -5842,13 +5842,13 @@
           "downloads": {
             "last_day": null,
             "last_week": null,
-            "last_month": 105,
+            "last_month": 107,
             "total": null,
             "source": "npm",
             "by_version": [],
             "windows": {
               "7d": null,
-              "30d": 105,
+              "30d": 107,
               "90d": null,
               "total": null
             }
@@ -5892,14 +5892,14 @@
         {
           "file": "release-npm.yml",
           "conclusion": "success",
-          "created_at": "2026-09-03T10:52:15Z",
-          "head_sha": "22148e9bd65a0d43453204537922cb1259dcbb0b"
+          "created_at": "2026-09-26T23:06:59Z",
+          "head_sha": "eeeaad4297ca9c3e8dac0007f6e46a597691c72e"
         },
         {
           "file": "pages.yml",
           "conclusion": "success",
-          "created_at": "2026-08-26T09:28:30Z",
-          "head_sha": "9f2b8033ea7698cd42f2d3c9aa15b55574e6facb"
+          "created_at": "2026-09-26T23:06:58Z",
+          "head_sha": "eeeaad4297ca9c3e8dac0007f6e46a597691c72e"
         }
       ],
       "issues": {
@@ -5913,10 +5913,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 3265,
+        "size_kb": 3292,
         "language": "TypeScript",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-09-03T10:52:13Z",
+        "pushed_at": "2026-09-26T23:07:00Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -5925,16 +5925,16 @@
         "traffic_available": false
       },
       "code_stats": {
-        "loc_code": 26592,
-        "loc_comment": 1794,
-        "loc_blank": 2565,
-        "loc_total": 30951,
-        "files": 202,
-        "tests": 293,
+        "loc_code": 27159,
+        "loc_comment": 1813,
+        "loc_blank": 2620,
+        "loc_total": 31592,
+        "files": 207,
+        "tests": 305,
         "by_language": {
-          "TypeScript": 23692,
+          "TypeScript": 23994,
           "CSS": 2315,
-          "JavaScript": 535,
+          "JavaScript": 800,
           "HTML": 50
         },
         "coverage_pct": null,
@@ -5942,7 +5942,7 @@
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 152,
+        "total_runs": 155,
         "recent_total": 100,
         "recent_success": 96,
         "recent_failure": 4,
@@ -5950,7 +5950,7 @@
         "dependabot_recent_failure": 0,
         "success_rate": 96.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-08-26T09:28:30Z"
+        "last_created_at": "2026-09-26T23:06:58Z"
       }
     },
     {
@@ -5961,13 +5961,13 @@
         "latest_prod_tag": "v0.1.8",
         "latest_any_tag": "v0.1.8",
         "expected_prod_version": "v0.1.8",
-        "commit": "7618812dc1165a99597b5488615e90d6a6673b6f",
+        "commit": "a4405ad3b3529209dd6318bec7a9293ce11e8002",
         "latest_prod_tag_at": "2026-09-04T15:59:32Z",
         "latest_release_at": "2026-07-07T13:26:15Z",
         "latest_version_at": "2026-09-04T15:59:32Z",
         "latest_version_source": "tag",
-        "last_commit_at": "2026-09-25T01:07:10Z",
-        "commits_ahead_of_latest_prod_tag": 65
+        "last_commit_at": "2026-09-26T01:06:26Z",
+        "commits_ahead_of_latest_prod_tag": 66
       },
       "rollup": "green",
       "flags": [],
@@ -6004,8 +6004,8 @@
         {
           "file": "pages.yml",
           "conclusion": "success",
-          "created_at": "2026-09-25T01:07:16Z",
-          "head_sha": "7618812dc1165a99597b5488615e90d6a6673b6f"
+          "created_at": "2026-09-26T01:06:32Z",
+          "head_sha": "a4405ad3b3529209dd6318bec7a9293ce11e8002"
         }
       ],
       "issues": {
@@ -6019,10 +6019,10 @@
         "open_prs": 0,
         "closed_prs": 0,
         "merged_prs": 0,
-        "size_kb": 1427,
+        "size_kb": 1431,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-09-25T01:07:11Z",
+        "pushed_at": "2026-09-26T01:06:27Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -6049,7 +6049,7 @@
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 1170,
+        "total_runs": 1172,
         "recent_total": 100,
         "recent_success": 96,
         "recent_failure": 3,
@@ -6057,7 +6057,7 @@
         "dependabot_recent_failure": 0,
         "success_rate": 97.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-09-25T01:07:16Z"
+        "last_created_at": "2026-09-26T01:06:32Z"
       }
     },
     {
@@ -6558,8 +6558,8 @@
     }
   ],
   "summary": {
-    "green": 91,
-    "stale": 6,
+    "green": 90,
+    "stale": 7,
     "pending": 5,
     "missing": 0,
     "broken": 0,
@@ -6573,28 +6573,28 @@
     "forks": 1,
     "watchers": 3,
     "open_issues": 1,
-    "loc_code": 1786957,
-    "loc_total": 2234268,
-    "tests": 20829,
-    "files": 6948,
-    "workflow_runs": 10919,
-    "downloads_last_month": 71508
+    "loc_code": 1836728,
+    "loc_total": 2294013,
+    "tests": 20993,
+    "files": 7074,
+    "workflow_runs": 11078,
+    "downloads_last_month": 70446
   },
   "visits": {
     "available": true,
     "site": "https://nirs4all.goatcounter.com",
     "windows": {
-      "7d": 71,
-      "30d": 290,
-      "365d": 1031,
-      "total": 1031
+      "7d": null,
+      "30d": 272,
+      "365d": 1037,
+      "total": 1037
     },
     "since": "2026-06-12",
     "pages": [
       {
         "path": "/org",
         "title": "nirs4all | Open-Source NIR Spectroscopy Software for Python and Desktop",
-        "count": 407
+        "count": 412
       },
       {
         "path": "/methods",
@@ -6609,7 +6609,7 @@
       {
         "path": "/formats",
         "title": "nirs4all-formats · in-browser spectroscopy file reader (WASM demo)",
-        "count": 87
+        "count": 88
       },
       {
         "path": "/cockpit",
@@ -6652,8 +6652,8 @@
   "search_console": {
     "available": false,
     "site_url": "sc-domain:nirs4all.org",
-    "start_date": "2026-06-26",
-    "end_date": "2026-09-23",
+    "start_date": "2026-06-27",
+    "end_date": "2026-09-24",
     "windows": {},
     "pages": [],
     "queries": [],
