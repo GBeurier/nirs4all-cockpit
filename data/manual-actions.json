@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-09-26T01:01:45.518639+00:00",
+  "snapshot_generated_at": "2026-09-27T01:11:06.766136+00:00",
   "counts": {
     "total": 24,
-    "pending": 8,
-    "resolved": 16,
+    "pending": 9,
+    "resolved": 15,
     "blockers": 1,
-    "important": 7,
+    "important": 8,
     "info": 0
   },
   "actions": [
@@ -65,7 +65,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "npm:@nirs4all/methods published 1.0.18 (status=stale)"
+      "check_note": "npm:@nirs4all/methods published 1.1.0 (status=green)"
     },
     {
       "id": "pypi-publisher-pls4all",
@@ -93,7 +93,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:pls4all published 1.0.21 (status=green)"
+      "check_note": "pypi:pls4all published 1.1.0 (status=green)"
     },
     {
       "id": "pypi-publisher-io",
@@ -164,7 +164,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:nirs4all current 0.4.0.9030 (status=green)"
+      "check_note": "r-universe:nirs4all current 0.4.0.9031 (status=green)"
     },
     {
       "id": "runiverse-methods-n4m-rebuild",
@@ -184,7 +184,7 @@
         "expect": "green"
       },
       "resolved": false,
-      "check_note": "r-universe:n4m status=stale version=1.0.21.9003"
+      "check_note": "r-universe:n4m status=stale version=1.0.21.9006"
     },
     {
       "id": "runiverse-methods-pls4all-rebuild",
@@ -203,8 +203,8 @@
         "name": "pls4all",
         "expect": "green"
       },
-      "resolved": true,
-      "check_note": "r-universe:pls4all current 1.0.21 (status=green)"
+      "resolved": false,
+      "check_note": "r-universe:pls4all status=stale version=1.0.21.9006"
     },
     {
       "id": "runiverse-formats-rebuild",
