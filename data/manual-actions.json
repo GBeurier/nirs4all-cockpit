@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-10-04T01:36:04.165793+00:00",
+  "snapshot_generated_at": "2026-10-04T22:10:19.472684+00:00",
   "counts": {
     "total": 24,
     "pending": 7,
@@ -65,7 +65,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "npm:@nirs4all/methods published 1.2.1 (status=green)"
+      "check_note": "npm:@nirs4all/methods published 1.3.2 (status=green)"
     },
     {
       "id": "pypi-publisher-pls4all",
@@ -93,7 +93,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:pls4all published 1.2.1 (status=green)"
+      "check_note": "pypi:pls4all published 1.3.2 (status=green)"
     },
     {
       "id": "pypi-publisher-io",
@@ -123,7 +123,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-io published 0.2.2 (status=green)"
+      "check_note": "pypi:nirs4all-io published 0.2.4 (status=green)"
     },
     {
       "id": "pypi-publisher-core",
@@ -142,7 +142,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-core published 0.4.0 (status=green)"
+      "check_note": "pypi:nirs4all-core published 0.4.1 (status=green)"
     },
     {
       "id": "runiverse-core-rebuild",
@@ -164,7 +164,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:nirs4all current 0.5.1 (status=green)"
+      "check_note": "r-universe:nirs4all current 0.6.0 (status=green)"
     },
     {
       "id": "runiverse-methods-n4m-rebuild",
@@ -184,7 +184,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:n4m current 1.2.1 (status=green)"
+      "check_note": "r-universe:n4m current 1.3.2 (status=green)"
     },
     {
       "id": "runiverse-methods-pls4all-rebuild",
@@ -204,7 +204,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:pls4all current 1.2.1 (status=green)"
+      "check_note": "r-universe:pls4all current 1.3.2 (status=green)"
     },
     {
       "id": "runiverse-formats-rebuild",
@@ -244,7 +244,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:nirs4allio current 0.2.2 (status=green)"
+      "check_note": "r-universe:nirs4allio current 0.2.4 (status=green)"
     },
     {
       "id": "runiverse-dagml-data-rebuild",
@@ -436,7 +436,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:dag-ml published 0.3.32 (status=green)"
+      "check_note": "pypi:dag-ml published 0.3.34 (status=green)"
     },
     {
       "id": "pypi-publisher-dag-ml-data",
@@ -568,11 +568,11 @@
       "check_note": "cran:nirs4alldatasets status=pending version=—"
     },
     {
-      "id": "cran-submit-nirs4all-core-aggregate",
+      "id": "cran-submit-nirs4all-r",
       "status": "todo",
       "declared_status": "todo",
       "severity": "important",
-      "title": "CRAN — submit the nirs4all aggregate R package from nirs4all-core v0.3.11 after RC source validation",
+      "title": "CRAN — maintainer submission of the nirs4all R product from nirs4all-r after its release checks",
       "manual_url": "https://cran.r-project.org/submit.html",
       "affects": [],
       "after_done": [],
@@ -582,7 +582,7 @@
         "expect": "green"
       },
       "resolved": false,
-      "check_note": "cran:nirs4all status=pending version=—"
+      "check_note": "cran:nirs4all status=missing version=—"
     }
   ]
 }
