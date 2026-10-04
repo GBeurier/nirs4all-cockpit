@@ -367,10 +367,10 @@ actions:
       name: nirs4alldatasets
       expect: green
 
-  - id: cran-submit-nirs4all-core-aggregate
+  - id: cran-submit-nirs4all-r
     status: todo
     severity: important
-    title: "CRAN — submit the nirs4all aggregate R package from nirs4all-core v0.3.11 after RC source validation"
+    title: "CRAN — maintainer submission of the nirs4all R product from nirs4all-r after its release checks"
     manual_url: "https://cran.r-project.org/submit.html"
     affects: []
     auto_check:

@@ -34,11 +34,11 @@ packages:
       - registry: readthedocs
         name: nirs4all
         state: tracked
-        reason: "existing Python production documentation remains tracked; portable aggregate release is nirs4all-core 0.3.11"
+        reason: "Python SDK production documentation; portable aggregate artifacts are owned by nirs4all-core"
       - registry: pypi
         name: nirs4all
         state: tracked
-        reason: "Python transition package 0.12.0 keeps both legacy and dag-ml backends plus legacy workspace conversion"
+        reason: "Python SDK and reference oracle; DAG-ML execution and explicit legacy workspace conversion"
         workflow:
           file: publish.yml
           trigger: release_published
@@ -48,7 +48,7 @@ packages:
       - registry: github-release
         name: nirs4all
         state: tracked
-        reason: "Python transition release 0.12.0 remains tracked for existing users while portable V1 aggregate tracking is carried by nirs4all-core"
+        reason: "Python SDK release tracked independently of the portable nirs4all-core aggregate"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -67,7 +67,7 @@ packages:
       - registry: github-release
         name: nirs4all-studio
         state: tracked
-        reason: "Studio transition release 0.10.1 is published with backend selection and workspace conversion; release-unified workflow_dispatch builds smoke artifacts only, while tag releases publish"
+        reason: "Studio application release; release-unified workflow_dispatch builds smoke artifacts only, while tag releases publish"
         workflow:
           file: release-unified.yml
           trigger: workflow_dispatch
@@ -170,6 +170,29 @@ packages:
       - registry: pages
         name: nirs4all-methods
         state: tracked
+    version_aliases: {}
+
+  # ------------------------------------------------------------------------- #
+  # Rust n4m has its own version and tag namespace in the Methods repository.
+  - id: n4m
+    repo: nirs4all-methods
+    issues_repo: nirs4all-methods
+    primary_language: Rust
+    tag_prefix: "n4m-v"
+    source_of_truth:
+      strategy: cargo_package
+      path: bindings/rust/n4m/Cargo.toml
+    targets:
+      - registry: crates
+        name: n4m
+        state: tracked
+        reason: "Rust binding component; its n4m-v tags and Cargo version are independent of the Methods product version"
+        workflow:
+          file: release-n4m-crate.yml
+          trigger: tag
+          danger: safe
+          publishes_on_dispatch: false
+          inputs: []
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -589,7 +612,7 @@ packages:
       - registry: pypi
         name: nirs4all-core
         state: tracked
-        reason: "PyPI package targets v0.3.11; release tag v0.3.11 is available and registry propagation is tracked"
+        reason: "Python aggregate distribution from nirs4all-core; observed registry versions determine publication status"
         workflow:
           file: release-python.yml
           trigger: tag
@@ -602,7 +625,7 @@ packages:
       - registry: crates
         name: nirs4all
         state: tracked
-        reason: "RC aggregate crate targets product version 0.3.11; release tag v0.3.11 is available and registry propagation is tracked"
+        reason: "Rust aggregate crate from nirs4all-core; observed registry versions determine publication status"
         workflow:
           file: release-crates.yml
           trigger: tag
@@ -615,7 +638,7 @@ packages:
       - registry: npm
         name: nirs4all
         state: tracked
-        reason: "RC aggregate npm package targets product version 0.3.11; release tag v0.3.11 is available and registry propagation is tracked"
+        reason: "JavaScript/WASM aggregate from nirs4all-core; observed registry versions determine publication status"
         workflow:
           file: release-npm.yml
           trigger: tag
@@ -625,18 +648,29 @@ packages:
             - name: publish
               type: boolean
               default: false
-      - registry: r-universe
-        name: nirs4all
-        state: manual
-        reason: "GBeurier.r-universe.dev published nirs4all 0.3.11 from the nirs4all-core v0.3.11 rebuild at b478818; the R-universe target remains a manual registry surface tracked by auto-check"
-      - registry: cran
-        name: nirs4all
-        state: manual
-        reason: "manual web submission; CRAN remains unpublished for the 0.3.11 RC aggregate"
       - registry: github-release
         name: nirs4all-core
         state: tracked
-        reason: "v0.3.11 release carries source/SBOM, MATLAB/Octave archive, R tarball, and SHA256SUMS"
+        reason: "Core-owned source/SBOM and MATLAB/Octave archive assets with SHA256SUMS; the R product is owned by nirs4all-r"
+    version_aliases: {}
+
+  # ------------------------------------------------------------------------- #
+  - id: nirs4all-r
+    repo: nirs4all-r
+    issues_repo: nirs4all-r
+    primary_language: R
+    source_of_truth:
+      strategy: r_description
+      path: DESCRIPTION
+    targets:
+      - registry: r-universe
+        name: nirs4all
+        state: tracked
+        reason: "End-user R product from nirs4all-r; replaces the retired nirs4all-core/bindings/r package"
+      - registry: cran
+        name: nirs4all
+        state: manual
+        reason: "Maintainer-only web submission of the separate R product; no automatic CRAN publication"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -697,7 +731,7 @@ packages:
       - registry: pypi
         name: dag-ml
         state: tracked
-        reason: "RC Python binding from crates/dag-ml-py 0.2.7; PyPI package is published at v0.2.7"
+        reason: "Python binding from crates/dag-ml-py; observed registry versions determine publication status"
         workflow:
           file: release-python.yml
           trigger: workflow_dispatch
@@ -710,7 +744,7 @@ packages:
       - registry: npm
         name: dag-ml-wasm
         state: tracked
-        reason: "RC WASM binding from crates/dag-ml-wasm; npm package is published at 0.2.7"
+        reason: "WASM binding from crates/dag-ml-wasm; observed registry versions determine publication status"
         workflow:
           file: release-npm.yml
           trigger: workflow_dispatch
@@ -830,7 +864,7 @@ packages:
       - registry: pages
         name: nirs4all-web
         state: tracked
-        reason: "client-side web app is tracked from its own production version and current V1 coordination tag n4a-v1-rc14-2026.07-refactor"
+        reason: "client-side web app tracked from its own package manifest and production tags"
         workflow:
           file: deploy-pages.yml
           trigger: workflow_dispatch

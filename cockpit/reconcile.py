@@ -166,19 +166,24 @@ def reconcile(
 def _compute_totals(packages: list[PackageStatus]) -> Totals:
     """Sum public, ecosystem-wide aggregates across the reconciled packages."""
     totals = Totals(packages=len(packages), repos=len({p.repo for p in packages}))
+    seen_repos: set[str] = set()
     for p in packages:
-        totals.open_issues += p.issues.open
-        if p.repo_stats:
-            totals.stars += p.repo_stats.stars or 0
-            totals.forks += p.repo_stats.forks or 0
-            totals.watchers += p.repo_stats.watchers or 0
-        if p.code_stats:
-            totals.loc_code += p.code_stats.loc_code
-            totals.loc_total += p.code_stats.loc_total
-            totals.tests += p.code_stats.tests
-            totals.files += p.code_stats.files
-        if p.actions_stats and p.actions_stats.total_runs:
-            totals.workflow_runs += p.actions_stats.total_runs
+        # One repository can publish independently versioned components.
+        # Repository counters belong to that repository, downloads to targets.
+        if p.repo not in seen_repos:
+            seen_repos.add(p.repo)
+            totals.open_issues += p.issues.open
+            if p.repo_stats:
+                totals.stars += p.repo_stats.stars or 0
+                totals.forks += p.repo_stats.forks or 0
+                totals.watchers += p.repo_stats.watchers or 0
+            if p.code_stats:
+                totals.loc_code += p.code_stats.loc_code
+                totals.loc_total += p.code_stats.loc_total
+                totals.tests += p.code_stats.tests
+                totals.files += p.code_stats.files
+            if p.actions_stats and p.actions_stats.total_runs:
+                totals.workflow_runs += p.actions_stats.total_runs
         for t in p.targets:
             if t.downloads.last_month:
                 totals.downloads_last_month += t.downloads.last_month
@@ -226,10 +231,11 @@ def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traff
     source_facts = _source_versions(owner, pkg, no_network=no_network)
     manifest = source_facts.get("manifest_version")
     latest_prod = source_facts.get("latest_prod_tag")
-    expected = ver.derive_expected(manifest, latest_prod)
+    release_version = _tag_version(latest_prod, pkg.tag_prefix) if latest_prod else None
+    expected = ver.derive_expected(manifest, release_version)
 
     flags: list[str] = []
-    if ver.source_ahead(manifest, latest_prod):
+    if ver.source_ahead(manifest, release_version):
         flags.append("source_ahead")
 
     target_statuses: list[TargetStatus] = []
@@ -331,7 +337,9 @@ def _source_versions(owner: str, pkg: Package, *, no_network: bool) -> dict[str,
     coordination_commit = None
     coordination_tag_at = None
     release_tag_covers_manifest = bool(
-        manifest is not None and latest_prod is not None and ver.compare(latest_prod, manifest) >= 0
+        manifest is not None
+        and latest_prod is not None
+        and ver.compare(_tag_version(latest_prod, pkg.tag_prefix), manifest) >= 0
     )
     if pkg.coordination_tag and pkg.coordination_tag in tag_names and not release_tag_covers_manifest:
         latest_any = pkg.coordination_tag
@@ -373,14 +381,17 @@ def _source_versions(owner: str, pkg: Package, *, no_network: bool) -> dict[str,
 
 def _latest_prod_tag(tag_names: list[str], tag_prefix: str = "v") -> str | None:
     """Newest non-prerelease production tag, version-sorted (not list order)."""
-    candidates = [t for t in tag_names if _matches_tag_prefix(t, tag_prefix) and not ver.is_prerelease(t)]
-    return _max_version(candidates)
+    candidates = [
+        t for t in tag_names
+        if _matches_tag_prefix(t, tag_prefix) and not ver.is_prerelease(_tag_version(t, tag_prefix))
+    ]
+    return _max_version(candidates, tag_prefix)
 
 
 def _latest_any_tag(tag_names: list[str], tag_prefix: str = "v") -> str | None:
     """Newest production-style tag including prereleases, version-sorted."""
     candidates = [t for t in tag_names if _matches_tag_prefix(t, tag_prefix)]
-    return _max_version(candidates)
+    return _max_version(candidates, tag_prefix)
 
 
 def _matches_tag_prefix(tag: str, tag_prefix: str) -> bool:
@@ -393,12 +404,19 @@ def _matches_tag_prefix(tag: str, tag_prefix: str) -> bool:
     return ver.is_version(tag)
 
 
-def _max_version(tags: list[str]) -> str | None:
+def _tag_version(tag: str, tag_prefix: str) -> str:
+    """Separate component tag namespaces from versions, retaining ordinary tags."""
+    if tag_prefix not in ("", "v", "V") and tag.startswith(tag_prefix):
+        return tag[len(tag_prefix):]
+    return tag
+
+
+def _max_version(tags: list[str], tag_prefix: str = "v") -> str | None:
     if not tags:
         return None
     best = tags[0]
     for t in tags[1:]:
-        if ver.compare(t, best) > 0:
+        if ver.compare(_tag_version(t, tag_prefix), _tag_version(best, tag_prefix)) > 0:
             best = t
     return best
 

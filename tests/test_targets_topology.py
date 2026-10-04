@@ -46,15 +46,15 @@ def test_rc_core_uses_canonical_repo_without_legacy_lite_alias() -> None:
     assert targets[("pypi", "nirs4all-core")].state == "tracked"
     assert targets[("crates", "nirs4all")].state == "tracked"
     assert targets[("npm", "nirs4all")].state == "tracked"
-    assert targets[("r-universe", "nirs4all")].state == "manual"
-    assert targets[("cran", "nirs4all")].state == "manual"
+    assert ("r-universe", "nirs4all") not in targets
+    assert ("cran", "nirs4all") not in targets
     core_release_reason = targets[("github-release", "nirs4all-core")].reason or ""
     core_pypi_reason = targets[("pypi", "nirs4all-core")].reason or ""
     assert "MATLAB/Octave archive" in core_release_reason
-    assert "R tarball" in core_release_reason
+    assert "R product is owned by nirs4all-r" in core_release_reason
     assert "SHA256SUMS" in core_release_reason
     assert "Python wheel/sdist fallback assets" not in core_release_reason
-    assert "PyPI package targets v0.3.11" in core_pypi_reason
+    assert "Python aggregate distribution" in core_pypi_reason
 
 
 def test_inventory_tracks_no_live_nirs4all_lite_release_alias() -> None:
@@ -70,7 +70,7 @@ def test_inventory_tracks_no_live_nirs4all_lite_release_alias() -> None:
     assert live_alias_targets == []
 
 
-def test_rc_core_targets_account_for_all_v1_language_surfaces() -> None:
+def test_core_and_r_product_targets_account_for_distinct_language_surfaces() -> None:
     package = _package("nirs4all-core")
 
     targets = {(target.registry, target.name): target for target in package.targets}
@@ -78,17 +78,26 @@ def test_rc_core_targets_account_for_all_v1_language_surfaces() -> None:
         "python": ("pypi", "nirs4all-core"),
         "rust": ("crates", "nirs4all"),
         "javascript_wasm": ("npm", "nirs4all"),
-        "r": ("r-universe", "nirs4all"),
         "matlab_octave": ("github-release", "nirs4all-core"),
     }
 
-    assert set(language_surface_targets) == {"python", "rust", "javascript_wasm", "r", "matlab_octave"}
+    assert set(language_surface_targets) == {"python", "rust", "javascript_wasm", "matlab_octave"}
     for key in language_surface_targets.values():
         assert key in targets
     assert targets[language_surface_targets["python"]].state == "tracked"
     for language in ("rust", "javascript_wasm", "matlab_octave"):
         assert targets[language_surface_targets[language]].state == "tracked"
-    assert targets[language_surface_targets["r"]].state == "manual"
+    r_product = _package("nirs4all-r")
+    assert r_product.repo == "nirs4all-r"
+    assert r_product.source_of_truth is not None
+    assert r_product.source_of_truth.strategy == "r_description"
+    assert r_product.source_of_truth.path == "DESCRIPTION"
+    assert [(target.registry, target.name, target.state) for target in r_product.targets] == [
+        ("r-universe", "nirs4all", "tracked"), ("cran", "nirs4all", "manual"),
+    ]
+    owners = [p.id for p in _targets().packages for t in p.targets
+              if t.registry == "r-universe" and t.name == "nirs4all"]
+    assert owners == ["nirs4all-r"]
 
 
 def test_dag_python_binding_surfaces_have_publish_workflows() -> None:
@@ -130,7 +139,7 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
         if target.registry == "github-release"
     )
     studio_release_reason = studio_release_target.reason or ""
-    assert "Studio transition release 0.10.1" in studio_release_reason
+    assert "Studio application release" in studio_release_reason
     assert "n4a-v1-rc8-2026.07-refactor" not in studio_release_reason
     assert studio_release_target.workflow is not None
     assert studio_release_target.workflow.file == "release-unified.yml"
@@ -143,7 +152,7 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
     web_release_reason = next(target.reason or "" for target in web.targets if target.registry == "github-release")
     web_pages_reason = next(target.reason or "" for target in web.targets if target.registry == "pages")
     assert "client-side-only web app release" in web_release_reason
-    assert "n4a-v1-rc14-2026.07-refactor" in web_pages_reason
+    assert "own package manifest and production tags" in web_pages_reason
 
     assert ui.coordination_tag == "n4a-v1-rc14-2026.07-refactor"
     assert ui.source_of_truth is not None
@@ -378,7 +387,7 @@ def test_rc_python_facade_publish_state_is_explicit() -> None:
         ),
     }
 
-    assert "PyPI package targets v0.3.11" in blockers["core"]
+    assert "observed registry versions determine publication status" in blockers["core"]
     assert "PyPI package is published at v0.2.10" in blockers["providers"]
     assert "PyPI package is published at v0.0.5" in blockers["tools"]
     assert "GitHub Release v0.0.5 also carries wheel/sdist assets" in blockers["tools"]
@@ -518,7 +527,7 @@ def test_cran_manual_actions_cover_manual_rc_r_surfaces() -> None:
     expected = {
         "cran-submit-nirs4allio": "nirs4allio",
         "cran-submit-nirs4alldatasets": "nirs4alldatasets",
-        "cran-submit-nirs4all-core-aggregate": "nirs4all",
+        "cran-submit-nirs4all-r": "nirs4all",
     }
 
     for action_id, package_name in expected.items():
@@ -747,7 +756,9 @@ def test_current_pypi_manual_actions_match_targets_reasons_and_workflow_inputs()
         key = (action.auto_check["registry"], action.auto_check["name"])
         target = targets[key]
         version = re.search(r"v\d+\.\d+\.\d+", action.title)
-        if version:
+        # Completed actions retain their historical version receipts; current
+        # inventory descriptions no longer pin those past release numbers.
+        if version and action.status != "done":
             assert version.group(0) in (target.reason or "")
 
         for step in action.after_done:

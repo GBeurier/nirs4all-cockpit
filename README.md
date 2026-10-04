@@ -140,9 +140,13 @@ is present, so the public site never shows them.
 
 - **`nirs4all`** remains the Python oracle: its PyPI/docs/release state is tracked
   independently and is not folded into the aggregate packages.
-- **`nirs4all-core`** is the canonical V1 RC aggregate. `ops/targets.yaml` and
-  the cockpit row treat `nirs4all-core` as the source-of-truth release surface;
-  no legacy aggregate alias is tracked as a release target.
+- **`nirs4all-core`** owns the portable Python, Rust, JavaScript/WASM and
+  MATLAB/Octave aggregate artifacts. No legacy aggregate alias is tracked.
+- **`nirs4all-r`** owns the R package named `nirs4all`, tracked once on R-universe
+  and CRAN from its `DESCRIPTION`. Core's former `bindings/r` is retired.
+- **`n4m`** is the independently versioned Rust binding in `nirs4all-methods`.
+  Its Cargo manifest and `n4m-v` tags define the crates.io expectation separately
+  from the Methods product version. Shared repository statistics count once.
 - **`nirs4all-web`** is client-side-only; the deployed runtime is tracked as a
   Pages target, and the shipped source/app version is tracked with a GitHub
   Release. It is not a package-registry aggregate.
