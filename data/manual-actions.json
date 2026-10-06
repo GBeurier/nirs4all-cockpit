@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-10-06T15:21:33.259489+00:00",
+  "snapshot_generated_at": "2026-10-06T17:43:14.260768+00:00",
   "counts": {
     "total": 24,
-    "pending": 7,
-    "resolved": 17,
+    "pending": 6,
+    "resolved": 18,
     "blockers": 1,
-    "important": 6,
+    "important": 5,
     "info": 0
   },
   "actions": [
@@ -285,8 +285,8 @@
         "name": "nirs4alldatasets",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4alldatasets status=stale version=0.3.8"
+      "resolved": true,
+      "check_note": "r-universe:nirs4alldatasets current 0.3.11 (status=green)"
     },
     {
       "id": "pypi-publisher-providers",
