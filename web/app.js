@@ -20,6 +20,7 @@ const ECOSYSTEM_LICENSE_LABEL = "AGPL-3.0";
 const ECOSYSTEM_LICENSE_FULL = "CeCILL-2.1 OR AGPL-3.0-or-later";
 const COMMERCIAL_CONTACT = "nirs4all-admin@cirad.fr";
 const PAGES_URLS = {
+  "nirs4all": "https://gbeurier.github.io/nirs4all/",
   "nirs4all-org": "https://nirs4all.org/",
   "nirs4all-datasets": "https://datasets.nirs4all.org/",
   "nirs4all-formats": "https://formats.nirs4all.org/",
@@ -564,6 +565,7 @@ function renderCodeStats(snap) {
 // The full ecosystem roster — every page is listed even at 0 views. `path` is the
 // explicit GoatCounter path each site reports; `repo` maps to its public URL.
 const ECO_PAGES = [
+  ["/nirs4all", "gbeurier.github.io/nirs4all", "nirs4all"],
   ["/org", "nirs4all.org", "nirs4all-org"],
   ["/web", "web.nirs4all.org", "nirs4all-web"],
   ["/formats", "formats.nirs4all.org", "nirs4all-formats"],

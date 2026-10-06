@@ -31,10 +31,14 @@ packages:
       path: nirs4all/__init__.py
       attr: __version__
     targets:
+      - registry: pages
+        name: nirs4all
+        state: tracked
+        reason: "Canonical common package guide and Legacy Python documentation at https://gbeurier.github.io/nirs4all/; published from reviewed SDK docs source 9a7ef67"
       - registry: readthedocs
         name: nirs4all
         state: tracked
-        reason: "Python SDK production documentation; portable aggregate artifacts are owned by nirs4all-core"
+        reason: "Secondary Read the Docs HTTP availability only: stable has the initial guide; latest common/Legacy rebuild is temporarily blocked by service resource limits. HTTP green does not establish fresh latest/Legacy publication."
       - registry: pypi
         name: nirs4all
         state: tracked

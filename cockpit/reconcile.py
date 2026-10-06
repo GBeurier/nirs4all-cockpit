@@ -80,6 +80,7 @@ _COLLECTORS = {
 
 
 _CANONICAL_PAGES_URLS = {
+    "nirs4all": "https://gbeurier.github.io/nirs4all/",
     "nirs4all-org": "https://nirs4all.org/",
     "nirs4all-datasets": "https://datasets.nirs4all.org/",
     "nirs4all-formats": "https://formats.nirs4all.org/",
