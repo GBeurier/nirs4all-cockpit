@@ -34,11 +34,11 @@ packages:
       - registry: pages
         name: nirs4all
         state: tracked
-        reason: "Canonical common package guide and Legacy Python documentation at https://gbeurier.github.io/nirs4all/; published from reviewed SDK docs source 9a7ef67"
+        reason: "Canonical common package guide and Legacy Python documentation at https://gbeurier.github.io/nirs4all/; published from reviewed SDK docs source e27fdd98"
       - registry: readthedocs
         name: nirs4all
         state: tracked
-        reason: "Secondary Read the Docs HTTP availability only: stable has the initial guide; latest common/Legacy rebuild is temporarily blocked by service resource limits. HTTP green does not establish fresh latest/Legacy publication."
+        reason: "Secondary Read the Docs HTTP availability only: stable has the initial guide; latest temporarily redirects with HTTP 302 to the current common/Legacy GitHub Pages guide. The native latest rebuild remains blocked by service resource limits; HTTP green does not establish a successful native latest build."
       - registry: pypi
         name: nirs4all
         state: tracked
@@ -773,6 +773,10 @@ packages:
       - registry: crates
         name: dag-ml-cli
         state: tracked
+      - registry: r-universe
+        name: dagml
+        state: tracked
+        reason: "R binding from crates/dag-ml-r; observed R-universe versions and build status determine publication health"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
