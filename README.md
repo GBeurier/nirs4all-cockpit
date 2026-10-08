@@ -14,13 +14,28 @@ papers, benchmarks, and release dashboards for near-infrared spectroscopy.
 logic.** Every verdict is derived from public, read-only registry/CI/issue
 signals declared in `ops/targets.yaml`.
 
-Current transition note: Python R1 0.13.0, R2, R3 and stable R4 1.0.0 plus
-Studio 0.11.0, Web 0.1.10, Repository 0.1.12 and Providers 0.2.11 are
-published. R1 keeps the legacy engine as its default. Studio is intentionally
-unsigned and non-notarized under an explicit bounded waiver; exact SHA-256
-receipts and the Windows installed-path limitation remain public.
-The Cockpit projection is sealed by the annotated `v0.1.8` and
-`n4a-v1-2026.09-native-release` tags.
+Public delivery status on **8 October 2026**:
+
+| Product | Published version and delivery | Release source | Current main source |
+| --- | --- | --- | --- |
+| Python SDK | [1.4.7](https://github.com/GBeurier/nirs4all/releases/tag/1.4.7): [PyPI](https://pypi.org/project/nirs4all/1.4.7/), Docker and the [common/Legacy guide](https://gbeurier.github.io/nirs4all/) are published. | [1a828c3c](https://github.com/GBeurier/nirs4all/commit/1a828c3cad6b6571cbe14b9bd7da2f9f1db767cc) | [1aa5f7ed](https://github.com/GBeurier/nirs4all/commit/1aa5f7ed03fd2775284f822d7158450fcc8bd76c), including the current documentation |
+| Core | [0.4.5](https://github.com/GBeurier/nirs4all-core/releases/tag/v0.4.5): [PyPI](https://pypi.org/project/nirs4all-core/0.4.5/), [crates.io](https://crates.io/crates/nirs4all/0.4.5), [npm](https://www.npmjs.com/package/nirs4all/v/0.4.5), source/SBOM and MATLAB/Octave assets are published. | [5668796a](https://github.com/GBeurier/nirs4all-core/commit/5668796aaac9a02d8d0146ec05ead04f9c76657c) | same release source |
+| DAG-ML | [0.3.41](https://github.com/GBeurier/dag-ml/releases/tag/v0.3.41): [PyPI](https://pypi.org/project/dag-ml/0.3.41/), [npm](https://www.npmjs.com/package/dag-ml-wasm/v/0.3.41), [Rust crates](https://crates.io/crates/dag-ml/0.3.41) and [R-universe](https://gbeurier.r-universe.dev/dagml) are published. | [6f4044b4](https://github.com/GBeurier/dag-ml/commit/6f4044b45028a90a92d3f29287e67779bb5fd0b9) | [c6b52979](https://github.com/GBeurier/dag-ml/commit/c6b52979745397ae4e8662580df79341f0378d28), including subsequent CI/docs metadata changes |
+| R product | [0.7.2](https://github.com/GBeurier/nirs4all-r/releases/tag/v0.7.2): [R-universe source and binaries](https://gbeurier.r-universe.dev/nirs4all) are published; CRAN submission remains separate. | [1c6f4a7f](https://github.com/GBeurier/nirs4all-r/commit/1c6f4a7f1b42a5d550cabc4809e957680630a4d7) | same release source |
+| Quality | [0.0.3](https://github.com/GBeurier/nirs4all-quality/releases/tag/v0.0.3): the static ZIP and [quali.nirs4all.org](https://quali.nirs4all.org/) are published. | [6d68810b](https://github.com/GBeurier/nirs4all-quality/commit/6d68810b4b5961eb6a77f881f35f8cf7e33480a2) | same release source |
+| Device | [0.1.1](https://github.com/GBeurier/nirs4all-device/releases/tag/v0.1.1): [device.nirs4all.org](https://device.nirs4all.org/) and the Android debug APK are published. Hardware, app-store and signed iOS delivery are outside this evidence. | [87bc8311](https://github.com/GBeurier/nirs4all-device/commit/87bc83118b1508d5eddadcf888db646568ce58a4) | same release source |
+| Web | [0.4.1](https://github.com/GBeurier/nirs4all-web/releases/tag/v0.4.1) is published and deployed at [web.nirs4all.org](https://web.nirs4all.org/). Served files match the official Pages artifact and the public UI startup is verified. | [0ec8790b](https://github.com/GBeurier/nirs4all-web/commit/0ec8790b4afc896a01c0f85ef59f9e347a83c3a2) | same release source |
+| Studio | [0.15.2](https://github.com/GBeurier/nirs4all-studio/releases/tag/0.15.2): Linux, Windows and macOS ARM installers, checksums and Docker are published. Native identity matches the embedded Python SDK 1.4.7; all three platform UI startups passed. 0.15.1 was never published. | [434d8221](https://github.com/GBeurier/nirs4all-studio/commit/434d8221bc72a3fbb65dcc62b74cfc77e565d34b) | application release source; subsequent publication-workflow changes preserve these artifacts |
+
+Source tags, registry publication and deployed applications are separate facts.
+The daily snapshot has its own collection timestamp and can lag these deliveries.
+The existing Read the Docs routes redirect to the current common/Legacy guide;
+this does not establish a new successful native Read the Docs build.
+Hosted product jobs build/package and run a short UI startup smoke; full scientific
+E2E and performance qualification run locally. Studio installers remain unsigned
+and non-notarized. The earlier `v0.1.8` and
+`n4a-v1-2026.09-native-release` Cockpit tags describe the historical projection;
+this status update does not create a new Cockpit package release.
 
 ---
 

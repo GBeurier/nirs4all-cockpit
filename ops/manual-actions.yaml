@@ -18,13 +18,21 @@
 
 actions:
   - id: studio-windows-rc-smoke
-    status: todo
+    status: done
     severity: blocker
-    title: "Studio — manually smoke-test the Windows 0.10.1 transition installer before any production switch"
-    manual_url: "https://github.com/GBeurier/nirs4all-studio/releases/tag/0.10.1"
+    title: "Studio — Windows 0.15.2 actual NSIS payload integrity and local UI startup passed"
+    manual_url: "https://github.com/GBeurier/nirs4all-studio/releases/tag/0.15.2"
     affects:
       - "nirs4all-studio:release-unified.yml"
       - "nirs4all-studio:github-release"
+
+  - id: rtd-native-build-admin-unblock
+    status: blocked
+    severity: important
+    title: "Read the Docs — common/Legacy guide is public; native builds require RTD to clear the administrative block (project 1171458, build 34971690) and the owner to uncheck Disable builds"
+    manual_url: "https://app.readthedocs.org/dashboard/nirs4all/edit/"
+    affects:
+      - "nirs4all:readthedocs-native-build"
 
   - id: npm-automation-token
     status: done
