@@ -143,7 +143,12 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
     assert "n4a-v1-rc8-2026.07-refactor" not in studio_release_reason
     assert studio_release_target.workflow is not None
     assert studio_release_target.workflow.file == "release-unified.yml"
-    assert studio_release_target.workflow.publishes_on_dispatch is False
+    assert studio_release_target.workflow.publishes_on_dispatch is True
+    retry_input = next(
+        item for item in studio_release_target.workflow.inputs if item.name == "publish_existing_tag"
+    )
+    assert retry_input.type == "boolean"
+    assert retry_input.default is False
     assert web.coordination_tag == "n4a-v1-rc14-2026.07-refactor"
     assert web.source_of_truth is not None
     assert web.source_of_truth.strategy == "npm_package_json"
@@ -255,7 +260,7 @@ def test_pages_targets_declare_repo_local_deploy_workflows_when_available() -> N
         assert page_target.workflow.publishes_on_dispatch is False
 
 
-def test_device_is_tracked_as_pages_only_public_surface() -> None:
+def test_device_tracks_pages_and_the_published_debug_apk_release() -> None:
     device = _package("nirs4all-device")
 
     assert device.source_of_truth is not None
@@ -263,11 +268,13 @@ def test_device_is_tracked_as_pages_only_public_surface() -> None:
     assert device.source_of_truth.path == "package.json"
     assert [(target.registry, target.name, target.state) for target in device.targets] == [
         ("pages", "nirs4all-device", "tracked"),
+        ("github-release", "nirs4all-device", "tracked"),
     ]
     pages = device.targets[0]
     assert pages.workflow is not None
     assert pages.workflow.file == "pages.yml"
-    assert "Android debug APK remains a CI artifact" in (pages.reason or "")
+    assert "official Android debug APK is attached to GitHub Release" in (pages.reason or "")
+    assert "debug build" in (device.targets[1].reason or "")
 
 
 def test_dashboard_pages_urls_cover_current_rc_pages_roster() -> None:
@@ -391,7 +398,7 @@ def test_rc_python_facade_publish_state_is_explicit() -> None:
     assert "PyPI package is published at v0.2.10" in blockers["providers"]
     assert "PyPI package is published at v0.0.5" in blockers["tools"]
     assert "GitHub Release v0.0.5 also carries wheel/sdist assets" in blockers["tools"]
-    assert "PyPI package is published at v0.1.6" in blockers["benchmarks"]
+    assert "PyPI distributes the published package" in blockers["benchmarks"]
     assert "PyPI package is published at v0.1.10" in blockers["repository"]
     assert "GitHub Release v0.1.10 also carries wheel/sdist assets" in blockers["repository"]
 
