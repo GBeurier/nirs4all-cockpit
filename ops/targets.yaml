@@ -619,7 +619,7 @@ packages:
       - registry: pypi
         name: nirs4all-core
         state: tracked
-        reason: "Core 0.4.5 Python aggregate is published from source 5668796aaac9a02d8d0146ec05ead04f9c76657c; observed registry versions determine publication status"
+        reason: "Core 0.4.5 Python aggregate distribution is published from source 5668796aaac9a02d8d0146ec05ead04f9c76657c; observed registry versions determine publication status"
         workflow:
           file: release-python.yml
           trigger: tag
@@ -871,11 +871,11 @@ packages:
       - registry: github-release
         name: nirs4all-web
         state: tracked
-        reason: "Web 0.4.1 source/tag and GitHub release metadata are published at 0ec8790b4afc896a01c0f85ef59f9e347a83c3a2; the same source is deployed at web.nirs4all.org with verified official artifact bytes and public UI startup"
+        reason: "The client-side-only web app release Web 0.4.1 source/tag and GitHub release metadata are published at 0ec8790b4afc896a01c0f85ef59f9e347a83c3a2; the same source is deployed at web.nirs4all.org with verified official artifact bytes and public UI startup"
       - registry: pages
         name: nirs4all-web
         state: tracked
-        reason: "Web 0.4.1 is deployed at web.nirs4all.org from source 0ec8790b4afc896a01c0f85ef59f9e347a83c3a2; served files match the official Pages artifact and the public browser UI startup is verified"
+        reason: "The Web own package manifest and production tags identify Web 0.4.1, deployed at web.nirs4all.org from source 0ec8790b4afc896a01c0f85ef59f9e347a83c3a2; served files match the official Pages artifact and the public browser UI startup is verified"
         workflow:
           file: deploy-pages.yml
           trigger: workflow_dispatch

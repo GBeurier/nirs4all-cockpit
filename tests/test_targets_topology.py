@@ -145,10 +145,10 @@ def test_python_oracle_web_client_and_shared_ui_are_separate() -> None:
     assert studio_release_target.workflow.file == "release-unified.yml"
     assert studio_release_target.workflow.publishes_on_dispatch is True
     retry_input = next(
-        item for item in studio_release_target.workflow.inputs if item.name == "publish_existing_tag"
+        item for item in studio_release_target.workflow.inputs if item["name"] == "publish_existing_tag"
     )
-    assert retry_input.type == "boolean"
-    assert retry_input.default is False
+    assert retry_input["type"] == "boolean"
+    assert retry_input["default"] is False
     assert web.coordination_tag == "n4a-v1-rc14-2026.07-refactor"
     assert web.source_of_truth is not None
     assert web.source_of_truth.strategy == "npm_package_json"
@@ -425,14 +425,14 @@ def test_current_pypi_manual_actions_track_resolved_publishers() -> None:
         assert action.auto_check == {"registry": "pypi", "name": project, "expect": "published"}
 
 
-def test_studio_windows_rc_smoke_is_tracked_as_manual_blocker() -> None:
+def test_studio_windows_rc_smoke_records_completed_local_validation() -> None:
     actions = {action.id: action for action in load_actions(ROOT / "ops" / "manual-actions.yaml")}
     action = actions["studio-windows-rc-smoke"]
 
-    assert action.status == "todo"
+    assert action.status == "done"
     assert action.severity == "blocker"
-    assert "Windows 0.10.1 transition installer" in action.title
-    assert action.manual_url == "https://github.com/GBeurier/nirs4all-studio/releases/tag/0.10.1"
+    assert "Windows 0.15.2 actual NSIS payload" in action.title
+    assert action.manual_url == "https://github.com/GBeurier/nirs4all-studio/releases/tag/0.15.2"
     assert "nirs4all-studio:release-unified.yml" in action.affects
     assert "nirs4all-studio:github-release" in action.affects
 
