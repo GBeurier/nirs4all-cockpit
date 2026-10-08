@@ -1,25 +1,40 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-10-08T01:10:00.143373+00:00",
+  "snapshot_generated_at": "2026-10-08T08:33:14.807113+00:00",
   "counts": {
-    "total": 24,
-    "pending": 6,
+    "total": 25,
+    "pending": 7,
     "resolved": 18,
     "blockers": 1,
-    "important": 5,
+    "important": 6,
     "info": 0
   },
   "actions": [
     {
       "id": "studio-windows-rc-smoke",
-      "status": "todo",
-      "declared_status": "todo",
+      "status": "done",
+      "declared_status": "done",
       "severity": "blocker",
-      "title": "Studio — manually smoke-test the Windows 0.10.1 transition installer before any production switch",
-      "manual_url": "https://github.com/GBeurier/nirs4all-studio/releases/tag/0.10.1",
+      "title": "Studio — Windows 0.15.2 actual NSIS payload integrity and local UI startup passed",
+      "manual_url": "https://github.com/GBeurier/nirs4all-studio/releases/tag/0.15.2",
       "affects": [
         "nirs4all-studio:release-unified.yml",
         "nirs4all-studio:github-release"
+      ],
+      "after_done": [],
+      "auto_check": null,
+      "resolved": null,
+      "check_note": null
+    },
+    {
+      "id": "rtd-native-build-admin-unblock",
+      "status": "blocked",
+      "declared_status": "blocked",
+      "severity": "important",
+      "title": "Read the Docs — common/Legacy guide is public; native builds require RTD to clear the administrative block (project 1171458, build 34971690) and the owner to uncheck Disable builds",
+      "manual_url": "https://app.readthedocs.org/dashboard/nirs4all/edit/",
+      "affects": [
+        "nirs4all:readthedocs-native-build"
       ],
       "after_done": [],
       "auto_check": null,
@@ -142,7 +157,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-core published 0.4.4 (status=green)"
+      "check_note": "pypi:nirs4all-core published 0.4.5 (status=green)"
     },
     {
       "id": "runiverse-core-rebuild",
@@ -164,7 +179,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:nirs4all current 0.7.1 (status=green)"
+      "check_note": "r-universe:nirs4all current 0.7.2 (status=green)"
     },
     {
       "id": "runiverse-methods-n4m-rebuild",
@@ -436,7 +451,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:dag-ml published 0.3.40 (status=green)"
+      "check_note": "pypi:dag-ml published 0.3.41 (status=green)"
     },
     {
       "id": "pypi-publisher-dag-ml-data",
