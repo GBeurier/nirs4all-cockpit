@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-10-16T00:57:44.668343+00:00",
+  "snapshot_generated_at": "2026-10-17T00:59:20.127281+00:00",
   "counts": {
     "total": 25,
-    "pending": 7,
-    "resolved": 18,
+    "pending": 8,
+    "resolved": 17,
     "blockers": 1,
-    "important": 6,
+    "important": 7,
     "info": 0
   },
   "actions": [
@@ -138,7 +138,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-io published 0.2.6 (status=green)"
+      "check_note": "pypi:nirs4all-io published 0.2.10 (status=green)"
     },
     {
       "id": "pypi-publisher-core",
@@ -258,8 +258,8 @@
         "name": "nirs4allio",
         "expect": "green"
       },
-      "resolved": true,
-      "check_note": "r-universe:nirs4allio current 0.2.6 (status=green)"
+      "resolved": false,
+      "check_note": "r-universe:nirs4allio status=stale version=0.2.6"
     },
     {
       "id": "runiverse-dagml-data-rebuild",
