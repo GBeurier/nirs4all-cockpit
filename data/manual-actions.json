@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-10-29T19:05:39.065816+00:00",
+  "snapshot_generated_at": "2026-10-29T20:12:57.471853+00:00",
   "counts": {
     "total": 25,
-    "pending": 13,
-    "resolved": 12,
+    "pending": 7,
+    "resolved": 18,
     "blockers": 1,
-    "important": 12,
+    "important": 6,
     "info": 0
   },
   "actions": [
@@ -198,8 +198,8 @@
         "name": "n4m",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:n4m status=stale version=1.3.9"
+      "resolved": true,
+      "check_note": "r-universe:n4m current 1.3.10 (status=green)"
     },
     {
       "id": "runiverse-methods-pls4all-rebuild",
@@ -218,8 +218,8 @@
         "name": "pls4all",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:pls4all status=stale version=1.3.9"
+      "resolved": true,
+      "check_note": "r-universe:pls4all current 1.3.10 (status=green)"
     },
     {
       "id": "runiverse-formats-rebuild",
@@ -238,8 +238,8 @@
         "name": "nirs4allformats",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4allformats status=stale version=0.2.11"
+      "resolved": true,
+      "check_note": "r-universe:nirs4allformats current 0.2.13 (status=green)"
     },
     {
       "id": "runiverse-io-rebuild",
@@ -258,8 +258,8 @@
         "name": "nirs4allio",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4allio status=stale version=0.2.6"
+      "resolved": true,
+      "check_note": "r-universe:nirs4allio current 0.2.11 (status=green)"
     },
     {
       "id": "runiverse-dagml-data-rebuild",
@@ -278,8 +278,8 @@
         "name": "dagmldata",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:dagmldata status=stale version=0.2.13"
+      "resolved": true,
+      "check_note": "r-universe:dagmldata current 0.2.14 (status=green)"
     },
     {
       "id": "runiverse-datasets-rebuild",
@@ -300,8 +300,8 @@
         "name": "nirs4alldatasets",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4alldatasets status=stale version=0.3.13"
+      "resolved": true,
+      "check_note": "r-universe:nirs4alldatasets current 0.3.15 (status=green)"
     },
     {
       "id": "pypi-publisher-providers",
