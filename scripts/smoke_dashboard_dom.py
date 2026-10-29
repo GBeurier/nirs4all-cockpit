@@ -19,6 +19,7 @@ import subprocess
 import sys
 import threading
 import xml.etree.ElementTree as ET
+from html import escape
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
@@ -170,6 +171,8 @@ def main() -> int:
 
     manual_actions = json.loads((ROOT / "data" / "manual-actions.json").read_text(encoding="utf-8"))
     unresolved_action_ids = [action["id"] for action in manual_actions.get("actions", []) if not action.get("resolved")]
+    delivery_notices = json.loads((ROOT / "data" / "delivery-notices.json").read_text(encoding="utf-8"))
+    notice_messages = [escape(note["message"], quote=False) for note in delivery_notices.get("notices", [])]
 
     required = [
         "nirs4all<b>·</b>cockpit",
@@ -178,6 +181,9 @@ def main() -> int:
         "nirs4all-ecosystem",
         "schema v1",
         "Release matrix",
+        "Platform delivery observations",
+        "Version availability",
+        *notice_messages,
         "Published release receipt",
         "dated evidence",
         "nirs4all 1.0.0 is available",

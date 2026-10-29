@@ -97,6 +97,31 @@ const loadSnapshot = () => loadJSON(["../data/current.json", "./current.json", "
 const loadNativeCandidate = () => loadJSON(["../data/native-candidate-staging.json", "./native-candidate-staging.json", "./data/native-candidate-staging.json"]);
 async function loadManualActions() { try { return await loadJSON(["../data/manual-actions.json", "./data/manual-actions.json", "./manual-actions.json"]); } catch { return null; } }
 async function loadAdmin() { try { return await loadJSON(["../data/admin/snapshot.admin.json", "./data/admin/snapshot.admin.json"]); } catch { return null; } }
+async function loadDeliveryNotices() { try { return await loadJSON(["../data/delivery-notices.json", "./data/delivery-notices.json", "./delivery-notices.json"]); } catch { return null; } }
+
+function renderDeliveryNotices(data) {
+  const box = document.getElementById("delivery-notices");
+  box.replaceChildren();
+  if (!data || data.schema_version !== 1 || !Array.isArray(data.notices)) {
+    box.appendChild(el("p", { text: "Dated platform observations are unavailable. Registry versions do not establish successful builds on every platform." }));
+  } else if (data.notices.length === 0) {
+    box.appendChild(el("p", { text: "No additional dated platform observations were supplied." }));
+  } else {
+    for (const note of data.notices) {
+      if (!note || typeof note.message !== "string") continue;
+      const item = el("div");
+      item.appendChild(el("strong", { text: note.title || "Platform observation" }));
+      item.appendChild(el("p", { text: freshnessText(note.observed_at) }));
+      item.appendChild(el("p", { text: note.message }));
+      for (const link of note.links || []) {
+        if (!link || typeof link.url !== "string" || !link.url.startsWith("https://")) continue;
+        item.appendChild(el("p", {}, [el("a", { text: link.label || link.url, attrs: { href: link.url } })]));
+      }
+      box.appendChild(item);
+    }
+  }
+  box.appendChild(el("p", {}, [el("a", { text: "Live R-universe build matrix", attrs: { href: "https://gbeurier.r-universe.dev/builds" } })]));
+}
 
 // ---- hero: meta, scores, summary -------------------------------------------
 
@@ -900,6 +925,7 @@ async function main() {
     renderScores(snap);
     renderSummary(snap);
     renderLegend(snap);
+    renderDeliveryNotices(await loadDeliveryNotices());
     renderManualActions(await loadManualActions());
     renderMatrix(snap);
     renderDownloads(snap);

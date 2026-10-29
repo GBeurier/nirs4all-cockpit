@@ -75,6 +75,14 @@
     <main class="wrap">
       <section class="chips" id="summary" aria-label="Status totals" hidden></section>
 
+      <section class="block" aria-labelledby="delivery-h">
+        <h2 id="delivery-h" class="section-h">Platform delivery observations</h2>
+        <p>Version availability in the registry matrix and binary platform qualification are separate observations.</p>
+        <div class="card panel" id="delivery-notices" role="status" aria-live="polite">
+          Dated platform observations are loading. <a href="https://gbeurier.r-universe.dev/builds">Check the live R-universe build matrix</a>.
+        </div>
+      </section>
+
       <section class="block" id="release-news" aria-labelledby="release-news-h">
         <h2 id="release-news-h" class="section-h">Published release receipt <span class="muted">— dated evidence</span></h2>
         <div class="card panel release-news" role="status" aria-live="polite" aria-atomic="true">
@@ -142,7 +150,7 @@
 
     <div class="tooltip" id="tooltip" hidden></div>
     <script src="./icons.js?v=20260906-remove-capabilities"></script>
-    <script src="./app.js?v=20261029-observation-dates"></script>
+    <script src="./app.js?v=20261029-platform-observations"></script>
     <!-- GoatCounter privacy-friendly analytics (no cookies); one site for the whole ecosystem -->
     <script data-goatcounter="https://nirs4all.goatcounter.com/count" data-goatcounter-settings='{"path": "/cockpit"}' async src="//gc.zgo.at/count.js"></script>
   </body>

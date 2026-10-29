@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-29T20:28:57.665165+00:00",
+  "notices": [
+    {
+      "id": "r-platform-build-followup-20261029",
+      "observed_at": "2026-10-29T20:28:57.665165+00:00",
+      "title": "R platform builds require follow-up",
+      "message": "Some R binary builds remain failed or under validation on macOS runner preparation and ARM64/WebR packaging. The expected source versions are available from R-universe, as the registry matrix records. These version badges do not establish that all R platform matrices passed. The macOS DAG retry failed before package download because rustup-init was absent; packaging fixes and platform checks remain in progress.",
+      "links": [
+        {
+          "label": "DAG macOS retry failure (attempt2)",
+          "url": "https://github.com/r-universe/gbeurier/actions/runs/40943003815/attempts/2"
+        },
+        {
+          "label": "Official macOS preparation action used by the failed jobs",
+          "url": "https://github.com/r-universe-org/actions/tree/3e91537eee0982b42c076604e6e7add18857cd31/macos-prep"
+        }
+      ]
+    }
+  ]
+}
