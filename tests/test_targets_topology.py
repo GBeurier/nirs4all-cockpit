@@ -218,7 +218,7 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
     pypi_reason = next(target.reason or "" for target in providers.targets if target.registry == "pypi")
     pages_reason = next(target.reason or "" for target in providers.targets if target.registry == "pages")
     assert "provider-client release" in github_reason
-    assert "PyPI distribution is published" in github_reason
+    assert "observed GitHub release metadata determines the published version" in github_reason
     assert "provider clients/read facade" in pypi_reason
     assert "neutral contracts remain canonical" in pypi_reason
     assert "docs/site page" in pages_reason
@@ -235,7 +235,7 @@ def test_python_provider_and_tools_surfaces_are_rc_packages() -> None:
         ("github-release", "nirs4all-tools", "tracked"),
     ]
     tools_release_reason = next(target.reason or "" for target in tools.targets if target.registry == "github-release")
-    assert "v0.0.5 release" in tools_release_reason
+    assert "observed release metadata determines the published version" in tools_release_reason
     assert "carries wheel/sdist fallback assets" in tools_release_reason
 
 
@@ -363,14 +363,14 @@ def test_dashboard_marks_missing_visit_rows_untracked() -> None:
     assert "counts.has(path) ? counts.get(path) : null" in app_js
 
 
-def test_rc_python_facade_publish_state_is_explicit() -> None:
+def test_python_registry_descriptions_defer_versions_to_observations() -> None:
     core = _package("nirs4all-core")
     providers = _package("nirs4all-providers")
     tools = _package("nirs4all-tools")
     benchmarks = _package("nirs4all-benchmarks")
     repository = _package("nirs4all-repository")
 
-    blockers = {
+    reasons = {
         "core": next(
             target.reason or ""
             for target in core.targets
@@ -394,13 +394,20 @@ def test_rc_python_facade_publish_state_is_explicit() -> None:
         ),
     }
 
-    assert "observed registry versions determine publication status" in blockers["core"]
-    assert "PyPI package is published at v0.2.10" in blockers["providers"]
-    assert "PyPI package is published at v0.0.5" in blockers["tools"]
-    assert "GitHub Release v0.0.5 also carries wheel/sdist assets" in blockers["tools"]
-    assert "PyPI distributes the published package" in blockers["benchmarks"]
-    assert "PyPI package is published at v0.1.10" in blockers["repository"]
-    assert "GitHub Release v0.1.10 also carries wheel/sdist assets" in blockers["repository"]
+    assert "observed registry versions determine publication status" in reasons["core"]
+    for package_id in ("providers", "tools", "repository"):
+        assert "observed PyPI metadata determines the published version" in reasons[package_id]
+    for package_id in ("tools", "repository"):
+        assert "GitHub Release also carries wheel/sdist assets" in reasons[package_id]
+    assert "PyPI distributes the published package" in reasons["benchmarks"]
+
+    # Publication identities belong in dated observations, rather than in a
+    # declarative channel description that survives later releases unchanged.
+    for package in _targets().packages:
+        for target in package.targets:
+            if target.reason:
+                assert re.search(r"\bv?\d+\.\d+\.\d+\b", target.reason) is None, package.id
+                assert re.search(r"\b[0-9a-f]{40}\b", target.reason) is None, package.id
 
 
 def test_current_pypi_manual_actions_track_resolved_publishers() -> None:
