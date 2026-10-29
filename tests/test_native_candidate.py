@@ -148,8 +148,12 @@ def test_public_surfaces_match_the_published_train_and_web_receipts() -> None:
 
     assert value["release_train"]["publication"] == "python_r1_r2_r3_r4_and_studio_published"
     assert current["generator"]["repo"] == "GBeurier/nirs4all-cockpit"
-    assert current["generator"]["workflow"] == "collect.yml"
-    assert current["generator"]["run_id"].isdigit()
+    if current["generator"].get("run_id") is not None:
+        assert current["generator"]["workflow"] == "collect.yml"
+        assert current["generator"]["run_id"].isdigit()
+    else:
+        assert current["generator"]["mode"] == "local"
+        assert current["generator"]["workflow"] is None
 
     nirs4all_expected = packages["nirs4all"]["source"]["expected_prod_version"]
     assert compare(nirs4all_expected, r1_version) >= 0
@@ -167,7 +171,8 @@ def test_public_surfaces_match_the_published_train_and_web_receipts() -> None:
     index = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
     browser_validator = (ROOT / "web" / "app.js").read_text(encoding="utf-8")
     assert "daily collector" in readme
-    assert "Latest news" in index
+    assert "Published release receipt" in index
+    assert "September 2026" not in index
     assert "Qualified capabilities" not in index
     assert "Exact local candidate identities" not in index
     assert "title.textContent = `nirs4all ${r4.python_version} is available`" in browser_validator

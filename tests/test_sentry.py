@@ -13,7 +13,7 @@ def test_orphaned_legacy_group_does_not_create_a_phantom_alert(monkeypatch):
     orphan = {"title": "Native report", "count": "1", "userCount": 0, "status": "unresolved"}
     queries = []
 
-    def fake_get(url, headers=None):
+    def fake_get(url, headers=None, **kwargs):
         parsed = urlsplit(url)
         if "/projects/" in parsed.path:
             return 200, [orphan], None
@@ -34,12 +34,16 @@ def test_orphaned_legacy_group_does_not_create_a_phantom_alert(monkeypatch):
 
 def test_searchable_native_error_is_still_counted_with_requested_scope(monkeypatch):
     """Switching endpoints must not filter out genuine native errors."""
-    issue = {"title": "Native error", "platform": "native", "count": "2", "userCount": 1}
+    issue = {"id": "12", "project": {"id": "34"}, "title": "Native error",
+             "platform": "native", "count": "2", "userCount": 1, "lifetime": {"count": "100"}}
 
-    def fake_get(url, headers=None):
+    def fake_get(url, headers=None, **kwargs):
         parsed = urlsplit(url)
         assert parsed.scheme == "https"
         assert parsed.netloc == "sentry.example.com"
+        if parsed.path.endswith("/events/"):
+            assert parse_qs(parsed.query)["query"] == ["issue.id:[12]"]
+            return 200, {"data": [{"count_unique(user)": 1}]}, None
         assert parsed.path == "/api/0/organizations/test-org/issues/"
         params = parse_qs(parsed.query)
         assert params["project"] == ["custom-project"]
@@ -62,7 +66,7 @@ def test_searchable_native_error_is_still_counted_with_requested_scope(monkeypat
 def test_failed_search_remains_unknown_without_legacy_fallback(monkeypatch, response):
     calls = []
 
-    def fake_get(url, headers=None):
+    def fake_get(url, headers=None, **kwargs):
         calls.append(url)
         return response
 
@@ -76,7 +80,7 @@ def test_failed_search_remains_unknown_without_legacy_fallback(monkeypatch, resp
 
 
 def test_resolved_search_failure_preserves_unresolved_count(monkeypatch):
-    def fake_get(url, headers=None):
+    def fake_get(url, headers=None, **kwargs):
         query = parse_qs(urlsplit(url).query)["query"]
         if query == ["is:resolved"]:
             return 503, None, "http 503"
@@ -91,3 +95,74 @@ def test_resolved_search_failure_preserves_unresolved_count(monkeypatch):
 
 def test_legacy_snapshot_has_no_claimed_activity_window():
     assert SentryStatus.model_validate({"available": True, "unresolved": 1}).stats_period is None
+
+
+def test_issue_cursors_cover_every_page_and_users_are_deduplicated(monkeypatch):
+    def fake_get(url, headers=None, *, response_headers=None):
+        params = parse_qs(urlsplit(url).query)
+        if urlsplit(url).path.endswith("/events/"):
+            assert params["query"] == ["issue.id:[1,2]"]
+            return 200, {"data": [{"count_unique(user)": 1}]}, None
+        if params["query"] == ["is:resolved"]:
+            return 200, [], None
+        first = "cursor" not in params
+        response_headers["link"] = (
+            '<https://untrusted.example/>; rel="next"; results="true"; cursor="next:1:0"'
+            if first else '<https://untrusted.example/>; rel="next"; results="false"; cursor="end:0:0"'
+        )
+        if not first:
+            assert params["cursor"] == ["next:1:0"]
+        return 200, [{
+            "id": "1" if first else "2", "project": {"id": "123"},
+            "count": "2", "userCount": 1, "lifetime": {"count": "100", "userCount": 20},
+        }], None
+
+    monkeypatch.setattr(sentry, "get_json", fake_get)
+    out = sentry.collect(token="token", limit=1)
+    assert out["available"] is True
+    assert out["unresolved"] == 2
+    assert out["events"] == 4
+    assert out["users_affected"] == 1
+
+
+def test_incomplete_pagination_does_not_publish_a_truncated_count(monkeypatch):
+    def fake_get(url, headers=None, *, response_headers=None):
+        if "cursor=" in url:
+            return 503, None, "http 503"
+        response_headers["link"] = 'rel="next"; results="true"; cursor="1:0:0"'
+        return 200, [{"id": "1", "count": "2"}], None
+
+    monkeypatch.setattr(sentry, "get_json", fake_get)
+    out = sentry.collect(token="token", limit=1)
+    assert out["available"] is False
+    assert out["unresolved"] is None
+    assert out["events"] is None
+
+
+def test_aggregate_failure_does_not_add_user_counts_across_groups(monkeypatch):
+    def fake_get(url, headers=None, **kwargs):
+        if urlsplit(url).path.endswith("/events/"):
+            return 403, None, "forbidden"
+        if parse_qs(urlsplit(url).query)["query"] == ["is:resolved"]:
+            return 200, [], None
+        return 200, [{"id": "1", "project": {"id": "2"}, "count": "3", "userCount": 10}], None
+
+    monkeypatch.setattr(sentry, "get_json", fake_get)
+    out = sentry.collect(token="token")
+    assert out["unresolved"] == 1
+    assert out["events"] == 3
+    assert out["users_affected"] is None
+
+
+def test_missing_event_counts_and_malformed_project_metadata_remain_unknown(monkeypatch):
+    def fake_get(url, headers=None, **kwargs):
+        if parse_qs(urlsplit(url).query)["query"] == ["is:resolved"]:
+            return 200, [], None
+        return 200, [{"id": "1", "project": "malformed", "userCount": 1}], None
+
+    monkeypatch.setattr(sentry, "get_json", fake_get)
+    result = sentry.collect(token="token")
+    assert result["available"] is True
+    assert result["unresolved"] == 1
+    assert result["events"] is None
+    assert result["users_affected"] is None

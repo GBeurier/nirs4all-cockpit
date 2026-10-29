@@ -95,6 +95,7 @@ _CANONICAL_PAGES_URLS = {
     "nirs4all-benchmarks": "https://benchmarks.nirs4all.org/",
     "nirs4all-providers": "https://gbeurier.github.io/nirs4all-providers/",
     "nirs4all-ui": "https://gbeurier.github.io/nirs4all-ui/",
+    "nirs4all-preflight": "https://gbeurier.github.io/nirs4all-preflight/",
 }
 
 
@@ -147,13 +148,23 @@ def reconcile(
         search_console_status = SearchConsoleStats.model_validate(search_console.collect(ref_date=stamp[:10]))
         sentry_status = SentryStatus.model_validate(sentry.collect(include_issues=False))
 
+    for signal in (visits_status, search_console_status, sentry_status):
+        if signal.available:
+            signal.observed_at = stamp
+    for package in packages:
+        for target in package.targets:
+            downloads = target.downloads
+            if any(getattr(downloads, key) is not None for key in ("last_day", "last_week", "last_month", "total")):
+                downloads.observed_at = stamp
+
     return Snapshot(
         schema_version=1,
         generated_at=stamp,
         generator={
             "repo": f"{targets.owner}/nirs4all-cockpit",
-            "workflow": "collect.yml",
+            "workflow": "collect.yml" if run_id else None,
             "run_id": run_id,
+            "mode": "ci" if run_id else "local",
         },
         packages=packages,
         summary=summary,
@@ -166,18 +177,19 @@ def reconcile(
 
 def _compute_totals(packages: list[PackageStatus]) -> Totals:
     """Sum public, ecosystem-wide aggregates across the reconciled packages."""
-    totals = Totals(packages=len(packages), repos=len({p.repo for p in packages}))
-    seen_repos: set[str] = set()
+    totals = Totals(packages=len(packages), repos=len({(p.owner, p.repo) for p in packages}))
+    seen_repos: set[tuple[str | None, str]] = set()
     for p in packages:
         # One repository can publish independently versioned components.
         # Repository counters belong to that repository, downloads to targets.
-        if p.repo not in seen_repos:
-            seen_repos.add(p.repo)
+        if (p.owner, p.repo) not in seen_repos:
+            seen_repos.add((p.owner, p.repo))
             totals.open_issues += p.issues.open
             if p.repo_stats:
                 totals.stars += p.repo_stats.stars or 0
                 totals.forks += p.repo_stats.forks or 0
                 totals.watchers += p.repo_stats.watchers or 0
+                totals.open_prs += p.repo_stats.open_prs or 0
             if p.code_stats:
                 totals.loc_code += p.code_stats.loc_code
                 totals.loc_total += p.code_stats.loc_total
@@ -229,6 +241,7 @@ def build_snapshot(
 
 
 def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traffic: bool = False) -> PackageStatus:
+    owner = pkg.owner or owner
     source_facts = _source_versions(owner, pkg, no_network=no_network)
     manifest = source_facts.get("manifest_version")
     latest_prod = source_facts.get("latest_prod_tag")
@@ -276,7 +289,7 @@ def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traff
 
     # Code stats are computed from the local checkout; coverage may be completed
     # from CI artifacts only during online collection.
-    code = code_stats.scan(pkg.repo, allow_artifact_coverage=not no_network)
+    code = code_stats.scan(pkg.repo, owner=owner, allow_artifact_coverage=not no_network)
     code_model = CodeStats.model_validate(code) if code is not None else None
 
     rollup = _rollup(target_statuses)
@@ -284,6 +297,7 @@ def _reconcile_package(owner: str, pkg: Package, *, no_network: bool, with_traff
     return PackageStatus(
         id=pkg.id,
         repo=pkg.repo,
+        owner=owner,
         source=PackageSource.model_validate({**source_facts, "expected_prod_version": expected}),
         rollup=rollup,
         flags=flags,
@@ -625,6 +639,8 @@ def _rollup(targets: list[TargetStatus]) -> str:
     This keeps blockers such as a missing PyPI project visible even when the same
     package is already green on GitHub Pages or another registry.
     """
+    if not targets:
+        return "excluded"  # Health-only repository: no registry publication claim.
     states = {ts.status for ts in targets if ts.status != "excluded" and not ts.manual}
     for s in ("broken", "missing", "stale", "pending", "unknown", "green"):
         if s in states:

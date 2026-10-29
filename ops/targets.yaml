@@ -34,15 +34,15 @@ packages:
       - registry: pages
         name: nirs4all
         state: tracked
-        reason: "Canonical common package guide and Legacy Python documentation at https://gbeurier.github.io/nirs4all/; current SDK 1.4.7 documentation is published from source 1aa5f7ed03fd2775284f822d7158450fcc8bd76c"
+        reason: "Canonical common package guide and Legacy Python documentation at https://gbeurier.github.io/nirs4all/; availability is probed independently of the SDK package version"
       - registry: readthedocs
         name: nirs4all
         state: tracked
-        reason: "The five existing Read the Docs routes redirect with HTTP 302 to the published SDK 1.4.7 common/Legacy guide from source 1aa5f7ed03fd2775284f822d7158450fcc8bd76c. These redirects are verified; no new native Read the Docs build succeeded, and HTTP availability does not establish one. The last build reported an administrative skip block, distinct from automatic disabling after 25 failures; RTD must confirm/clear both for project 1171458"
+        reason: "The existing Read the Docs routes redirect to the common/Legacy guide. HTTP availability does not establish a successful native Read the Docs build; administrative build blocks are tracked separately"
       - registry: pypi
         name: nirs4all
         state: tracked
-        reason: "Python SDK 1.4.7 is published on PyPI from release source 1a828c3cad6b6571cbe14b9bd7da2f9f1db767cc; the SDK and reference oracle remain separate from the portable Core aggregate"
+        reason: "The SDK and reference oracle remain separate from the portable Core aggregate; observed PyPI metadata determines the published version"
         workflow:
           file: publish.yml
           trigger: release_published
@@ -52,7 +52,7 @@ packages:
       - registry: github-release
         name: nirs4all
         state: tracked
-        reason: "Python SDK release 1.4.7 is published; current main 1aa5f7ed03fd2775284f822d7158450fcc8bd76c includes the subsequent common/Legacy documentation publication"
+        reason: "SDK GitHub Releases are tracked separately from package publication and the current source branch"
     version_aliases: {}
 
   # ------------------------------------------------------------------------- #
@@ -71,7 +71,7 @@ packages:
       - registry: github-release
         name: nirs4all-studio
         state: tracked
-        reason: "Studio application release 0.15.2 source/tag 434d8221bc72a3fbb65dcc62b74cfc77e565d34b includes the native SDK 1.4.7 pin correction; Linux, Windows and macOS ARM installers/checksums plus Docker are published, with actual platform UI startup checks. 0.15.1 was never published. Tag pushes and explicit publish_existing_tag retries publish; other dispatches only build/package and smoke the UI"
+        reason: "Studio application releases carry platform installers and checksums; observed release metadata determines the published version. Tag pushes and explicit publish_existing_tag retries publish; other dispatches only build/package and smoke the UI"
         workflow:
           file: release-unified.yml
           trigger: workflow_dispatch
@@ -1066,4 +1066,40 @@ packages:
       - registry: github-release
         name: nirs4all-ecosystem
         state: tracked
+    version_aliases: {}
+
+  # Public registry and delivery endpoints verified on 2026-10-29.
+  - id: nirs4all-preflight
+    repo: nirs4all-preflight
+    issues_repo: nirs4all-preflight
+    primary_language: Rust
+    source_of_truth:
+      strategy: cargo_workspace
+      path: Cargo.toml
+    targets:
+      - registry: npm
+        name: "@nirs4all/preflight"
+        state: tracked
+      - registry: crates
+        name: nirs4all-preflight
+        state: tracked
+      - registry: github-release
+        name: nirs4all-preflight
+        state: tracked
+      - registry: pages
+        name: nirs4all-preflight
+        state: tracked
+    version_aliases: {}
+
+  # Domains is maintained in a different public GitHub account. No registry
+  # target is inferred from its alpha source version alone.
+  - id: nirs4all-domains
+    owner: dcornet
+    repo: nirs4all-domains
+    issues_repo: nirs4all-domains
+    primary_language: Rust
+    source_of_truth:
+      strategy: cargo_workspace
+      path: Cargo.toml
+    targets: []
     version_aliases: {}
