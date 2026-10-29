@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 from cockpit.native_candidate import CandidateError, render, validate_projection
-from cockpit.version import classify, compare, is_version, normalize
+from cockpit.version import classify, compare, is_version
 
 ROOT = Path(__file__).resolve().parents[1]
 SNAPSHOT = ROOT / "data" / "native-candidate-staging.json"
@@ -37,6 +37,22 @@ def assert_web_release_target_consistent(current: dict, receipt_version: str) ->
         excluded=False,
         planned=False,
     )
+
+
+def assert_sdk_release_targets_consistent(package: dict, historical_version: str) -> None:
+    """Keep the historical delivery proof while allowing an honestly unpublished tag."""
+    expected = package["source"]["expected_prod_version"]
+    assert isinstance(expected, str) and is_version(expected)
+    assert compare(expected, historical_version) >= 0
+    targets = {t["registry"]: t for t in package["targets"] if t["registry"] in {"pypi", "github-release"}}
+    assert set(targets) == {"pypi", "github-release"}
+    for target in targets.values():
+        published = target["published_version"]
+        assert isinstance(published, str) and is_version(published)
+        assert compare(published, historical_version) >= 0
+        assert target["status"] == classify(
+            expected, published, http_status=200, transient_error=False, excluded=False, planned=False,
+        )
 
 
 def test_committed_release_projection_is_canonical_and_precise() -> None:
@@ -155,13 +171,7 @@ def test_public_surfaces_match_the_published_train_and_web_receipts() -> None:
         assert current["generator"]["mode"] == "local"
         assert current["generator"]["workflow"] is None
 
-    nirs4all_expected = packages["nirs4all"]["source"]["expected_prod_version"]
-    assert compare(nirs4all_expected, r1_version) >= 0
-    assert {
-        normalize(target["published_version"])
-        for target in packages["nirs4all"]["targets"]
-        if target["registry"] in {"pypi", "github-release"}
-    } == {normalize(nirs4all_expected)}
+    assert_sdk_release_targets_consistent(packages["nirs4all"], r1_version)
 
     web_targets = {target["registry"]: target for target in packages["nirs4all-web"]["targets"]}
     assert web_targets["pages"]["status"] == "green"
@@ -179,6 +189,26 @@ def test_public_surfaces_match_the_published_train_and_web_receipts() -> None:
     assert 'releaseTrain.publication !== "python_r1_r2_r3_r4_and_studio_published"' in browser_validator
     assert "Web 0.1.9" not in readme
     assert "nirs4all-web 0.1.9" not in index
+
+
+@pytest.mark.parametrize(("published", "status"), [("1.4.10", "stale"), ("1.4.11", "green")])
+def test_sdk_tag_and_publication_are_distinct_declarative_facts(published: str, status: str) -> None:
+    # Explicit input facts, not a claim that either version was newly published.
+    package = {"source": {"expected_prod_version": "1.4.11"}, "targets": [
+        {"registry": registry, "published_version": published, "status": status}
+        for registry in ("pypi", "github-release")
+    ]}
+    assert_sdk_release_targets_consistent(package, "1.4.7")
+
+
+@pytest.mark.parametrize(("published", "false_status"), [("1.4.10", "green"), ("1.4.11", "stale")])
+def test_sdk_release_validation_refuses_a_false_green_or_false_stale(published: str, false_status: str) -> None:
+    package = {"source": {"expected_prod_version": "1.4.11"}, "targets": [
+        {"registry": registry, "published_version": published, "status": false_status}
+        for registry in ("pypi", "github-release")
+    ]}
+    with pytest.raises(AssertionError):
+        assert_sdk_release_targets_consistent(package, "1.4.7")
 
 
 def test_web_release_target_rejects_invalid_published_version() -> None:
