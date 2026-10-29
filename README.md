@@ -22,10 +22,11 @@ publication expectations. The verified `dcornet/nirs4all-domains` owner is retai
 independently of the default `GBeurier` inventory owner. Preflight tracks its
 verified npm, crates.io, GitHub Release and Pages publication surfaces.
 
-The tracked `data/current.json` in this local remediation candidate was collected
-read-only on **29 October 2026 at 13:59 UTC**. Its generator metadata records a
-local invocation with no hosted workflow/run identity. Committing this review
-snapshot does not deploy it or update the public dashboard.
+The snapshot's `generated_at` records its collection time. Token-backed counters
+that were carried forward retain their original observation dates and are labelled
+as carried forward. Local collections retain a local generator identity without
+inventing a hosted workflow/run. Publishing the dashboard is checked separately
+from collecting or committing a snapshot.
 
 Historical public delivery receipt on **8 October 2026** (not a current release inventory):
 
