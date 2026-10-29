@@ -3,8 +3,8 @@ from pathlib import Path
 
 import pytest
 
+from cockpit import cli, version
 from cockpit import reconcile as rec
-from cockpit import version
 from cockpit.model import (
     ActionsStats,
     CodeStats,
@@ -13,6 +13,7 @@ from cockpit.model import (
     PackageSource,
     PackageStatus,
     RepoStats,
+    Snapshot,
     TargetStatus,
 )
 
@@ -69,7 +70,7 @@ def test_component_namespace_is_not_part_of_registry_version(monkeypatch, manife
 def test_components_count_shared_repository_stats_once_and_downloads_separately():
     packages = [PackageStatus(
         id=name, repo="nirs4all-methods", source=PackageSource(), rollup="green",
-        issues=Issues(open=2), repo_stats=RepoStats(stars=3, forks=4, watchers=5),
+        issues=Issues(open=2), repo_stats=RepoStats(stars=3, forks=4, watchers=5, open_prs=7),
         code_stats=CodeStats(loc_code=6, loc_total=7, files=8, tests=9),
         actions_stats=ActionsStats(total_runs=10),
         targets=[TargetStatus(registry=registry, name=name, status="green", downloads=Downloads(last_month=11))],
@@ -77,6 +78,53 @@ def test_components_count_shared_repository_stats_once_and_downloads_separately(
     totals = rec._compute_totals(packages)
     assert totals.model_dump() == {
         "packages": 2, "repos": 1, "stars": 3, "forks": 4, "watchers": 5, "open_issues": 2,
-        "loc_code": 6, "loc_total": 7, "tests": 9, "files": 8, "workflow_runs": 10,
+        "open_prs": 7, "loc_code": 6, "loc_total": 7, "tests": 9, "files": 8, "workflow_runs": 10,
         "downloads_last_month": 22,
     }
+
+
+def test_cli_carry_forward_keeps_repository_totals_deduplicated():
+    packages = [PackageStatus(
+        id=name, repo="shared", source=PackageSource(), rollup="green", targets=[],
+        issues=Issues(open=3), repo_stats=RepoStats(stars=8, open_prs=2),
+        actions_stats=ActionsStats(total_runs=12),
+    ) for name in ["product", "component"]]
+    snap = Snapshot(generated_at="2026-10-29T00:00:00Z", generator={}, packages=packages, summary={})
+    cli._carry_forward_public_signals(snap, {"packages": []})
+    assert snap.totals.open_issues == 3
+    assert snap.totals.open_prs == 2
+    assert snap.totals.stars == 8
+    assert snap.totals.workflow_runs == 12
+    assert snap.totals == rec._compute_totals(packages)
+
+
+def test_preflight_tracks_verified_publication_surfaces_and_domains_its_actual_owner():
+    inventory = rec.load_targets(ROOT / "ops/targets.yaml")
+    preflight = next(p for p in inventory.packages if p.id == "nirs4all-preflight")
+    assert preflight.repo == preflight.issues_repo == "nirs4all-preflight"
+    assert preflight.source_of_truth.strategy == "cargo_workspace"
+    assert {(t.registry, t.name) for t in preflight.targets} == {
+        ("npm", "@nirs4all/preflight"), ("crates", "nirs4all-preflight"),
+        ("github-release", "nirs4all-preflight"), ("pages", "nirs4all-preflight"),
+    }
+    domains = next(p for p in inventory.packages if p.id == "nirs4all-domains")
+    assert domains.owner == "dcornet"
+    assert domains.targets == []
+    assert rec._rollup([]) == "excluded"
+
+
+def test_owner_override_reaches_source_collection_and_snapshot(monkeypatch):
+    inventory = rec.load_targets(ROOT / "ops/targets.yaml")
+    domains = next(p for p in inventory.packages if p.id == "nirs4all-domains")
+    seen = []
+
+    def source(owner, package, *, no_network):
+        seen.append((owner, package.repo))
+        return {"manifest_version": "0.1.0-alpha.16"}
+
+    monkeypatch.setattr(rec, "_source_versions", source)
+    monkeypatch.setattr(rec.code_stats, "scan", lambda *a, **kw: None)
+    status = rec._reconcile_package("GBeurier", domains, no_network=True)
+    assert seen == [("dcornet", "nirs4all-domains")]
+    assert status.owner == "dcornet"
+    assert status.rollup == "excluded"

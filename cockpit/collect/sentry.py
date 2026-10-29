@@ -24,6 +24,7 @@ culprits, permalinks, or user-identifying details.
 from __future__ import annotations
 
 import os
+import re
 from typing import Any
 from urllib.parse import quote, urlencode
 
@@ -98,12 +99,31 @@ def collect(
     base = f"{region_url}/api/0/organizations/{quote(org, safe='')}/issues/"
 
     def _fetch(query: str, lim: int) -> tuple[list | None, str | None]:
-        params = urlencode({"project": project, "query": query, "statsPeriod": stats_period, "limit": lim})
-        url = f"{base}?{params}"
-        status, body, error = get_json(url, headers=headers)
-        if status != 200 or not isinstance(body, list):
-            return None, (error or f"http {status}")
-        return body, None
+        """Follow Sentry cursors; never publish a truncated issue count."""
+        params = {"project": project, "query": query, "statsPeriod": stats_period, "limit": max(1, min(lim, 100))}
+        collected = []
+        cursors: set[str] = set()
+        for _ in range(100):
+            response_headers: dict[str, str] = {}
+            status, body, error = get_json(
+                f"{base}?{urlencode(params)}", headers=headers, response_headers=response_headers,
+            )
+            if status != 200 or not isinstance(body, list):
+                return None, (error or f"http {status}")
+            collected.extend(it for it in body if isinstance(it, dict))
+            next_link = next(
+                (link for link in response_headers.get("link", "").split(",") if 'rel="next"' in link), "",
+            )
+            if 'results="true"' not in next_link:
+                if not next_link and len(body) >= params["limit"]:
+                    return None, "Sentry pagination metadata missing; issue count is unknown"
+                return collected, None
+            match = re.search(r'cursor="([^"]+)"', next_link)
+            if match is None or match[1] in cursors:
+                return None, "invalid or repeated Sentry pagination cursor"
+            cursors.add(match[1])
+            params["cursor"] = match[1]
+        return None, "Sentry pagination limit exceeded; issue count is unknown"
 
     raw, err = _fetch("is:unresolved", limit)
     if raw is None:
@@ -120,9 +140,40 @@ def collect(
         available=True,
         unresolved=len(issues),
         resolved=len(resolved_issues) if resolved_raw is not None else None,
-        events=sum(i["count"] or 0 for i in issues),
-        users_affected=sum(i["userCount"] or 0 for i in issues),
+        events=sum(i["count"] for i in issues) if all(i["count"] is not None for i in issues) else None,
+        users_affected=0 if not issues else _unique_users(raw, region_url, org, stats_period, headers),
     )
     if include_issues:
         out.update(issues=issues, resolved_issues=resolved_issues[:12])
     return out
+
+
+def _unique_users(issues: list[dict], region: str, org: str, period: str, headers: dict[str, str]) -> int | None:
+    """Count distinct users across the selected groups, not user/group pairs.
+
+    Organization issue search's top-level ``count`` and ``userCount`` are scoped
+    to statsPeriod; ``lifetime`` is separate. Summing event counts is valid, but
+    a user shared by several groups must be deduplicated by the events backend.
+    """
+    ids = [str(it.get("id", "")) for it in issues]
+    project_ids = {
+        str(it["project"].get("id", "")) if isinstance(it.get("project"), dict) else ""
+        for it in issues
+    }
+    if not all(value.isdigit() for value in ids) or len(project_ids) != 1:
+        return None
+    project_id = project_ids.pop()
+    if not project_id.isdigit():
+        return None
+    params = urlencode({
+        "project": project_id, "statsPeriod": period,
+        "query": f"issue.id:[{','.join(ids)}]", "field": "count_unique(user)",
+    })
+    url = f"{region}/api/0/organizations/{quote(org, safe='')}/events/?{params}"
+    if len(url) > 8000:
+        return None  # Do not invent a unique-user count by adding batch counts.
+    status, body, _ = get_json(url, headers=headers)
+    rows = body.get("data") if isinstance(body, dict) else None
+    if status == 200 and isinstance(rows, list) and rows and isinstance(rows[0], dict):
+        return _to_int(rows[0].get("count_unique(user)"))
+    return None

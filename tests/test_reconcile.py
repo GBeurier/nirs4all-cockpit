@@ -258,7 +258,7 @@ def test_package_level_workflows_are_collected_and_deduplicated(monkeypatch) -> 
     )
     monkeypatch.setattr(rec.github, "pr_counts", lambda owner, repo: {"closed": 0, "merged": 0})  # noqa: ARG005
     monkeypatch.setattr(rec.github, "actions_stats", lambda owner, repo: {})  # noqa: ARG005
-    monkeypatch.setattr(rec.code_stats, "scan", lambda repo, *, allow_artifact_coverage=True: None)  # noqa: ARG005
+    monkeypatch.setattr(rec.code_stats, "scan", lambda repo, *, owner="GBeurier", allow_artifact_coverage=True: None)  # noqa: ARG005
 
     def _workflow_last_run(owner, repo, workflow_file):  # noqa: ARG001
         calls.append(workflow_file)
@@ -559,7 +559,7 @@ def test_package_primary_language_overrides_github_language(monkeypatch) -> None
     )
     monkeypatch.setattr(rec.github, "pr_counts", lambda owner, repo: {"closed": 0, "merged": 0})  # noqa: ARG005
     monkeypatch.setattr(rec.github, "actions_stats", lambda owner, repo: {})  # noqa: ARG005
-    monkeypatch.setattr(rec.code_stats, "scan", lambda repo, *, allow_artifact_coverage=True: None)  # noqa: ARG005
+    monkeypatch.setattr(rec.code_stats, "scan", lambda repo, *, owner="GBeurier", allow_artifact_coverage=True: None)  # noqa: ARG005
     pkg = Package(id="nirs4all-methods", repo="nirs4all-methods", primary_language="C++", targets=[])
 
     status = _reconcile_package("GBeurier", pkg, no_network=False)

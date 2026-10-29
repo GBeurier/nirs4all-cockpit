@@ -35,6 +35,7 @@ const PAGES_URLS = {
   "nirs4all-benchmarks": "https://benchmarks.nirs4all.org/",
   "nirs4all-providers": "https://gbeurier.github.io/nirs4all-providers/",
   "nirs4all-ui": "https://gbeurier.github.io/nirs4all-ui/",
+  "nirs4all-preflight": "https://gbeurier.github.io/nirs4all-preflight/",
 };
 let OWNER = "GBeurier";
 
@@ -63,17 +64,17 @@ function versionDateLabel(src) {
 
 function led(state) { return el("span", { class: `led led--${state}`, attrs: { role: "img", "aria-label": state } }); }
 
-function registryUrl(reg, name, repo) {
+function registryUrl(reg, name, repo, owner = OWNER) {
   switch (reg) {
     case "pypi": return `https://pypi.org/project/${name}/`;
     case "crates": return `https://crates.io/crates/${name}`;
     case "npm": return `https://www.npmjs.com/package/${name}`;
-    case "r-universe": return `https://${OWNER.toLowerCase()}.r-universe.dev/${name}`;
+    case "r-universe": return `https://${owner.toLowerCase()}.r-universe.dev/${name}`;
     case "cran": return `https://cran.r-project.org/package=${name}`;
     case "readthedocs": return `https://${name}.readthedocs.io/`;
-    case "github-release": return `https://github.com/${OWNER}/${repo}/releases`;
-    case "pages": return PAGES_URLS[repo] || `https://${OWNER.toLowerCase()}.github.io/${repo}/`;
-    default: return `https://github.com/${OWNER}/${repo}`;
+    case "github-release": return `https://github.com/${owner}/${repo}/releases`;
+    case "pages": return PAGES_URLS[repo] || `https://${owner.toLowerCase()}.github.io/${repo}/`;
+    default: return `https://github.com/${owner}/${repo}`;
   }
 }
 
@@ -103,8 +104,26 @@ function renderMeta(snap) {
   const m = document.getElementById("generated");
   m.innerHTML = "";
   m.appendChild(el("span", { text: `updated ${fmtDateTime(snap.generated_at)}` }));
+  m.appendChild(el("span", { text: freshnessText(snap.generated_at) }));
   if (snap.generator && snap.generator.repo) m.appendChild(el("a", { text: snap.generator.repo, attrs: { href: `https://github.com/${snap.generator.repo}` } }));
   document.getElementById("schema").textContent = `schema v${snap.schema_version ?? "?"}`;
+}
+
+function freshnessText(iso, carried = false, now = Date.now()) {
+  const stamp = Date.parse(iso);
+  if (!Number.isFinite(stamp)) return "observation date unknown";
+  const stale = now - stamp > 48 * 60 * 60 * 1000;
+  return `${stale ? "stale · " : ""}${carried ? "last successful observation · " : "observed "}${fmtDateTime(iso)}`;
+}
+
+function observationNote(signal, snapshotDate) {
+  return freshnessText(signal.observed_at || (signal.carried_forward ? null : snapshotDate), signal.carried_forward);
+}
+
+function repositoryPackages(packages) {
+  const repos = new Map();
+  for (const pkg of packages || []) if (!repos.has(`${pkg.owner || OWNER}/${pkg.repo}`)) repos.set(`${pkg.owner || OWNER}/${pkg.repo}`, pkg);
+  return [...repos.values()];
 }
 
 function dial(pct, color, big, cap) {
@@ -120,7 +139,7 @@ function dial(pct, color, big, cap) {
 function renderScores(snap) {
   const box = document.getElementById("scores");
   box.innerHTML = "";
-  const pk = snap.packages || [];
+  const pk = (snap.packages || []).filter((p) => (p.targets || []).length > 0);
   const greenPk = pk.filter((p) => p.rollup === "green").length;
   const s = snap.summary || {};
   const tracked = (s.green || 0) + (s.stale || 0) + (s.pending || 0) + (s.missing || 0) + (s.broken || 0) + (s.unknown || 0);
@@ -133,7 +152,7 @@ function renderSummary(snap) {
   box.innerHTML = "";
   const t = snap.totals;
   if (t) {
-    for (const [lab, v] of [["LOC", t.loc_code], ["tests", t.tests], ["★", t.stars], ["CI runs", t.workflow_runs], ["dl/mo", t.downloads_last_month]]) {
+    for (const [lab, v] of [["LOC", t.loc_code], ["tests", t.tests], ["★", t.stars], ["open issues", t.open_issues], ["open PRs", t.open_prs], ["CI runs", t.workflow_runs], ["dl/mo", t.downloads_last_month]]) {
       const c = el("span", { class: "chip" });
       c.append(el("span", { class: "count", text: fmtInt(v) }), el("span", { class: "muted", text: lab }));
       box.appendChild(c);
@@ -337,7 +356,7 @@ function renderMatrix(snap) {
     // package cell: just the name (link to repo) — the registry cells already
     // show what's published/missing, so no redundant left-hand rollup LED.
     const cPkg = el("th", { class: "c-pkg", attrs: { scope: "row" } });
-    const a = el("a", { attrs: { href: `https://github.com/${OWNER}/${pkg.repo}`, target: "_blank", rel: "noopener" } });
+    const a = el("a", { attrs: { href: `https://github.com/${pkg.owner || OWNER}/${pkg.repo}`, target: "_blank", rel: "noopener" } });
     a.append(el("span", { class: "pkg-name", text: pkg.id }));
     if (pkg.repo && pkg.repo !== pkg.id) a.append(el("span", { class: "pkg-repo", text: `repo ${pkg.repo}` }));
     cPkg.appendChild(a);
@@ -358,7 +377,7 @@ function renderMatrix(snap) {
       const rep = facade(targets);
       const href = (reg === "readthedocs" || reg === "pages") && rep.evidence && rep.evidence.version_endpoint
         ? rep.evidence.version_endpoint
-        : registryUrl(reg, rep.name, pkg.repo);
+        : registryUrl(reg, rep.name, pkg.repo, pkg.owner || OWNER);
       const link = el("a", { attrs: { href, target: "_blank", rel: "noopener" } });
       const dot = led(rep.lifecycle === "archived" ? "archived" : st);
       if (targets.length > 1) { const wrap = el("span", { class: "led-multi" }); wrap.append(dot, el("span", { class: "badge-n", text: `×${targets.length}` })); link.appendChild(wrap); }
@@ -420,11 +439,11 @@ function renderDownloads(snap) {
   for (const row of rows) {
     const r = el("div", { class: "dlrow" });
     const prim = row.segs.slice().sort((a, b) => b.value - a.value)[0];
-    const href = prim ? registryUrl(prim.reg, prim.name, row.pkg.repo) : `https://github.com/${OWNER}/${row.pkg.repo}`;
+    const href = prim ? registryUrl(prim.reg, prim.name, row.pkg.repo, row.pkg.owner || OWNER) : `https://github.com/${row.pkg.owner || OWNER}/${row.pkg.repo}`;
     r.appendChild(el("a", { class: "dl-name", text: row.pkg.id, attrs: { href, target: "_blank", rel: "noopener", title: row.pkg.id } }));
     const bar = el("div", { class: "dlbar", attrs: { style: `width:${row.total > 0 ? Math.max(6, (row.total / max) * 100) : 0}%` } });
     for (const s of row.segs.sort((a, b) => b.value - a.value)) {
-      const seg = el("a", { class: "dlseg", attrs: { href: registryUrl(s.reg, s.name, row.pkg.repo), target: "_blank", rel: "noopener", style: `width:${(s.value / row.total) * 100}%;background:${REG_COLOR[s.reg]}` } });
+      const seg = el("a", { class: "dlseg", attrs: { href: registryUrl(s.reg, s.name, row.pkg.repo, row.pkg.owner || OWNER), target: "_blank", rel: "noopener", style: `width:${(s.value / row.total) * 100}%;background:${REG_COLOR[s.reg]}` } });
       attachTip(seg, `<b>${s.name}</b><div class="tt-row">${REG_LABEL[s.reg]} · ${s.lower ? "&gt;" : ""}${fmtInt(s.value)} <span style="opacity:.6">(${s.window})</span></div>`);
       bar.appendChild(seg);
     }
@@ -440,6 +459,21 @@ function renderDownloads(snap) {
   }
   axis.appendChild(el("span", { class: "admin-note", text: "Sorted by reported package-registry downloads · > = lower bound" }));
   box.appendChild(axis);
+  const detail = el("details");
+  detail.appendChild(el("summary", { text: "Download values, periods and observation dates" }));
+  const table = el("table", { class: "stats" });
+  const tableHead = el("thead"), header = el("tr");
+  for (const name of ["package", "registry", "downloads", "period", "observation"]) header.appendChild(el("th", { text: name, attrs: { scope: "col" } }));
+  tableHead.appendChild(header); table.appendChild(tableHead);
+  const tableBody = el("tbody");
+  for (const row of rows) for (const target of row.pkg.targets || []) {
+    if (!DOWNLOAD_REGS.has(target.registry)) continue;
+    const value = dlBest(target), tr = el("tr");
+    tr.appendChild(el("th", { text: target.name, attrs: { scope: "row" } }));
+    for (const text of [REG_LABEL[target.registry], value ? fmtInt(value.value) : "unknown", value ? value.window : "unknown", observationNote(target.downloads || {}, snap.generated_at)]) tr.appendChild(el("td", { text }));
+    tableBody.appendChild(tr);
+  }
+  table.appendChild(tableBody); detail.appendChild(table); box.appendChild(detail);
 }
 
 // ---- GitHub table ----------------------------------------------------------
@@ -483,10 +517,10 @@ function renderRepoStats(snap) {
   for (const h of ["repo", "★ stars", "forks", "watch", "open PR", "merged", "closed", "issues", "license", "last commit", "ahead"]) hr.appendChild(el("th", { text: h }));
   thead.appendChild(hr); table.appendChild(thead);
   const tbody = el("tbody");
-  for (const pkg of snap.packages || []) {
+  for (const pkg of repositoryPackages(snap.packages)) {
     const s = pkg.repo_stats; if (!s) continue;
     const src = pkg.source || {};
-    const base = `https://github.com/${OWNER}/${pkg.repo}`;
+    const base = `https://github.com/${pkg.owner || OWNER}/${pkg.repo}`;
     const commitHref = src.commit ? `${base}/commit/${src.commit}` : null;
     const branch = s.default_branch || "main";
     const aheadHref = src.latest_prod_tag ? `${base}/compare/${encodeURIComponent(src.latest_prod_tag)}...${encodeURIComponent(branch)}` : null;
@@ -530,9 +564,9 @@ function renderCodeStats(snap) {
   for (const h of ["package", "LOC", "comments", "tests", "coverage", "top lang", "workflows", "runs", "success", "last"]) hr.appendChild(el("th", { text: h }));
   thead.appendChild(hr); table.appendChild(thead);
   const tbody = el("tbody");
-  for (const pkg of snap.packages || []) {
+  for (const pkg of repositoryPackages(snap.packages)) {
     const c = pkg.code_stats, a = pkg.actions_stats || {};
-    const base = `https://github.com/${OWNER}/${pkg.repo}`;
+    const base = `https://github.com/${pkg.owner || OWNER}/${pkg.repo}`;
     const tr = el("tr");
     const pkgTd = el("th", { class: "s-repo", attrs: { scope: "row" } });
     pkgTd.appendChild(el("a", { text: pkg.id, attrs: { href: base, target: "_blank", rel: "noopener" } }));
@@ -565,6 +599,7 @@ function renderCodeStats(snap) {
 // The full ecosystem roster — every page is listed even at 0 views. `path` is the
 // explicit GoatCounter path each site reports; `repo` maps to its public URL.
 const ECO_PAGES = [
+  ["/preflight", "gbeurier.github.io/nirs4all-preflight", "nirs4all-preflight"],
   ["/nirs4all", "gbeurier.github.io/nirs4all", "nirs4all"],
   ["/org", "nirs4all.org", "nirs4all-org"],
   ["/web", "web.nirs4all.org", "nirs4all-web"],
@@ -623,7 +658,7 @@ function renderVisits(snap) {
   }
   table.appendChild(tbody);
   box.appendChild(table);
-  box.appendChild(el("p", { class: "vcap", text: `${v.site || "GoatCounter"} · daily snapshot · all ecosystem pages` }));
+  box.appendChild(el("p", { class: "vcap", text: `${v.site || "GoatCounter"} · ${observationNote(v, snap.generated_at)} · all ecosystem pages` }));
 }
 
 // ---- Google Search Console (public aggregate) ------------------------------
@@ -701,7 +736,7 @@ function renderSearchConsole(snap) {
     box.appendChild(renderMetricTable(queries, "query"));
   }
 
-  box.appendChild(el("p", { class: "vcap", text: `${g.site_url || "Search Console"} · ${g.start_date || "?"} → ${g.end_date || "?"} · finalized Google Search data` }));
+  box.appendChild(el("p", { class: "vcap", text: `${g.site_url || "Search Console"} · ${g.start_date || "?"} → ${g.end_date || "?"} · ${observationNote(g, snap.generated_at)} · finalized Google Search data` }));
 }
 
 // ---- errors (public · Sentry) ----------------------------------------------
@@ -739,7 +774,7 @@ function renderSentry(snap) {
   );
   box.appendChild(head);
   const period = s.stats_period ? ` · issues with events in the last ${s.stats_period}` : "";
-  box.appendChild(el("p", { class: "vcap", text: `${s.project || "nirs4all-studio"}${period} · aggregate Sentry counters only` }));
+  box.appendChild(el("p", { class: "vcap", text: `${s.project || "nirs4all-studio"}${period} · ${observationNote(s, snap.generated_at)} · events/users refer to unresolved groups; users are deduplicated` }));
 }
 
 // ---- admin (local) ---------------------------------------------------------
@@ -748,6 +783,7 @@ function renderAdmin(admin) {
   const section = document.getElementById("admin"), body = document.getElementById("admin-body");
   if (!admin || !body) return;
   body.innerHTML = ""; section.hidden = false;
+  body.appendChild(el("p", { class: "admin-note", text: `Local admin snapshot: ${freshnessText(admin.generated_at)}. Its counters are independent of the public collection.` }));
   const s = admin.sentry || {};
   const sb = el("div", { class: "card panel" });
   sb.appendChild(el("h3", { class: "section-h", text: `Sentry — ${s.project || "?"}` }));

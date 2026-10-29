@@ -52,6 +52,8 @@ class Downloads(BaseModel):
     # Window → count, for the UI period selector. Keys: "7d"/"30d"/"90d"/"total".
     # Each registry fills only the windows its API reports (None elsewhere).
     windows: dict = Field(default_factory=dict)
+    observed_at: str | None = None
+    carried_forward: bool = False
 
 
 class Evidence(BaseModel):
@@ -194,6 +196,7 @@ class Totals(BaseModel):
     forks: int = 0
     watchers: int = 0
     open_issues: int = 0
+    open_prs: int = 0
     loc_code: int = 0
     loc_total: int = 0
     tests: int = 0
@@ -207,6 +210,7 @@ class PackageStatus(BaseModel):
 
     id: str
     repo: str
+    owner: str | None = None
     source: PackageSource
     rollup: State
     flags: list[str] = Field(default_factory=list)
@@ -240,6 +244,8 @@ class Visits(BaseModel):
     since: str | None = None
     pages: list[VisitPage] = Field(default_factory=list)
     error: str | None = None
+    observed_at: str | None = None
+    carried_forward: bool = False
 
 
 class SearchConsoleMetric(BaseModel):
@@ -278,6 +284,8 @@ class SearchConsoleStats(BaseModel):
     pages: list[SearchConsolePage] = Field(default_factory=list)
     queries: list[SearchConsoleQuery] = Field(default_factory=list)
     error: str | None = None
+    observed_at: str | None = None
+    carried_forward: bool = False
 
 
 class SentryStatus(BaseModel):
@@ -298,6 +306,8 @@ class SentryStatus(BaseModel):
     issues: list[dict] = Field(default_factory=list)
     resolved_issues: list[dict] = Field(default_factory=list)
     error: str | None = None
+    observed_at: str | None = None
+    carried_forward: bool = False
 
 
 class Snapshot(BaseModel):
@@ -414,6 +424,7 @@ class Package(BaseModel):
 
     id: str
     repo: str
+    owner: str | None = None
     issues_repo: str | None = None
     source_of_truth: SourceOfTruth | None = None
     primary_language: str | None = None

@@ -484,3 +484,20 @@ def test_workflow_last_run_uses_latest_concluded_run_across_refs(monkeypatch) ->
     }
     assert any("actions/workflows/publish.yml/runs?per_page=20" in url for url in seen_urls)
     assert not any("branch=" in url for url in seen_urls)
+
+
+def test_cross_owner_code_coverage_uses_the_declared_repository(monkeypatch, tmp_path):
+    root = tmp_path / "nirs4all-domains"
+    root.mkdir()
+    (root / "lib.rs").write_text("pub fn example() {}\n", encoding="utf-8")
+    monkeypatch.setattr(code_stats, "SIBLINGS_ROOT", tmp_path)
+    seen = []
+
+    def coverage(repo, *, owner):
+        seen.append((owner, repo))
+        return 42.0
+
+    monkeypatch.setattr(code_stats, "_coverage_from_github_artifact", coverage)
+    result = code_stats.scan("nirs4all-domains", owner="dcornet")
+    assert seen == [("dcornet", "nirs4all-domains")]
+    assert result["coverage_pct"] == 42.0
