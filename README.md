@@ -28,6 +28,12 @@ as carried forward. Local collections retain a local generator identity without
 inventing a hosted workflow/run. Publishing the dashboard is checked separately
 from collecting or committing a snapshot.
 
+Registry badges describe observed version availability. The separately dated
+`data/delivery-notices.json` records platform delivery limits and public build
+evidence; a published R source version does not establish successful binary builds
+on every operating system. The dashboard shows these notices before its registry
+matrix and keeps their original observation dates.
+
 Historical public delivery receipt on **8 October 2026** (not a current release inventory):
 
 | Product | Published version and delivery | Release source | Current main source |
