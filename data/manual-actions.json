@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-10-28T00:48:04.842048+00:00",
+  "snapshot_generated_at": "2026-10-29T00:47:59.548447+00:00",
   "counts": {
     "total": 25,
-    "pending": 8,
-    "resolved": 17,
+    "pending": 9,
+    "resolved": 16,
     "blockers": 1,
-    "important": 7,
+    "important": 8,
     "info": 0
   },
   "actions": [
@@ -238,8 +238,8 @@
         "name": "nirs4allformats",
         "expect": "green"
       },
-      "resolved": true,
-      "check_note": "r-universe:nirs4allformats current 0.2.11 (status=green)"
+      "resolved": false,
+      "check_note": "r-universe:nirs4allformats status=stale version=0.2.11"
     },
     {
       "id": "runiverse-io-rebuild",
@@ -301,7 +301,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:nirs4alldatasets current 0.3.11 (status=green)"
+      "check_note": "r-universe:nirs4alldatasets current 0.3.13 (status=green)"
     },
     {
       "id": "pypi-publisher-providers",
@@ -512,7 +512,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "crates:nirs4all-formats published 0.2.11 (status=green)"
+      "check_note": "crates:nirs4all-formats published 0.2.12 (status=green)"
     },
     {
       "id": "cran-resubmit-n4m-pls4all",
