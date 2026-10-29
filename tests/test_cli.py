@@ -103,6 +103,7 @@ def test_collect_carries_forward_token_backed_public_signals() -> None:
         sentry=SentryStatus(error="no SENTRY_AUTH_TOKEN in env"),
     )
     prior = {
+        "generated_at": "2026-06-12T00:00:00Z",
         "visits": {
             "available": True,
             "site": "https://nirs4all.goatcounter.com",
@@ -140,6 +141,9 @@ def test_collect_carries_forward_token_backed_public_signals() -> None:
     assert snap.visits.windows["30d"] == 23
     assert snap.sentry.available is True
     assert snap.sentry.unresolved == 9
+    assert snap.sentry.observed_at == "2026-06-12T00:00:00Z"
+    assert snap.sentry.carried_forward is True
+    assert snap.visits.observed_at == snap.search_console.observed_at == snap.sentry.observed_at
     assert snap.search_console.available is True
     assert snap.search_console.windows["28d"].clicks == 12
 

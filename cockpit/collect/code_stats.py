@@ -86,7 +86,7 @@ def _env_truthy(name: str) -> bool:
     return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
 
 
-def scan(repo: str, *, allow_artifact_coverage: bool = True) -> dict | None:
+def scan(repo: str, *, owner: str = "GBeurier", allow_artifact_coverage: bool = True) -> dict | None:
     """Scan ``SIBLINGS_ROOT/<repo>`` for code stats, or ``None`` if absent."""
     root = SIBLINGS_ROOT / repo
     if not root.is_dir():
@@ -113,7 +113,7 @@ def scan(repo: str, *, allow_artifact_coverage: bool = True) -> dict | None:
 
     coverage = _coverage(root)
     if coverage is None and allow_artifact_coverage and not _env_truthy("COCKPIT_SKIP_COVERAGE_ARTIFACTS"):
-        coverage = _coverage_from_github_artifact(repo)
+        coverage = _coverage_from_github_artifact(repo, owner=owner)
 
     return {
         "loc_code": loc_code,
@@ -240,9 +240,9 @@ def _coverage_from_text(text: str) -> float | None:
     return None
 
 
-def _coverage_from_github_artifact(repo: str) -> float | None:
+def _coverage_from_github_artifact(repo: str, *, owner: str = "GBeurier") -> float | None:
     """Read ``coverage.xml`` from the latest GitHub Actions coverage artifact."""
-    artifact = _latest_coverage_artifact("GBeurier", repo)
+    artifact = _latest_coverage_artifact(owner, repo)
     if artifact is None:
         return None
     return _coverage_from_artifact_zip(artifact)

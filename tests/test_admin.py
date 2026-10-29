@@ -15,7 +15,7 @@ def _patch_seq(monkeypatch, module, replies):
         replies = [replies]
     calls = {"i": 0}
 
-    def _fake(url, headers=None, *, accept="application/json"):  # noqa: ARG001
+    def _fake(url, headers=None, *, accept="application/json", response_headers=None):  # noqa: ARG001
         i = min(calls["i"], len(replies) - 1)
         calls["i"] += 1
         return replies[i]
@@ -34,6 +34,7 @@ def test_sentry_no_token_degrades(monkeypatch) -> None:
 def test_sentry_with_token_shapes_stats_only_by_default(monkeypatch) -> None:
     body = [
         {
+            "id": "1", "project": {"id": "12"},
             "title": "TypeError: x is undefined",
             "level": "error",
             "count": "42",
@@ -41,18 +42,23 @@ def test_sentry_with_token_shapes_stats_only_by_default(monkeypatch) -> None:
             "permalink": "https://de.sentry.io/issues/1/",
             "lastSeen": "2026-06-12T00:00:00Z",
         },
-        {"title": "Timeout", "level": "warning", "count": "3", "userCount": 1},
+        {"id": "2", "project": {"id": "12"},
+         "title": "Timeout", "level": "warning", "count": "3", "userCount": 1},
     ]
-    _patch_seq(monkeypatch, sentry, (200, body, None))
+    _patch_seq(monkeypatch, sentry, [
+        (200, body, None), (200, body, None), (200, {"data": [{"count_unique(user)": 5}]}, None),
+    ])
     out = sentry.collect(token="tok")
     assert out["available"] is True
     assert out["unresolved"] == 2
     assert out["events"] == 45
-    assert out["users_affected"] == 6
+    assert out["users_affected"] == 5
     assert out["issues"] == []
     assert out["resolved_issues"] == []
 
-    _patch_seq(monkeypatch, sentry, (200, body, None))
+    _patch_seq(monkeypatch, sentry, [
+        (200, body, None), (200, body, None), (200, {"data": [{"count_unique(user)": 5}]}, None),
+    ])
     out = sentry.collect(token="tok", include_issues=True)
     assert out["issues"][0]["title"] == "TypeError: x is undefined"
 
