@@ -14,7 +14,21 @@ papers, benchmarks, and release dashboards for near-infrared spectroscopy.
 logic.** Every verdict is derived from public, read-only registry/CI/issue
 signals declared in `ops/targets.yaml`.
 
-Public delivery status on **8 October 2026**:
+For current versions and health, use the dated [live snapshot](https://cockpit.nirs4all.org/data/current.json)
+and [dashboard](https://cockpit.nirs4all.org/). Repository-level counters are
+deduplicated across independently versioned components. Public alpha repositories
+such as Domains are tracked for source, issues and CI without inventing registry
+publication expectations. The verified `dcornet/nirs4all-domains` owner is retained
+independently of the default `GBeurier` inventory owner. Preflight tracks its
+verified npm, crates.io, GitHub Release and Pages publication surfaces.
+
+The snapshot's `generated_at` records its collection time. Token-backed counters
+that were carried forward retain their original observation dates and are labelled
+as carried forward. Local collections retain a local generator identity without
+inventing a hosted workflow/run. Publishing the dashboard is checked separately
+from collecting or committing a snapshot.
+
+Historical public delivery receipt on **8 October 2026** (not a current release inventory):
 
 | Product | Published version and delivery | Release source | Current main source |
 | --- | --- | --- | --- |
@@ -148,6 +162,14 @@ n4a-cockpit admin collect            # traffic + open PRs + security alerts + Se
 
 The dashboard renders these in an **Admin** section *only* when that local file
 is present, so the public site never shows them.
+
+Observation dates are kept separately from snapshot generation when token-backed
+counters or downloads are carried forward. The dashboard labels those values as
+the last successful observation, warns after 48 hours, and dates the independent
+local Admin snapshot. Sentry paginates its entire issue stream; unknown/truncated
+queries never become zero or a complete-looking count. Its distinct-user counter
+is queried across unresolved groups, rather than adding users repeated in several
+groups. Legacy snapshots without an observation date remain explicitly undated.
 
 ---
 

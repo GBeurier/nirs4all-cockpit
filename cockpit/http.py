@@ -87,6 +87,7 @@ def get_json(
     *,
     accept: str = "application/json",
     max_retries: int = MAX_RETRIES,
+    response_headers: dict[str, str] | None = None,
 ) -> tuple[int, Any | None, str | None]:
     """Fetch ``url`` and parse the body as JSON, never raising on network error.
 
@@ -108,7 +109,9 @@ def get_json(
         * On a timeout / transport failure / exhausted retries: ``(0, None,
           "<reason>")`` so the caller can map it to ``unknown``.
     """
-    return _json_request("GET", url, headers=headers, accept=accept, max_retries=max_retries)
+    return _json_request(
+        "GET", url, headers=headers, accept=accept, max_retries=max_retries, response_headers=response_headers,
+    )
 
 
 def get_text(
@@ -173,12 +176,14 @@ def _json_request(
     accept: str,
     max_retries: int,
     payload: dict | None = None,
+    response_headers: dict[str, str] | None = None,
 ) -> tuple[int, Any | None, str | None]:
     merged = {"User-Agent": USER_AGENT, "Accept": accept}
     if headers:
         merged.update(headers)
 
-    cache_file = _cache_path(url, merged) if method == "GET" else None
+    # Pagination needs live Link headers, which legacy cache entries do not carry.
+    cache_file = _cache_path(url, merged) if method == "GET" and response_headers is None else None
     if cache_file is not None:
         cached = _cache_read(cache_file)
         if cached is not None:
@@ -198,6 +203,9 @@ def _json_request(
             last_status = 0
         else:
             last_status = resp.status_code
+            if response_headers is not None:
+                response_headers.clear()
+                response_headers.update(resp.headers)
             if resp.status_code in RETRY_STATUSES and attempt < max_retries:
                 time.sleep(_retry_delay(resp, attempt))
                 continue

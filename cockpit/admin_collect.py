@@ -43,16 +43,16 @@ def build_admin_snapshot(
         A populated :class:`~cockpit.model.AdminSnapshot`.
     """
     only_set = set(only) if only is not None else None
-    owner = targets.owner
 
     repos: list[RepoAdmin] = []
-    seen: set[str] = set()
+    seen: set[tuple[str, str]] = set()
     for pkg in targets.packages:
         if only_set is not None and pkg.id not in only_set:
             continue
-        if pkg.repo in seen:
+        owner = pkg.owner or targets.owner
+        if (owner, pkg.repo) in seen:
             continue
-        seen.add(pkg.repo)
+        seen.add((owner, pkg.repo))
 
         stats = github.repo_stats(owner, pkg.repo, with_traffic=True)
         traffic = Traffic(

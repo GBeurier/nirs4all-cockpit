@@ -202,10 +202,12 @@ def _carry_forward_public_signals(snap: Snapshot, prior_snapshot: dict | None) -
     prior_visits = prior_snapshot.get("visits") or {}
     if not snap.visits.available and prior_visits.get("available") and _missing_public_signal_token(snap.visits.error):
         snap.visits = Visits.model_validate(prior_visits)
+        _mark_carried_forward(snap.visits, prior_snapshot)
 
     prior_sentry = prior_snapshot.get("sentry") or {}
     if not snap.sentry.available and prior_sentry.get("available") and _missing_public_signal_token(snap.sentry.error):
         snap.sentry = SentryStatus.model_validate(prior_sentry)
+        _mark_carried_forward(snap.sentry, prior_snapshot)
 
     prior_search_console = prior_snapshot.get("search_console") or {}
     if (
@@ -214,10 +216,17 @@ def _carry_forward_public_signals(snap: Snapshot, prior_snapshot: dict | None) -
         and _missing_public_signal_token(snap.search_console.error)
     ):
         snap.search_console = SearchConsoleStats.model_validate(prior_search_console)
+        _mark_carried_forward(snap.search_console, prior_snapshot)
 
     _carry_forward_github_public_signals(snap, prior_snapshot)
     _carry_forward_target_downloads(snap, prior_snapshot)
     snap.totals = _compute_totals(snap)
+
+
+def _mark_carried_forward(signal, prior_snapshot: dict) -> None:
+    """Retain the observation date instead of relabelling old counters as fresh."""
+    signal.observed_at = signal.observed_at or prior_snapshot.get("generated_at")
+    signal.carried_forward = True
 
 
 def _carry_forward_github_public_signals(snap: Snapshot, prior_snapshot: dict) -> None:
@@ -377,23 +386,8 @@ def _git(repo_path: Path, *args: str) -> str | None:
 
 
 def _compute_totals(snap: Snapshot) -> Totals:
-    totals = Totals(packages=len(snap.packages), repos=len({p.repo for p in snap.packages}))
-    for package in snap.packages:
-        totals.open_issues += package.issues.open
-        if package.repo_stats:
-            totals.stars += package.repo_stats.stars or 0
-            totals.forks += package.repo_stats.forks or 0
-            totals.watchers += package.repo_stats.watchers or 0
-        if package.code_stats:
-            totals.loc_code += package.code_stats.loc_code
-            totals.loc_total += package.code_stats.loc_total
-            totals.tests += package.code_stats.tests
-            totals.files += package.code_stats.files
-        if package.actions_stats and package.actions_stats.total_runs:
-            totals.workflow_runs += package.actions_stats.total_runs
-        for target in package.targets:
-            totals.downloads_last_month += target.downloads.last_month or 0
-    return totals
+    """Use the same repository deduplication before and after carry-forward."""
+    return reconcile._compute_totals(snap.packages)
 
 
 def _carry_forward_target_downloads(snap: Snapshot, prior_snapshot: dict) -> None:
@@ -414,6 +408,7 @@ def _carry_forward_target_downloads(snap: Snapshot, prior_snapshot: dict) -> Non
             prior_downloads = prior_target.get("downloads") or {}
             if _has_download_counts(prior_downloads):
                 target.downloads = type(target.downloads).model_validate(prior_downloads)
+                _mark_carried_forward(target.downloads, prior_snapshot)
 
 
 def _has_download_counts(downloads: dict) -> bool:
