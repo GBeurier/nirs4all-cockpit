@@ -1,22 +1,270 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-29T20:28:57.665165+00:00",
+  "updated_at": "2026-10-29T21:54:50.612220+00:00",
   "notices": [
     {
-      "id": "r-platform-build-followup-20261029",
-      "observed_at": "2026-10-29T20:28:57.665165+00:00",
-      "title": "R platform builds require follow-up",
-      "message": "Some R binary builds remain failed or under validation on macOS runner preparation and ARM64/WebR packaging. The expected source versions are available from R-universe, as the registry matrix records. These version badges do not establish that all R platform matrices passed. The macOS DAG retry failed before package download because rustup-init was absent; packaging fixes and platform checks remain in progress.",
+      "id": "r-final-delivery-20261029",
+      "observed_at": "2026-10-29T21:51:32.823755+00:00",
+      "title": "Final R sources and ARM64/WebR artifacts verified",
+      "message": "Dated checks between 20:56 and 21:51 UTC verified four R source archives, eight Windows ARM64 release/devel binaries and four WebR artifacts: Formats 0.2.13, DMD 0.2.14, IO 0.2.11 and Datasets 0.3.15. Version, R source revision and SHA-256 matched every real download. The complete DMD, IO and Datasets build runs succeeded. Existing runtime tags and registry artifacts remain unchanged; the R packaging corrections have separate source revisions. IO retains a documented R metadata NOTE about inst/LICENSE, with no ERROR or WARNING. No CRAN submission is claimed.",
       "links": [
         {
-          "label": "DAG macOS retry failure (attempt2)",
-          "url": "https://github.com/r-universe/gbeurier/actions/runs/40943003815/attempts/2"
+          "label": "Dated source revisions and downloaded artifact hashes",
+          "url": "https://cockpit.nirs4all.org/data/delivery-notices.json"
         },
         {
-          "label": "Official macOS preparation action used by the failed jobs",
-          "url": "https://github.com/r-universe-org/actions/tree/3e91537eee0982b42c076604e6e7add18857cd31/macos-prep"
+          "label": "nirs4allformats final build matrix (failure)",
+          "url": "https://github.com/r-universe/gbeurier/actions/runs/40951104469"
+        },
+        {
+          "label": "dagmldata final build matrix (success)",
+          "url": "https://github.com/r-universe/gbeurier/actions/runs/40951125912"
+        },
+        {
+          "label": "nirs4allio final build matrix (success)",
+          "url": "https://github.com/r-universe/gbeurier/actions/runs/40955833379"
+        },
+        {
+          "label": "nirs4alldatasets final build matrix (success)",
+          "url": "https://github.com/r-universe/gbeurier/actions/runs/40957359473"
+        }
+      ],
+      "source_revisions": [
+        {
+          "package": "nirs4allformats",
+          "version": "0.2.13",
+          "R_source_revision": "46eb653c6463c3515b26ee6691579e27a2301b63",
+          "immutable_runtime_tag_source": "7333f35c79364cecd95d94cd18678c53286a78b0",
+          "observed_at": "2026-10-29T21:03:55.725523+00:00",
+          "workflow_url": "https://github.com/r-universe/gbeurier/actions/runs/40951104469",
+          "workflow_conclusion": "failure"
+        },
+        {
+          "package": "dagmldata",
+          "version": "0.2.14",
+          "R_source_revision": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+          "immutable_runtime_tag_source": "fd600760f403a4e980465bd06b815d17677d9300",
+          "observed_at": "2026-10-29T20:56:14.316456+00:00",
+          "workflow_url": "https://github.com/r-universe/gbeurier/actions/runs/40951125912",
+          "workflow_conclusion": "success"
+        },
+        {
+          "package": "nirs4allio",
+          "version": "0.2.11",
+          "R_source_revision": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+          "immutable_runtime_tag_source": "6fd4ed8140fd3a105c8ba506e36151937a46848b",
+          "observed_at": "2026-10-29T21:51:32.823755+00:00",
+          "workflow_url": "https://github.com/r-universe/gbeurier/actions/runs/40955833379",
+          "workflow_conclusion": "success"
+        },
+        {
+          "package": "nirs4alldatasets",
+          "version": "0.3.15",
+          "R_source_revision": "cb6b373218977c8e100a49f722e99d5b9052d125",
+          "immutable_runtime_tag_source": "11020576217a22628c97062788a2d3fea01c9c83",
+          "observed_at": "2026-10-29T21:51:32.791924+00:00",
+          "workflow_url": "https://github.com/r-universe/gbeurier/actions/runs/40957359473",
+          "workflow_conclusion": "success"
+        }
+      ],
+      "artifact_evidence": [
+        {
+          "package": "nirs4allformats",
+          "kind": "source",
+          "observed_at": "2026-10-29T21:03:55.725523+00:00",
+          "url": "https://gbeurier.r-universe.dev/src/contrib/nirs4allformats_0.2.13.tar.gz",
+          "filename": "nirs4allformats_0.2.13.tar.gz",
+          "bytes": 15903281,
+          "sha256": "17af69b6adcc94e3a712f1d20f99fa7aa5fe016a26cb32abda421729173de72c",
+          "Version": "0.2.13",
+          "RemoteSha": "46eb653c6463c3515b26ee6691579e27a2301b63"
+        },
+        {
+          "package": "nirs4allformats",
+          "kind": "windows-arm64",
+          "observed_at": "2026-10-29T21:03:55.725523+00:00",
+          "url": "https://r2.ropensci.org/60b7a20eceb09cc6fed861e5026bd1240be83843f6ba24e472d4ae1fcd5b762c",
+          "filename": "nirs4allformats_0.2.13_win_aarch64_R4.7.0.zip",
+          "bytes": 4113846,
+          "sha256": "60b7a20eceb09cc6fed861e5026bd1240be83843f6ba24e472d4ae1fcd5b762c",
+          "Version": "0.2.13",
+          "RemoteSha": "46eb653c6463c3515b26ee6691579e27a2301b63"
+        },
+        {
+          "package": "nirs4allformats",
+          "kind": "windows-arm64",
+          "observed_at": "2026-10-29T21:03:55.725523+00:00",
+          "url": "https://r2.ropensci.org/07dc4e493ddb1b26bc28504fe8c6686d982e914360cef202f3c8bf36b545eee8",
+          "filename": "nirs4allformats_0.2.13_win_aarch64_R4.6.1.zip",
+          "bytes": 4113201,
+          "sha256": "07dc4e493ddb1b26bc28504fe8c6686d982e914360cef202f3c8bf36b545eee8",
+          "Version": "0.2.13",
+          "RemoteSha": "46eb653c6463c3515b26ee6691579e27a2301b63"
+        },
+        {
+          "package": "nirs4allformats",
+          "kind": "webr",
+          "observed_at": "2026-10-29T21:03:55.725523+00:00",
+          "url": "https://r2.ropensci.org/0517a8dcbdf9c2d1810f1df63ef34ab062d6aad6e0fdc12ef5fd5b57b7a8fabb",
+          "filename": "nirs4allformats_0.2.13_wasm_emscripten_R4.6.0.tgz",
+          "bytes": 2847219,
+          "sha256": "0517a8dcbdf9c2d1810f1df63ef34ab062d6aad6e0fdc12ef5fd5b57b7a8fabb",
+          "Version": "0.2.13",
+          "RemoteSha": "46eb653c6463c3515b26ee6691579e27a2301b63"
+        },
+        {
+          "package": "dagmldata",
+          "kind": "source",
+          "observed_at": "2026-10-29T20:56:14.316456+00:00",
+          "url": "https://gbeurier.r-universe.dev/src/contrib/dagmldata_0.2.14.tar.gz",
+          "filename": "dagmldata_0.2.14.tar.gz",
+          "bytes": 105994,
+          "sha256": "32423be920f18c6c3163efb7099ac94639c30ac01a31b1b1fa21c81743f5837f",
+          "Version": "0.2.14",
+          "RemoteSha": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9"
+        },
+        {
+          "package": "dagmldata",
+          "kind": "windows-arm64",
+          "observed_at": "2026-10-29T20:56:14.316456+00:00",
+          "url": "https://r2.ropensci.org/db9ef64bec6bb245b7505b58c69dc2c5779d5560948c9aaec9ff62580ac4f444",
+          "filename": "dagmldata_0.2.14_win_aarch64_R4.7.0.zip",
+          "bytes": 1335701,
+          "sha256": "db9ef64bec6bb245b7505b58c69dc2c5779d5560948c9aaec9ff62580ac4f444",
+          "Version": "0.2.14",
+          "RemoteSha": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9"
+        },
+        {
+          "package": "dagmldata",
+          "kind": "windows-arm64",
+          "observed_at": "2026-10-29T20:56:14.316456+00:00",
+          "url": "https://r2.ropensci.org/d5e87ebb4558b64f75841bff347f46f0f91e44828acc9da58f36b84c8869b2db",
+          "filename": "dagmldata_0.2.14_win_aarch64_R4.6.1.zip",
+          "bytes": 1335670,
+          "sha256": "d5e87ebb4558b64f75841bff347f46f0f91e44828acc9da58f36b84c8869b2db",
+          "Version": "0.2.14",
+          "RemoteSha": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9"
+        },
+        {
+          "package": "dagmldata",
+          "kind": "webr",
+          "observed_at": "2026-10-29T20:56:14.316456+00:00",
+          "url": "https://r2.ropensci.org/adb215eaa8ebb906168e57ca9a38e0018c343b8dd0ba91aa5b75748b23ea0d8e",
+          "filename": "dagmldata_0.2.14_wasm_emscripten_R4.6.0.tgz",
+          "bytes": 806464,
+          "sha256": "adb215eaa8ebb906168e57ca9a38e0018c343b8dd0ba91aa5b75748b23ea0d8e",
+          "Version": "0.2.14",
+          "RemoteSha": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9"
+        },
+        {
+          "package": "nirs4allio",
+          "kind": "source",
+          "observed_at": "2026-10-29T21:51:32.823755+00:00",
+          "url": "https://gbeurier.r-universe.dev/src/contrib/nirs4allio_0.2.11.tar.gz",
+          "filename": "nirs4allio_0.2.11.tar.gz",
+          "bytes": 18174660,
+          "sha256": "2314223379b8ffec69a82c0609c84bca17fcc0058f4a67a7a239a252097c394f",
+          "Version": "0.2.11",
+          "RemoteSha": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8"
+        },
+        {
+          "package": "nirs4allio",
+          "kind": "windows-arm64",
+          "observed_at": "2026-10-29T21:51:32.823755+00:00",
+          "url": "https://r2.ropensci.org/ce3ad94b0e78bf46ae71dcd38434a35341df54470949795837349cb7755bbdf7",
+          "filename": "nirs4allio_0.2.11_win_aarch64_R4.7.0.zip",
+          "bytes": 5578188,
+          "sha256": "ce3ad94b0e78bf46ae71dcd38434a35341df54470949795837349cb7755bbdf7",
+          "Version": "0.2.11",
+          "RemoteSha": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8"
+        },
+        {
+          "package": "nirs4allio",
+          "kind": "windows-arm64",
+          "observed_at": "2026-10-29T21:51:32.823755+00:00",
+          "url": "https://r2.ropensci.org/3ef749d124a18614bbb53cb9bb02b65d30e0272d84640650381041d34a44fa9e",
+          "filename": "nirs4allio_0.2.11_win_aarch64_R4.6.1.zip",
+          "bytes": 5577693,
+          "sha256": "3ef749d124a18614bbb53cb9bb02b65d30e0272d84640650381041d34a44fa9e",
+          "Version": "0.2.11",
+          "RemoteSha": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8"
+        },
+        {
+          "package": "nirs4allio",
+          "kind": "webr",
+          "observed_at": "2026-10-29T21:51:32.823755+00:00",
+          "url": "https://r2.ropensci.org/ecae8788b4a4d480d37e6ec25a6829a48055c37c88e7af4a0fc9c2443ac576ef",
+          "filename": "nirs4allio_0.2.11_wasm_emscripten_R4.6.0.tgz",
+          "bytes": 3779235,
+          "sha256": "ecae8788b4a4d480d37e6ec25a6829a48055c37c88e7af4a0fc9c2443ac576ef",
+          "Version": "0.2.11",
+          "RemoteSha": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8"
+        },
+        {
+          "package": "nirs4alldatasets",
+          "kind": "source",
+          "observed_at": "2026-10-29T21:51:32.791924+00:00",
+          "url": "https://gbeurier.r-universe.dev/src/contrib/nirs4alldatasets_0.3.15.tar.gz",
+          "filename": "nirs4alldatasets_0.3.15.tar.gz",
+          "bytes": 28133760,
+          "sha256": "9077a7d55b32fbec6bb5830372753ea2fabcb6677435efb818f47eacb7e02d9f",
+          "Version": "0.3.15",
+          "RemoteSha": "cb6b373218977c8e100a49f722e99d5b9052d125"
+        },
+        {
+          "package": "nirs4alldatasets",
+          "kind": "windows-arm64",
+          "observed_at": "2026-10-29T21:51:32.791924+00:00",
+          "url": "https://r2.ropensci.org/b4ae40ba21ed2326b8726189d34cfc314bc9ec8ba5b33b0cb437f2084b9609ce",
+          "filename": "nirs4alldatasets_0.3.15_win_aarch64_R4.7.0.zip",
+          "bytes": 9534087,
+          "sha256": "b4ae40ba21ed2326b8726189d34cfc314bc9ec8ba5b33b0cb437f2084b9609ce",
+          "Version": "0.3.15",
+          "RemoteSha": "cb6b373218977c8e100a49f722e99d5b9052d125"
+        },
+        {
+          "package": "nirs4alldatasets",
+          "kind": "windows-arm64",
+          "observed_at": "2026-10-29T21:51:32.791924+00:00",
+          "url": "https://r2.ropensci.org/4854c6539b90f7621a9a36429cd2978adb5c916943afc19f3a6e37b14285f400",
+          "filename": "nirs4alldatasets_0.3.15_win_aarch64_R4.6.1.zip",
+          "bytes": 9534148,
+          "sha256": "4854c6539b90f7621a9a36429cd2978adb5c916943afc19f3a6e37b14285f400",
+          "Version": "0.3.15",
+          "RemoteSha": "cb6b373218977c8e100a49f722e99d5b9052d125"
+        },
+        {
+          "package": "nirs4alldatasets",
+          "kind": "webr",
+          "observed_at": "2026-10-29T21:51:32.791924+00:00",
+          "url": "https://r2.ropensci.org/5f5aee561f15b1a1aa982a5d1ec27533adbd4047ae0b6d437629fa02dda56ac8",
+          "filename": "nirs4alldatasets_0.3.15_wasm_emscripten_R4.6.0.tgz",
+          "bytes": 5923619,
+          "sha256": "5f5aee561f15b1a1aa982a5d1ec27533adbd4047ae0b6d437629fa02dda56ac8",
+          "Version": "0.3.15",
+          "RemoteSha": "cb6b373218977c8e100a49f722e99d5b9052d125"
         }
       ]
+    },
+    {
+      "id": "external-macos-preparation-failures-20261029",
+      "observed_at": "2026-10-29T20:47:01.9937770Z",
+      "title": "External macOS preparation failures remain visible",
+      "message": "The Formats R-oldrel macOS ARM64 job failed at 20:47 UTC during upstream runner preparation, before downloading the package source: rustup-init was absent. The earlier DAG 0.3.43 retry failed for the same external reason at 20:07 UTC. These failures are retained with their original dates; successful source and ARM64/WebR delivery does not establish universal success on every R platform.",
+      "links": [
+        {
+          "label": "Formats macOS oldrel ARM64 preparation failure",
+          "url": "https://github.com/r-universe/gbeurier/actions/runs/40951104469/job/123722064787"
+        },
+        {
+          "label": "DAG macOS retry failure (attempt 2)",
+          "url": "https://github.com/r-universe/gbeurier/actions/runs/40943003815/attempts/2"
+        }
+      ],
+      "evidence_observation_dates": {
+        "formats_failure": "2026-10-29T20:47:01.9937770Z",
+        "dag_retry_failure": "2026-10-29T20:07:58.7108470Z"
+      }
     }
   ]
 }
