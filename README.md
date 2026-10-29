@@ -23,7 +23,7 @@ independently of the default `GBeurier` inventory owner. Preflight tracks its
 verified npm, crates.io, GitHub Release and Pages publication surfaces.
 
 The tracked `data/current.json` in this local remediation candidate was collected
-read-only on **29 October 2026 at 13:22 UTC**. Its generator metadata records a
+read-only on **29 October 2026 at 13:59 UTC**. Its generator metadata records a
 local invocation with no hosted workflow/run identity. Committing this review
 snapshot does not deploy it or update the public dashboard.
 
