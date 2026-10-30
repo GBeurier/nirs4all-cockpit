@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # fetch-cran-tarballs.sh — download every CRAN-submission R source tarball from
-# the nirs4all ecosystem GitHub Releases and drop a ready-to-paste "optional
+# the nirs4all ecosystem GitHub Releases and drop a maintainer-review "optional
 # comments" Markdown next to them.
 #
 # The cockpit is read-only over public release state; this is a convenience
@@ -22,7 +22,7 @@ OUTDIR="${1:-${N4A_CRAN_OUT:-dist/cran}}"
 # The repos whose Releases carry a CRAN-submission R source tarball. Formats is
 # intentionally absent: current release policy keeps nirs4allformats on
 # R-universe only.
-REPOS=(nirs4all-methods nirs4all-io nirs4all-datasets nirs4all-core)
+REPOS=(nirs4all-methods nirs4all-io nirs4all-datasets nirs4all-r)
 
 # A CRAN R source tarball is `<Rpkg>_<version>.tar.gz` for these exact package
 # names. The anchored `_[0-9]` after the name (and "no hyphen before the version")
@@ -98,129 +98,59 @@ MD_PATH="$OUTDIR/CRAN-optional-comments.md"
 {
   echo "<!-- generated $(date -u +%FT%TZ) by scripts/fetch-cran-tarballs.sh — do not edit by hand -->"
   cat <<'MD'
-# CRAN submission — optional comments (nirs4all ecosystem)
+# CRAN submission — maintainer review notes (nirs4all ecosystem)
 
-Submit each tarball in this folder at <https://cran.r-project.org/submit.html>
-and paste the matching block below into the form's *Optional comments* box.
+These downloads are not a CRAN-ready verdict and this script submits nothing.
+Before using the manual form at <https://cran.r-project.org/submit.html>, review
+and complete the matching notes from the selected release's DESCRIPTION,
+LICENSE/COPYRIGHTS, package-owned cran-comments.md and actual current check logs.
+Do not carry forward an older version's size, license, system requirements or
+check results. R-universe build/check success is separate from CRAN acceptance;
+WebR build-only jobs do not establish R CMD check or runtime qualification.
+
 `SHA256SUMS` records the downloaded source-tarball hashes; when GitHub exposes a
-Release asset digest, this script verifies the local file against it before the
-bundle is considered ready.
-Each package also keeps a longer repo-side `cran-comments.md` next to its R
-package root; those files are intentionally excluded from the R source tarball
-and are meant for maintainer/submission notes, not package payload.
+Release asset digest, this script verifies the local file against it.
+The selected version is in each filename; the terminal output reports its actual
+local archive size. Assess any archive size-exception requirements from that file.
 
-**Submit-now vs R-universe-first**
-
-* CRAN-ready now (≤10 MB, clean): `n4m`, `pls4all`, `nirs4allio`.
-* Size exception needed: `nirs4alldatasets` (~24 MB) exceeds CRAN's 10 MB soft
-  cap. The matching comments flag the reason.
 * R-universe-only: `nirs4allformats`; do not submit it to CRAN in the current
-  release train.
-* R-universe-first: `nirs4all` (R binding of `nirs4all-core`) — its Suggests (the ecosystem R packages)
-  are not yet on CRAN, so R-universe is the natural channel until they land.
-
----
+  release policy. It is intentionally absent from this fetcher's repository list.
+* `nirs4all` is the separate R SDK owned by `nirs4all-r`; do not substitute the
+  retired aggregate archive from `nirs4all-core`.
+* Submission remains a maintainer action for every other downloaded package.
 
 ## n4m_<ver>.tar.gz
-```
-New submission. n4m is a portable Partial Least Squares (PLS) / NIRS engine: a
-C++17/C numerical core (222 translation units) vendored under src/vendor/ and
-compiled from source at install. Pure C/C++ — no Fortran, no external system
-library, no non-default compilation flags (the spline smoother is a from-scratch
-C Reinsch implementation). GNU make is declared in SystemRequirements (Makevars
-enumerate the 222 sources via $(shell find ...)). License: CeCILL-2.1. Imports
-only stats. R CMD check --as-cran: 0 ERROR, 0 WARNING, 2 NOTES — (1) New
-submission; (2) a -march=nocona flag injected by conda-forge R's own Makeconf on
-our local check host, not by the package (absent on CRAN's vanilla R). Submission-
-grade checks also run on the GitHub Actions matrix (Ubuntu R release+devel, macOS
-arm64, Windows). Maintainer: Grégory Beurier (CIRAD), gregory.beurier@cirad.fr.
-```
+
+Record the actual version, license, compilation/system requirements, check-log
+URLs, complete ERROR/WARNING/NOTE results and maintainer response to each NOTE
+from the selected Methods R source release. Do not reuse an older compiler or
+translation-unit inventory as a current claim.
 
 ## pls4all_<ver>.tar.gz
-```
-New submission. pls4all is the slim, PLS-focused distribution carved from the
-nirs4all-methods library — the same C++17/C numerical core (222 translation
-units) vendored under src/vendor/ and compiled at install. Pure C/C++ — no
-Fortran, no external system library, no non-default compilation flags. GNU make in
-SystemRequirements. License: CeCILL-2.1. Imports only stats. R CMD check --as-cran:
-0 ERROR, 0 WARNING, 2 NOTES — New submission, and a -march=nocona flag from
-conda-forge R's own Makeconf on our local host (not from the package; absent on
-CRAN). Maintainer: Grégory Beurier (CIRAD), gregory.beurier@cirad.fr.
-```
+
+Record the corresponding PLS source-release evidence independently of n4m,
+including the exact license and all check notes.
 
 ## nirs4allio_<ver>.tar.gz
-```
-This is a new submission.
 
-nirs4allio is a thin R binding for the Rust-first nirs4all-io dataset-assembly
-bridge for the nirs4all NIRS / spectroscopy ecosystem. It exposes the stable
-n4io_* C ABI to R: normalize arbitrary inputs into a canonical DatasetSpec, infer
-a DatasetPlan, and validate a DatasetSpec. The low-level surface is JSON in / JSON
-out; an idiomatic nio_* layer accepts native R inputs and returns typed S3 objects.
-License: CeCILL-2.1 | AGPL-3.
-
-Self-contained source tarball: the package vendors the nirs4all-io Rust core and
-its crates.io transitive dependencies (shipped compressed as vendor.tar.xz) and
-compiles them OFFLINE into a static library at install time via src/Makevars(.win)
-(no network, no external repository crates/). The install never writes to ~/.cargo
-or ~/.rustup (build-local CARGO_HOME + CARGO_TARGET_DIR, pruned after linking);
-cargo runs with -j 2. The C ABI header is committed (src/nirs4all_io.h). The
-Cargo / rustc toolchain is declared in SystemRequirements.
-
-R CMD check --as-cran: 0 ERRORs, 0 WARNINGs. The NOTEs are the first-submission
-note (with a title-case sub-note on the product name "nirs4all", intentionally
-lower-case) and local conda-toolchain artefacts (-march=nocona from conda's
-Makeconf; an nm symbol-table parser quirk on the static Rust archive) that do not
-occur on CRAN's toolchain. No network access during install/examples/tests;
-imports only jsonlite. Maintainer: Grégory Beurier (CIRAD), gregory.beurier@cirad.fr.
-```
+Review the current offline Rust vendor bundle, system requirements, archive size
+and all actual check notes, including any inst/LICENSE metadata NOTE. Copy the
+license declaration from the selected archive, not from an earlier template.
 
 ## nirs4alldatasets_<ver>.tar.gz
-```
-Update of the existing CRAN package nirs4alldatasets (0.2.0 -> 0.3.6).
-nirs4alldatasets is a thin R binding (a small C shim over the stable n4ds_* C
-ABI) for the Rust-first nirs4all-datasets acquisition core: resolve a dataset id
-from the catalog into a version-pinned download contract, fetch the canonical
-Parquet (Dataverse/Zenodo/figshare) with SHA-256 verification into a local cache,
-and re-verify a cached directory offline. It compiles the vendored Rust core into
-a static library OFFLINE at install. License: MIT.
 
-CRAN Policy compliance: the install never writes to ~/.cargo or ~/.rustup —
-CARGO_HOME and CARGO_TARGET_DIR are build-local and wiped after linking; cargo runs
-with -j 2; rustc/cargo versions are echoed before compiling; vendored crates ship
-compressed (vendor.tar.xz) with dev/build (cbindgen) deps stripped and ~76 MB of
-unused Windows import-library blobs pruned. Toolchain in SystemRequirements.
+Review the current catalog/source provenance, redistribution notices, offline
+vendor bundle, exact archive size and any size-exception requirements. Preserve
+explicit source-alignment assumptions; do not turn an accepted export into an
+independent certification of unavailable originals.
 
-R CMD check --as-cran: 0 ERRORs, 0 WARNINGs; NOTES are the expected CRAN incoming
-title-case/package-size notes plus local conda-toolchain artefacts
-(-march=nocona, an nm parser quirk) absent on CRAN. Source tarball:
-24,664,283 bytes. It needs a size exception: the package ships no dataset
-payloads, but it must vendor the Rust acquisition core and its crates.io
-dependencies plus embedded catalog metadata so CRAN installation/checks are fully
-offline and reproducible. Imports only jsonlite. Maintainer: Grégory Beurier
-(CIRAD), gregory.beurier@cirad.fr.
-```
+## nirs4all_<ver>.tar.gz  (separate R SDK)
 
-## nirs4all_<ver>.tar.gz  (core aggregate)
-```
-New submission. nirs4all (the R binding of nirs4all-core) is a PURE-R aggregate
-(NeedsCompilation: no): no compiled code, nothing to build beyond byte-compiling
-the R sources, so none of the Rust / ~.cargo / Makevars considerations of the
-compiled siblings apply. It is an umbrella that exposes the ecosystem (NIRS file
-readers, dataset assembly, datasets catalog, PLS engine, dag-ml coordinators)
-behind one R surface and delegates all parsing/numerical/pipeline work upstream.
-Imports: jsonlite, yaml only. License: CeCILL-2.1 | AGPL (>= 3).
+Use the selected nirs4all-r release's DESCRIPTION and package-owned checks.
+Document the supported upstream packages, optional controller requirements and
+any packages outside CRAN. Record compatibility minimums for trained-envelope
+exchange separately from native Methods payload decoding.
 
-The aggregated upstream R packages (nirs4allformats, nirs4allio, nirs4alldatasets,
-n4m, dagmldata) are in Suggests, used conditionally behind requireNamespace(), and
-served from R-universe via Additional_repositories — they are not yet on mainstream
-CRAN. R CMD check --as-cran: 0 ERROR, 0 WARNING. Expected NOTES: New submission;
-"Suggests or Enhances not in mainstream repositories" for the R-universe packages;
-and title-case on the lower-case product name "nirs4all". Because the Suggests
-are not yet on CRAN, R-universe is the natural channel for this package until the
-upstreams land on CRAN. Maintainer: Grégory Beurier (CIRAD),
-gregory.beurier@cirad.fr.
-```
 MD
 } > "$MD_PATH"
 
@@ -230,4 +160,4 @@ echo "Downloaded ${found} tarball(s):"
 echo
 echo "Checksums → $OUTDIR/SHA256SUMS"
 echo "Optional comments → $MD_PATH"
-echo "Submit each tarball at https://cran.r-project.org/submit.html"
+echo "Review the selected source releases and current check logs before any manual CRAN submission."

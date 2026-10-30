@@ -34,6 +34,12 @@ evidence; a published R source version does not establish successful binary buil
 on every operating system. The dashboard shows these notices before its registry
 matrix and keeps their original observation dates.
 
+The dated [platform evidence](https://cockpit.nirs4all.org/data/platform-evidence.json)
+also separates actual artifact downloads from platform metadata, native R checks,
+WebR build-only results and known notes. Superseded or resolved observations remain
+under the dashboard's history disclosure. A completed historical Studio smoke does
+not complete the maintainer's current manual tests or missing-value review.
+
 Historical public delivery receipt on **8 October 2026** (not a current release inventory):
 
 | Product | Published version and delivery | Release source | Current main source |

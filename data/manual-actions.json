@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-10-29T20:12:57.471853+00:00",
+  "snapshot_generated_at": "2026-10-29T21:45:48.812289+00:00",
   "counts": {
-    "total": 25,
+    "total": 26,
     "pending": 7,
-    "resolved": 18,
+    "resolved": 19,
     "blockers": 1,
     "important": 6,
     "info": 0
@@ -15,10 +15,25 @@
       "status": "done",
       "declared_status": "done",
       "severity": "blocker",
-      "title": "Studio — Windows 0.15.2 actual NSIS payload integrity and local UI startup passed",
+      "title": "Historical Studio — Windows 0.15.2 actual NSIS payload integrity and local UI startup passed",
       "manual_url": "https://github.com/GBeurier/nirs4all-studio/releases/tag/0.15.2",
       "affects": [
         "nirs4all-studio:release-unified.yml",
+        "nirs4all-studio:github-release"
+      ],
+      "after_done": [],
+      "auto_check": null,
+      "resolved": null,
+      "check_note": null
+    },
+    {
+      "id": "studio-final-manual-na-review",
+      "status": "blocked",
+      "declared_status": "blocked",
+      "severity": "blocker",
+      "title": "Studio — current local candidate requires maintainer manual tests and missing-value review before publication",
+      "manual_url": "https://github.com/GBeurier/nirs4all-studio/releases",
+      "affects": [
         "nirs4all-studio:github-release"
       ],
       "after_done": [],
@@ -31,7 +46,7 @@
       "status": "blocked",
       "declared_status": "blocked",
       "severity": "important",
-      "title": "Read the Docs — common/Legacy guide is public; native builds require RTD to clear the administrative block (project 1171458, build 34971690) and the owner to uncheck Disable builds",
+      "title": "Read the Docs — historical administrative block (project 1171458, build 34971690), not recently re-verified; the current SDK guide is published on GitHub Pages",
       "manual_url": "https://app.readthedocs.org/dashboard/nirs4all/edit/",
       "affects": [
         "nirs4all:readthedocs-native-build"
@@ -519,7 +534,7 @@
       "status": "todo",
       "declared_status": "todo",
       "severity": "important",
-      "title": "CRAN — submit n4m only at 1.0.9 from the current release tarball; do NOT submit nirs4allformats",
+      "title": "CRAN — maintainer review and submission of n4m only from its current source release; do NOT submit nirs4allformats",
       "manual_url": "https://cran.r-project.org/submit.html",
       "affects": [],
       "after_done": [],
@@ -536,7 +551,7 @@
       "status": "todo",
       "declared_status": "todo",
       "severity": "important",
-      "title": "CRAN — submit pls4all only at 1.0.9 from the current release tarball; do NOT submit nirs4allformats",
+      "title": "CRAN — maintainer review and submission of pls4all only from its current source release; do NOT submit nirs4allformats",
       "manual_url": "https://cran.r-project.org/submit.html",
       "affects": [],
       "after_done": [],
@@ -570,7 +585,7 @@
       "status": "todo",
       "declared_status": "todo",
       "severity": "important",
-      "title": "CRAN — validate Cargo discovery on a CRAN macOS builder, then resubmit nirs4alldatasets 0.3.8 with the 24 MB size-exception comment",
+      "title": "CRAN — maintainer review of current nirs4alldatasets source, licensing and archive size-exception requirements before submission",
       "manual_url": "https://cran.r-project.org/submit.html",
       "affects": [],
       "after_done": [],

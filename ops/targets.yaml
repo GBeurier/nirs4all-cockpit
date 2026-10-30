@@ -493,7 +493,7 @@ packages:
       - registry: cran
         name: nirs4alldatasets
         state: manual
-        reason: "manual web submission; CRAN lifecycle is collected separately; 24 MB source tarball needs a size-exception comment"
+        reason: "manual web submission; CRAN lifecycle is collected separately; current source archive needs maintainer size-exception review"
       - registry: github-release
         name: nirs4all-datasets
         state: tracked

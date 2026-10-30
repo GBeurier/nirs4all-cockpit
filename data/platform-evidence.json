@@ -1,0 +1,1960 @@
+{
+  "schema_version": 1,
+  "scope": "Public delivery checks and R platform metadata; registry availability remains a separate snapshot.",
+  "sdk": {
+    "version": "1.4.13",
+    "observed_at": "2026-10-29T23:41:06.508428+00:00",
+    "release_url": "https://github.com/GBeurier/nirs4all/releases/tag/1.4.13",
+    "release_source": "38c9c0edc17321b43779b6d8622d980aae7807cd",
+    "runtime_guard_source": "2a4704302690df00337b2a96e144d5b1e2d65a27",
+    "artifact_evidence": [
+      {
+        "filename": "nirs4all-1.4.13-py3-none-any.whl",
+        "sha256": "93eb4b43686e182001e4408faf0abd60e968eb660de8507348698fec728b95e3",
+        "bytes": 3255565,
+        "url": "https://files.pythonhosted.org/packages/f6/e3/ea825bbf2ed4fc426048b06e4a39058904af03f1909477ecb712724cba35/nirs4all-1.4.13-py3-none-any.whl"
+      },
+      {
+        "filename": "nirs4all-1.4.13.tar.gz",
+        "sha256": "37c632d7d8534068b3bafb385701f7261533801aae5d9fa84db133b30f01ac10",
+        "bytes": 2856453,
+        "url": "https://files.pythonhosted.org/packages/a4/af/1195deafbf0878782c42fa922ebae0004e6cacf599bb881de0108fc9f8e3/nirs4all-1.4.13.tar.gz"
+      }
+    ],
+    "installed_qualification": {
+      "gates": 12,
+      "skipped": 0,
+      "runtime_inputs": 2016
+    },
+    "public_native_wire_tests": {
+      "passed": 12,
+      "skipped": 0
+    },
+    "ghcr": {
+      "image": "ghcr.io/gbeurier/nirs4all:1.4.13",
+      "index_digest": "sha256:d58ab50b5d258a64de37335e2b65ef51849959f88538ca6d1d2234897ee49e9c",
+      "linux_amd64_digest": "sha256:120fc417b9e9a5cd29bc30da44be892ac3ba8f26660b400c08fdb66047e20e84",
+      "config_digest": "sha256:f5b17866da84160589eae688474c9318404e77277737c515300896f9043f42e7"
+    },
+    "container_probe": {
+      "location": "GitHub runner, published image by digest",
+      "actual_distributions": {
+        "dag-ml": "0.3.43",
+        "dag-ml-data": "0.2.13",
+        "nirs4all": "1.4.13",
+        "nirs4all-core": "0.4.6",
+        "nirs4all-formats": "0.2.13",
+        "nirs4all-io": "0.2.11",
+        "nirs4all-methods": "1.3.9",
+        "pls4all": "1.3.9"
+      },
+      "methods_abi": [
+        2,
+        20,
+        0
+      ],
+      "native_context_opened": true,
+      "pip_check": "passed"
+    },
+    "workflow_url": "https://github.com/GBeurier/nirs4all/actions/runs/40973405658"
+  },
+  "datasets": {
+    "version": "0.3.16",
+    "observed_at": "2026-10-29T23:32:50.351901+00:00",
+    "release_url": "https://github.com/GBeurier/nirs4all-datasets/releases/tag/v0.3.16",
+    "source_revision": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+    "public_python_files": [
+      {
+        "filename": "nirs4all_datasets-0.3.16-cp311-abi3-macosx_11_0_arm64.whl",
+        "url": "https://files.pythonhosted.org/packages/9f/30/551cfe1f2e171a26ea5c6718d0c17e64c9c947c3190c40f1553ef4824200/nirs4all_datasets-0.3.16-cp311-abi3-macosx_11_0_arm64.whl",
+        "sha256": "1c9d33a7a8430f8860b08ad474dc566f23777ffecd482886096b37a8023eb9fa",
+        "size": 6774822
+      },
+      {
+        "filename": "nirs4all_datasets-0.3.16-cp311-abi3-manylinux_2_34_x86_64.whl",
+        "url": "https://files.pythonhosted.org/packages/94/b9/4e936546f8299d0039981a9ec5ad7d5b431a922af7270dc4256061790563/nirs4all_datasets-0.3.16-cp311-abi3-manylinux_2_34_x86_64.whl",
+        "sha256": "d8a8d9fb32102c9ea02f9e3b078c07d472ed0df34ce4615773a700fc85575726",
+        "size": 7961632
+      },
+      {
+        "filename": "nirs4all_datasets-0.3.16-cp311-abi3-win_amd64.whl",
+        "url": "https://files.pythonhosted.org/packages/77/57/91fa3a0fd67aa8094547237713e899b4bb28555b87a41cd1286bc8c78a6c/nirs4all_datasets-0.3.16-cp311-abi3-win_amd64.whl",
+        "sha256": "62b68f329cc8d20da4c749ef8ebe7877585f484a7177b34e9fc41394be574dae",
+        "size": 6851365
+      },
+      {
+        "filename": "nirs4all_datasets-0.3.16.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/07/ae/05314e805d8e745db7f972f5eac5c144d25d059af671b3a930562506fb9c/nirs4all_datasets-0.3.16.tar.gz",
+        "sha256": "1682840a27fc86541bb3dd8e60adac9e9f19b08169b4a46cf6c0c86c276c4240",
+        "size": 2363258
+      }
+    ],
+    "npm": {
+      "url": "https://registry.npmjs.org/@nirs4all/datasets-wasm/-/datasets-wasm-0.3.16.tgz",
+      "sha256": "f97320282801666d9c39bef53f22cbad26fb2db2aa0b8550b708ffb2a00b864b",
+      "version": "0.3.16"
+    },
+    "rust_crates": [
+      {
+        "name": "nirs4all-datasets-capi",
+        "version": "0.3.16",
+        "checksum": "e295ee072b86e6ed4d3cd0179324010b45c7d018315b13a687cf0fbadf8c004c",
+        "url": "https://crates.io/crates/nirs4all-datasets-capi/0.3.16"
+      },
+      {
+        "name": "nirs4all-datasets-cli",
+        "version": "0.3.16",
+        "checksum": "1d4932fdf23e69e10118d5b18124601a1cdd5d2d2f8da104b7f40d8bcd805c4d",
+        "url": "https://crates.io/crates/nirs4all-datasets-cli/0.3.16"
+      },
+      {
+        "name": "nirs4all-datasets-core",
+        "version": "0.3.16",
+        "checksum": "f9a9dc2804c74bb9495522f7fb9e948a2e691273dcf2ff960cdbd93a4526c3db",
+        "url": "https://crates.io/crates/nirs4all-datasets-core/0.3.16"
+      }
+    ],
+    "R_artifact_evidence": [
+      {
+        "url": "https://gbeurier.r-universe.dev/src/contrib/nirs4alldatasets_0.3.16.tar.gz",
+        "filename": "nirs4alldatasets_0.3.16.tar.gz",
+        "bytes": 28132893,
+        "sha256": "a3ba0f4efd40073b1a4594e8c0c69e4c3088884b0936789e116a2aab744b32b6",
+        "Version": "0.3.16",
+        "RemoteSha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "package": "nirs4alldatasets",
+        "kind": "R-universe",
+        "download_verified_by": "2026-10-29T23:32:50.351901+00:00"
+      },
+      {
+        "url": "https://r2.ropensci.org/d0c30969529fadd46cbf792969c61122d7945b90ba146b2198fbaba6ae9dd6a7",
+        "filename": "nirs4alldatasets_0.3.16_linux_aarch64_R4.7.0.tgz",
+        "bytes": 10448434,
+        "sha256": "d0c30969529fadd46cbf792969c61122d7945b90ba146b2198fbaba6ae9dd6a7",
+        "Version": "0.3.16",
+        "RemoteSha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "package": "nirs4alldatasets",
+        "kind": "R-universe",
+        "download_verified_by": "2026-10-29T23:32:50.351901+00:00"
+      },
+      {
+        "url": "https://r2.ropensci.org/9bd5c982fa39bb658f96244d16806ce50d8a9fe4b3acadbde8eb3f0db422808d",
+        "filename": "nirs4alldatasets_0.3.16_linux_x86_64_R4.7.0.tgz",
+        "bytes": 11397668,
+        "sha256": "9bd5c982fa39bb658f96244d16806ce50d8a9fe4b3acadbde8eb3f0db422808d",
+        "Version": "0.3.16",
+        "RemoteSha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "package": "nirs4alldatasets",
+        "kind": "R-universe",
+        "download_verified_by": "2026-10-29T23:32:50.351901+00:00"
+      },
+      {
+        "url": "https://r2.ropensci.org/8d9bcd8570d256f0b594a18fe5b3154047e97758f23cfeb90b41acbd3d3bd15a",
+        "filename": "nirs4alldatasets_0.3.16_linux_aarch64_R4.6.1.tgz",
+        "bytes": 10423409,
+        "sha256": "8d9bcd8570d256f0b594a18fe5b3154047e97758f23cfeb90b41acbd3d3bd15a",
+        "Version": "0.3.16",
+        "RemoteSha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "package": "nirs4alldatasets",
+        "kind": "R-universe",
+        "download_verified_by": "2026-10-29T23:32:50.351901+00:00"
+      },
+      {
+        "url": "https://r2.ropensci.org/6a05bb14d46861555e025403c6e14330893360203c9b37f9dbcfedcebadcbdbb",
+        "filename": "nirs4alldatasets_0.3.16_linux_x86_64_R4.6.1.tgz",
+        "bytes": 11418403,
+        "sha256": "6a05bb14d46861555e025403c6e14330893360203c9b37f9dbcfedcebadcbdbb",
+        "Version": "0.3.16",
+        "RemoteSha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "package": "nirs4alldatasets",
+        "kind": "R-universe",
+        "download_verified_by": "2026-10-29T23:32:50.351901+00:00"
+      },
+      {
+        "url": "https://r2.ropensci.org/c377fa5040e20827f864d03cef9740a7874a24ba57f0c42b74efbb26b38a2dbd",
+        "filename": "nirs4alldatasets_0.3.16_mac_aarch64_R4.5.3.tgz",
+        "bytes": 10138453,
+        "sha256": "c377fa5040e20827f864d03cef9740a7874a24ba57f0c42b74efbb26b38a2dbd",
+        "Version": "0.3.16",
+        "RemoteSha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "package": "nirs4alldatasets",
+        "kind": "R-universe",
+        "download_verified_by": "2026-10-29T23:32:50.351901+00:00"
+      },
+      {
+        "url": "https://r2.ropensci.org/4d5081a7a155d8a62e1554128d5f001b6ac26667c88275bbe20ee09e1d853d85",
+        "filename": "nirs4alldatasets_0.3.16_mac_x86_64_R4.5.3.tgz",
+        "bytes": 10842403,
+        "sha256": "4d5081a7a155d8a62e1554128d5f001b6ac26667c88275bbe20ee09e1d853d85",
+        "Version": "0.3.16",
+        "RemoteSha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "package": "nirs4alldatasets",
+        "kind": "R-universe",
+        "download_verified_by": "2026-10-29T23:32:50.351901+00:00"
+      },
+      {
+        "url": "https://r2.ropensci.org/6631d0ac44a8502f6b873c1017ceea8556f072db2f09d34b6a4ca48a49baa7df",
+        "filename": "nirs4alldatasets_0.3.16_mac_aarch64_R4.6.1.tgz",
+        "bytes": 10096155,
+        "sha256": "6631d0ac44a8502f6b873c1017ceea8556f072db2f09d34b6a4ca48a49baa7df",
+        "Version": "0.3.16",
+        "RemoteSha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "package": "nirs4alldatasets",
+        "kind": "R-universe",
+        "download_verified_by": "2026-10-29T23:32:50.351901+00:00"
+      },
+      {
+        "url": "https://r2.ropensci.org/6d24ee4273b83303587cf587f4c26da195fd9f1c3ec518e67a24ac8cc805532c",
+        "filename": "nirs4alldatasets_0.3.16_mac_x86_64_R4.6.1.tgz",
+        "bytes": 10799176,
+        "sha256": "6d24ee4273b83303587cf587f4c26da195fd9f1c3ec518e67a24ac8cc805532c",
+        "Version": "0.3.16",
+        "RemoteSha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "package": "nirs4alldatasets",
+        "kind": "R-universe",
+        "download_verified_by": "2026-10-29T23:32:50.351901+00:00"
+      },
+      {
+        "url": "https://r2.ropensci.org/cdcb285e1ccb3df073266b2bddbe7b0bfe2c74dc1378abf27d5b90083bd79fea",
+        "filename": "nirs4alldatasets_0.3.16_wasm_emscripten_R4.6.0.tgz",
+        "bytes": 5923578,
+        "sha256": "cdcb285e1ccb3df073266b2bddbe7b0bfe2c74dc1378abf27d5b90083bd79fea",
+        "Version": "0.3.16",
+        "RemoteSha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "package": "nirs4alldatasets",
+        "kind": "R-universe",
+        "download_verified_by": "2026-10-29T23:32:50.351901+00:00"
+      },
+      {
+        "url": "https://r2.ropensci.org/5a7460c5a8cf797a2a96d3475f26c9cfcce69b5732ba544f4da2b571744da9a8",
+        "filename": "nirs4alldatasets_0.3.16_win_aarch64_R4.7.0.zip",
+        "bytes": 9532337,
+        "sha256": "5a7460c5a8cf797a2a96d3475f26c9cfcce69b5732ba544f4da2b571744da9a8",
+        "Version": "0.3.16",
+        "RemoteSha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "package": "nirs4alldatasets",
+        "kind": "R-universe",
+        "download_verified_by": "2026-10-29T23:32:50.351901+00:00"
+      },
+      {
+        "url": "https://r2.ropensci.org/ecfb828b964112e55d00d6bef43f8353402f69792e8ca71680278b86bd57fbc4",
+        "filename": "nirs4alldatasets_0.3.16_win_x86_64_R4.7.0.zip",
+        "bytes": 10398677,
+        "sha256": "ecfb828b964112e55d00d6bef43f8353402f69792e8ca71680278b86bd57fbc4",
+        "Version": "0.3.16",
+        "RemoteSha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "package": "nirs4alldatasets",
+        "kind": "R-universe",
+        "download_verified_by": "2026-10-29T23:32:50.351901+00:00"
+      },
+      {
+        "url": "https://r2.ropensci.org/5399510660a9a7ae1ff34a1c67df734f52c1829d82caa2fd1b9500141087bebd",
+        "filename": "nirs4alldatasets_0.3.16_win_x86_64_R4.5.3.zip",
+        "bytes": 10398678,
+        "sha256": "5399510660a9a7ae1ff34a1c67df734f52c1829d82caa2fd1b9500141087bebd",
+        "Version": "0.3.16",
+        "RemoteSha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "package": "nirs4alldatasets",
+        "kind": "R-universe",
+        "download_verified_by": "2026-10-29T23:32:50.351901+00:00"
+      },
+      {
+        "url": "https://r2.ropensci.org/53e6aceeebd12241c1a5f7efaf58d34d6fac36b0fb52e3e8d993ef3a2474a5e6",
+        "filename": "nirs4alldatasets_0.3.16_win_aarch64_R4.6.1.zip",
+        "bytes": 9532479,
+        "sha256": "53e6aceeebd12241c1a5f7efaf58d34d6fac36b0fb52e3e8d993ef3a2474a5e6",
+        "Version": "0.3.16",
+        "RemoteSha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "package": "nirs4alldatasets",
+        "kind": "R-universe",
+        "download_verified_by": "2026-10-29T23:32:50.351901+00:00"
+      },
+      {
+        "url": "https://r2.ropensci.org/3d91a7e9ad4376b78ec75410574076d2268d95dcb6ed3b521e99f0b519562352",
+        "filename": "nirs4alldatasets_0.3.16_win_x86_64_R4.6.1.zip",
+        "bytes": 10398769,
+        "sha256": "3d91a7e9ad4376b78ec75410574076d2268d95dcb6ed3b521e99f0b519562352",
+        "Version": "0.3.16",
+        "RemoteSha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "package": "nirs4alldatasets",
+        "kind": "R-universe",
+        "download_verified_by": "2026-10-29T23:32:50.351901+00:00"
+      }
+    ]
+  },
+  "r_sdk": {
+    "version": "0.7.3",
+    "observed_at": "2026-10-29T23:28:35.411541+00:00",
+    "release_url": "https://github.com/GBeurier/nirs4all-r/releases/tag/v0.7.3",
+    "source_revision": "97296eff387b3b3be638c17bc7cf3db87730f986",
+    "github_source": {
+      "url": "https://github.com/GBeurier/nirs4all-r/releases/download/v0.7.3/nirs4all_0.7.3.tar.gz",
+      "filename": "nirs4all_0.7.3.tar.gz",
+      "bytes": 283784,
+      "sha256": "ecfbb585f434b8bc1e544eea020d90298d47ba0be60f0f5a705884b45723fa98",
+      "package": "nirs4all",
+      "kind": "GitHub R source",
+      "download_verified_by": "2026-10-29T23:13:42.495560+00:00"
+    },
+    "R_artifact_evidence": [
+      {
+        "url": "https://r2.ropensci.org/ec695dc869499d0e160df2dbc3caa06bbb48b37d8e69657ba8af587682c364be",
+        "filename": "nirs4all_0.7.3.tar.gz",
+        "bytes": 517487,
+        "sha256": "ec695dc869499d0e160df2dbc3caa06bbb48b37d8e69657ba8af587682c364be",
+        "package": "nirs4all",
+        "kind": "source",
+        "download_verified_by": "2026-10-29T23:28:35.411541+00:00",
+        "Version": "0.7.3",
+        "RemoteSha": "97296eff387b3b3be638c17bc7cf3db87730f986",
+        "RemoteRef": "v0.7.3"
+      },
+      {
+        "url": "https://r2.ropensci.org/7959d82c58c040fcc38ff5eeefed0790fc2b0f50fed405ab146cd10beb524e59",
+        "filename": "nirs4all_0.7.3_linux_portable_R4.7.0_00_7959d82c.archive",
+        "bytes": 727604,
+        "sha256": "7959d82c58c040fcc38ff5eeefed0790fc2b0f50fed405ab146cd10beb524e59",
+        "package": "nirs4all",
+        "kind": "binary",
+        "download_verified_by": "2026-10-29T23:28:35.411541+00:00",
+        "Version": "0.7.3",
+        "RemoteSha": "97296eff387b3b3be638c17bc7cf3db87730f986",
+        "RemoteRef": "v0.7.3"
+      },
+      {
+        "url": "https://r2.ropensci.org/2ca9c3416007fbeb8933af12618849e707ef0c6c2b018d5ca88f16ed773c533d",
+        "filename": "nirs4all_0.7.3_linux_portable_R4.6.1_01_2ca9c341.archive",
+        "bytes": 729062,
+        "sha256": "2ca9c3416007fbeb8933af12618849e707ef0c6c2b018d5ca88f16ed773c533d",
+        "package": "nirs4all",
+        "kind": "binary",
+        "download_verified_by": "2026-10-29T23:28:35.411541+00:00",
+        "Version": "0.7.3",
+        "RemoteSha": "97296eff387b3b3be638c17bc7cf3db87730f986",
+        "RemoteRef": "v0.7.3"
+      },
+      {
+        "url": "https://r2.ropensci.org/d728730e0c26a739619d70ca2eba0a6a1f264eabcb8a3e8b1c9850e1273428d5",
+        "filename": "nirs4all_0.7.3_mac_portable_R4.5.3_02_d728730e.archive",
+        "bytes": 715660,
+        "sha256": "d728730e0c26a739619d70ca2eba0a6a1f264eabcb8a3e8b1c9850e1273428d5",
+        "package": "nirs4all",
+        "kind": "binary",
+        "download_verified_by": "2026-10-29T23:28:35.411541+00:00",
+        "Version": "0.7.3",
+        "RemoteSha": "97296eff387b3b3be638c17bc7cf3db87730f986",
+        "RemoteRef": "v0.7.3"
+      },
+      {
+        "url": "https://r2.ropensci.org/56d234476060591c34d38624133f2908e54db4497001cd66fe0721fcbe0e4f73",
+        "filename": "nirs4all_0.7.3_mac_portable_R4.6.1_03_56d23447.archive",
+        "bytes": 730543,
+        "sha256": "56d234476060591c34d38624133f2908e54db4497001cd66fe0721fcbe0e4f73",
+        "package": "nirs4all",
+        "kind": "binary",
+        "download_verified_by": "2026-10-29T23:28:35.411541+00:00",
+        "Version": "0.7.3",
+        "RemoteSha": "97296eff387b3b3be638c17bc7cf3db87730f986",
+        "RemoteRef": "v0.7.3"
+      },
+      {
+        "url": "https://r2.ropensci.org/e5bef8b4a035cc8d9e8d3cdec944c561591071e63e9d2c59283f5b8adf7bdee8",
+        "filename": "nirs4all_0.7.3_wasm_portable_R4.6.0_04_e5bef8b4.archive",
+        "bytes": 374400,
+        "sha256": "e5bef8b4a035cc8d9e8d3cdec944c561591071e63e9d2c59283f5b8adf7bdee8",
+        "package": "nirs4all",
+        "kind": "binary",
+        "download_verified_by": "2026-10-29T23:28:35.411541+00:00",
+        "Version": "0.7.3",
+        "RemoteSha": "97296eff387b3b3be638c17bc7cf3db87730f986",
+        "RemoteRef": "v0.7.3"
+      },
+      {
+        "url": "https://r2.ropensci.org/a4f9820b62ab4c57bf9356a48ec6a2241de95156b81f831709344809eecddceb",
+        "filename": "nirs4all_0.7.3_win_portable_R4.7.0_05_a4f9820b.archive",
+        "bytes": 729904,
+        "sha256": "a4f9820b62ab4c57bf9356a48ec6a2241de95156b81f831709344809eecddceb",
+        "package": "nirs4all",
+        "kind": "binary",
+        "download_verified_by": "2026-10-29T23:28:35.411541+00:00",
+        "Version": "0.7.3",
+        "RemoteSha": "97296eff387b3b3be638c17bc7cf3db87730f986",
+        "RemoteRef": "v0.7.3"
+      },
+      {
+        "url": "https://r2.ropensci.org/f5550a65962682760417056d7856a4558ac0d378f8d57b88920fce73e869ddaa",
+        "filename": "nirs4all_0.7.3_win_portable_R4.5.3_06_f5550a65.archive",
+        "bytes": 719085,
+        "sha256": "f5550a65962682760417056d7856a4558ac0d378f8d57b88920fce73e869ddaa",
+        "package": "nirs4all",
+        "kind": "binary",
+        "download_verified_by": "2026-10-29T23:28:35.411541+00:00",
+        "Version": "0.7.3",
+        "RemoteSha": "97296eff387b3b3be638c17bc7cf3db87730f986",
+        "RemoteRef": "v0.7.3"
+      },
+      {
+        "url": "https://r2.ropensci.org/2ff9db508c81a0644222eb973410a60293a6e6ff620ce17a3c45433189d0bb2e",
+        "filename": "nirs4all_0.7.3_win_portable_R4.6.1_07_2ff9db50.archive",
+        "bytes": 730649,
+        "sha256": "2ff9db508c81a0644222eb973410a60293a6e6ff620ce17a3c45433189d0bb2e",
+        "package": "nirs4all",
+        "kind": "binary",
+        "download_verified_by": "2026-10-29T23:28:35.411541+00:00",
+        "Version": "0.7.3",
+        "RemoteSha": "97296eff387b3b3be638c17bc7cf3db87730f986",
+        "RemoteRef": "v0.7.3"
+      }
+    ],
+    "trained_N4MM_v3_exchange_minimum": {
+      "R_SDK": "0.7.3",
+      "Python_SDK": "1.4.13"
+    }
+  },
+  "R_platform_audit": {
+    "started_at": "2026-10-29T23:32:33.986530+00:00",
+    "finished_at": "2026-10-29T23:33:04.335309+00:00",
+    "configuration": {
+      "url": "https://github.com/GBeurier/GBeurier.r-universe.dev/blob/main/packages.json",
+      "blob_sha": "865d7dcf49d466d3231257176ec6ec4d877158e7",
+      "sha256": "88d904d8689103cbfde59d7b034173bb1b083ee8c68375e2fca01e99c3e6a15b",
+      "observed_at_utc": "2026-10-29T23:32:36.211271+00:00"
+    },
+    "packages": [
+      {
+        "package": "n4m",
+        "version": "1.3.10",
+        "R_source_sha": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+        "observed_at_utc": "2026-10-29T23:32:48.139422+00:00",
+        "binary_count": 14,
+        "binary_classifications": {
+          "current_ok": 13,
+          "current_build_only": 1
+        },
+        "published_buildurl": "https://github.com/r-universe/gbeurier/actions/runs/40942896651",
+        "run": {
+          "id": 40942896651,
+          "html_url": "https://github.com/r-universe/gbeurier/actions/runs/40942896651",
+          "conclusion": "success",
+          "run_attempt": 2,
+          "created_at": "2026-10-29T19:45:12Z",
+          "updated_at": "2026-10-29T21:14:50Z"
+        },
+        "platforms": [
+          {
+            "r": "4.7.0",
+            "os": "linux",
+            "arch": "aarch64",
+            "distro": "resolute",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:55:52.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/31a839dcb905ed4ee05288c65da0d4c2cb57ff952d1af56475d35703f8e00e1e",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.7.0",
+            "os": "linux",
+            "arch": "x86_64",
+            "distro": "resolute",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:56:24.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/fe21c8bc60012e5f2521e3d56753a01ba8670bf37fecb113bc500d7ba2606d9a",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "linux",
+            "arch": "aarch64",
+            "distro": "resolute",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:55:53.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/ab1460c7fc74da405dd0c9e065c759ec9bb7c383c8455f1371f5ab423a1e9230",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "linux",
+            "arch": "x86_64",
+            "distro": "resolute",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:56:10.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/bd8855409dff1e866455e6339742d1beb749b1bb14c885d5d61c4cb67f6de2af",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "mac",
+            "arch": "aarch64",
+            "version": "1.3.10",
+            "date": "2026-10-29T21:10:42.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/ab88fa5d5a69430f64937bb5df88065f1ff297921ae40715a1c180436262063b",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "mac",
+            "arch": "x86_64",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:57:49.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/1f309eadd683ae949079e2d0ab9879ef2bfeea0184282be91150c1fdb770de29",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "mac",
+            "arch": "aarch64",
+            "version": "1.3.10",
+            "date": "2026-10-29T21:11:03.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/484299309ea203601b68a986fdc36d87662c8fff3435f187609e0938d82bf83d",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "mac",
+            "arch": "x86_64",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:57:45.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/273f3a99b80480a3ba22c43ac9c5e7576113cff7cd7ea99546433f7961a30cce",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.0",
+            "os": "wasm",
+            "arch": "emscripten",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:55:59.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/d65f19dfd3da763613bcdb563d6d60aa6ca9618d49762834e4d6565d5f4d8f0e",
+            "status": "success",
+            "classification": "current_build_only"
+          },
+          {
+            "r": "4.7.0",
+            "os": "win",
+            "arch": "aarch64",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:57:11.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/a8688af50fb3eb3b465e4ba499c3f88a61e124e5f34e0639a2020f93c9a654c5",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.7.0",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:55:41.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/47c0e5dcecde635e46ff902f831193ea15f9e46340f168fc2f18cbcdbc93ad8b",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:55:23.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/ca04d57313cb204e23cae1a27495eb78537b8289a999e4671012a9e7b440b4c3",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "win",
+            "arch": "aarch64",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:58:00.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/e4f0a12312a2e12b3f28cb4fa211a3839e561eab3298e9eb775e95060f779c50",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:55:29.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/382f3a2c9a67413a78c0009da7cbcbd2b7d3cd6182c420933b035ea554f2767f",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          }
+        ]
+      },
+      {
+        "package": "pls4all",
+        "version": "1.3.10",
+        "R_source_sha": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+        "observed_at_utc": "2026-10-29T23:32:48.140162+00:00",
+        "binary_count": 14,
+        "binary_classifications": {
+          "current_ok": 13,
+          "current_build_only": 1
+        },
+        "published_buildurl": "https://github.com/r-universe/gbeurier/actions/runs/40942948136",
+        "run": {
+          "id": 40942948136,
+          "html_url": "https://github.com/r-universe/gbeurier/actions/runs/40942948136",
+          "conclusion": "success",
+          "run_attempt": 3,
+          "created_at": "2026-10-29T19:45:32Z",
+          "updated_at": "2026-10-29T21:14:07Z"
+        },
+        "platforms": [
+          {
+            "r": "4.7.0",
+            "os": "linux",
+            "arch": "aarch64",
+            "distro": "resolute",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:56:04.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/d118bb02a922a387b383cd7347dd3f2125051690f7e65340c8478bd6ab164a67",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.7.0",
+            "os": "linux",
+            "arch": "x86_64",
+            "distro": "resolute",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:56:20.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/76e8687123db1e464acc47fc4d1277054f97e9ab55eada0533ba347826634b43",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "linux",
+            "arch": "aarch64",
+            "distro": "resolute",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:55:59.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/91f550080cf1855abee4a4b6237c5edb66c70521770021179b06778cf86bb385",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "linux",
+            "arch": "x86_64",
+            "distro": "resolute",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:56:52.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/a746c0977990b40c6abf0f74f21ae2c684ec8ba042d124b4e4c97871faebed2e",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "mac",
+            "arch": "aarch64",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:56:03.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/68521ab44addb509981bb766119b1f844584ff2f3f9ddec3819f36f684cab46a",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "mac",
+            "arch": "x86_64",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:57:21.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/5a8556dd20e77a3c48fccca76f3098babadd789276e2f1cd964193945adb65e7",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "mac",
+            "arch": "aarch64",
+            "version": "1.3.10",
+            "date": "2026-10-29T21:10:58.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/357d0dffa8f61642e324cd2d716420c45ad760d11501598e1b05098a88c7cf8e",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "mac",
+            "arch": "x86_64",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:58:01.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/335395967c9f076d5f7e676caed120f817010dea19244fa275916b4aed06112b",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.0",
+            "os": "wasm",
+            "arch": "emscripten",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:56:03.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/0b1e247130593f98ae947b879bacf693592f6e1505518b96a1834a7d0f831770",
+            "status": "success",
+            "classification": "current_build_only"
+          },
+          {
+            "r": "4.7.0",
+            "os": "win",
+            "arch": "aarch64",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:57:43.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/5d375eb30a57e6a1212a45dc81eae678576265159a870965d3ad38fdd8a2052b",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.7.0",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:55:30.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/53cbbce4ce8113cf98caa60bf9e7e58d595d0aa1f1bddf0d3ea6a0a502cfd1ef",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:55:41.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/23529579e98657f251fae15e31cf943964e363fd66fb062bba1566fc079aed06",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "win",
+            "arch": "aarch64",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:57:45.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/bf4599dd8fed71d379b799179e6dfb4d0b8ef1376eb5ade69d8313d75f5d34e7",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "1.3.10",
+            "date": "2026-10-29T19:55:45.000Z",
+            "commit": "850d0bd465357ac7fa817ea77747da78ed5d0bba",
+            "fileid": "https://r2.ropensci.org/833d4d9907bc1588ef50723fc75de0adbf467f60dcb61d2b2e17032a1cf7b915",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          }
+        ]
+      },
+      {
+        "package": "nirs4allformats",
+        "version": "0.2.13",
+        "R_source_sha": "46eb653c6463c3515b26ee6691579e27a2301b63",
+        "observed_at_utc": "2026-10-29T23:32:48.140435+00:00",
+        "binary_count": 14,
+        "binary_classifications": {
+          "current_ok": 13,
+          "current_build_only": 1
+        },
+        "published_buildurl": "https://github.com/r-universe/gbeurier/actions/runs/40951104469",
+        "run": {
+          "id": 40951104469,
+          "html_url": "https://github.com/r-universe/gbeurier/actions/runs/40951104469",
+          "conclusion": "success",
+          "run_attempt": 2,
+          "created_at": "2026-10-29T20:40:18Z",
+          "updated_at": "2026-10-29T22:37:28Z"
+        },
+        "platforms": [
+          {
+            "r": "4.7.0",
+            "os": "linux",
+            "arch": "aarch64",
+            "distro": "resolute",
+            "version": "0.2.13",
+            "date": "2026-10-29T20:47:29.000Z",
+            "commit": "46eb653c6463c3515b26ee6691579e27a2301b63",
+            "fileid": "https://r2.ropensci.org/b3516b6b408ec7c530e467852f08b79f4a9a0f7efbe0c195a77687db00d18b7b",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.7.0",
+            "os": "linux",
+            "arch": "x86_64",
+            "distro": "resolute",
+            "version": "0.2.13",
+            "date": "2026-10-29T20:48:02.000Z",
+            "commit": "46eb653c6463c3515b26ee6691579e27a2301b63",
+            "fileid": "https://r2.ropensci.org/4d57dc4f6bd096c82e7aa587159b391fbe9af128d8db25efaed5c0656dd1346d",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "linux",
+            "arch": "aarch64",
+            "distro": "resolute",
+            "version": "0.2.13",
+            "date": "2026-10-29T20:47:31.000Z",
+            "commit": "46eb653c6463c3515b26ee6691579e27a2301b63",
+            "fileid": "https://r2.ropensci.org/301482150597d94bc2a44482bc0fa801cd0212572c51b25acb9229cf4cd101eb",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "linux",
+            "arch": "x86_64",
+            "distro": "resolute",
+            "version": "0.2.13",
+            "date": "2026-10-29T20:48:21.000Z",
+            "commit": "46eb653c6463c3515b26ee6691579e27a2301b63",
+            "fileid": "https://r2.ropensci.org/538ce061d267022de441811ee96fcc234730caf4a5ccf452a79eea8a1460d69b",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "mac",
+            "arch": "aarch64",
+            "version": "0.2.13",
+            "date": "2026-10-29T22:32:36.000Z",
+            "commit": "46eb653c6463c3515b26ee6691579e27a2301b63",
+            "fileid": "https://r2.ropensci.org/45ecc6ddcb9a9d0bf44897b2af2a49c41097c971e7ddec67812423188139735f",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "mac",
+            "arch": "x86_64",
+            "version": "0.2.13",
+            "date": "2026-10-29T20:49:44.000Z",
+            "commit": "46eb653c6463c3515b26ee6691579e27a2301b63",
+            "fileid": "https://r2.ropensci.org/202ebd89ee53f5339707c6a15d4bb2875e97b1c4277e0799845521294e826dc4",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "mac",
+            "arch": "aarch64",
+            "version": "0.2.13",
+            "date": "2026-10-29T20:47:22.000Z",
+            "commit": "46eb653c6463c3515b26ee6691579e27a2301b63",
+            "fileid": "https://r2.ropensci.org/ed0d898a1eaf3b50fd0b2276083ace4a475fc07e78cac626eb16922cddfc474d",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "mac",
+            "arch": "x86_64",
+            "version": "0.2.13",
+            "date": "2026-10-29T20:49:28.000Z",
+            "commit": "46eb653c6463c3515b26ee6691579e27a2301b63",
+            "fileid": "https://r2.ropensci.org/e5fb0e66fe80acbca6b818c54b2c53c4b14cf4f8f8a418ce39d53a2d602f9c21",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.0",
+            "os": "wasm",
+            "arch": "emscripten",
+            "version": "0.2.13",
+            "date": "2026-10-29T20:47:42.000Z",
+            "commit": "46eb653c6463c3515b26ee6691579e27a2301b63",
+            "fileid": "https://r2.ropensci.org/0517a8dcbdf9c2d1810f1df63ef34ab062d6aad6e0fdc12ef5fd5b57b7a8fabb",
+            "status": "success",
+            "classification": "current_build_only"
+          },
+          {
+            "r": "4.7.0",
+            "os": "win",
+            "arch": "aarch64",
+            "version": "0.2.13",
+            "date": "2026-10-29T20:50:11.000Z",
+            "commit": "46eb653c6463c3515b26ee6691579e27a2301b63",
+            "fileid": "https://r2.ropensci.org/60b7a20eceb09cc6fed861e5026bd1240be83843f6ba24e472d4ae1fcd5b762c",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.7.0",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "0.2.13",
+            "date": "2026-10-29T20:46:52.000Z",
+            "commit": "46eb653c6463c3515b26ee6691579e27a2301b63",
+            "fileid": "https://r2.ropensci.org/bad7c377bb72e3a9abfeafbd435134858ddf20e55220467251f97720fd3c60b4",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "0.2.13",
+            "date": "2026-10-29T20:46:52.000Z",
+            "commit": "46eb653c6463c3515b26ee6691579e27a2301b63",
+            "fileid": "https://r2.ropensci.org/ab097eb87dd27cb874a89da102ae48cc74fb03754ec30ad4b03b33289d58a90d",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "win",
+            "arch": "aarch64",
+            "version": "0.2.13",
+            "date": "2026-10-29T20:48:26.000Z",
+            "commit": "46eb653c6463c3515b26ee6691579e27a2301b63",
+            "fileid": "https://r2.ropensci.org/07dc4e493ddb1b26bc28504fe8c6686d982e914360cef202f3c8bf36b545eee8",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "0.2.13",
+            "date": "2026-10-29T20:46:55.000Z",
+            "commit": "46eb653c6463c3515b26ee6691579e27a2301b63",
+            "fileid": "https://r2.ropensci.org/4dec573932923409533e20174a24767cf8bba0b1700aa5a3daa952887d826cea",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          }
+        ]
+      },
+      {
+        "package": "nirs4allio",
+        "version": "0.2.11",
+        "R_source_sha": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+        "observed_at_utc": "2026-10-29T23:32:48.140681+00:00",
+        "binary_count": 14,
+        "binary_classifications": {
+          "current_note": 13,
+          "current_build_only": 1
+        },
+        "published_buildurl": "https://github.com/r-universe/gbeurier/actions/runs/40955833379",
+        "run": {
+          "id": 40955833379,
+          "html_url": "https://github.com/r-universe/gbeurier/actions/runs/40955833379",
+          "conclusion": "success",
+          "run_attempt": 1,
+          "created_at": "2026-10-29T21:12:48Z",
+          "updated_at": "2026-10-29T21:37:10Z"
+        },
+        "platforms": [
+          {
+            "r": "4.7.0",
+            "os": "linux",
+            "arch": "aarch64",
+            "distro": "resolute",
+            "version": "0.2.11",
+            "date": "2026-10-29T21:21:15.000Z",
+            "commit": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+            "fileid": "https://r2.ropensci.org/1f568113bf5c7e6c8c5efcf43a4429996a5d69049785fa6478389b5acc568d0d",
+            "status": "success",
+            "check": "NOTE",
+            "classification": "current_note"
+          },
+          {
+            "r": "4.7.0",
+            "os": "linux",
+            "arch": "x86_64",
+            "distro": "resolute",
+            "version": "0.2.11",
+            "date": "2026-10-29T21:21:51.000Z",
+            "commit": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+            "fileid": "https://r2.ropensci.org/ded73e214bf377a4d184c272a60e54762263cf45608f0e158e041fd5e410e72e",
+            "status": "success",
+            "check": "NOTE",
+            "classification": "current_note"
+          },
+          {
+            "r": "4.6.1",
+            "os": "linux",
+            "arch": "aarch64",
+            "distro": "resolute",
+            "version": "0.2.11",
+            "date": "2026-10-29T21:21:17.000Z",
+            "commit": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+            "fileid": "https://r2.ropensci.org/9216549fd84ee3bc88ad2f16893ebedc3037263e30abeb15ac8db2bc1bd9c528",
+            "status": "success",
+            "check": "NOTE",
+            "classification": "current_note"
+          },
+          {
+            "r": "4.6.1",
+            "os": "linux",
+            "arch": "x86_64",
+            "distro": "resolute",
+            "version": "0.2.11",
+            "date": "2026-10-29T21:21:40.000Z",
+            "commit": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+            "fileid": "https://r2.ropensci.org/2e768b871687c1e606a23d19431132bb90f819c344d2c0accd315dba213af087",
+            "status": "success",
+            "check": "NOTE",
+            "classification": "current_note"
+          },
+          {
+            "r": "4.5.3",
+            "os": "mac",
+            "arch": "aarch64",
+            "version": "0.2.11",
+            "date": "2026-10-29T21:20:53.000Z",
+            "commit": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+            "fileid": "https://r2.ropensci.org/7c79dbb7667416da179e4250329a4fdcb8eafadf689bb1f98ead8ce569af9870",
+            "status": "success",
+            "check": "NOTE",
+            "classification": "current_note"
+          },
+          {
+            "r": "4.5.3",
+            "os": "mac",
+            "arch": "x86_64",
+            "version": "0.2.11",
+            "date": "2026-10-29T21:23:47.000Z",
+            "commit": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+            "fileid": "https://r2.ropensci.org/4420e604cc262e8c73001fa4def2bf2407943fda043cbfc896bca10697bf7510",
+            "status": "success",
+            "check": "NOTE",
+            "classification": "current_note"
+          },
+          {
+            "r": "4.6.1",
+            "os": "mac",
+            "arch": "aarch64",
+            "version": "0.2.11",
+            "date": "2026-10-29T21:21:15.000Z",
+            "commit": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+            "fileid": "https://r2.ropensci.org/64bb34c048611116f9cbaf616e65a3f5a0f9a6d6520dbcc1b46fb8d4edb23603",
+            "status": "success",
+            "check": "NOTE",
+            "classification": "current_note"
+          },
+          {
+            "r": "4.6.1",
+            "os": "mac",
+            "arch": "x86_64",
+            "version": "0.2.11",
+            "date": "2026-10-29T21:22:17.000Z",
+            "commit": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+            "fileid": "https://r2.ropensci.org/61386e8b85ffba4ac659f897d96a8d462964bea77c7b6ec58c832cf8977c3fef",
+            "status": "success",
+            "check": "NOTE",
+            "classification": "current_note"
+          },
+          {
+            "r": "4.6.0",
+            "os": "wasm",
+            "arch": "emscripten",
+            "version": "0.2.11",
+            "date": "2026-10-29T21:21:32.000Z",
+            "commit": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+            "fileid": "https://r2.ropensci.org/ecae8788b4a4d480d37e6ec25a6829a48055c37c88e7af4a0fc9c2443ac576ef",
+            "status": "success",
+            "classification": "current_build_only"
+          },
+          {
+            "r": "4.7.0",
+            "os": "win",
+            "arch": "aarch64",
+            "version": "0.2.11",
+            "date": "2026-10-29T21:22:51.000Z",
+            "commit": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+            "fileid": "https://r2.ropensci.org/ce3ad94b0e78bf46ae71dcd38434a35341df54470949795837349cb7755bbdf7",
+            "status": "success",
+            "check": "NOTE",
+            "classification": "current_note"
+          },
+          {
+            "r": "4.7.0",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "0.2.11",
+            "date": "2026-10-29T21:20:22.000Z",
+            "commit": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+            "fileid": "https://r2.ropensci.org/f008675813ee01f53645afac8c9337a5b1c10401fa8a97d9afef76efaca0db50",
+            "status": "success",
+            "check": "NOTE",
+            "classification": "current_note"
+          },
+          {
+            "r": "4.5.3",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "0.2.11",
+            "date": "2026-10-29T21:20:15.000Z",
+            "commit": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+            "fileid": "https://r2.ropensci.org/a3ef77dcc9de98dc59f2afde3859505f102f7b540a0649b2cc201a8b19181332",
+            "status": "success",
+            "check": "NOTE",
+            "classification": "current_note"
+          },
+          {
+            "r": "4.6.1",
+            "os": "win",
+            "arch": "aarch64",
+            "version": "0.2.11",
+            "date": "2026-10-29T21:22:38.000Z",
+            "commit": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+            "fileid": "https://r2.ropensci.org/3ef749d124a18614bbb53cb9bb02b65d30e0272d84640650381041d34a44fa9e",
+            "status": "success",
+            "check": "NOTE",
+            "classification": "current_note"
+          },
+          {
+            "r": "4.6.1",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "0.2.11",
+            "date": "2026-10-29T21:20:20.000Z",
+            "commit": "cbd467f4f7fd59d5a1ce0909a33fb9394b8bedb8",
+            "fileid": "https://r2.ropensci.org/3122f7e9f90a7610632625fa72f744ade61d0bc94a0d412d63d13c659c416587",
+            "status": "success",
+            "check": "NOTE",
+            "classification": "current_note"
+          }
+        ]
+      },
+      {
+        "package": "dagml",
+        "version": "0.3.43",
+        "R_source_sha": "747cb9c54271e32cc213b880928a983562bb1b20",
+        "observed_at_utc": "2026-10-29T23:32:56.348254+00:00",
+        "binary_count": 14,
+        "binary_classifications": {
+          "current_ok": 13,
+          "current_build_only": 1
+        },
+        "published_buildurl": "https://github.com/r-universe/gbeurier/actions/runs/40943003815",
+        "run": {
+          "id": 40943003815,
+          "html_url": "https://github.com/r-universe/gbeurier/actions/runs/40943003815",
+          "conclusion": "success",
+          "run_attempt": 3,
+          "created_at": "2026-10-29T19:45:55Z",
+          "updated_at": "2026-10-29T22:30:46Z"
+        },
+        "platforms": [
+          {
+            "r": "4.7.0",
+            "os": "linux",
+            "arch": "aarch64",
+            "distro": "resolute",
+            "version": "0.3.43",
+            "date": "2026-10-29T19:51:34.000Z",
+            "commit": "747cb9c54271e32cc213b880928a983562bb1b20",
+            "fileid": "https://r2.ropensci.org/b17798744270aab4d483321c9dad30fd4d763da1ef08c3e4d6c15e49c984fee5",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.7.0",
+            "os": "linux",
+            "arch": "x86_64",
+            "distro": "resolute",
+            "version": "0.3.43",
+            "date": "2026-10-29T19:51:36.000Z",
+            "commit": "747cb9c54271e32cc213b880928a983562bb1b20",
+            "fileid": "https://r2.ropensci.org/b417447487d66cfed1f413069baaf66ad137f8facc080e5854c5551a87c2e274",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "linux",
+            "arch": "aarch64",
+            "distro": "resolute",
+            "version": "0.3.43",
+            "date": "2026-10-29T19:51:30.000Z",
+            "commit": "747cb9c54271e32cc213b880928a983562bb1b20",
+            "fileid": "https://r2.ropensci.org/2ae3da3267049d038ce469eb96ebbd1ee50d2206e7f60833dc8e18c18d7556bb",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "linux",
+            "arch": "x86_64",
+            "distro": "resolute",
+            "version": "0.3.43",
+            "date": "2026-10-29T19:50:53.000Z",
+            "commit": "747cb9c54271e32cc213b880928a983562bb1b20",
+            "fileid": "https://r2.ropensci.org/31ae80f0388eb68552316a2534a7fa362b6146a27f4559739cee7938ede4fccd",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "mac",
+            "arch": "aarch64",
+            "version": "0.3.43",
+            "date": "2026-10-29T19:51:17.000Z",
+            "commit": "747cb9c54271e32cc213b880928a983562bb1b20",
+            "fileid": "https://r2.ropensci.org/2db422f600c2e35b97bd3241bac6b5076849dfa8693f444ca9fccda7ac9ddb0c",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "mac",
+            "arch": "x86_64",
+            "version": "0.3.43",
+            "date": "2026-10-29T19:53:27.000Z",
+            "commit": "747cb9c54271e32cc213b880928a983562bb1b20",
+            "fileid": "https://r2.ropensci.org/8777b6ebaea82488b4ea4fbd24d4e24ce7eff0789546623bf03261a6c6766f98",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "mac",
+            "arch": "aarch64",
+            "version": "0.3.43",
+            "date": "2026-10-29T22:29:43.000Z",
+            "commit": "747cb9c54271e32cc213b880928a983562bb1b20",
+            "fileid": "https://r2.ropensci.org/7f903d578bdd94bd3d31932b07a1581649b6d14b2c63d17c1c5bb31742e413af",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "mac",
+            "arch": "x86_64",
+            "version": "0.3.43",
+            "date": "2026-10-29T19:53:29.000Z",
+            "commit": "747cb9c54271e32cc213b880928a983562bb1b20",
+            "fileid": "https://r2.ropensci.org/450b31ba795a8ccb9a0e0c78d7bff6d355d6606f4dc9f2c17e75f43ce17c74f4",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.0",
+            "os": "wasm",
+            "arch": "emscripten",
+            "version": "0.3.43",
+            "date": "2026-10-29T19:50:50.000Z",
+            "commit": "747cb9c54271e32cc213b880928a983562bb1b20",
+            "fileid": "https://r2.ropensci.org/5df6fa36db3cc9aa9358881828d9ea77ba94fda8a0932571e7d2406c71b6d8d2",
+            "status": "success",
+            "classification": "current_build_only"
+          },
+          {
+            "r": "4.7.0",
+            "os": "win",
+            "arch": "aarch64",
+            "version": "0.3.43",
+            "date": "2026-10-29T19:53:13.000Z",
+            "commit": "747cb9c54271e32cc213b880928a983562bb1b20",
+            "fileid": "https://r2.ropensci.org/15bf6847486f93f3fae85f15462b86052f1b9582e54877e5b722e2261462d7d5",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.7.0",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "0.3.43",
+            "date": "2026-10-29T19:50:36.000Z",
+            "commit": "747cb9c54271e32cc213b880928a983562bb1b20",
+            "fileid": "https://r2.ropensci.org/6b60ba3827b59c82b1c4bbd3adf91ab6ffc63307497275a7a5a8853d3802aaf1",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "0.3.43",
+            "date": "2026-10-29T19:50:32.000Z",
+            "commit": "747cb9c54271e32cc213b880928a983562bb1b20",
+            "fileid": "https://r2.ropensci.org/352b732a531a7ab435c6ccab375a0bb656715cc96919c68a5e1ea971387b460b",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "win",
+            "arch": "aarch64",
+            "version": "0.3.43",
+            "date": "2026-10-29T19:52:33.000Z",
+            "commit": "747cb9c54271e32cc213b880928a983562bb1b20",
+            "fileid": "https://r2.ropensci.org/b96dfdc749ae3cd899298e44a9eb668462d04f4f74bddba945decf3e5e6975d9",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "0.3.43",
+            "date": "2026-10-29T19:50:26.000Z",
+            "commit": "747cb9c54271e32cc213b880928a983562bb1b20",
+            "fileid": "https://r2.ropensci.org/33e43030333fe0bfe570b601b3417996f45c33557d5657b08d25771ec63bc215",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          }
+        ]
+      },
+      {
+        "package": "dagmldata",
+        "version": "0.2.14",
+        "R_source_sha": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+        "observed_at_utc": "2026-10-29T23:32:57.779646+00:00",
+        "binary_count": 14,
+        "binary_classifications": {
+          "current_ok": 13,
+          "current_build_only": 1
+        },
+        "published_buildurl": "https://github.com/r-universe/gbeurier/actions/runs/40951125912",
+        "run": {
+          "id": 40951125912,
+          "html_url": "https://github.com/r-universe/gbeurier/actions/runs/40951125912",
+          "conclusion": "success",
+          "run_attempt": 1,
+          "created_at": "2026-10-29T20:40:27Z",
+          "updated_at": "2026-10-29T20:55:34Z"
+        },
+        "platforms": [
+          {
+            "r": "4.7.0",
+            "os": "linux",
+            "arch": "aarch64",
+            "distro": "resolute",
+            "version": "0.2.14",
+            "date": "2026-10-29T20:47:31.000Z",
+            "commit": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+            "fileid": "https://r2.ropensci.org/0f0223eef7039d790ac0f7e889e354f401343976ae2a80bf2bae4ad9fac9bbf9",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.7.0",
+            "os": "linux",
+            "arch": "x86_64",
+            "distro": "resolute",
+            "version": "0.2.14",
+            "date": "2026-10-29T20:47:31.000Z",
+            "commit": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+            "fileid": "https://r2.ropensci.org/2653304a77f3ae0aa90943a0d22e07dd28e627a7f6e9c38b33c9887738e70d91",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "linux",
+            "arch": "aarch64",
+            "distro": "resolute",
+            "version": "0.2.14",
+            "date": "2026-10-29T20:47:31.000Z",
+            "commit": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+            "fileid": "https://r2.ropensci.org/dcb0cf9d3048ad515239bb20c90fdee5910fc9030d784f804a706c174f9e9001",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "linux",
+            "arch": "x86_64",
+            "distro": "resolute",
+            "version": "0.2.14",
+            "date": "2026-10-29T20:47:38.000Z",
+            "commit": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+            "fileid": "https://r2.ropensci.org/0806f04457dd2f360416c46b77b3d77e9b6a75aec6809868d0433d34c3d4ba82",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "mac",
+            "arch": "aarch64",
+            "version": "0.2.14",
+            "date": "2026-10-29T20:47:12.000Z",
+            "commit": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+            "fileid": "https://r2.ropensci.org/7cb438bf930e2b4d088d02b7544c8d73c7ecdb42b225338e5c1b235cff9ff99e",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "mac",
+            "arch": "x86_64",
+            "version": "0.2.14",
+            "date": "2026-10-29T20:49:34.000Z",
+            "commit": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+            "fileid": "https://r2.ropensci.org/70bdb8d1072adb73df50ad2c1739659532b794ac390c2ec30b5baa978301d439",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "mac",
+            "arch": "aarch64",
+            "version": "0.2.14",
+            "date": "2026-10-29T20:47:06.000Z",
+            "commit": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+            "fileid": "https://r2.ropensci.org/5da4862f6e892a9575ff81dd2274ec2059d1b9a222879b0550e99551dfb361a1",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "mac",
+            "arch": "x86_64",
+            "version": "0.2.14",
+            "date": "2026-10-29T20:52:21.000Z",
+            "commit": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+            "fileid": "https://r2.ropensci.org/2f56130fcd25004f0af5ae4c413cd3ef7d97d6bc3e45b92116c433eb5332cc8e",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.0",
+            "os": "wasm",
+            "arch": "emscripten",
+            "version": "0.2.14",
+            "date": "2026-10-29T20:47:12.000Z",
+            "commit": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+            "fileid": "https://r2.ropensci.org/adb215eaa8ebb906168e57ca9a38e0018c343b8dd0ba91aa5b75748b23ea0d8e",
+            "status": "success",
+            "classification": "current_build_only"
+          },
+          {
+            "r": "4.7.0",
+            "os": "win",
+            "arch": "aarch64",
+            "version": "0.2.14",
+            "date": "2026-10-29T20:48:34.000Z",
+            "commit": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+            "fileid": "https://r2.ropensci.org/db9ef64bec6bb245b7505b58c69dc2c5779d5560948c9aaec9ff62580ac4f444",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.7.0",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "0.2.14",
+            "date": "2026-10-29T20:46:21.000Z",
+            "commit": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+            "fileid": "https://r2.ropensci.org/6bac58ac1aea3461d0f913dc7149f190c36692d2210e7bc9603755e0311a9704",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "0.2.14",
+            "date": "2026-10-29T20:46:46.000Z",
+            "commit": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+            "fileid": "https://r2.ropensci.org/7338c85ca0c37dfcbba6e05b3afce080becf33c34d12493e92179094bc0ec17d",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "win",
+            "arch": "aarch64",
+            "version": "0.2.14",
+            "date": "2026-10-29T20:48:10.000Z",
+            "commit": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+            "fileid": "https://r2.ropensci.org/d5e87ebb4558b64f75841bff347f46f0f91e44828acc9da58f36b84c8869b2db",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "0.2.14",
+            "date": "2026-10-29T20:46:32.000Z",
+            "commit": "03199ecb7dd27f275edbdbddb13bff3bc5ec6fe9",
+            "fileid": "https://r2.ropensci.org/5568329044f3d8655b249419cd75496211f382921fe412c31d0f69a830994fa2",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          }
+        ]
+      },
+      {
+        "package": "nirs4alldatasets",
+        "version": "0.3.16",
+        "R_source_sha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+        "observed_at_utc": "2026-10-29T23:32:58.111314+00:00",
+        "binary_count": 14,
+        "binary_classifications": {
+          "current_ok": 13,
+          "current_build_only": 1
+        },
+        "published_buildurl": "https://github.com/r-universe/gbeurier/actions/runs/40970133351",
+        "run": {
+          "id": 40970133351,
+          "html_url": "https://github.com/r-universe/gbeurier/actions/runs/40970133351",
+          "conclusion": "success",
+          "run_attempt": 1,
+          "created_at": "2026-10-29T23:01:01Z",
+          "updated_at": "2026-10-29T23:30:46Z"
+        },
+        "platforms": [
+          {
+            "r": "4.7.0",
+            "os": "linux",
+            "arch": "aarch64",
+            "distro": "resolute",
+            "version": "0.3.16",
+            "date": "2026-10-29T23:11:15.000Z",
+            "commit": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+            "fileid": "https://r2.ropensci.org/d0c30969529fadd46cbf792969c61122d7945b90ba146b2198fbaba6ae9dd6a7",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.7.0",
+            "os": "linux",
+            "arch": "x86_64",
+            "distro": "resolute",
+            "version": "0.3.16",
+            "date": "2026-10-29T23:11:07.000Z",
+            "commit": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+            "fileid": "https://r2.ropensci.org/9bd5c982fa39bb658f96244d16806ce50d8a9fe4b3acadbde8eb3f0db422808d",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "linux",
+            "arch": "aarch64",
+            "distro": "resolute",
+            "version": "0.3.16",
+            "date": "2026-10-29T23:11:14.000Z",
+            "commit": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+            "fileid": "https://r2.ropensci.org/8d9bcd8570d256f0b594a18fe5b3154047e97758f23cfeb90b41acbd3d3bd15a",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "linux",
+            "arch": "x86_64",
+            "distro": "resolute",
+            "version": "0.3.16",
+            "date": "2026-10-29T23:11:01.000Z",
+            "commit": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+            "fileid": "https://r2.ropensci.org/6a05bb14d46861555e025403c6e14330893360203c9b37f9dbcfedcebadcbdbb",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "mac",
+            "arch": "aarch64",
+            "version": "0.3.16",
+            "date": "2026-10-29T23:11:10.000Z",
+            "commit": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+            "fileid": "https://r2.ropensci.org/c377fa5040e20827f864d03cef9740a7874a24ba57f0c42b74efbb26b38a2dbd",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "mac",
+            "arch": "x86_64",
+            "version": "0.3.16",
+            "date": "2026-10-29T23:12:08.000Z",
+            "commit": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+            "fileid": "https://r2.ropensci.org/4d5081a7a155d8a62e1554128d5f001b6ac26667c88275bbe20ee09e1d853d85",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "mac",
+            "arch": "aarch64",
+            "version": "0.3.16",
+            "date": "2026-10-29T23:10:56.000Z",
+            "commit": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+            "fileid": "https://r2.ropensci.org/6631d0ac44a8502f6b873c1017ceea8556f072db2f09d34b6a4ca48a49baa7df",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "mac",
+            "arch": "x86_64",
+            "version": "0.3.16",
+            "date": "2026-10-29T23:12:10.000Z",
+            "commit": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+            "fileid": "https://r2.ropensci.org/6d24ee4273b83303587cf587f4c26da195fd9f1c3ec518e67a24ac8cc805532c",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.0",
+            "os": "wasm",
+            "arch": "emscripten",
+            "version": "0.3.16",
+            "date": "2026-10-29T23:11:09.000Z",
+            "commit": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+            "fileid": "https://r2.ropensci.org/cdcb285e1ccb3df073266b2bddbe7b0bfe2c74dc1378abf27d5b90083bd79fea",
+            "status": "success",
+            "classification": "current_build_only"
+          },
+          {
+            "r": "4.7.0",
+            "os": "win",
+            "arch": "aarch64",
+            "version": "0.3.16",
+            "date": "2026-10-29T23:12:31.000Z",
+            "commit": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+            "fileid": "https://r2.ropensci.org/5a7460c5a8cf797a2a96d3475f26c9cfcce69b5732ba544f4da2b571744da9a8",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.7.0",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "0.3.16",
+            "date": "2026-10-29T23:10:32.000Z",
+            "commit": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+            "fileid": "https://r2.ropensci.org/ecfb828b964112e55d00d6bef43f8353402f69792e8ca71680278b86bd57fbc4",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "0.3.16",
+            "date": "2026-10-29T23:10:50.000Z",
+            "commit": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+            "fileid": "https://r2.ropensci.org/5399510660a9a7ae1ff34a1c67df734f52c1829d82caa2fd1b9500141087bebd",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "win",
+            "arch": "aarch64",
+            "version": "0.3.16",
+            "date": "2026-10-29T23:12:54.000Z",
+            "commit": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+            "fileid": "https://r2.ropensci.org/53e6aceeebd12241c1a5f7efaf58d34d6fac36b0fb52e3e8d993ef3a2474a5e6",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "win",
+            "arch": "x86_64",
+            "version": "0.3.16",
+            "date": "2026-10-29T23:10:30.000Z",
+            "commit": "3d5c5e85bd3c0fdff3199e6050923628dfca7948",
+            "fileid": "https://r2.ropensci.org/3d91a7e9ad4376b78ec75410574076d2268d95dcb6ed3b521e99f0b519562352",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          }
+        ]
+      },
+      {
+        "package": "nirs4all",
+        "version": "0.7.3",
+        "R_source_sha": "97296eff387b3b3be638c17bc7cf3db87730f986",
+        "observed_at_utc": "2026-10-29T23:32:58.340281+00:00",
+        "binary_count": 8,
+        "binary_classifications": {
+          "current_ok": 7,
+          "current_build_only": 1
+        },
+        "published_buildurl": "https://github.com/r-universe/gbeurier/actions/runs/40971877125",
+        "run": {
+          "id": 40971877125,
+          "html_url": "https://github.com/r-universe/gbeurier/actions/runs/40971877125",
+          "conclusion": "success",
+          "run_attempt": 1,
+          "created_at": "2026-10-29T23:15:28Z",
+          "updated_at": "2026-10-29T23:25:23Z"
+        },
+        "platforms": [
+          {
+            "r": "4.7.0",
+            "os": "linux",
+            "distro": "resolute",
+            "version": "0.7.3",
+            "date": "2026-10-29T23:22:57.000Z",
+            "commit": "97296eff387b3b3be638c17bc7cf3db87730f986",
+            "fileid": "https://r2.ropensci.org/7959d82c58c040fcc38ff5eeefed0790fc2b0f50fed405ab146cd10beb524e59",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "linux",
+            "distro": "resolute",
+            "version": "0.7.3",
+            "date": "2026-10-29T23:23:22.000Z",
+            "commit": "97296eff387b3b3be638c17bc7cf3db87730f986",
+            "fileid": "https://r2.ropensci.org/2ca9c3416007fbeb8933af12618849e707ef0c6c2b018d5ca88f16ed773c533d",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "mac",
+            "version": "0.7.3",
+            "date": "2026-10-29T23:21:57.000Z",
+            "commit": "97296eff387b3b3be638c17bc7cf3db87730f986",
+            "fileid": "https://r2.ropensci.org/d728730e0c26a739619d70ca2eba0a6a1f264eabcb8a3e8b1c9850e1273428d5",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "mac",
+            "version": "0.7.3",
+            "date": "2026-10-29T23:22:35.000Z",
+            "commit": "97296eff387b3b3be638c17bc7cf3db87730f986",
+            "fileid": "https://r2.ropensci.org/56d234476060591c34d38624133f2908e54db4497001cd66fe0721fcbe0e4f73",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.0",
+            "os": "wasm",
+            "version": "0.7.3",
+            "date": "2026-10-29T23:22:29.000Z",
+            "commit": "97296eff387b3b3be638c17bc7cf3db87730f986",
+            "fileid": "https://r2.ropensci.org/e5bef8b4a035cc8d9e8d3cdec944c561591071e63e9d2c59283f5b8adf7bdee8",
+            "status": "success",
+            "classification": "current_build_only"
+          },
+          {
+            "r": "4.7.0",
+            "os": "win",
+            "version": "0.7.3",
+            "date": "2026-10-29T23:21:27.000Z",
+            "commit": "97296eff387b3b3be638c17bc7cf3db87730f986",
+            "fileid": "https://r2.ropensci.org/a4f9820b62ab4c57bf9356a48ec6a2241de95156b81f831709344809eecddceb",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.5.3",
+            "os": "win",
+            "version": "0.7.3",
+            "date": "2026-10-29T23:21:33.000Z",
+            "commit": "97296eff387b3b3be638c17bc7cf3db87730f986",
+            "fileid": "https://r2.ropensci.org/f5550a65962682760417056d7856a4558ac0d378f8d57b88920fce73e869ddaa",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          },
+          {
+            "r": "4.6.1",
+            "os": "win",
+            "version": "0.7.3",
+            "date": "2026-10-29T23:21:25.000Z",
+            "commit": "97296eff387b3b3be638c17bc7cf3db87730f986",
+            "fileid": "https://r2.ropensci.org/2ff9db508c81a0644222eb973410a60293a6e6ff620ce17a3c45433189d0bb2e",
+            "status": "success",
+            "check": "OK",
+            "classification": "current_ok"
+          }
+        ]
+      }
+    ],
+    "package_count": 8,
+    "platform_records": 106,
+    "classification_totals": {
+      "current_ok": 85,
+      "current_build_only": 8,
+      "current_note": 13
+    },
+    "current_failed_runs": [],
+    "current_source_failures": [],
+    "scope_limit": "Metadata re-audited for all platforms; unchanged files rely on original dated download receipts. New RSDK073 files are independently all downloaded and hash/DESCRIPTION checked.",
+    "WebR_limit": "Eight successful build jobs do not run R CMD check; no universal WebR runtime certification is claimed.",
+    "IO_note": "Thirteen native profiles retain the inst/LICENSE metadata NOTE; no ERROR or WARNING is reported."
+  },
+  "macOS_recovery": {
+    "observed_at": "2026-10-29T22:40:45.322930+00:00",
+    "status": "resolved",
+    "managed_action_revision": "619309761c8bad991b651e5b078dc6a168eb5067",
+    "upstream_fix_url": "https://github.com/r-universe-org/actions/commit/619309761c8bad991b651e5b078dc6a168eb5067",
+    "packages": [
+      {
+        "package": "dagml",
+        "version": "0.3.43",
+        "source_revision": "747cb9c54271e32cc213b880928a983562bb1b20",
+        "before_attempt": 2,
+        "after_attempt": 3,
+        "downloaded_binary": {
+          "url": "https://r2.ropensci.org/7f903d578bdd94bd3d31932b07a1581649b6d14b2c63d17c1c5bb31742e413af",
+          "filename": "dagml_0.3.43_mac_aarch64_R4.6.1.tgz",
+          "bytes": 81765,
+          "sha256": "7f903d578bdd94bd3d31932b07a1581649b6d14b2c63d17c1c5bb31742e413af",
+          "package": "dagml",
+          "kind": "macOS ARM64",
+          "download_verified_by": "2026-10-29T22:40:45.322930+00:00",
+          "Version": "0.3.43",
+          "RemoteSha": "747cb9c54271e32cc213b880928a983562bb1b20",
+          "RemoteRef": "v0.3.43"
+        }
+      },
+      {
+        "package": "nirs4allformats",
+        "version": "0.2.13",
+        "source_revision": "46eb653c6463c3515b26ee6691579e27a2301b63",
+        "before_attempt": 1,
+        "after_attempt": 2,
+        "downloaded_binary": {
+          "url": "https://r2.ropensci.org/45ecc6ddcb9a9d0bf44897b2af2a49c41097c971e7ddec67812423188139735f",
+          "filename": "nirs4allformats_0.2.13_mac_aarch64_R4.5.3.tgz",
+          "bytes": 4189348,
+          "sha256": "45ecc6ddcb9a9d0bf44897b2af2a49c41097c971e7ddec67812423188139735f",
+          "package": "nirs4allformats",
+          "kind": "macOS ARM64",
+          "download_verified_by": "2026-10-29T22:40:45.322930+00:00",
+          "Version": "0.2.13",
+          "RemoteSha": "46eb653c6463c3515b26ee6691579e27a2301b63",
+          "RemoteRef": "46eb653c6463c3515b26ee6691579e27a2301b63"
+        }
+      }
+    ],
+    "original_failure_dates_preserved": true
+  },
+  "public_downstream_check": {
+    "observed_at": "2026-10-29T23:40:48.233680+00:00",
+    "status": "passed_actual_public_wheels",
+    "SDK_wheel_sha256": "93eb4b43686e182001e4408faf0abd60e968eb660de8507348698fec728b95e3",
+    "Datasets_wheel_sha256": "d8a8d9fb32102c9ea02f9e3b078c07d472ed0df34ce4615773a700fc85575726",
+    "physical_vials_each": 216,
+    "single_acquisition_per_vial_in_CV_smoke": true,
+    "original_648_rows_checked_before_selection": true,
+    "source_bytes_unchanged": true,
+    "replay_tolerance": 1e-12,
+    "scope": "Runtime regression on the supplied exports; not independent certification of original MAT pairing or predictive validation.",
+    "source_limit": "Alignment is preserved in the accepted v2 exports; original MAT pairing was not independently recertified."
+  }
+}
