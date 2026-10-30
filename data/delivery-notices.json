@@ -1,7 +1,14 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-30T00:11:26.161733+00:00",
+  "updated_at": "2026-10-30T00:34:50.189826+00:00",
   "notices": [
+    {
+      "id": "sentry-exhaustive-historical-limit-20261030",
+      "observed_at": "2026-10-30T00:28:38.678154+00:00",
+      "title": "Exhaustive Sentry review: one historical native group remains unverified",
+      "message": "The exhaustive review found four groups with accessible events, plus one historical native group without a recoverable event or diagnostic artifact. The historical group is not considered resolved: neither its cause nor a verified fix can be established from the available record. The dated snapshot still reports four unresolved groups and eight accessible events in its observation window; this historical limitation is a separate finding, not a new event count.",
+      "links": []
+    },
     {
       "id": "public-final-releases-20261030",
       "observed_at": "2026-10-29T23:41:06.508428+00:00",
