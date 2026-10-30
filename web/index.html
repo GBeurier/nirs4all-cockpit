@@ -61,7 +61,6 @@
       <div class="hero-inner">
         <div>
           <h1 class="brand"><span class="dot"></span>nirs4all<b>·</b>cockpit</h1>
-          <p class="tagline">Release &amp; health of the whole ecosystem at a glance — which package is current on which registry, its downloads, code size, tests and CI. Read-only aggregation; it never reimplements a repo's logic.</p>
           <div class="meta" id="generated"><span>loading…</span></div>
         </div>
         <div class="scores" id="scores"></div>
@@ -74,25 +73,6 @@
 
     <main class="wrap">
       <section class="chips" id="summary" aria-label="Status totals" hidden></section>
-
-      <section class="block" aria-labelledby="delivery-h">
-        <h2 id="delivery-h" class="section-h">Platform delivery observations</h2>
-        <p>Version availability in the registry matrix and binary platform qualification are separate observations.</p>
-        <div class="card panel" id="delivery-notices" role="status" aria-live="polite">
-          Dated platform observations are loading. <a href="https://gbeurier.r-universe.dev/builds">Check the live R-universe build matrix</a>.
-        </div>
-      </section>
-
-      <section class="block" id="release-news" aria-labelledby="release-news-h">
-        <h2 id="release-news-h" class="section-h">Published release receipt <span class="muted">— dated evidence</span></h2>
-        <div class="card panel release-news" role="status" aria-live="polite" aria-atomic="true">
-          <strong id="release-news-title">Release news unavailable.</strong>
-          <p id="release-news-summary">The public release receipt could not be loaded.</p>
-          <ul id="release-news-highlights"></ul>
-          <p class="release-news-note" id="release-news-note"></p>
-          <p><a href="https://nirs4all.org/v1-migration-support.html">Read the V1 migration and compatibility guide</a></p>
-        </div>
-      </section>
 
       <section class="block" id="matrix" aria-labelledby="mx-h">
         <h2 id="mx-h" class="section-h">Release matrix <span class="muted">— one LED per registry · click to open the package page</span></h2>
@@ -139,6 +119,27 @@
         <h2 id="manual-actions-h" class="section-h">Manual blockers <span class="muted">— account, registry and review actions outside the codebase</span></h2>
         <div class="card panel" id="manual-actions"></div>
       </section>
+
+      <section class="block" aria-labelledby="delivery-h">
+        <h2 id="delivery-h" class="section-h">Platform delivery observations</h2>
+        <p>Version availability in the registry matrix and binary platform qualification are separate observations.</p>
+        <div class="card panel" id="delivery-notices" role="status" aria-live="polite">
+          Dated platform observations are loading. <a href="https://gbeurier.r-universe.dev/builds">Check the live R-universe build matrix</a>.
+        </div>
+      </section>
+
+      <section class="block" id="release-news" aria-labelledby="release-news-h">
+        <h2 id="release-news-h" class="section-h">Published release receipt <span class="muted">— dated evidence</span></h2>
+        <div class="card panel release-news" role="status" aria-live="polite" aria-atomic="true">
+          <strong id="release-news-title">Release news unavailable.</strong>
+          <p id="release-news-summary">The public release receipt could not be loaded.</p>
+          <ul id="release-news-highlights"></ul>
+          <p class="release-news-note" id="release-news-note"></p>
+          <p><a href="https://nirs4all.org/v1-migration-support.html">Read the V1 migration and compatibility guide</a></p>
+        </div>
+      </section>
+
+      <p class="block muted">Release &amp; health of the whole ecosystem at a glance — which package is current on which registry, its downloads, code size, tests and CI. Read-only aggregation; it never reimplements a repo's logic.</p>
 
       <p id="error" class="error" role="alert" hidden></p>
 
