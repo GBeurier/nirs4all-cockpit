@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-10-30T00:48:58.291080+00:00",
+  "snapshot_generated_at": "2026-10-30T12:02:40.525194+00:00",
   "counts": {
     "total": 26,
-    "pending": 7,
-    "resolved": 19,
-    "blockers": 1,
+    "pending": 6,
+    "resolved": 20,
+    "blockers": 0,
     "important": 6,
     "info": 0
   },
@@ -28,18 +28,22 @@
     },
     {
       "id": "studio-final-manual-na-review",
-      "status": "blocked",
-      "declared_status": "blocked",
+      "status": "done",
+      "declared_status": "done",
       "severity": "blocker",
-      "title": "Studio — current local candidate requires maintainer manual tests and missing-value review before publication",
-      "manual_url": "https://github.com/GBeurier/nirs4all-studio/releases",
+      "title": "Studio 0.15.4 — maintainer lifted the publication hold; public installers and container verified",
+      "manual_url": "https://github.com/GBeurier/nirs4all-studio/releases/tag/0.15.4",
       "affects": [
         "nirs4all-studio:github-release"
       ],
       "after_done": [],
-      "auto_check": null,
-      "resolved": null,
-      "check_note": null
+      "auto_check": {
+        "registry": "github-release",
+        "name": "nirs4all-studio",
+        "expect": "green"
+      },
+      "resolved": true,
+      "check_note": "github-release:nirs4all-studio current 0.15.4 (status=green)"
     },
     {
       "id": "rtd-native-build-admin-unblock",
