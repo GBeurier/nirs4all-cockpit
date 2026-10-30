@@ -1,12 +1,80 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-29T21:54:50.612220+00:00",
+  "updated_at": "2026-10-30T00:11:26.161733+00:00",
   "notices": [
+    {
+      "id": "public-final-releases-20261030",
+      "observed_at": "2026-10-29T23:41:06.508428+00:00",
+      "title": "Public delivery verified: Python SDK 1.4.13, Datasets 0.3.16 and R SDK 0.7.3",
+      "message": "The Python SDK 1.4.13 wheel matches the artifact qualified by 12 installed Linux/Windows gates with zero skips. Its public install, native wire-version tests and real R/Python exchange passed. The published Docker image passed an actual CI container probe with the qualified native cohort. Datasets 0.3.16 is publicly verified across its release channels, including all 14 R-universe binaries; R SDK 0.7.3 has a verified source and all eight published binaries. Trained N4MM v3 exchange requires R SDK 0.7.3 or later and Python SDK 1.4.13 or later. No CRAN submission is claimed.",
+      "links": [
+        {
+          "label": "Python SDK 1.4.13 release",
+          "url": "https://github.com/GBeurier/nirs4all/releases/tag/1.4.13"
+        },
+        {
+          "label": "Datasets 0.3.16 release",
+          "url": "https://github.com/GBeurier/nirs4all-datasets/releases/tag/v0.3.16"
+        },
+        {
+          "label": "R SDK 0.7.3 release",
+          "url": "https://github.com/GBeurier/nirs4all-r/releases/tag/v0.7.3"
+        },
+        {
+          "label": "Dated public artifact hashes and platform evidence",
+          "url": "https://cockpit.nirs4all.org/data/platform-evidence.json"
+        }
+      ]
+    },
+    {
+      "id": "r-eight-platform-final-20261029",
+      "observed_at": "2026-10-29T23:33:04.335309+00:00",
+      "title": "All eight current R build runs succeeded; platform limits remain explicit",
+      "message": "The 23:32–23:33 UTC audit matched all eight served R sources to the universe configuration and found 106 published platform records: 85 native R CMD checks OK, 13 IO profiles with the documented inst/LICENSE metadata NOTE, and eight successful WebR builds. The WebR jobs do not run R CMD check, so build success is not universal runtime certification. The earlier macOS preparation failures are resolved by the corrected upstream action and verified managed rebuilds; their original observations remain available as history.",
+      "links": [
+        {
+          "label": "R-universe package and platform matrix",
+          "url": "https://gbeurier.r-universe.dev/builds"
+        },
+        {
+          "label": "Corrected upstream macOS preparation action",
+          "url": "https://github.com/r-universe-org/actions/commit/619309761c8bad991b651e5b078dc6a168eb5067"
+        },
+        {
+          "label": "Final source revisions, original platform dates and check classifications",
+          "url": "https://cockpit.nirs4all.org/data/platform-evidence.json"
+        }
+      ]
+    },
+    {
+      "id": "ucph-public-regression-20261029",
+      "observed_at": "2026-10-29T23:40:48.233680+00:00",
+      "title": "UCPH exports: numeric targets, alignment and public native replay verified",
+      "message": "The actual public SDK 1.4.13 and Datasets 0.3.16 wheels passed native PLS training, archive export and two fresh-session replays for both accepted UCPH v2 views with Float64 targets. The check preserved all 648 original rows per view, then selected one acquisition per physical vial for the 216-vial CV smoke; source bytes remained unchanged and replay matched at 1e-12. Original MAT pairing was not independently recertified: this is an explicit provenance limit of the accepted exports, not an unresolved delivery failure or a predictive-validation claim.",
+      "links": [
+        {
+          "label": "Dataset release and provenance",
+          "url": "https://github.com/GBeurier/nirs4all-datasets/releases/tag/v0.3.16"
+        }
+      ]
+    },
+    {
+      "id": "studio-maintainer-manual-hold",
+      "observed_at": "2026-10-30T00:07:35.580750+00:00",
+      "title": "Studio publication remains on hold for manual validation",
+      "message": "Local automated candidate checks passed on Linux and Windows. Studio publication remains held for the maintainer’s manual validation of missing-value handling, interface and TLS. Local candidates are separate from public releases; no new Studio publication is claimed.",
+      "links": [
+        {
+          "label": "Existing public Studio releases",
+          "url": "https://github.com/GBeurier/nirs4all-studio/releases"
+        }
+      ]
+    },
     {
       "id": "r-final-delivery-20261029",
       "observed_at": "2026-10-29T21:51:32.823755+00:00",
-      "title": "Final R sources and ARM64/WebR artifacts verified",
-      "message": "Dated checks between 20:56 and 21:51 UTC verified four R source archives, eight Windows ARM64 release/devel binaries and four WebR artifacts: Formats 0.2.13, DMD 0.2.14, IO 0.2.11 and Datasets 0.3.15. Version, R source revision and SHA-256 matched every real download. The complete DMD, IO and Datasets build runs succeeded. Existing runtime tags and registry artifacts remain unchanged; the R packaging corrections have separate source revisions. IO retains a documented R metadata NOTE about inst/LICENSE, with no ERROR or WARNING. No CRAN submission is claimed.",
+      "title": "Earlier R delivery checks — superseded by the final platform audit",
+      "message": "Historical checks through 21:51 UTC verified the then-current source and ARM64/WebR artifacts, including Datasets 0.3.15. Their original source revisions, hashes and dates are retained below. The current releases and platform results are reported separately above.",
       "links": [
         {
           "label": "Dated source revisions and downloaded artifact hashes",
@@ -244,13 +312,14 @@
           "Version": "0.3.15",
           "RemoteSha": "cb6b373218977c8e100a49f722e99d5b9052d125"
         }
-      ]
+      ],
+      "historical": true
     },
     {
       "id": "external-macos-preparation-failures-20261029",
       "observed_at": "2026-10-29T20:47:01.9937770Z",
-      "title": "External macOS preparation failures remain visible",
-      "message": "The Formats R-oldrel macOS ARM64 job failed at 20:47 UTC during upstream runner preparation, before downloading the package source: rustup-init was absent. The earlier DAG 0.3.43 retry failed for the same external reason at 20:07 UTC. These failures are retained with their original dates; successful source and ARM64/WebR delivery does not establish universal success on every R platform.",
+      "title": "Resolved macOS preparation failures — historical observations",
+      "message": "Formats failed at 20:47 UTC and the earlier DAG retry failed at 20:07 UTC before source download because upstream rustup-init was absent. These are historical failures: managed jobs later resolved the corrected prep action 6193097, succeeded, and published verified macOS ARM64 binaries by 22:40 UTC. Original failure dates and links are preserved; neither failure is a current blocker.",
       "links": [
         {
           "label": "Formats macOS oldrel ARM64 preparation failure",
@@ -264,7 +333,9 @@
       "evidence_observation_dates": {
         "formats_failure": "2026-10-29T20:47:01.9937770Z",
         "dag_retry_failure": "2026-10-29T20:07:58.7108470Z"
-      }
+      },
+      "historical": true,
+      "resolved_at": "2026-10-29T22:40:45.322930+00:00"
     }
   ]
 }
