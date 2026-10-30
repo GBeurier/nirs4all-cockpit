@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-29T23:50:56.479171+00:00",
+  "updated_at": "2026-10-30T00:11:26.161733+00:00",
   "notices": [
     {
       "id": "public-final-releases-20261030",
@@ -50,7 +50,7 @@
       "id": "ucph-public-regression-20261029",
       "observed_at": "2026-10-29T23:40:48.233680+00:00",
       "title": "UCPH exports: numeric targets, alignment and public native replay verified",
-      "message": "The actual public SDK 1.4.13 and Datasets 0.3.16 wheels passed native PLS training, archive export and two fresh-session replays for both accepted UCPH v2 views. The check preserved all 648 original rows, then selected one acquisition per physical vial for the 216-vial CV smoke; source bytes remained unchanged and replay matched at 1e-12. Original MAT pairing was not independently recertified: this is an explicit provenance limit of the accepted exports, not an unresolved delivery failure or a predictive-validation claim.",
+      "message": "The actual public SDK 1.4.13 and Datasets 0.3.16 wheels passed native PLS training, archive export and two fresh-session replays for both accepted UCPH v2 views with Float64 targets. The check preserved all 648 original rows per view, then selected one acquisition per physical vial for the 216-vial CV smoke; source bytes remained unchanged and replay matched at 1e-12. Original MAT pairing was not independently recertified: this is an explicit provenance limit of the accepted exports, not an unresolved delivery failure or a predictive-validation claim.",
       "links": [
         {
           "label": "Dataset release and provenance",
@@ -60,9 +60,9 @@
     },
     {
       "id": "studio-maintainer-manual-hold",
-      "observed_at": "2026-10-29T23:41:06.508428+00:00",
+      "observed_at": "2026-10-30T00:07:35.580750+00:00",
       "title": "Studio publication remains on hold for manual validation",
-      "message": "Studio remains held for the maintainer’s manual tests and missing-value handling review. Local candidates are separate from public releases; no new Studio publication is claimed by these delivery checks.",
+      "message": "Local automated candidate checks passed on Linux and Windows. Studio publication remains held for the maintainer’s manual validation of missing-value handling, interface and TLS. Local candidates are separate from public releases; no new Studio publication is claimed.",
       "links": [
         {
           "label": "Existing public Studio releases",

@@ -82,7 +82,7 @@ def load_actions(path: str | Path) -> list[ManualAction]:
     return actions
 
 
-def _find_published(snapshot: Snapshot, registry: str, name: str) -> tuple[str | None, str | None]:
+def _find_published(snapshot: Snapshot, registry: str | None, name: str | None) -> tuple[str | None, str | None]:
     """Return ``(status, published_version)`` for a target, or ``(None, None)``.
 
     Looks across every package's targets for an exact ``(registry, name)`` match.

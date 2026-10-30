@@ -1955,6 +1955,20 @@
     "source_bytes_unchanged": true,
     "replay_tolerance": 1e-12,
     "scope": "Runtime regression on the supplied exports; not independent certification of original MAT pairing or predictive validation.",
-    "source_limit": "Alignment is preserved in the accepted v2 exports; original MAT pairing was not independently recertified."
+    "source_limit": "Alignment is preserved in the accepted v2 exports; original MAT pairing was not independently recertified.",
+    "targets": "Float64 regression targets",
+    "original_rows_per_view": 648
+  },
+  "Studio_hold": {
+    "observed_at": "2026-10-30T00:07:35.580750+00:00",
+    "observation_basis": "Maintainer-confirmed local automatic checks; not a public registry release",
+    "local_automatic_checks": "passed on Linux and Windows",
+    "publication": "held for maintainer manual validation",
+    "manual_review": [
+      "missing-value handling",
+      "interface",
+      "TLS"
+    ],
+    "new_publication_claimed": false
   }
 }
