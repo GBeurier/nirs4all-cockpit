@@ -1,13 +1,70 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-30T00:34:50.189826+00:00",
+  "updated_at": "2026-10-30T07:50:38.523961+00:00",
   "notices": [
+    {
+      "id": "approved-feedback-published-20261030",
+      "observed_at": "2026-10-30T07:45:13.969767+00:00",
+      "title": "English feedback published: 16 fixed issues closed; Studio remains on manual hold",
+      "message": "Nineteen approved English GitHub replies and five English Sentry notes were posted and verified. Sixteen fixed GitHub issues are closed. Studio issue #9 remains open for the maintainer’s manual validation, and no new Studio release is claimed. The three newly opened DAG-ML dependency proposals are tracked separately below.",
+      "links": [
+        {
+          "label": "Studio issue #9 remains open",
+          "url": "https://github.com/GBeurier/nirs4all-studio/issues/9"
+        }
+      ]
+    },
+    {
+      "id": "sentry-post-feedback-dispositions-20261030",
+      "observed_at": "2026-10-30T07:48:38.481724+00:00",
+      "title": "Sentry: historical test noise resolved; TLS and an unknown historical group remain open",
+      "message": "Three groups were resolved as historical automated-test noise after documented review. This disposition does not certify a production deployment, and no events were deleted. The freshly observed 14-day searchable view reports one unresolved group, two events, three resolved groups and zero affected users. The connection/TLS case remains open pending manual validation and a Studio release. A separate historical native group has no recoverable event or diagnostic artifact; its cause and resolution remain unverified, so it is not considered resolved.",
+      "links": []
+    },
+    {
+      "id": "overnight-dag-dependency-pr-review-20261030",
+      "observed_at": "2026-10-30T07:49:33.899226+00:00",
+      "title": "Three new DAG-ML dependency PRs remain open; published main is unchanged",
+      "message": "The new PRs opened after the earlier audit remain unmerged. PR #125 changes only a CI cache action and has 16 successful checks; it awaits separate review. PR #126 has five failed checks involving the Unicode fingerprint freeze and an outdated root lock. PR #127 has six failed checks involving incompatible Arrow versions and an outdated Python lock. Neither runtime proposal should be merged as submitted. The unchanged main branch has successful CI, version-guard and training-replay runs; these proposal failures do not establish a production regression.",
+      "links": [
+        {
+          "label": "PR #125: workflow-only proposal",
+          "url": "https://github.com/GBeurier/dag-ml/pull/125"
+        },
+        {
+          "label": "PR #126: Unicode dependency proposal",
+          "url": "https://github.com/GBeurier/dag-ml/pull/126"
+        },
+        {
+          "label": "PR #127: grouped runtime proposal",
+          "url": "https://github.com/GBeurier/dag-ml/pull/127"
+        }
+      ]
+    },
+    {
+      "id": "scoped-post-feedback-observation-dates-20261030",
+      "observed_at": "2026-10-30T07:48:38.488640+00:00",
+      "title": "Fresh issue/PR and Sentry counts; original registry and platform dates preserved",
+      "message": "This refresh updates only GitHub issue and open-PR counts and aggregate Sentry status. It records one open GitHub issue and three open PRs. Registry, source and workflow facts retain their previous observation context from 00:48 UTC; the separately dated R artifact and platform evidence is unchanged. No runtime was rebuilt or republished for this feedback update.",
+      "links": [
+        {
+          "label": "Dated snapshot and refresh provenance",
+          "url": "https://cockpit.nirs4all.org/data/current.json"
+        },
+        {
+          "label": "Unchanged R platform evidence and original dates",
+          "url": "https://cockpit.nirs4all.org/data/platform-evidence.json"
+        }
+      ]
+    },
     {
       "id": "sentry-exhaustive-historical-limit-20261030",
       "observed_at": "2026-10-30T00:28:38.678154+00:00",
-      "title": "Exhaustive Sentry review: one historical native group remains unverified",
+      "title": "Earlier exhaustive Sentry review — counts superseded; historical uncertainty remains",
       "message": "The exhaustive review found four groups with accessible events, plus one historical native group without a recoverable event or diagnostic artifact. The historical group is not considered resolved: neither its cause nor a verified fix can be established from the available record. The dated snapshot still reports four unresolved groups and eight accessible events in its observation window; this historical limitation is a separate finding, not a new event count.",
-      "links": []
+      "links": [],
+      "historical": true,
+      "superseded_at": "2026-10-30T07:48:38.481724+00:00"
     },
     {
       "id": "public-final-releases-20261030",
