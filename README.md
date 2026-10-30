@@ -37,8 +37,12 @@ matrix and keeps their original observation dates.
 The dated [platform evidence](https://cockpit.nirs4all.org/data/platform-evidence.json)
 also separates actual artifact downloads from platform metadata, native R checks,
 WebR build-only results and known notes. Superseded or resolved observations remain
-under the dashboard's history disclosure. A completed historical Studio smoke does
-not complete the maintainer's current manual tests or missing-value review.
+under the dashboard's history disclosure. Studio [0.15.4](https://github.com/GBeurier/nirs4all-studio/releases/tag/0.15.4)
+is public after the maintainer lifted the publication hold. Its six installer and
+checksum downloads match the hosted producers; all three installers embed the
+release's full source SHA. The public container matches the image tested by CI.
+This delivery does not certify additional manual missing-value tests or resolve
+the remaining TLS and historical native Sentry investigations.
 
 Historical public delivery receipt on **8 October 2026** (not a current release inventory):
 

@@ -27,12 +27,16 @@ actions:
       - "nirs4all-studio:github-release"
 
   - id: studio-final-manual-na-review
-    status: blocked
+    status: done
     severity: blocker
-    title: "Studio — current local candidate requires maintainer manual tests and missing-value review before publication"
-    manual_url: "https://github.com/GBeurier/nirs4all-studio/releases"
+    title: "Studio 0.15.4 — maintainer lifted the publication hold; public installers and container verified"
+    manual_url: "https://github.com/GBeurier/nirs4all-studio/releases/tag/0.15.4"
     affects:
       - "nirs4all-studio:github-release"
+    auto_check:
+      registry: github-release
+      name: nirs4all-studio
+      expect: green
 
   - id: rtd-native-build-admin-unblock
     status: blocked
