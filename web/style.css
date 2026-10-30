@@ -277,6 +277,7 @@ section.block { margin: 0 0 34px; }
 .release-news { border-color: color-mix(in srgb, var(--teal) 34%, var(--line)); background: color-mix(in srgb, var(--teal) 4%, var(--surface)); }
 .release-news strong { color: var(--teal-d); font-family: var(--display); font-size: 1rem; }
 .release-news p { color: var(--text-2); overflow-wrap: anywhere; }
+#delivery-notices { overflow-wrap: anywhere; }
 .release-news ul { margin: 10px 0; padding-left: 20px; color: var(--text-2); }
 .release-news li + li { margin-top: 5px; }
 .release-news .release-news-note { color: var(--muted); font-size: .8rem; }

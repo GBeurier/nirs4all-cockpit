@@ -353,7 +353,7 @@ def test_dashboard_keeps_release_matrix_without_bundle_or_channel_chips() -> Non
     assert "production held" not in index
     assert "tt-reason" not in app_js
     assert "app.js?v=20261030-final-delivery" in index
-    assert "style.css?v=20260906-remove-capabilities" in index
+    assert "style.css?v=20261030-studio-public-reflow" in index
 
 
 def test_dashboard_marks_missing_visit_rows_untracked() -> None:
