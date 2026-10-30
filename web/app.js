@@ -107,8 +107,18 @@ function renderDeliveryNotices(data) {
   } else if (data.notices.length === 0) {
     box.appendChild(el("p", { text: "No additional dated platform observations were supplied." }));
   } else {
+    let history = null;
     for (const note of data.notices) {
       if (!note || typeof note.message !== "string") continue;
+      let parent = box;
+      if (note.historical === true) {
+        if (!history) {
+          history = el("details");
+          history.appendChild(el("summary", { text: "Earlier observations — superseded or resolved" }));
+          box.appendChild(history);
+        }
+        parent = history;
+      }
       const item = el("div");
       item.appendChild(el("strong", { text: note.title || "Platform observation" }));
       item.appendChild(el("p", { text: freshnessText(note.observed_at) }));
@@ -117,7 +127,7 @@ function renderDeliveryNotices(data) {
         if (!link || typeof link.url !== "string" || !link.url.startsWith("https://")) continue;
         item.appendChild(el("p", {}, [el("a", { text: link.label || link.url, attrs: { href: link.url } })]));
       }
-      box.appendChild(item);
+      parent.appendChild(item);
     }
   }
   box.appendChild(el("p", {}, [el("a", { text: "Live R-universe build matrix", attrs: { href: "https://gbeurier.r-universe.dev/builds" } })]));
@@ -281,7 +291,8 @@ function renderNativeRelease(candidate) {
 }
 
 function isManualActionPending(action) {
-  return action && action.resolved !== true;
+  if (!action || action.resolved === true) return false;
+  return action.resolved === false || Boolean(action.auto_check) || action.status !== "done";
 }
 
 function manualActionUrl(action) {

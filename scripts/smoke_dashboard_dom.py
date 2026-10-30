@@ -150,6 +150,9 @@ def _dump_dom(chrome: str, url: str, *, timeout: int) -> str:
 
 
 def main() -> int:
+    sys.path.insert(0, str(ROOT))
+    from cockpit.manual_actions import ManualAction, is_pending
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--chrome", help="Chrome/Chromium executable to use")
     parser.add_argument(
@@ -170,7 +173,12 @@ def main() -> int:
         dom = _dump_dom(chrome, f"http://127.0.0.1:{port}/web/index.html", timeout=timeout)
 
     manual_actions = json.loads((ROOT / "data" / "manual-actions.json").read_text(encoding="utf-8"))
-    unresolved_action_ids = [action["id"] for action in manual_actions.get("actions", []) if not action.get("resolved")]
+    unresolved_action_ids = [
+        action["id"] for action in manual_actions.get("actions", [])
+        if is_pending(ManualAction(**{
+            key: value for key, value in action.items() if key in ManualAction.__dataclass_fields__
+        }))
+    ]
     delivery_notices = json.loads((ROOT / "data" / "delivery-notices.json").read_text(encoding="utf-8"))
     notice_messages = [escape(note["message"], quote=False) for note in delivery_notices.get("notices", [])]
 
@@ -193,6 +201,9 @@ def main() -> int:
         *unresolved_action_ids,
     ]
     missing = [fragment for fragment in required if fragment not in dom]
+    if any(note.get("historical") for note in delivery_notices.get("notices", [])):
+        if "<summary>Earlier observations — superseded or resolved</summary>" not in dom:
+            missing.append("dated history disclosure")
     sentry = json.loads((ROOT / "data" / "current.json").read_text(encoding="utf-8")).get("sentry", {})
     if sentry.get("available") and sentry.get("stats_period"):
         period = sentry["stats_period"]

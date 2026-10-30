@@ -82,7 +82,7 @@ def load_actions(path: str | Path) -> list[ManualAction]:
     return actions
 
 
-def _find_published(snapshot: Snapshot, registry: str, name: str) -> tuple[str | None, str | None]:
+def _find_published(snapshot: Snapshot, registry: str | None, name: str | None) -> tuple[str | None, str | None]:
     """Return ``(status, published_version)`` for a target, or ``(None, None)``.
 
     Looks across every package's targets for an exact ``(registry, name)`` match.
@@ -156,11 +156,16 @@ def evaluate_all(actions: list[ManualAction], snapshot: Snapshot | None) -> list
     return actions
 
 
+def is_pending(action: ManualAction) -> bool:
+    """Respect manual completion while keeping negative or unknown checks open."""
+    return action.resolved is not True and (
+        action.resolved is False or bool(action.auto_check) or action.status != "done"
+    )
+
+
 def _mark(action: ManualAction) -> str:
-    """Checkbox glyph for an action: done/resolved → ``x``, else open."""
-    if action.status == "done" or action.resolved is True:
-        return "x"
-    return " "
+    """Use the same pending decision as the public dashboard counts."""
+    return " " if is_pending(action) else "x"
 
 
 def render_text(actions: list[ManualAction]) -> str:
@@ -209,8 +214,8 @@ def render_markdown(actions: list[ManualAction]) -> str:
 
 def public_payload(actions: list[ManualAction], snapshot: Snapshot | None) -> dict[str, Any]:
     """Return the public, non-secret manual-action payload for the dashboard."""
-    pending = [action for action in actions if action.resolved is not True]
-    resolved = [action for action in actions if action.resolved is True]
+    pending = [action for action in actions if is_pending(action)]
+    resolved = [action for action in actions if not is_pending(action)]
     counts = {
         "total": len(actions),
         "pending": len(pending),

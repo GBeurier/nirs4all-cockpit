@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-29T21:45:48.812289+00:00",
+  "generated_at": "2026-10-30T00:02:04.266061+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
     "workflow": null,
@@ -18,9 +18,9 @@
           "nirs4all-cockpit",
           "nirs4all-benchmarks"
         ],
-        "generated_at": "2026-10-29T21:45:48.819937+00:00",
-        "finished_at_utc": "2026-10-29T21:49:10.087741+00:00",
-        "snapshot_sha256": "9354774aec983cae7359c96024e17f3c1e7dea4824c0d74419bdd4aa0a78cd5d"
+        "generated_at": "2026-10-30T00:02:04.266208+00:00",
+        "finished_at_utc": "2026-10-30T00:05:16.161478+00:00",
+        "snapshot_sha256": "e5e882e07cffc85e922678b3fbae32048f91bfda7ab6bbf0b50bf2749138300f"
       },
       {
         "ids": [
@@ -32,9 +32,9 @@
           "nirs4all-device",
           "nirs4all-ecosystem"
         ],
-        "generated_at": "2026-10-29T21:45:48.813645+00:00",
-        "finished_at_utc": "2026-10-29T21:48:30.141123+00:00",
-        "snapshot_sha256": "a9eccad53ad2b4ba09cfdfa60ae51cde30525e9e74909ca0379eb666f0c11cf8"
+        "generated_at": "2026-10-30T00:02:04.267549+00:00",
+        "finished_at_utc": "2026-10-30T00:05:04.533694+00:00",
+        "snapshot_sha256": "6356b8146a4cb73b9d59db98642c64fbded3aad42bf2a70257451dba75b1bebf"
       },
       {
         "ids": [
@@ -45,9 +45,9 @@
           "nirs4all-quality",
           "nirs4all-preflight"
         ],
-        "generated_at": "2026-10-29T21:45:48.816731+00:00",
-        "finished_at_utc": "2026-10-29T21:48:17.070970+00:00",
-        "snapshot_sha256": "3ab6813f93a827fcc6677057af459207741e0ed0c21940d235df3bb720be47a0"
+        "generated_at": "2026-10-30T00:02:04.266061+00:00",
+        "finished_at_utc": "2026-10-30T00:04:30.685397+00:00",
+        "snapshot_sha256": "7a4e0dee47b75aa2820d75ed1629646a76f9bb4cad2d651bd573e6cb20c673bb"
       },
       {
         "ids": [
@@ -59,9 +59,9 @@
           "nirs4all-repository",
           "nirs4all-domains"
         ],
-        "generated_at": "2026-10-29T21:45:48.812289+00:00",
-        "finished_at_utc": "2026-10-29T21:48:28.140493+00:00",
-        "snapshot_sha256": "8e0cce5393a978a3bed1713394d3177fee2a13c909d37ac89e10703d7c8860c6"
+        "generated_at": "2026-10-30T00:02:04.274056+00:00",
+        "finished_at_utc": "2026-10-30T00:04:47.483072+00:00",
+        "snapshot_sha256": "22d178913900e89f5495a3651bd41fdcb1a201da8ede71a6abf6e812f44bda15"
       }
     ]
   },
@@ -71,17 +71,17 @@
       "repo": "nirs4all",
       "owner": "GBeurier",
       "source": {
-        "manifest_version": "1.4.12",
-        "latest_prod_tag": "1.4.12",
-        "latest_any_tag": "1.4.12",
-        "expected_prod_version": "1.4.12",
-        "commit": "05655b79c37c4c487be5c31b7251f86ec618fc7b",
-        "latest_prod_tag_at": "2026-10-29T19:39:31Z",
-        "latest_release_at": "2026-10-29T19:50:15Z",
-        "latest_version_at": "2026-10-29T19:50:15Z",
+        "manifest_version": "1.4.13",
+        "latest_prod_tag": "1.4.13",
+        "latest_any_tag": "1.4.13",
+        "expected_prod_version": "1.4.13",
+        "commit": "1b3a10a2190d249d18cac143c052816ab47311f0",
+        "latest_prod_tag_at": "2026-10-29T23:17:40Z",
+        "latest_release_at": "2026-10-29T23:28:42Z",
+        "latest_version_at": "2026-10-29T23:28:42Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-10-29T19:50:04Z",
-        "commits_ahead_of_latest_prod_tag": 1
+        "last_commit_at": "2026-10-29T23:57:38Z",
+        "commits_ahead_of_latest_prod_tag": 7
       },
       "rollup": "green",
       "flags": [],
@@ -148,7 +148,7 @@
           "registry": "pypi",
           "name": "nirs4all",
           "reason": "The SDK and reference oracle remain separate from the portable Core aggregate; observed PyPI metadata determines the published version",
-          "published_version": "1.4.12",
+          "published_version": "1.4.13",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -168,7 +168,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -182,7 +182,7 @@
           "registry": "github-release",
           "name": "nirs4all",
           "reason": "SDK GitHub Releases are tracked separately from package publication and the current source branch",
-          "published_version": "1.4.12",
+          "published_version": "1.4.13",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -199,7 +199,7 @@
             "windows": {
               "total": 21
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -214,8 +214,8 @@
         {
           "file": "publish.yml",
           "conclusion": "success",
-          "created_at": "2026-10-29T19:50:17Z",
-          "head_sha": "f17ae73bd25a26346e48c290b61162d7bcf604b3"
+          "created_at": "2026-10-29T23:28:44Z",
+          "head_sha": "38c9c0edc17321b43779b6d8622d980aae7807cd"
         }
       ],
       "issues": {
@@ -227,12 +227,12 @@
         "forks": 1,
         "watchers": 1,
         "open_prs": 0,
-        "closed_prs": 132,
-        "merged_prs": 104,
-        "size_kb": 178238,
+        "closed_prs": 136,
+        "merged_prs": 108,
+        "size_kb": 178905,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-10-29T19:50:04Z",
+        "pushed_at": "2026-10-29T23:57:54Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -258,15 +258,15 @@
       },
       "actions_stats": {
         "workflows": 16,
-        "total_runs": 2154,
-        "recent_total": 95,
+        "total_runs": 2166,
+        "recent_total": 94,
         "recent_success": 72,
-        "recent_failure": 21,
-        "dependabot_recent_total": 5,
+        "recent_failure": 20,
+        "dependabot_recent_total": 6,
         "dependabot_recent_failure": 0,
-        "success_rate": 77.4,
+        "success_rate": 78.3,
         "last_conclusion": "success",
-        "last_created_at": "2026-10-29T19:50:08Z"
+        "last_created_at": "2026-10-29T23:57:41Z"
       }
     },
     {
@@ -341,7 +341,7 @@
             "windows": {
               "total": 1894
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -488,7 +488,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -522,7 +522,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -556,7 +556,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -648,7 +648,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -682,7 +682,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -713,7 +713,7 @@
             "windows": {
               "total": 334
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -920,7 +920,7 @@
               "90d": 6748,
               "total": 6748
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -1072,7 +1072,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -1167,7 +1167,7 @@
               "90d": 2838,
               "total": 3235
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -1262,7 +1262,7 @@
               "90d": 2775,
               "total": 3135
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -1357,7 +1357,7 @@
               "90d": 83,
               "total": 246
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -1452,7 +1452,7 @@
               "90d": 93,
               "total": 249
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -1486,7 +1486,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -1575,7 +1575,7 @@
             "windows": {
               "total": 28
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -1770,7 +1770,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -1885,7 +1885,7 @@
               "90d": 3683,
               "total": 4174
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -2000,7 +2000,7 @@
               "90d": 3577,
               "total": 4015
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -2115,7 +2115,7 @@
               "90d": 204,
               "total": 413
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -2230,7 +2230,7 @@
               "90d": 212,
               "total": 435
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -2264,7 +2264,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -2327,7 +2327,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -2352,13 +2352,13 @@
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": 422,
+            "total": 424,
             "source": "github-release-assets",
             "by_version": [],
             "windows": {
-              "total": 422
+              "total": 424
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -2487,17 +2487,17 @@
       "repo": "nirs4all-datasets",
       "owner": "GBeurier",
       "source": {
-        "manifest_version": "0.3.15",
-        "latest_prod_tag": "v0.3.15",
-        "latest_any_tag": "v0.3.15",
-        "expected_prod_version": "v0.3.15",
-        "commit": "c65ee779194b7c0de4a57d0b6d84fb645bc404d6",
-        "latest_prod_tag_at": "2026-10-29T19:43:08Z",
-        "latest_release_at": "2026-10-29T19:43:28Z",
-        "latest_version_at": "2026-10-29T19:43:28Z",
+        "manifest_version": "0.3.16",
+        "latest_prod_tag": "v0.3.16",
+        "latest_any_tag": "v0.3.16",
+        "expected_prod_version": "v0.3.16",
+        "commit": "0a6d985b073088924d4df0e2afb2eca431fc20b3",
+        "latest_prod_tag_at": "2026-10-29T22:59:32Z",
+        "latest_release_at": "2026-10-29T22:59:39Z",
+        "latest_version_at": "2026-10-29T22:59:39Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-10-29T21:20:19Z",
-        "commits_ahead_of_latest_prod_tag": 8
+        "last_commit_at": "2026-10-29T23:00:52Z",
+        "commits_ahead_of_latest_prod_tag": 1
       },
       "rollup": "green",
       "flags": [],
@@ -2535,7 +2535,7 @@
           "registry": "pypi",
           "name": "nirs4all-datasets",
           "reason": null,
-          "published_version": "0.3.15",
+          "published_version": "0.3.16",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -2555,7 +2555,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -2569,7 +2569,7 @@
           "registry": "crates",
           "name": "nirs4all-datasets-core",
           "reason": null,
-          "published_version": "0.3.15",
+          "published_version": "0.3.16",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -2583,6 +2583,10 @@
             "total": 590,
             "source": "crates.io",
             "by_version": [
+              {
+                "version": "0.3.16",
+                "downloads": 0
+              },
               {
                 "version": "0.3.15",
                 "downloads": 0
@@ -2658,10 +2662,6 @@
               {
                 "version": "0.2.1",
                 "downloads": 26
-              },
-              {
-                "version": "0.2.0",
-                "downloads": 23
               }
             ],
             "windows": {
@@ -2670,7 +2670,7 @@
               "90d": 242,
               "total": 590
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -2684,7 +2684,7 @@
           "registry": "crates",
           "name": "nirs4all-datasets-capi",
           "reason": null,
-          "published_version": "0.3.15",
+          "published_version": "0.3.16",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -2698,6 +2698,10 @@
             "total": 306,
             "source": "crates.io",
             "by_version": [
+              {
+                "version": "0.3.16",
+                "downloads": 0
+              },
               {
                 "version": "0.3.15",
                 "downloads": 0
@@ -2773,10 +2777,6 @@
               {
                 "version": "0.2.1",
                 "downloads": 19
-              },
-              {
-                "version": "0.2.0",
-                "downloads": 16
               }
             ],
             "windows": {
@@ -2785,7 +2785,7 @@
               "90d": 78,
               "total": 306
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -2799,7 +2799,7 @@
           "registry": "crates",
           "name": "nirs4all-datasets-cli",
           "reason": null,
-          "published_version": "0.3.15",
+          "published_version": "0.3.16",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -2813,6 +2813,10 @@
             "total": 311,
             "source": "crates.io",
             "by_version": [
+              {
+                "version": "0.3.16",
+                "downloads": 0
+              },
               {
                 "version": "0.3.15",
                 "downloads": 0
@@ -2888,10 +2892,6 @@
               {
                 "version": "0.2.1",
                 "downloads": 19
-              },
-              {
-                "version": "0.2.0",
-                "downloads": 16
               }
             ],
             "windows": {
@@ -2900,7 +2900,7 @@
               "90d": 90,
               "total": 311
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -2914,7 +2914,7 @@
           "registry": "npm",
           "name": "@nirs4all/datasets-wasm",
           "reason": null,
-          "published_version": "0.3.15",
+          "published_version": "0.3.16",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -2934,7 +2934,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -2948,7 +2948,7 @@
           "registry": "r-universe",
           "name": "nirs4alldatasets",
           "reason": null,
-          "published_version": "0.3.15",
+          "published_version": "0.3.16",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -2976,7 +2976,7 @@
         {
           "registry": "cran",
           "name": "nirs4alldatasets",
-          "reason": "manual web submission; CRAN lifecycle is collected separately; 24 MB source tarball needs a size-exception comment",
+          "reason": "manual web submission; CRAN lifecycle is collected separately; current source archive needs maintainer size-exception review",
           "published_version": null,
           "status": "pending",
           "lifecycle": "archived",
@@ -2997,7 +2997,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -3011,7 +3011,7 @@
           "registry": "github-release",
           "name": "nirs4all-datasets",
           "reason": null,
-          "published_version": "0.3.15",
+          "published_version": "0.3.16",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -3022,13 +3022,13 @@
             "last_day": null,
             "last_week": null,
             "last_month": null,
-            "total": 424,
+            "total": 461,
             "source": "github-release-assets",
             "by_version": [],
             "windows": {
-              "total": 424
+              "total": 461
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -3072,26 +3072,26 @@
         {
           "file": "release-python.yml",
           "conclusion": "success",
-          "created_at": "2026-10-29T19:43:13Z",
-          "head_sha": "11020576217a22628c97062788a2d3fea01c9c83"
+          "created_at": "2026-10-29T22:59:37Z",
+          "head_sha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948"
         },
         {
           "file": "release-crates.yml",
           "conclusion": "success",
-          "created_at": "2026-10-29T19:43:13Z",
-          "head_sha": "11020576217a22628c97062788a2d3fea01c9c83"
+          "created_at": "2026-10-29T22:59:37Z",
+          "head_sha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948"
         },
         {
           "file": "release-npm.yml",
           "conclusion": "success",
-          "created_at": "2026-10-29T19:43:13Z",
-          "head_sha": "11020576217a22628c97062788a2d3fea01c9c83"
+          "created_at": "2026-10-29T22:59:37Z",
+          "head_sha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948"
         },
         {
           "file": "release-r.yml",
           "conclusion": "success",
-          "created_at": "2026-10-29T19:43:13Z",
-          "head_sha": "11020576217a22628c97062788a2d3fea01c9c83"
+          "created_at": "2026-10-29T22:59:37Z",
+          "head_sha": "3d5c5e85bd3c0fdff3199e6050923628dfca7948"
         }
       ],
       "issues": {
@@ -3103,12 +3103,12 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 23,
-        "merged_prs": 16,
-        "size_kb": 291392,
+        "closed_prs": 25,
+        "merged_prs": 18,
+        "size_kb": 291426,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-10-29T21:20:19Z",
+        "pushed_at": "2026-10-29T23:00:53Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -3141,15 +3141,15 @@
       },
       "actions_stats": {
         "workflows": 13,
-        "total_runs": 557,
-        "recent_total": 85,
-        "recent_success": 79,
+        "total_runs": 567,
+        "recent_total": 88,
+        "recent_success": 82,
         "recent_failure": 6,
-        "dependabot_recent_total": 15,
+        "dependabot_recent_total": 12,
         "dependabot_recent_failure": 0,
-        "success_rate": 92.9,
+        "success_rate": 93.2,
         "last_conclusion": "success",
-        "last_created_at": "2026-10-29T21:20:22Z"
+        "last_created_at": "2026-10-29T23:00:55Z"
       }
     },
     {
@@ -3193,7 +3193,7 @@
             "windows": {
               "total": 0
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -3285,7 +3285,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -3387,7 +3387,7 @@
             "windows": {
               "total": 0
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -3421,7 +3421,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -3568,7 +3568,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -3599,7 +3599,7 @@
             "windows": {
               "total": 0
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -3739,7 +3739,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -3854,7 +3854,7 @@
               "90d": 3970,
               "total": 4452
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -3888,7 +3888,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -3919,7 +3919,7 @@
             "windows": {
               "total": 470
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -4020,16 +4020,16 @@
       "repo": "nirs4all-r",
       "owner": "GBeurier",
       "source": {
-        "manifest_version": "0.7.2",
-        "latest_prod_tag": "v0.7.2",
-        "latest_any_tag": "v0.7.2",
-        "expected_prod_version": "v0.7.2",
-        "commit": "1c6f4a7f1b42a5d550cabc4809e957680630a4d7",
-        "latest_prod_tag_at": "2026-10-08T05:37:01Z",
-        "latest_release_at": "2026-10-08T05:49:13Z",
-        "latest_version_at": "2026-10-08T05:49:13Z",
+        "manifest_version": "0.7.3",
+        "latest_prod_tag": "v0.7.3",
+        "latest_any_tag": "v0.7.3",
+        "expected_prod_version": "v0.7.3",
+        "commit": "97296eff387b3b3be638c17bc7cf3db87730f986",
+        "latest_prod_tag_at": "2026-10-29T23:11:04Z",
+        "latest_release_at": "2026-10-29T23:12:09Z",
+        "latest_version_at": "2026-10-29T23:12:09Z",
         "latest_version_source": "release",
-        "last_commit_at": "2026-10-08T05:36:21Z",
+        "last_commit_at": "2026-10-29T23:11:04Z",
         "commits_ahead_of_latest_prod_tag": 0
       },
       "rollup": "green",
@@ -4039,7 +4039,7 @@
           "registry": "r-universe",
           "name": "nirs4all",
           "reason": "Separate end-user R product; R-universe source availability, binary platform qualification and CRAN submission are separate observations",
-          "published_version": "0.7.2",
+          "published_version": "0.7.3",
           "status": "green",
           "lifecycle": null,
           "lifecycle_reason": null,
@@ -4088,7 +4088,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -4109,12 +4109,12 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 35,
-        "merged_prs": 35,
+        "closed_prs": 36,
+        "merged_prs": 36,
         "size_kb": 780,
         "language": "R",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-10-08T05:37:03Z",
+        "pushed_at": "2026-10-29T23:12:09Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -4195,7 +4195,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -4339,7 +4339,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -4480,7 +4480,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -4514,7 +4514,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -4629,7 +4629,7 @@
               "90d": 5221,
               "total": 5990
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -4744,7 +4744,7 @@
               "90d": 6337,
               "total": 7313
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -4859,7 +4859,7 @@
               "90d": 712,
               "total": 875
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -4974,7 +4974,7 @@
               "90d": 542,
               "total": 711
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -5089,7 +5089,7 @@
               "90d": 600,
               "total": 778
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -5273,7 +5273,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -5307,7 +5307,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -5435,7 +5435,7 @@
               "90d": 5435,
               "total": 6622
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -5534,7 +5534,7 @@
               "90d": 6007,
               "total": 7579
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -5633,7 +5633,7 @@
               "90d": 156,
               "total": 380
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -5732,7 +5732,7 @@
               "90d": 107,
               "total": 312
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -5831,7 +5831,7 @@
               "90d": 104,
               "total": 321
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -5930,7 +5930,7 @@
               "90d": 3344,
               "total": 3761
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -6149,7 +6149,7 @@
             "windows": {
               "total": 0
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -6319,7 +6319,7 @@
             "windows": {
               "total": 20
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -6453,7 +6453,7 @@
             "windows": {
               "total": 1
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -6567,7 +6567,7 @@
             "windows": {
               "total": 2
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -6601,7 +6601,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -6715,13 +6715,13 @@
         "latest_prod_tag": "v0.1.8",
         "latest_any_tag": "v0.1.8",
         "expected_prod_version": "v0.1.8",
-        "commit": "873d4aeb9bccaeab7a5fdbe3973a43e3a68b903d",
+        "commit": "4eabfb424c05c57f25da64856664c8e905574561",
         "latest_prod_tag_at": "2026-09-04T15:59:32Z",
         "latest_release_at": "2026-07-07T13:26:15Z",
         "latest_version_at": "2026-09-04T15:59:32Z",
         "latest_version_source": "tag",
-        "last_commit_at": "2026-10-29T20:33:29Z",
-        "commits_ahead_of_latest_prod_tag": 122
+        "last_commit_at": "2026-10-29T21:58:15Z",
+        "commits_ahead_of_latest_prod_tag": 125
       },
       "rollup": "green",
       "flags": [],
@@ -6760,8 +6760,8 @@
         {
           "file": "pages.yml",
           "conclusion": "success",
-          "created_at": "2026-10-29T20:33:32Z",
-          "head_sha": "873d4aeb9bccaeab7a5fdbe3973a43e3a68b903d"
+          "created_at": "2026-10-29T21:58:18Z",
+          "head_sha": "4eabfb424c05c57f25da64856664c8e905574561"
         }
       ],
       "issues": {
@@ -6773,12 +6773,12 @@
         "forks": 0,
         "watchers": 0,
         "open_prs": 0,
-        "closed_prs": 9,
-        "merged_prs": 9,
-        "size_kb": 1676,
+        "closed_prs": 10,
+        "merged_prs": 10,
+        "size_kb": 1723,
         "language": "Python",
         "license": "AGPL-3.0",
-        "pushed_at": "2026-10-29T20:33:29Z",
+        "pushed_at": "2026-10-29T21:58:16Z",
         "default_branch": "main",
         "traffic_views_14d": null,
         "traffic_views_uniques": null,
@@ -6805,7 +6805,7 @@
       },
       "actions_stats": {
         "workflows": 4,
-        "total_runs": 1272,
+        "total_runs": 1275,
         "recent_total": 100,
         "recent_success": 97,
         "recent_failure": 3,
@@ -6813,7 +6813,7 @@
         "dependabot_recent_failure": 0,
         "success_rate": 97.0,
         "last_conclusion": "success",
-        "last_created_at": "2026-10-29T20:33:32Z"
+        "last_created_at": "2026-10-29T21:58:18Z"
       }
     },
     {
@@ -6857,7 +6857,7 @@
             "windows": {
               "total": 2
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -6891,7 +6891,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.819937+00:00",
+            "observed_at": "2026-10-30T00:02:04.266208+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -7066,7 +7066,7 @@
             "windows": {
               "total": 0
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -7100,7 +7100,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.812289+00:00",
+            "observed_at": "2026-10-30T00:02:04.274056+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -7272,7 +7272,7 @@
             "windows": {
               "total": 0
             },
-            "observed_at": "2026-10-29T21:45:48.813645+00:00",
+            "observed_at": "2026-10-30T00:02:04.267549+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -7379,7 +7379,7 @@
               "90d": null,
               "total": null
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -7426,7 +7426,7 @@
               "90d": 135,
               "total": 135
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -7457,7 +7457,7 @@
             "windows": {
               "total": 11
             },
-            "observed_at": "2026-10-29T21:45:48.816731+00:00",
+            "observed_at": "2026-10-30T00:02:04.266061+00:00",
             "carried_forward": false
           },
           "evidence": {
@@ -7631,7 +7631,7 @@
     "loc_total": 3379609,
     "tests": 24764,
     "files": 10767,
-    "workflow_runs": 13734,
+    "workflow_runs": 13759,
     "downloads_last_month": 83557
   },
   "visits": {
@@ -7708,8 +7708,8 @@
   "search_console": {
     "available": false,
     "site_url": "sc-domain:nirs4all.org",
-    "start_date": "2026-07-29",
-    "end_date": "2026-10-26",
+    "start_date": "2026-07-30",
+    "end_date": "2026-10-27",
     "windows": {},
     "pages": [],
     "queries": [],
@@ -7729,7 +7729,7 @@
     "issues": [],
     "resolved_issues": [],
     "error": null,
-    "observed_at": "2026-10-29T21:45:48.819937+00:00",
+    "observed_at": "2026-10-30T00:02:04.274056+00:00",
     "carried_forward": false
   }
 }

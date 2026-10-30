@@ -36,3 +36,14 @@ test("repository links and deduplication preserve independent owners", () => {
   const count = vm.runInContext('repositoryPackages([{repo: "same", owner: "first"}, {repo: "same", owner: "second"}]).length', context);
   assert.equal(count, 2);
 });
+
+test("manual completion cannot hide negative checks or the current Studio hold", () => {
+  const result = vm.runInContext(`JSON.stringify([
+    {status: "done", resolved: null, auto_check: null},
+    {status: "done", resolved: false, auto_check: {registry: "pypi"}},
+    {status: "done", resolved: null, auto_check: {registry: "pypi"}},
+    {status: "blocked", resolved: null, auto_check: null},
+    {status: "todo", resolved: true, auto_check: {registry: "pypi"}}
+  ].map(isManualActionPending))`, context);
+  assert.equal(result, "[false,true,true,true,false]");
+});
