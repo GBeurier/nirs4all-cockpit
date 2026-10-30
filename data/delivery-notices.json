@@ -1,25 +1,171 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-30T07:50:38.523961+00:00",
+  "updated_at": "2026-10-30T12:07:37.292867+00:00",
   "notices": [
+    {
+      "id": "studio-0154-public-delivery-20261030",
+      "observed_at": "2026-10-30T11:56:16.523573+00:00",
+      "title": "Studio 0.15.4 published: Linux, Windows, Apple Silicon and the tested container verified",
+      "message": "The release is public and its six installer/checksum URLs were downloaded anonymously. All three installer sizes and SHA256 hashes match their hosted producers and sidecars. Actual DEB, NSIS and DMG payloads embed version 0.15.4 and full source 46ba497c325dbdabe6fad6ad93e8a7401d5df239. Anonymous GHCR reads verify the 0.15.4 and latest tags against the exact CI-tested image identity and release labels. The maintainer lifted the former publication hold; issue #9 is completed after delivery. This does not claim new manual missing-value testing, a TLS diagnosis, installer signing or notarization.",
+      "links": [
+        {
+          "label": "Studio 0.15.4 public release and six assets",
+          "url": "https://github.com/GBeurier/nirs4all-studio/releases/tag/0.15.4"
+        },
+        {
+          "label": "Successful hosted build, platform checks and publication",
+          "url": "https://github.com/GBeurier/nirs4all-studio/actions/runs/41046977954"
+        },
+        {
+          "label": "Studio issue #9: English delivery reply and completion",
+          "url": "https://github.com/GBeurier/nirs4all-studio/issues/9#issuecomment-6522096089"
+        }
+      ],
+      "source_commit": "46ba497c325dbdabe6fad6ad93e8a7401d5df239",
+      "published_at": "2026-10-30T11:48:26Z",
+      "installer_evidence": [
+        {
+          "name": "nirs4all.Studio-0.15.4-linux-amd64.deb",
+          "bytes": 510828732,
+          "sha256": "0a47cff33591daa8f73c84022ac226b1c9270efeb96cb07122d4c754ceda5416",
+          "url": "https://github.com/GBeurier/nirs4all-studio/releases/download/0.15.4/nirs4all.Studio-0.15.4-linux-amd64.deb"
+        },
+        {
+          "name": "nirs4all.Studio-0.15.4-linux-amd64.deb.sha256",
+          "bytes": 105,
+          "sha256": "478119a94c50f8b14ea56bf1f14ec4c14b4c34c43a81a40c36ea58fed66b7aeb",
+          "url": "https://github.com/GBeurier/nirs4all-studio/releases/download/0.15.4/nirs4all.Studio-0.15.4-linux-amd64.deb.sha256"
+        },
+        {
+          "name": "nirs4all.Studio-0.15.4-mac-arm64.dmg",
+          "bytes": 517372743,
+          "sha256": "b105c0c668a0fdde9213cb2c63fbcec4bb5153d423c2338ecd42670d4423cbfd",
+          "url": "https://github.com/GBeurier/nirs4all-studio/releases/download/0.15.4/nirs4all.Studio-0.15.4-mac-arm64.dmg"
+        },
+        {
+          "name": "nirs4all.Studio-0.15.4-mac-arm64.dmg.sha256",
+          "bytes": 103,
+          "sha256": "72186c325e00bfad67a264d0b0fda534ffb26bd4441e649c917f828963024dce",
+          "url": "https://github.com/GBeurier/nirs4all-studio/releases/download/0.15.4/nirs4all.Studio-0.15.4-mac-arm64.dmg.sha256"
+        },
+        {
+          "name": "nirs4all.Studio-0.15.4-win-x64.exe",
+          "bytes": 414585474,
+          "sha256": "3a0e4b017432022522d574b0dc2876c5dbc61cf0e1241bbe38d61e9a25e6aa5e",
+          "url": "https://github.com/GBeurier/nirs4all-studio/releases/download/0.15.4/nirs4all.Studio-0.15.4-win-x64.exe"
+        },
+        {
+          "name": "nirs4all.Studio-0.15.4-win-x64.exe.sha256",
+          "bytes": 101,
+          "sha256": "a5a32fd6d9044f0f6cade1137d1b2548ce5cb1ab72e0dea23c5db9ed170ac49d",
+          "url": "https://github.com/GBeurier/nirs4all-studio/releases/download/0.15.4/nirs4all.Studio-0.15.4-win-x64.exe.sha256"
+        }
+      ],
+      "embedded_metadata": [
+        {
+          "platform": "linux",
+          "metadata": {
+            "version": "0.15.4",
+            "build_date": "2026-10-30T11:24:24Z",
+            "commit": "46ba497c325dbdabe6fad6ad93e8a7401d5df239"
+          }
+        },
+        {
+          "platform": "mac-arm64",
+          "metadata": {
+            "version": "0.15.4",
+            "build_date": "2026-10-30T11:22:41Z",
+            "commit": "46ba497c325dbdabe6fad6ad93e8a7401d5df239"
+          }
+        },
+        {
+          "platform": "windows",
+          "metadata": {
+            "build_date": "2026-10-30T11:25:37Z",
+            "version": "0.15.4",
+            "commit": "46ba497c325dbdabe6fad6ad93e8a7401d5df239"
+          }
+        }
+      ],
+      "container_evidence": {
+        "observed_at": "2026-10-30T11:52:21.916652+00:00",
+        "version_manifest_digest": "sha256:ee85a1841dc36cf954039987f64d5a8af96412ce2a12719fffaba326fd004830",
+        "latest_manifest_digest": "sha256:ee85a1841dc36cf954039987f64d5a8af96412ce2a12719fffaba326fd004830",
+        "image_manifest_digest": "sha256:acedec9a4570d1932d8d62de079d3ece612e75b5cb25fe643b609f6239da3bfb",
+        "configuration_digest": "sha256:cdd18b50eb8fedcb37ff8e3f35b96514ce205a874ed0cb838813cd4073dbfacd",
+        "matched_tested_identity_kind": "image-index"
+      }
+    },
+    {
+      "id": "dag-overnight-proposals-completed-20261030",
+      "observed_at": "2026-10-30T12:03:29.298962+00:00",
+      "title": "DAG-ML proposals completed: workflow merged, incompatible runtime updates declined",
+      "message": "PR #125 was merged after its 16 successful checks; it changes only an immutable CI cache-action pin. PRs #126 and #127 were declined with English explanations because their Unicode/Arrow/lock changes violate the frozen runtime contract or fail required checks. The resulting main commit c4b987ec1e6feb93ef5bff46e7b1380b2604f6cb has successful CI, version-guard and training-replay runs. No DAG runtime release or Studio cohort repin was required.",
+      "links": [
+        {
+          "label": "PR #125 merged: workflow maintenance",
+          "url": "https://github.com/GBeurier/dag-ml/pull/125"
+        },
+        {
+          "label": "PR #126 closed: frozen Unicode contract",
+          "url": "https://github.com/GBeurier/dag-ml/pull/126"
+        },
+        {
+          "label": "PR #127 closed: incompatible runtime dependency group",
+          "url": "https://github.com/GBeurier/dag-ml/pull/127"
+        },
+        {
+          "label": "Post-merge main CI succeeded",
+          "url": "https://github.com/GBeurier/dag-ml/actions/runs/41042162795"
+        }
+      ]
+    },
+    {
+      "id": "final-github-and-sentry-dispositions-20261030",
+      "observed_at": "2026-10-30T12:03:29.298962+00:00",
+      "title": "Final GitHub counts: no open issues or PRs; two Sentry investigations remain unresolved",
+      "message": "Fresh complete paginated checks cover 26 public repositories and report zero open GitHub issues and zero open PRs. The separately observed Sentry 14-day searchable view reports one unresolved group, two events, three resolved historical-test-noise groups and zero affected users. A further historical native group has no recoverable event or diagnostic artifact and remains unresolved outside that searchable count. English delivery follow-up notes were posted to both remaining investigations. Publishing Studio does not establish either cause or resolution, and no events were deleted.",
+      "links": [],
+      "sentry_observed_at": "2026-10-30T12:02:40.644667+00:00"
+    },
+    {
+      "id": "final-collection-observation-dates-20261030",
+      "observed_at": "2026-10-30T12:06:41.538704+00:00",
+      "title": "Fresh registry and GitHub collection; earlier R platform evidence keeps its original dates",
+      "message": "All 27 packages and 111 registry targets were collected again through the official CLI after Studio delivery. Each subset retains its actual collection timestamp; complete GitHub issue/PR witnesses and Sentry aggregates are dated separately. The existing eight-package R audit remains a dated 106-profile observation, including 13 IO licence notes and eight WebR build-only results. Those platform jobs were not rerun for this dashboard update. No additional CRAN submission or Preflight PyPI publication is claimed.",
+      "links": [
+        {
+          "label": "Current public snapshot and observation dates",
+          "url": "https://cockpit.nirs4all.org/data/current.json"
+        },
+        {
+          "label": "Dated R platform evidence",
+          "url": "https://cockpit.nirs4all.org/data/platform-evidence.json"
+        }
+      ]
+    },
     {
       "id": "approved-feedback-published-20261030",
       "observed_at": "2026-10-30T07:45:13.969767+00:00",
       "title": "English feedback published: 16 fixed issues closed; Studio remains on manual hold",
-      "message": "Nineteen approved English GitHub replies and five English Sentry notes were posted and verified. Sixteen fixed GitHub issues are closed. Studio issue #9 remains open for the maintainer’s manual validation, and no new Studio release is claimed. The three newly opened DAG-ML dependency proposals are tracked separately below.",
+      "message": "Nineteen approved English GitHub replies and five English Sentry notes were posted and verified. Sixteen fixed GitHub issues are closed. Studio issue #9 remains open for the maintainer\u2019s manual validation, and no new Studio release is claimed. The three newly opened DAG-ML dependency proposals are tracked separately below.",
       "links": [
         {
           "label": "Studio issue #9 remains open",
           "url": "https://github.com/GBeurier/nirs4all-studio/issues/9"
         }
-      ]
+      ],
+      "historical": true,
+      "superseded_at": "2026-10-30T12:03:29.298962+00:00"
     },
     {
       "id": "sentry-post-feedback-dispositions-20261030",
       "observed_at": "2026-10-30T07:48:38.481724+00:00",
       "title": "Sentry: historical test noise resolved; TLS and an unknown historical group remain open",
       "message": "Three groups were resolved as historical automated-test noise after documented review. This disposition does not certify a production deployment, and no events were deleted. The freshly observed 14-day searchable view reports one unresolved group, two events, three resolved groups and zero affected users. The connection/TLS case remains open pending manual validation and a Studio release. A separate historical native group has no recoverable event or diagnostic artifact; its cause and resolution remain unverified, so it is not considered resolved.",
-      "links": []
+      "links": [],
+      "historical": true,
+      "superseded_at": "2026-10-30T12:03:29.298962+00:00"
     },
     {
       "id": "overnight-dag-dependency-pr-review-20261030",
@@ -39,7 +185,9 @@
           "label": "PR #127: grouped runtime proposal",
           "url": "https://github.com/GBeurier/dag-ml/pull/127"
         }
-      ]
+      ],
+      "historical": true,
+      "superseded_at": "2026-10-30T12:03:29.298962+00:00"
     },
     {
       "id": "scoped-post-feedback-observation-dates-20261030",
@@ -55,12 +203,14 @@
           "label": "Unchanged R platform evidence and original dates",
           "url": "https://cockpit.nirs4all.org/data/platform-evidence.json"
         }
-      ]
+      ],
+      "historical": true,
+      "superseded_at": "2026-10-30T12:03:29.298962+00:00"
     },
     {
       "id": "sentry-exhaustive-historical-limit-20261030",
       "observed_at": "2026-10-30T00:28:38.678154+00:00",
-      "title": "Earlier exhaustive Sentry review — counts superseded; historical uncertainty remains",
+      "title": "Earlier exhaustive Sentry review \u2014 counts superseded; historical uncertainty remains",
       "message": "The exhaustive review found four groups with accessible events, plus one historical native group without a recoverable event or diagnostic artifact. The historical group is not considered resolved: neither its cause nor a verified fix can be established from the available record. The dated snapshot still reports four unresolved groups and eight accessible events in its observation window; this historical limitation is a separate finding, not a new event count.",
       "links": [],
       "historical": true,
@@ -94,7 +244,7 @@
       "id": "r-eight-platform-final-20261029",
       "observed_at": "2026-10-29T23:33:04.335309+00:00",
       "title": "All eight current R build runs succeeded; platform limits remain explicit",
-      "message": "The 23:32–23:33 UTC audit matched all eight served R sources to the universe configuration and found 106 published platform records: 85 native R CMD checks OK, 13 IO profiles with the documented inst/LICENSE metadata NOTE, and eight successful WebR builds. The WebR jobs do not run R CMD check, so build success is not universal runtime certification. The earlier macOS preparation failures are resolved by the corrected upstream action and verified managed rebuilds; their original observations remain available as history.",
+      "message": "The 23:32\u201323:33 UTC audit matched all eight served R sources to the universe configuration and found 106 published platform records: 85 native R CMD checks OK, 13 IO profiles with the documented inst/LICENSE metadata NOTE, and eight successful WebR builds. The WebR jobs do not run R CMD check, so build success is not universal runtime certification. The earlier macOS preparation failures are resolved by the corrected upstream action and verified managed rebuilds; their original observations remain available as history.",
       "links": [
         {
           "label": "R-universe package and platform matrix",
@@ -126,18 +276,20 @@
       "id": "studio-maintainer-manual-hold",
       "observed_at": "2026-10-30T00:07:35.580750+00:00",
       "title": "Studio publication remains on hold for manual validation",
-      "message": "Local automated candidate checks passed on Linux and Windows. Studio publication remains held for the maintainer’s manual validation of missing-value handling, interface and TLS. Local candidates are separate from public releases; no new Studio publication is claimed.",
+      "message": "Local automated candidate checks passed on Linux and Windows. Studio publication remains held for the maintainer\u2019s manual validation of missing-value handling, interface and TLS. Local candidates are separate from public releases; no new Studio publication is claimed.",
       "links": [
         {
           "label": "Existing public Studio releases",
           "url": "https://github.com/GBeurier/nirs4all-studio/releases"
         }
-      ]
+      ],
+      "historical": true,
+      "superseded_at": "2026-10-30T11:56:16.523573+00:00"
     },
     {
       "id": "r-final-delivery-20261029",
       "observed_at": "2026-10-29T21:51:32.823755+00:00",
-      "title": "Earlier R delivery checks — superseded by the final platform audit",
+      "title": "Earlier R delivery checks \u2014 superseded by the final platform audit",
       "message": "Historical checks through 21:51 UTC verified the then-current source and ARM64/WebR artifacts, including Datasets 0.3.15. Their original source revisions, hashes and dates are retained below. The current releases and platform results are reported separately above.",
       "links": [
         {
@@ -382,7 +534,7 @@
     {
       "id": "external-macos-preparation-failures-20261029",
       "observed_at": "2026-10-29T20:47:01.9937770Z",
-      "title": "Resolved macOS preparation failures — historical observations",
+      "title": "Resolved macOS preparation failures \u2014 historical observations",
       "message": "Formats failed at 20:47 UTC and the earlier DAG retry failed at 20:07 UTC before source download because upstream rustup-init was absent. These are historical failures: managed jobs later resolved the corrected prep action 6193097, succeeded, and published verified macOS ARM64 binaries by 22:40 UTC. Original failure dates and links are preserved; neither failure is a current blocker.",
       "links": [
         {
