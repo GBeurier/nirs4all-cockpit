@@ -1,11 +1,340 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-30T00:48:58.291080+00:00",
+  "generated_at": "2026-10-30T07:48:38.481750+00:00",
   "generator": {
     "repo": "GBeurier/nirs4all-cockpit",
-    "workflow": "collect.yml",
-    "run_id": "40981938162",
-    "mode": "ci"
+    "workflow": null,
+    "run_id": null,
+    "mode": "local",
+    "method": "official GitHub and Sentry collectors; scoped post-feedback refresh; unchanged registry/platform evidence retains original dates",
+    "refreshed_fields": [
+      "packages[].issues",
+      "packages[].repo_stats.open_prs",
+      "sentry"
+    ],
+    "preserved_snapshot_generated_at": "2026-10-30T00:48:58.291080+00:00",
+    "preserved_generator": {
+      "repo": "GBeurier/nirs4all-cockpit",
+      "workflow": "collect.yml",
+      "run_id": "40981938162",
+      "mode": "ci"
+    },
+    "GitHub_issue_PR_observations": [
+      {
+        "owner": "GBeurier",
+        "repo": "dag-ml",
+        "started_at": "2026-10-30T07:48:20.701388+00:00",
+        "observed_at": "2026-10-30T07:48:22.781940+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 3,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "dag-ml-data",
+        "started_at": "2026-10-30T07:48:20.701965+00:00",
+        "observed_at": "2026-10-30T07:48:22.544128+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all",
+        "started_at": "2026-10-30T07:48:20.702493+00:00",
+        "observed_at": "2026-10-30T07:48:23.381959+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-aom",
+        "started_at": "2026-10-30T07:48:20.702952+00:00",
+        "observed_at": "2026-10-30T07:48:22.469482+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-benchmarks",
+        "started_at": "2026-10-30T07:48:22.469523+00:00",
+        "observed_at": "2026-10-30T07:48:24.128690+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-cluster",
+        "started_at": "2026-10-30T07:48:22.544164+00:00",
+        "observed_at": "2026-10-30T07:48:24.199186+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-cockpit",
+        "started_at": "2026-10-30T07:48:22.782090+00:00",
+        "observed_at": "2026-10-30T07:48:24.634991+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-core",
+        "started_at": "2026-10-30T07:48:23.382109+00:00",
+        "observed_at": "2026-10-30T07:48:25.254602+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-datasets",
+        "started_at": "2026-10-30T07:48:24.128765+00:00",
+        "observed_at": "2026-10-30T07:48:25.799396+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-device",
+        "started_at": "2026-10-30T07:48:24.199249+00:00",
+        "observed_at": "2026-10-30T07:48:25.831443+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-ecosystem",
+        "started_at": "2026-10-30T07:48:24.635071+00:00",
+        "observed_at": "2026-10-30T07:48:26.457005+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-formats",
+        "started_at": "2026-10-30T07:48:25.254666+00:00",
+        "observed_at": "2026-10-30T07:48:26.976229+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-io",
+        "started_at": "2026-10-30T07:48:25.799464+00:00",
+        "observed_at": "2026-10-30T07:48:27.496251+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-methods",
+        "started_at": "2026-10-30T07:48:25.831554+00:00",
+        "observed_at": "2026-10-30T07:48:27.629649+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-org",
+        "started_at": "2026-10-30T07:48:26.457077+00:00",
+        "observed_at": "2026-10-30T07:48:27.980070+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-papers",
+        "started_at": "2026-10-30T07:48:26.976295+00:00",
+        "observed_at": "2026-10-30T07:48:28.820277+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-preflight",
+        "started_at": "2026-10-30T07:48:27.496319+00:00",
+        "observed_at": "2026-10-30T07:48:29.080022+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-providers",
+        "started_at": "2026-10-30T07:48:27.629712+00:00",
+        "observed_at": "2026-10-30T07:48:29.179603+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-quality",
+        "started_at": "2026-10-30T07:48:27.980132+00:00",
+        "observed_at": "2026-10-30T07:48:29.510689+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-r",
+        "started_at": "2026-10-30T07:48:28.820328+00:00",
+        "observed_at": "2026-10-30T07:48:30.355966+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-repository",
+        "started_at": "2026-10-30T07:48:29.080088+00:00",
+        "observed_at": "2026-10-30T07:48:30.641684+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-studio",
+        "started_at": "2026-10-30T07:48:29.179677+00:00",
+        "observed_at": "2026-10-30T07:48:30.845897+00:00",
+        "issues": {
+          "open": 1,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-tools",
+        "started_at": "2026-10-30T07:48:29.510763+00:00",
+        "observed_at": "2026-10-30T07:48:31.142243+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-ui",
+        "started_at": "2026-10-30T07:48:30.356019+00:00",
+        "observed_at": "2026-10-30T07:48:31.979930+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "GBeurier",
+        "repo": "nirs4all-web",
+        "started_at": "2026-10-30T07:48:30.641796+00:00",
+        "observed_at": "2026-10-30T07:48:32.267412+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      },
+      {
+        "owner": "dcornet",
+        "repo": "nirs4all-domains",
+        "started_at": "2026-10-30T07:48:30.845974+00:00",
+        "observed_at": "2026-10-30T07:48:32.541089+00:00",
+        "issues": {
+          "open": 0,
+          "bugs": 0
+        },
+        "open_prs": 0,
+        "http_witnesses_complete": true
+      }
+    ],
+    "Sentry_collection_started_at": "2026-10-30T07:48:32.551000+00:00",
+    "Sentry_observed_at": "2026-10-30T07:48:38.481724+00:00"
   },
   "packages": [
     {
@@ -721,7 +1050,7 @@
         }
       ],
       "issues": {
-        "open": 3,
+        "open": 0,
         "bugs": 0
       },
       "repo_stats": {
@@ -881,7 +1210,7 @@
         }
       ],
       "issues": {
-        "open": 3,
+        "open": 0,
         "bugs": 0
       },
       "repo_stats": {
@@ -3035,7 +3364,7 @@
         }
       ],
       "issues": {
-        "open": 6,
+        "open": 0,
         "bugs": 0
       },
       "repo_stats": {
@@ -5084,7 +5413,7 @@
         "stars": 4,
         "forks": 0,
         "watchers": 0,
-        "open_prs": 0,
+        "open_prs": 3,
         "closed_prs": 1,
         "merged_prs": 0,
         "size_kb": 641104,
@@ -6265,7 +6594,7 @@
       ],
       "workflows": [],
       "issues": {
-        "open": 5,
+        "open": 0,
         "bugs": 0
       },
       "repo_stats": {
@@ -7431,7 +7760,7 @@
       ],
       "workflows": [],
       "issues": {
-        "open": 2,
+        "open": 0,
         "bugs": 0
       },
       "repo_stats": {
@@ -7570,8 +7899,8 @@
     "stars": 171,
     "forks": 2,
     "watchers": 3,
-    "open_issues": 17,
-    "open_prs": 0,
+    "open_issues": 1,
+    "open_prs": 3,
     "loc_code": 2161705,
     "loc_total": 2661956,
     "tests": 24792,
@@ -7667,14 +7996,14 @@
     "org": "wwwciradfr",
     "project": "nirs4all-studio",
     "stats_period": "14d",
-    "unresolved": 4,
-    "resolved": 0,
-    "events": 8,
+    "unresolved": 1,
+    "resolved": 3,
+    "events": 2,
     "users_affected": 0,
     "issues": [],
     "resolved_issues": [],
     "error": null,
-    "observed_at": "2026-10-30T00:48:58.291080+00:00",
+    "observed_at": "2026-10-30T07:48:38.481724+00:00",
     "carried_forward": false
   }
 }
