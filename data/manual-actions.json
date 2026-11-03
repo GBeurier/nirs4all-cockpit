@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-11-03T00:40:49.889790+00:00",
+  "snapshot_generated_at": "2026-11-03T08:57:19.022670+00:00",
   "counts": {
     "total": 26,
     "pending": 10,
@@ -43,7 +43,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "github-release:nirs4all-studio current 0.15.8 (status=green)"
+      "check_note": "github-release:nirs4all-studio current 0.15.9 (status=green)"
     },
     {
       "id": "rtd-native-build-admin-unblock",
@@ -99,7 +99,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "npm:@nirs4all/methods published 1.3.13 (status=green)"
+      "check_note": "npm:@nirs4all/methods published 1.3.14 (status=green)"
     },
     {
       "id": "pypi-publisher-pls4all",
@@ -127,7 +127,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:pls4all published 1.3.13 (status=green)"
+      "check_note": "pypi:pls4all published 1.3.14 (status=green)"
     },
     {
       "id": "pypi-publisher-io",
@@ -176,7 +176,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-core published 0.4.6 (status=green)"
+      "check_note": "pypi:nirs4all-core published 0.4.7 (status=green)"
     },
     {
       "id": "runiverse-core-rebuild",
@@ -197,8 +197,8 @@
         "name": "nirs4all",
         "expect": "green"
       },
-      "resolved": true,
-      "check_note": "r-universe:nirs4all current 0.7.3 (status=green)"
+      "resolved": false,
+      "check_note": "r-universe:nirs4all status=stale version=0.7.3"
     },
     {
       "id": "runiverse-methods-n4m-rebuild",
@@ -218,7 +218,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:n4m current 1.3.13 (status=green)"
+      "check_note": "r-universe:n4m current 1.3.14 (status=green)"
     },
     {
       "id": "runiverse-methods-pls4all-rebuild",
@@ -238,7 +238,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:pls4all current 1.3.13 (status=green)"
+      "check_note": "r-universe:pls4all current 1.3.14 (status=green)"
     },
     {
       "id": "runiverse-formats-rebuild",
@@ -297,8 +297,8 @@
         "name": "dagmldata",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:dagmldata status=stale version=0.2.15"
+      "resolved": true,
+      "check_note": "r-universe:dagmldata current 0.2.16 (status=green)"
     },
     {
       "id": "runiverse-datasets-rebuild",
@@ -440,7 +440,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-repository published 0.1.12 (status=green)"
+      "check_note": "pypi:nirs4all-repository published 0.1.13 (status=green)"
     },
     {
       "id": "pypi-publisher-dag-ml",
