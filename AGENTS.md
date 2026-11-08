@@ -1,36 +1,34 @@
-# Repository Guidelines
+# Cockpit contributor instructions
 
-## Project Structure & Module Organization
+## Read-only health and data
 
-This repository is a read-only release and health cockpit for the nirs4all ecosystem. Python source lives in `cockpit/`; the Typer entry point is `cockpit.cli:app`, exposed as `n4a-cockpit`. Registry and service collectors are under `cockpit/collect/`. The zero-build dashboard lives in `web/` and reads `data/current.json`. Operational inventory and manual actions live in `ops/`. Tests are in `tests/`, with API fixtures in `tests/fixtures/`.
+Cockpit collects public registry/CI/issues/stats, never owner release logic.
+Tests stay offline through both cockpit.http.get_json and get_text seams; retain registry error-200/404/null-version/zero-download fixtures and tests/test_<area>.py/test_<behavior>. Unknown is not zero; preserve original observation/carried-forward dates and [status semantics](README.md#status-model), separately from platform/delivery evidence.
+Public data/current.json is distinct from ignored local data/admin/snapshot.admin.json; push-scoped/semi-private signals never enter public/deployed data. Never commit/print/store tokens or admin snapshots. GITHUB_TOKEN/GOATCOUNTER_TOKEN/SENTRY_AUTH_TOKEN retain their [public/admin conditions](README.md#public-vs-admin-signals).
+`--only` needs explicit scratch `--out`, never the public snapshot. Refresh Cockpit LAST; existing cron and guarded admin examples grant no agent refresh, dispatch, secret-setting or deployment authority. Keep [Quickstart prerequisites](README.md#quickstart).
 
-## Build, Test, and Development Commands
+## Commands and conventions
 
-- `python -m venv .venv && . .venv/bin/activate`: create a local environment.
-- `pip install -e .[dev]`: install the package, pytest, and Ruff.
-- `n4a-cockpit validate-targets ops/targets.yaml`: validate package inventory.
-- `n4a-cockpit collect --offline`: build a snapshot using fixtures/cache only.
-- `n4a-cockpit status`: show the current snapshot as a terminal table.
-- `python -m http.server 8000`: serve the repo root, then open `http://localhost:8000/web/index.html`.
-- `pytest -q`: run the offline test suite.
-- `ruff check .`: run configured lint checks.
+From this checkout/package environment retain:
 
-## Coding Style & Naming Conventions
+```bash
+python -m venv .venv && . .venv/bin/activate
+pip install -e .[dev]
+n4a-cockpit validate-targets ops/targets.yaml
+n4a-cockpit collect --offline
+n4a-cockpit status
+python -m http.server 8000
+pytest -q
+ruff check .
+```
 
-Use Python 3.11 features where they simplify code. Follow Ruff settings in `pyproject.toml`: 120-character lines, `py311` target, and rules `E`, `F`, `I`, `UP`, and `B`. Use 4-space indentation, snake_case for modules/functions, PascalCase for classes and Pydantic models, and registry-specific module names such as `pypi.py` or `github_security.py`. Keep the frontend dependency-free vanilla HTML/CSS/JS.
+Serve repo root at http://localhost:8000/web/index.html; fetches fail over file://. Keep Python 3.11/Ruff 120/py311 E/F/I/UP/B, four spaces, snake_case modules/functions, PascalCase/Pydantic and registry-specific names, dependency-free vanilla frontend. Focus Conventional Commits; PRs need context/issue/checks and UI screenshots when relevant.
+The [staging build/validate recipe](docs/release-staging.md#public-release-staging-projection) requires explicitly selected sanitized inputs and fail-closed validation; it proves no registry publication/artifact availability and grants no UI/deploy. Its [native-candidate profile](docs/release-staging.md#local-native-r4v1-candidate) retains governance/cwd/limits and the byte-identical Org mirror; staging is no V1 announcement. Historical receipts are not current support.
+Follow [LICENSING](LICENSING.md) and [notices](THIRD_PARTY_NOTICES.md): `CeCILL-2.1 OR AGPL-3.0-or-later`, optional commercial contact and authoritative upstream component terms.
 
-## Testing Guidelines
+## Working rules
 
-Tests must remain offline. Collectors should reach external services through `cockpit.http.get_json` so tests can monkeypatch fixture responses. Name files `tests/test_<area>.py` and functions `test_<behavior>`. Add fixtures for registry edge cases such as HTTP-200 error payloads, 404s, null versions, and zero-download responses.
-
-## Commit & Pull Request Guidelines
-
-Recent history uses Conventional Commits, often with scopes: `feat(targets): ...`, `fix(pages): ...`, `chore(collect): refresh data/current.json`. Keep commits focused and describe the behavior or data change. Pull requests should include a concise summary, linked issue when available, test results, and screenshots for dashboard UI changes.
-
-## Security & Configuration Tips
-
-Do not commit tokens or local admin snapshots. Public data belongs in `data/current.json`; push-scoped or semi-private signals belong only in gitignored `data/admin/snapshot.admin.json`. Prefer `GITHUB_TOKEN`, `GOATCOUNTER_TOKEN`, and `SENTRY_AUTH_TOKEN`; never print or store their values.
-
-## Agent-Specific Instructions
-
-The cockpit aggregates public registry, CI, issue, and stats signals; it should not reimplement package release logic from sibling repositories. Keep changes scoped and preserve the distinction between public and admin-only data.
+Read applicable instructions first and preserve dirty work. If `../AGENTS.md` exists, read it within the current user scope; this file also works alone.
+Use CodeGraph FIRST only with this checkout's own `.codegraph/` (exact projectPath or local CLI); never auto-index or use an ancestor index. Source, tests and builds are final authority.
+Record actual commands, exits and skips. Keep secrets, private data and build output out of Git. Examples grant no install, network, science, publication, hosting, frontend or Git authority.
+All project content, including UI text, docs, tests, reports, PRs and commits, is English; conversation may be French. Preserve names, identifiers, quotations and provenance.
