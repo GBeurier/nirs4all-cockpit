@@ -106,6 +106,7 @@ def test_preflight_tracks_verified_publication_surfaces_and_domains_its_actual_o
     assert {(t.registry, t.name) for t in preflight.targets} == {
         ("npm", "@nirs4all/preflight"), ("crates", "nirs4all-preflight"),
         ("github-release", "nirs4all-preflight"), ("pages", "nirs4all-preflight"),
+        ("pypi", "nirs4all-preflight"),
     }
     domains = next(p for p in inventory.packages if p.id == "nirs4all-domains")
     assert domains.owner == "dcornet"
