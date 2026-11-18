@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-11-18T18:27:07.218225+00:00",
+  "snapshot_generated_at": "2026-11-18T23:47:40.453122+00:00",
   "counts": {
     "total": 26,
-    "pending": 9,
-    "resolved": 17,
+    "pending": 8,
+    "resolved": 18,
     "blockers": 0,
-    "important": 9,
+    "important": 8,
     "info": 0
   },
   "actions": [
@@ -99,7 +99,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "npm:@nirs4all/methods published 1.4.0 (status=green)"
+      "check_note": "npm:@nirs4all/methods published 1.4.1 (status=green)"
     },
     {
       "id": "pypi-publisher-pls4all",
@@ -127,7 +127,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:pls4all published 1.4.0 (status=green)"
+      "check_note": "pypi:pls4all published 1.4.1 (status=green)"
     },
     {
       "id": "pypi-publisher-io",
@@ -319,8 +319,8 @@
         "name": "nirs4alldatasets",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4alldatasets status=stale version=0.3.20"
+      "resolved": true,
+      "check_note": "r-universe:nirs4alldatasets current 0.3.21 (status=green)"
     },
     {
       "id": "pypi-publisher-providers",
