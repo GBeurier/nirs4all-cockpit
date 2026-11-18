@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-11-17T02:40:41.808465+00:00",
+  "snapshot_generated_at": "2026-11-18T00:43:06.358729+00:00",
   "counts": {
     "total": 26,
-    "pending": 6,
-    "resolved": 20,
+    "pending": 7,
+    "resolved": 19,
     "blockers": 0,
-    "important": 6,
+    "important": 7,
     "info": 0
   },
   "actions": [
@@ -157,7 +157,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-io published 0.3.4 (status=green)"
+      "check_note": "pypi:nirs4all-io published 0.3.6 (status=green)"
     },
     {
       "id": "pypi-publisher-core",
@@ -277,8 +277,8 @@
         "name": "nirs4allio",
         "expect": "green"
       },
-      "resolved": true,
-      "check_note": "r-universe:nirs4allio current 0.3.4 (status=green)"
+      "resolved": false,
+      "check_note": "r-universe:nirs4allio status=stale version=0.3.4"
     },
     {
       "id": "runiverse-dagml-data-rebuild",
@@ -470,7 +470,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:dag-ml published 0.4.2 (status=green)"
+      "check_note": "pypi:dag-ml published 0.4.3 (status=green)"
     },
     {
       "id": "pypi-publisher-dag-ml-data",
