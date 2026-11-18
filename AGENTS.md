@@ -23,6 +23,7 @@ ruff check .
 ```
 
 Serve repo root at http://localhost:8000/web/index.html; fetches fail over file://. Keep Python 3.11/Ruff 120/py311 E/F/I/UP/B, four spaces, snake_case modules/functions, PascalCase/Pydantic and registry-specific names, dependency-free vanilla frontend. Focus Conventional Commits; PRs need context/issue/checks and UI screenshots when relevant.
+Versioning: versions are `X.Y.Z`; `Z` = fixes and purely additive, backward-compatible features, `Y` = any compatibility break (API, ABI version, wire/schema/fixture, renamed ids, numerical results). Cockpit classifies its own releases and reports owner versions and ranges; it does not redefine the rule. See the [ecosystem version constraints](https://github.com/GBeurier/nirs4all-ecosystem/blob/main/docs/contracts/release/VERSION_CONSTRAINTS.md).
 The [staging build/validate recipe](docs/release-staging.md#public-release-staging-projection) requires explicitly selected sanitized inputs and fail-closed validation; it proves no registry publication/artifact availability and grants no UI/deploy. Its [native-candidate profile](docs/release-staging.md#local-native-r4v1-candidate) retains governance/cwd/limits and the byte-identical Org mirror; staging is no V1 announcement. Historical receipts are not current support.
 Follow [LICENSING](LICENSING.md) and [notices](THIRD_PARTY_NOTICES.md): `CeCILL-2.1 OR AGPL-3.0-or-later`, optional commercial contact and authoritative upstream component terms.
 
