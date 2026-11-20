@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-11-20T00:40:41.337021+00:00",
+  "snapshot_generated_at": "2026-11-20T16:27:23.757302+00:00",
   "counts": {
     "total": 26,
-    "pending": 9,
-    "resolved": 17,
+    "pending": 7,
+    "resolved": 19,
     "blockers": 0,
-    "important": 9,
+    "important": 7,
     "info": 0
   },
   "actions": [
@@ -43,7 +43,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "github-release:nirs4all-studio current 0.18.1 (status=green)"
+      "check_note": "github-release:nirs4all-studio current 0.19.1 (status=green)"
     },
     {
       "id": "rtd-native-build-admin-unblock",
@@ -198,7 +198,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "r-universe:nirs4all current 0.7.5 (status=green)"
+      "check_note": "r-universe:nirs4all current 0.8.0 (status=green)"
     },
     {
       "id": "runiverse-methods-n4m-rebuild",
@@ -217,8 +217,8 @@
         "name": "n4m",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:n4m status=stale version=1.5.0"
+      "resolved": true,
+      "check_note": "r-universe:n4m current 1.5.1 (status=green)"
     },
     {
       "id": "runiverse-methods-pls4all-rebuild",
@@ -237,8 +237,8 @@
         "name": "pls4all",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:pls4all status=stale version=1.5.0"
+      "resolved": true,
+      "check_note": "r-universe:pls4all current 1.5.1 (status=green)"
     },
     {
       "id": "runiverse-formats-rebuild",
@@ -277,8 +277,8 @@
         "name": "nirs4allio",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4allio status=stale version=0.3.6"
+      "resolved": true,
+      "check_note": "r-universe:nirs4allio current 0.3.8 (status=green)"
     },
     {
       "id": "runiverse-dagml-data-rebuild",
@@ -319,8 +319,8 @@
         "name": "nirs4alldatasets",
         "expect": "green"
       },
-      "resolved": true,
-      "check_note": "r-universe:nirs4alldatasets current 0.3.21 (status=green)"
+      "resolved": false,
+      "check_note": "r-universe:nirs4alldatasets status=stale version=0.3.22"
     },
     {
       "id": "pypi-publisher-providers",
@@ -410,7 +410,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-benchmarks published 0.1.12 (status=green)"
+      "check_note": "pypi:nirs4all-benchmarks published 0.1.13 (status=green)"
     },
     {
       "id": "pypi-publisher-repository",
