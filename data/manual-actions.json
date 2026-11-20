@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-11-19T03:35:18.655515+00:00",
+  "snapshot_generated_at": "2026-11-20T00:40:41.337021+00:00",
   "counts": {
     "total": 26,
-    "pending": 8,
-    "resolved": 18,
+    "pending": 9,
+    "resolved": 17,
     "blockers": 0,
-    "important": 8,
+    "important": 9,
     "info": 0
   },
   "actions": [
@@ -43,7 +43,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "github-release:nirs4all-studio current 0.17.4 (status=green)"
+      "check_note": "github-release:nirs4all-studio current 0.18.1 (status=green)"
     },
     {
       "id": "rtd-native-build-admin-unblock",
@@ -99,7 +99,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "npm:@nirs4all/methods published 1.4.1 (status=green)"
+      "check_note": "npm:@nirs4all/methods published 1.5.1 (status=green)"
     },
     {
       "id": "pypi-publisher-pls4all",
@@ -127,7 +127,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:pls4all published 1.4.1 (status=green)"
+      "check_note": "pypi:pls4all published 1.5.1 (status=green)"
     },
     {
       "id": "pypi-publisher-io",
@@ -157,7 +157,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-io published 0.3.6 (status=green)"
+      "check_note": "pypi:nirs4all-io published 0.3.8 (status=green)"
     },
     {
       "id": "pypi-publisher-core",
@@ -176,7 +176,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:nirs4all-core published 0.5.1 (status=green)"
+      "check_note": "pypi:nirs4all-core published 0.6.1 (status=green)"
     },
     {
       "id": "runiverse-core-rebuild",
@@ -218,7 +218,7 @@
         "expect": "green"
       },
       "resolved": false,
-      "check_note": "r-universe:n4m status=stale version=1.3.18"
+      "check_note": "r-universe:n4m status=stale version=1.5.0"
     },
     {
       "id": "runiverse-methods-pls4all-rebuild",
@@ -238,7 +238,7 @@
         "expect": "green"
       },
       "resolved": false,
-      "check_note": "r-universe:pls4all status=stale version=1.3.18"
+      "check_note": "r-universe:pls4all status=stale version=1.5.0"
     },
     {
       "id": "runiverse-formats-rebuild",
@@ -277,8 +277,8 @@
         "name": "nirs4allio",
         "expect": "green"
       },
-      "resolved": true,
-      "check_note": "r-universe:nirs4allio current 0.3.6 (status=green)"
+      "resolved": false,
+      "check_note": "r-universe:nirs4allio status=stale version=0.3.6"
     },
     {
       "id": "runiverse-dagml-data-rebuild",
@@ -470,7 +470,7 @@
         "expect": "published"
       },
       "resolved": true,
-      "check_note": "pypi:dag-ml published 0.4.4 (status=green)"
+      "check_note": "pypi:dag-ml published 0.5.0 (status=green)"
     },
     {
       "id": "pypi-publisher-dag-ml-data",
