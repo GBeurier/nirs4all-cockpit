@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "snapshot_generated_at": "2026-11-20T16:27:23.757302+00:00",
+  "snapshot_generated_at": "2026-11-20T20:09:52.100768+00:00",
   "counts": {
     "total": 26,
-    "pending": 7,
-    "resolved": 19,
+    "pending": 6,
+    "resolved": 20,
     "blockers": 0,
-    "important": 7,
+    "important": 6,
     "info": 0
   },
   "actions": [
@@ -43,7 +43,7 @@
         "expect": "green"
       },
       "resolved": true,
-      "check_note": "github-release:nirs4all-studio current 0.19.1 (status=green)"
+      "check_note": "github-release:nirs4all-studio current 0.19.2 (status=green)"
     },
     {
       "id": "rtd-native-build-admin-unblock",
@@ -319,8 +319,8 @@
         "name": "nirs4alldatasets",
         "expect": "green"
       },
-      "resolved": false,
-      "check_note": "r-universe:nirs4alldatasets status=stale version=0.3.22"
+      "resolved": true,
+      "check_note": "r-universe:nirs4alldatasets current 0.3.23 (status=green)"
     },
     {
       "id": "pypi-publisher-providers",
